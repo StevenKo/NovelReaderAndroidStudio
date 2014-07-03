@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="InMobiAdNetwork-3.7.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/InMobiAdNetwork-3.7.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

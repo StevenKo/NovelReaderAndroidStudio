@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_settings"  android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+      
+    <item android:id="@+id/menu_respond" android:showAsAction="never"
+		android:title="@string/menu_respond" />
+		
+	<item android:id="@+id/menu_aboutus" android:showAsAction="never"
+		android:title="@string/menu_aboutus" />
+	
+	<item android:id="@+id/menu_recommend" android:showAsAction="never"
+		android:title="@string/menu_recommend" />
+
+</menu>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string-array name="sections">
+        <item>类别</item>
+        <item>推荐小说</item>
+        <item>近期更新</item>
+        <item>本周排行</item>
+        <item>本月排行</item>
+        <item>总人气排行</item>
+    </string-array>
+    <string-array name="category_sections">
+		<item>人气排行</item>
+		<item>推荐</item>
+		<item>本周排行</item>
+		<item>近期更新</item>
+		<item>完本小说</item>
+		<item>全部小说</item>
+	</string-array>
+	<string-array name="collections">
+	    <item>我的收藏</item>
+	    <item>我的下载</item>
+	</string-array>
+	<string-array name="bookmarks">
+	  <item>我的书签</item>
+	  <item>最近阅读</item>
+	</string-array>
+	<string-array name="fontsize_selection">
+	  <item>大</item>
+	  <item>中</item>
+	  <item>小</item>
+	  <item>修改</item>
+	</string-array>
+	<string-array name="mode_selection">
+	  <item>日间模式</item>
+	  <item>夜间模式</item>
+	  <item>修改</item>
+	</string-array>
+</resources>
