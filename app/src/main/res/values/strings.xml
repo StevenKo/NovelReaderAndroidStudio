@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="MY_INTERSTITIAL_UNIT_ID">d875d0cc47ef403b</string>
-    <string name="admobKey">292fbab7f4ea4848</string>
+    <string name="MY_INTERSTITIAL_UNIT_ID" tools:ignore="MissingTranslation">d875d0cc47ef403b</string>
+    <string name="admobKey" tools:ignore="MissingTranslation">292fbab7f4ea4848</string>
     <string name="app_name">小說王</string>
     <string name="remind_title">小提醒</string>
     <string name="remind_string">下載後請至我的書櫃觀看</string>
@@ -115,7 +115,7 @@
     <string name="my_read_setting">閱讀設定</string>
     <string name="my_classic_novel">經典小說</string>
     <string name="my_classic_action_novel">經典武俠</string>
-    <string name="my_collect">我的收藏</string>
+    <string name="my_collect" tools:ignore="MissingTranslation">我的收藏</string>
     <string name="my_download">我的下載</string>
     <string name="reminder">提醒</string>
     <string name="delete_bookmark_reminder">長按書籤可以刪除書籤哦！</string>
@@ -154,8 +154,8 @@
     <string name="donate_des">小說王開發者、設計師、編輯之前皆是無薪開發, 所以不得不在APP裡面, 放一些廣告, 造成大家的困擾, 我們十分抱歉！希望大家可以贊助我們, 也享受看小說不再受到廣告的干擾, 謝謝!</string>
     <string name="donate_app">贊助小說王</string>
     <string name="verify_buy">已購買, 重新驗證!</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open" tools:ignore="MissingTranslation">Open navigation drawer</string>
+    <string name="drawer_close" tools:ignore="MissingTranslation">Close navigation drawer</string>
 
     <!-- for vpon -->
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
@@ -191,8 +191,8 @@
     <string name="pull_to_refresh_release_label">Release to refresh...</string>
     <string name="pull_to_refresh_refreshing_label">Loading...</string>
     <string name="pull_to_refresh_tap_label">Tap to refresh...</string>
-    <string name="title_activity_novel_recommend">推薦小說</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_novel_recommend" tools:ignore="MissingTranslation">推薦小說</string>
+    <string name="hello_world" tools:ignore="MissingTranslation">Hello world!</string>
+    <string name="action_settings" tools:ignore="MissingTranslation">Settings</string>
 
 </resources>

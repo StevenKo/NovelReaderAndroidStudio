@@ -14,7 +14,6 @@
         		        
         	        >
         	            <TextView
-        	              android:id="@+id/author_tip"
         	              android:layout_width="wrap_content"
         	              android:layout_height="wrap_content"
         	              android:text="@string/report_novel"
@@ -38,7 +37,6 @@
         		        
         	        >
         	            <TextView
-        	              android:id="@+id/author_tip"
         	              android:layout_width="wrap_content"
         	              android:layout_height="wrap_content"
         	              android:text="@string/report_chapter"

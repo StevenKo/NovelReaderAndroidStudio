@@ -370,14 +370,14 @@
 			    >
 			    <!--第一個RadioButton -->
 			    <RadioButton
-			      android:id="@+id/myRadioButton_reading_direction"
+			      android:id="@+id/myRadioButton_tap1"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/setting_tap_open"	      
 			    />
 			    <!--第二個RadioButton -->
 			    <RadioButton
-			      android:id="@+id/myRadioButton2_reading_direction"
+			      android:id="@+id/myRadioButton2_tap2"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/setting_tap_close"
@@ -413,14 +413,14 @@
 			    >
 			    <!--第一個RadioButton -->
 			    <RadioButton
-			      android:id="@+id/myRadioButton_reading_direction"
+			      android:id="@+id/myRadioButton_stop_sleep_1"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/setting_sleeping_open"
 			    />
 			    <!--第二個RadioButton -->
 			    <RadioButton
-			      android:id="@+id/myRadioButton2_reading_direction"
+			      android:id="@+id/myRadioButton_stop_sleep_2"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/setting_sleeping_close"
@@ -498,14 +498,14 @@
 			    android:layout_marginLeft="10dp"
 			    >
 			    <RadioButton
-			      android:id="@+id/myRadioButton_theme1"
+			      android:id="@+id/myRadioButton_ad1"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/InterstitialAd"
 			      android:checked="true"
 			    />
 			    <RadioButton
-			      android:id="@+id/myRadioButton_theme2"
+			      android:id="@+id/myRadioButton_ad2"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="@string/BannerAd"

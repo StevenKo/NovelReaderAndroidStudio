@@ -1,15 +1,10 @@
 package com.novel.reader;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -36,6 +31,9 @@ import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Bookmark;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ArticleActivity extends AdFragmentActivity implements DetectScrollViewListener {
 
@@ -455,13 +453,15 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
     }
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		int resultArticleId = data.getIntExtra("SelectArticleId", 0);
-		int resultPosition = data.getIntExtra("SelectArticlePosition", 0);
-	    if (requestCode == 1 && resultCode == RESULT_OK && resultArticleId != 0 && resultPosition != 0) {
-	    	myArticle.id = resultArticleId;
-	    	ariticlePosition = resultPosition;
-	    	new UpdateArticleTask().execute();
-	    }
+		if(data != null) {
+            int resultArticleId = data.getIntExtra("SelectArticleId", 0);
+            int resultPosition = data.getIntExtra("SelectArticlePosition", 0);
+            if (requestCode == 1 && resultCode == RESULT_OK && resultArticleId != 0 && resultPosition != 0) {
+                myArticle.id = resultArticleId;
+                ariticlePosition = resultPosition;
+                new UpdateArticleTask().execute();
+            }
+        }
 	}
 
     
