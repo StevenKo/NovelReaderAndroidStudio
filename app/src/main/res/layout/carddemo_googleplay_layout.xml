@@ -46,7 +46,8 @@
             android:id="@+id/card_header_layout"
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="24dp"
+            android:singleLine="true"/>
 
         <!-- Main Content View -->
         <FrameLayout
