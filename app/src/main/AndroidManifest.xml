@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.novel.reader"
     android:installLocation="auto"
-    android:versionCode="53"
-    android:versionName="2.9.7" >
+    android:versionCode="55"
+    android:versionName="3.0.0" >
 
     <!-- android:theme="@style/Theme.Sherlock.Light.DarkActionBar" -->
 
