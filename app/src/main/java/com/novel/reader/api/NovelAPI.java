@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class NovelAPI {
 
-    final static String         HOST  = "http://106.187.103.131";
+    final static String         HOST  = "http://106.187.40.42";
     public static final String  TAG   = "NOVEL_API";
     public static final boolean DEBUG = true;
     final static String GAME_HOST = "http://apply.inapp.tw";
@@ -944,7 +944,7 @@ public class NovelAPI {
     public static ArrayList<Category> getRecommendCategoryWithNovels() {
         String message = getMessageFromServer("GET", "/api/v1/recommend_categories.json", null);
         if (message == null) {
-            return null;
+            return new ArrayList<Category>();
         } else {
             return parseRecommendCategory(message);
         }

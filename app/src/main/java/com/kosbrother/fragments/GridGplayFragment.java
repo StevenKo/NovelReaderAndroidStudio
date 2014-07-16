@@ -18,6 +18,7 @@
 
 package com.kosbrother.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -72,6 +73,15 @@ public class GridGplayFragment extends Fragment {
 
     private class DownloadRecommendsTask extends AsyncTask {
 
+        private ProgressDialog progressDialog     = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
+            progressDialog.setCancelable(true);
+        }
+
         @Override
         protected Object doInBackground(Object[] objects) {
             categories = NovelAPI.getRecommendCategoryWithNovels();
@@ -104,6 +114,7 @@ public class GridGplayFragment extends Fragment {
                 CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
                 initCards(groupGridView, categories.get(i).novels);
             }
+            progressDialog.cancel();
         }
     }
 
