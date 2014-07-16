@@ -166,7 +166,7 @@
     <string name="no_novel_in_bookcase">目前還沒有收藏或下載的小說</string>
     <string name="no_bookmark_in_my_bookmarks">目前還沒有收集書籤或閱讀過小說章節</string>
     
-    <string name="update_info"><![CDATA[<font color=\'blue\'>V2.9.3:</font> <br>顯示今日更新小說<br><font color=\'blue\'>V2.9.0:</font> <br>更換小說類別、推薦方式，新增3000本小說<br><font color=\'blue\'>V2.8.5:</font> <br>新增購買<font color=\'red\'>贊助版本(免廣告)</font>, 懇請大家多多支持!<br><font color=\'blue\'>V2.8:</font> <br>因為有不少使用者反應廣告佔據版面的問題，我們將閱讀頁的<font color=\'red\'>橫幅式廣告</font>換成<font color=\'red\'>插頁式的廣告</font>，如果使用者想換為原先橫幅式的廣告，可以在"設定"裡做設定，謝謝!]]></string>
+    <string name="update_info" ><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增推薦小說, 並把部分功能移到左列選單<br><font color=\'blue\'>V2.9.3:</font> <br>顯示今日更新小說<br><font color=\'blue\'>V2.9.0:</font> <br>更換小說類別、推薦方式，新增3000本小說<br><font color=\'blue\'>V2.8.5:</font> <br>新增購買<font color=\'red\'>贊助版本(免廣告)</font>, 懇請大家多多支持!<br>]]></string>
     <string name="update">版本更新通知</string>
     
     <string name="buy_year_subscription">購買贊助版</string>

@@ -162,7 +162,7 @@
     <string name="no_novel_in_bookcase">目前还没有收藏或下载的小说</string>
     <string name="no_bookmark_in_my_bookmarks">目前还没有收集书签或阅读过小说章节</string>
     
-    <string name="update_info"><![CDATA[<font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5: </font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br><font color=\'blue\'>V2 .8:</font> <br>因为有不少使用者反应广告占据版面的问题，我们将阅读页的<font color=\'red\'>横幅式广告</font>换成<font color =\'red\'>插页式的广告</font>，如果使用者想换为原先横幅式的广告，可以在"设定"里做设定，谢谢!]]></string>
+    <string name="update_info" ><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增​​推荐小说, 并把部分功能移到左列选单<br ><font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5:</font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br>]]></string>
     <string name="update">版本更新通知</string>
     
     
