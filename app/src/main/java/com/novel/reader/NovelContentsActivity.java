@@ -96,6 +96,8 @@ public class NovelContentsActivity extends ActionBarActivity {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
             articleList = NovelAPI.getNovelArticles(novelId, true, NovelContentsActivity.this);
+            if(articleList == null)
+                articleList = new ArrayList<Article>();
             return null;
         }
 

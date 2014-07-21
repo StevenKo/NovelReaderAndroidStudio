@@ -297,7 +297,7 @@ public class MainActivity extends AdFragmentActivity {
             if (position == 0) {
                 kk = CategoryListFragment.newInstance(MainActivity.this);
             } else if (position == 1) {
-                kk = new GridGplayFragment();
+                kk = new GridGplayFragment().newInstance();
             } else if (position == 2) {
             	kk = IndexNovelFragment.newInstance(IndexNovelFragment.LATEST_NOVEL);
             } else if (position == 3) {

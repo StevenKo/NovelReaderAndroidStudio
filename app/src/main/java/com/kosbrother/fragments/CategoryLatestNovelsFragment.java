@@ -1,7 +1,5 @@
 package com.kosbrother.fragments;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +19,8 @@ import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
 import com.novel.reader.entity.Novel;
 import com.taiwan.imageload.LoadMoreGridView;
+
+import java.util.ArrayList;
 
 public final class CategoryLatestNovelsFragment extends Fragment {
 
@@ -57,8 +57,6 @@ public final class CategoryLatestNovelsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        new DownloadChannelsTask().execute();
     }
 
     @Override

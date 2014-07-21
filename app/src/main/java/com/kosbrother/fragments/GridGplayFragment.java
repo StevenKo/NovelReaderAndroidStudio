@@ -71,6 +71,10 @@ public class GridGplayFragment extends Fragment {
         new DownloadRecommendsTask().execute();
     }
 
+    public Fragment newInstance() {
+        return new GridGplayFragment();
+    }
+
     private class DownloadRecommendsTask extends AsyncTask {
 
         private ProgressDialog progressDialog     = null;
