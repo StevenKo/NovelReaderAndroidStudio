@@ -130,7 +130,7 @@
         </service>
 
         <receiver
-            android:name=".GcmBroadcastReceiver"
+            android:name=".util.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -138,6 +138,13 @@
                 <category android:name="com.novel.reader" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.CollectNovelsService" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".NovelRecommendActivity"

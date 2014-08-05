@@ -157,6 +157,9 @@
     <string name="drawer_open" tools:ignore="MissingTranslation">Open navigation drawer</string>
     <string name="drawer_close" tools:ignore="MissingTranslation">Close navigation drawer</string>
 
+    <string name="collect_notification_title">%1$d本小說有新文章！</string>
+    <string name="collect_notification_ticker">%1$d本收藏小說有新文章囉！</string>
+
     <!-- for vpon -->
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
     <string name="msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>

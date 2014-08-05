@@ -1,6 +1,4 @@
-package com.novel.reader;
-
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+package com.novel.reader.util;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -12,6 +10,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.novel.reader.BookmarkActivity;
+import com.novel.reader.CategoryActivity;
+import com.novel.reader.MainActivity;
+import com.novel.reader.MyNovelActivity;
+import com.novel.reader.NovelIntroduceActivity;
+import com.novel.reader.R;
 
 public class GcmBroadcastReceiver extends BroadcastReceiver{
 	

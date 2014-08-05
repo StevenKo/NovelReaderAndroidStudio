@@ -1,30 +1,34 @@
 package com.novel.db;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Bookmark;
 import com.novel.reader.entity.Novel;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
 public class SQLiteNovel extends SQLiteOpenHelper {
 
     public static final String DB_NAME            = "kosnovel.sqlite";                                   // 資料庫名稱
-    private static final int   DATABASE_VERSION   = 5;                                                   // 資料庫版本
+    private static final int   DATABASE_VERSION   = 6;                                                   // 資料庫版本
     private static SQLiteDatabase     db;
     private final Context      ctx;
     public static final File   DATABASE_FILE_PATH = android.os.Environment.getExternalStorageDirectory();
+
+
 
     // Define database schema
     public interface NovelSchema {
@@ -40,6 +44,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         String IS_SERIALIZING = "is_serializing";
         String IS_COLLECTED   = "is_collected";
         String IS_DOWNLOAD    = "is_downloaded";
+        String LAST_VIEW_DATE = "last_view_date";
     }
 
     public interface ArtcileSchema {
@@ -108,14 +113,13 @@ public class SQLiteNovel extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
             if (DATABASE_FILE_PATH != null) {
-                if (oldVersion == 1) {
+                if (oldVersion < DATABASE_VERSION) {
                     alterArticleTableAddNum(db);
-                    moveDB();
-                } else if (oldVersion < DATABASE_VERSION) {
-                    alterArticleTableAddNum(db);
+                    alterNovelTableAddLastViewDate(db);
                 }
             } else {
                 alterArticleTableAddNum(db);
+                alterNovelTableAddLastViewDate(db);
             }
         } catch (Exception e) {
             resetDB();
@@ -126,6 +130,13 @@ public class SQLiteNovel extends SQLiteOpenHelper {
     private void alterArticleTableAddNum(SQLiteDatabase db) {
         if (!existsColumnInTable(db, ArtcileSchema.TABLE_NAME, ArtcileSchema.NUM)) {
             String upgradeQuery = "ALTER TABLE " + ArtcileSchema.TABLE_NAME + " ADD COLUMN " + ArtcileSchema.NUM + " INTEGER default 0";
+            db.execSQL(upgradeQuery);
+        }
+    }
+    private void alterNovelTableAddLastViewDate(SQLiteDatabase db){
+        if (!existsColumnInTable(db, NovelSchema.TABLE_NAME, NovelSchema.LAST_VIEW_DATE)) {
+            String upgradeQuery = "ALTER TABLE " + NovelSchema.TABLE_NAME + " ADD COLUMN " + NovelSchema.LAST_VIEW_DATE + " DATETIME default CURRENT_TIMESTAMP";
+            db.execSQL(upgradeQuery);
             db.execSQL(upgradeQuery);
         }
     }
@@ -212,17 +223,13 @@ public class SQLiteNovel extends SQLiteOpenHelper {
                 + " TEXT NOT NULL" + "," + NovelSchema.AUTHOR + " TEXT NOT NULL" + "," + NovelSchema.DESCRIPTION + " TEXT NOT NULL" + "," + NovelSchema.PIC
                 + " TEXT NOT NULL" + "," + NovelSchema.CATEGORY_ID + " INTEGER NOT NULL" + "," + NovelSchema.ARTICLE_NUM + " TEXT NOT NULL" + ","
                 + NovelSchema.LAST_UPDATE + " TEXT NOT NULL" + "," + NovelSchema.IS_SERIALIZING + " INTEGER NOT NULL" + "," + NovelSchema.IS_COLLECTED
-                + " INTEGER NOT NULL" + "," + NovelSchema.IS_DOWNLOAD + " INTEGER NOT NULL" + ");");
+                + " INTEGER NOT NULL" + "," + NovelSchema.IS_DOWNLOAD + " INTEGER NOT NULL" + "," + NovelSchema.LAST_VIEW_DATE + " DATETIME default CURRENT_TIMESTAMP" + ");");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtcileSchema.TABLE_NAME + " (" + ArtcileSchema.ID + " INTEGER PRIMARY KEY" + "," + ArtcileSchema.NOVEL_ID
                 + " INTEGER NOT NULL" + "," + ArtcileSchema.TEXT + " TEXT NOT NULL" + "," + ArtcileSchema.TITLE + " TEXT NOT NULL" + ","
                 + ArtcileSchema.SUBJECT + " TEXT NOT NULL" + "," + ArtcileSchema.IS_DOWNLOADED + " INTEGER NOT NULL" + "," + ArtcileSchema.NUM
                 + " INTEGER default 0" + "," + "FOREIGN KEY(" + ArtcileSchema.NOVEL_ID + ") REFERENCES " + NovelSchema.TABLE_NAME + "(" + NovelSchema.ID
                 + ") ON UPDATE CASCADE" + ");");
-        // db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtcileSchema.TABLE_NAME + " (" + ArtcileSchema.ID + " INTEGER PRIMARY KEY" + "," + ArtcileSchema.NOVEL_ID
-        // + " INTEGER NOT NULL" + "," + ArtcileSchema.TEXT + " TEXT NOT NULL" + "," + ArtcileSchema.TITLE + " TEXT NOT NULL" + ","
-        // + ArtcileSchema.SUBJECT + " TEXT NOT NULL" + "," + ArtcileSchema.IS_DOWNLOADED + " INTEGER NOT NULL" + "," + "FOREIGN KEY("
-        // + ArtcileSchema.NOVEL_ID + ") REFERENCES " + NovelSchema.TABLE_NAME + "(" + NovelSchema.ID + ") ON UPDATE CASCADE" + ");");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + BookmarkSchema.TABLE_NAME + " (" + BookmarkSchema.ID + " INTEGER PRIMARY KEY" + ","
                 + BookmarkSchema.NOVEL_ID + " INTEGER NOT NULL" + "," + BookmarkSchema.ARTICLE_ID + " INTEGER NOT NULL" + "," + BookmarkSchema.READ_RATE
@@ -637,7 +644,14 @@ public class SQLiteNovel extends SQLiteOpenHelper {
             Boolean IS_SERIALIZING = cursor.getInt(8) > 0;
             Boolean IS_COLLECTED = cursor.getInt(9) > 0;
             Boolean IS_DOWNLOADED = cursor.getInt(10) > 0;
-            Novel novel = new Novel(ID, NAME, AUTHOR, DESCRIPTION, PIC, CATEGORY_ID, ARTICLE_NUM, LAST_UPDATE, IS_SERIALIZING, IS_COLLECTED, IS_DOWNLOADED);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date LAST_VIEW_DATE = null;
+            try {
+                LAST_VIEW_DATE = sdf.parse(cursor.getString(11));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Novel novel = new Novel(ID, NAME, AUTHOR, DESCRIPTION, PIC, CATEGORY_ID, ARTICLE_NUM, LAST_UPDATE, IS_SERIALIZING, IS_COLLECTED, IS_DOWNLOADED, LAST_VIEW_DATE);
             novels.add(novel);
         }
         cursor.close();
@@ -765,4 +779,14 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 		return bookmark;
 	}
 
+    public void updateNovelLastViewDate(int novelId) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Cursor cursor = db.rawQuery(
+                "UPDATE novels SET `last_view_date` = ? WHERE `novels`.`id` = ?",
+                new String[] { sdf.format(new Date()), novelId + ""});
+        cursor.moveToFirst();
+        cursor.close();
+    }
 }

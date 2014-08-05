@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.novel.db.SQLiteNovel;
+import com.novel.reader.ArticleActivity;
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Bookmark;
 import com.novel.reader.entity.Category;
@@ -365,7 +366,11 @@ public class NovelAPI {
         if (message == null) {
             return null;
         } else {
-            return parseNovel(message, novels);
+            novels = parseNovel(message, novels);
+            for(int i = 0; i < novels.size() ; i++){
+                novels.get(i).setLastViewDate(collectNovels.get(i).getLastViewDate());
+            }
+            return novels;
         }
     }
 
@@ -987,6 +992,13 @@ public class NovelAPI {
         return categories;
     }
 
+    public static void keepNovelLastViewDateIfInDB(int novelId, ArticleActivity articleActivity) {
+        SQLiteNovel db = new SQLiteNovel(articleActivity);
+        if(db.isNovelExists(novelId)){
+            db.updateNovelLastViewDate(novelId);
+        }
+    }
+
 
     public static ArrayList<Novel> getRecommendCategoryNovels(int recommendCateoryId) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
@@ -997,4 +1009,6 @@ public class NovelAPI {
             return parseNovel(message,novels);
         }
     }
+
+
 }

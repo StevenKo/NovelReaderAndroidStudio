@@ -1,10 +1,5 @@
 package com.novel.reader.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -14,18 +9,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.R;
@@ -34,6 +26,11 @@ import com.novel.reader.entity.GameAPP;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.NovelReaderUtil;
 import com.taiwan.imageload.ImageLoader;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class GridViewAdapter extends BaseAdapter {
 
@@ -238,6 +235,19 @@ public class GridViewAdapter extends BaseAdapter {
         if(currentDateTimeString.equals(novel.getLastUpdate())){
         	TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
         	textNewArticle.setVisibility(View.VISIBLE);
+        }
+
+        Date date = null;
+        try {
+            date = formater.parse(novel.getLastUpdate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(novel.getLastViewDate()!=null && novel.getLastViewDate().before(date)){
+            TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
+            textNewArticle.setVisibility(View.VISIBLE);
+            textNewArticle.setText("有新文章!!");
         }
         
         return vi;

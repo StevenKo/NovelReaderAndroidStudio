@@ -1,17 +1,16 @@
 package com.novel.reader.util;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Color;
 import android.util.Log;
 
-import com.novel.reader.ArticleActivity;
 import com.novel.reader.R;
+
+import java.util.HashMap;
+import java.util.Random;
 
 public class Setting {
     // public static int textSize;
@@ -34,6 +33,7 @@ public class Setting {
     public final static String                    keyArticleAdType        = "ArticleAdType";
     public final static String                    keyUpdateAppVersion     = "UpdateAppVersion";
     public final static String                    keyYearSubscription     = "YearSubscription";
+    public final static String                    keyCollectNotificationRandomNum     = "keyCollectNotificationRandomNum";
     public final static String keySunMode = "SunModeSetting";
     public final static String keyMoonMode = "MoonModeSetting";
     public final static String keyMode = "ModeSetting"; // 0 for SunMode, 1 for MoonMode
@@ -63,6 +63,7 @@ public class Setting {
                                                                                   put(keyArticleAdType,InterstitialAd);
                                                                                   put(keyUpdateAppVersion,0);
                                                                                   put(keyYearSubscription,0);
+                                                                                  put(keyCollectNotificationRandomNum,new Random().nextInt(60));
                                                                               }
                                                                           };
                                                                         // WHITE is -1, Black is -16777216

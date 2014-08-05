@@ -849,6 +849,7 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
     protected void onPause() {
         NovelAPI.createRecentBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, true),
                 ArticleActivity.this);
+        NovelAPI.keepNovelLastViewDateIfInDB(myArticle.getNovelId(),ArticleActivity.this);
         super.onPause();
     }
     

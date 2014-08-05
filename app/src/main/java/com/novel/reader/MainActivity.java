@@ -48,6 +48,7 @@ import com.kosbrother.tool.Report;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
 import com.novel.reader.api.NovelAPI;
+import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
 
 import java.io.File;
@@ -125,8 +126,15 @@ public class MainActivity extends AdFragmentActivity {
         if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
         	mAdView = setBannerAdView(bannerAdView);
 
+
+        setCheckCollectNovelsAlarm();
+
     }
-    
+
+    private void setCheckCollectNovelsAlarm() {
+        NovelReaderUtil.dailyCollectNovelsAlarmSetup(this);
+    }
+
     private void setNavigationDrawler() {
     	mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,5 +1,7 @@
 package com.novel.reader.entity;
 
+import java.util.Date;
+
 public class Novel {
     int     id;
     String  name;
@@ -12,6 +14,7 @@ public class Novel {
     boolean isSerializing;
     boolean isCollected;
     boolean isDownloaded;
+    Date lastViewDate;
 
     public Novel() {
         this(1, "", "", "", "", 1, "", "", true, false, false);
@@ -30,6 +33,30 @@ public class Novel {
         this.isSerializing = isSerializing;
         this.isCollected = isCollected;
         this.isDownloaded = isDownloaded;
+    }
+
+    public Novel(int id, String name, String author, String description, String pic, int categoryId, String articleNum, String lastUpdate,
+                 boolean isSerializing, boolean isCollected, boolean isDownloaded, Date lastViewDate) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.description = description;
+        this.pic = pic;
+        this.categoryId = categoryId;
+        this.articleNum = articleNum;
+        this.lastUpdate = lastUpdate;
+        this.isSerializing = isSerializing;
+        this.isCollected = isCollected;
+        this.isDownloaded = isDownloaded;
+        this.lastViewDate = lastViewDate;
+    }
+
+    public Date getLastViewDate(){
+        return lastViewDate;
+    }
+
+    public void setLastViewDate(Date date){
+        this.lastViewDate = date;
     }
 
     public void setIsCollected(boolean b) {
