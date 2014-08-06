@@ -9,13 +9,13 @@
  
    <LinearLayout 
       android:layout_width="wrap_content"
-	  android:layout_height="180dp"
+	  android:layout_height="150dp"
 	  android:gravity="center_vertical"
        >
 	    <ImageView
 	        android:id="@+id/grid_item_image"
-	        android:layout_width="87dp"
-	        android:layout_height="120dp"
+	        android:layout_width="65dp"
+	        android:layout_height="89dp"
 	        android:layout_marginRight="6px"
 	        android:layout_marginLeft="6px"
 	        android:layout_marginBottom="10px"
@@ -35,7 +35,7 @@
 		        android:layout_height="wrap_content"
 		        android:text="天龍八部"
 	            android:layout_marginBottom="2px"
-		        android:textSize="20sp"
+		        android:textSize="19sp"
 	            android:textStyle="bold"
 	            android:typeface="serif"
 	            android:maxLines="2"
@@ -51,7 +51,7 @@
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:text="@string/novel_author"
-	                android:textSize="16sp"
+	                android:textSize="14sp"
 	                android:textColor="#999999"
 	                android:typeface="serif">
 	            </TextView>
@@ -66,7 +66,7 @@
 	            android:layout_alignParentRight="true"
 	            android:layout_marginTop="2px"
 	            android:text="金庸"
-	            android:textSize="15sp"
+	            android:textSize="13sp"
 	            android:textColor="#555555"
 	            android:typeface="serif"
 	            android:maxLines="1"
@@ -84,7 +84,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="@string/article_num"
-	            android:textSize="16sp"
+	            android:textSize="14sp"
 	              android:textColor="#999999"
 	              android:typeface="serif">
 	            </TextView>
@@ -94,7 +94,7 @@
 		        android:layout_height="wrap_content"
 		        android:text="74"
 		        android:layout_alignParentRight="true"
-		        android:textSize="15sp"
+		        android:textSize="13sp"
 	              android:textColor="#555555"
 	              android:typeface="serif"
 	              android:layout_marginTop="2px">
@@ -109,7 +109,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="@string/update_time"
-	            android:textSize="16sp"
+	            android:textSize="14sp"
 	              android:textColor="#999999"
 	              android:typeface="serif">
 	            </TextView>
@@ -119,7 +119,7 @@
 		        android:layout_height="wrap_content"
 		        android:text="13-02-13"
 		        android:layout_alignParentRight="true"
-		        android:textSize="15sp"
+		        android:textSize="13sp"
 	              android:textColor="#555555"
 	              android:typeface="serif"
 	              android:layout_marginTop="2px">
@@ -135,7 +135,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="@string/serializing"
-	            android:textSize="15sp"
+	            android:textSize="13sp"
 	              android:textColor="#FF3333"
 	              android:typeface="serif"
 	              android:layout_marginTop="3px">
@@ -147,7 +147,7 @@
 	            android:layout_height="wrap_content"
 	            android:text="今日更新"
 	            android:layout_alignParentRight="true"
-	            android:textSize="15sp"
+	            android:textSize="13sp"
 	            android:textColor="#3333ff"
 	            android:typeface="serif"
 	            android:layout_marginTop="3px"
