@@ -207,12 +207,8 @@ public class GridViewAdapter extends BaseAdapter {
         TextView textSerialize = (TextView) vi.findViewById(R.id.serializing);
 
         textName.setText(NovelReaderUtil.translateTextIfCN(activity,(novel.getName())));
-        if (novel.getName().length() > 6)
-            textName.setTextSize(12);
         textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity,novel.getAuthor()));
-        if (novel.getAuthor().length() > 14) {
-            textAuthor.setTextSize(8);
-        }
+
         textCounts.setText(novel.getArticleNum());
         textFinish.setText(novel.getLastUpdate());
 
