@@ -67,7 +67,7 @@ public class CollectNovelsService extends IntentService {
             if(i == novels.size() -1)
                 content += "(" + novels.get(i).getName() + ")";
             else
-                content += novels.get(i).getName() + ",";
+                content += "(" + novels.get(i).getName() + ")" + ",";
         }
 
         String strFormat = getResources().getString(R.string.collect_notification_ticker);

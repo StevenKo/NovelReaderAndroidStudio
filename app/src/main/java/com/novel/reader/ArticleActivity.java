@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -517,12 +518,14 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 	    			articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keySunMode,ArticleActivity.this));
 	    			textMode = Setting.keySunMode;
 	    			Setting.saveSetting(Setting.keyMode, Setting.keySunMode, ArticleActivity.this);
+                    setBottomButtonsColor();
 	    			break;
 	    		case 1:
 	    			articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(Setting.keyMoonMode,ArticleActivity.this));
 	    			articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keyMoonMode,ArticleActivity.this));
 	    			textMode = Setting.keyMoonMode;
 	    			Setting.saveSetting(Setting.keyMode, Setting.keyMoonMode, ArticleActivity.this);
+                    setBottomButtonsColor();
 	    			break;
 	    		case 2:
 	    			Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
@@ -843,13 +846,38 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         else
         	((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
 
+
+        setBottomButtonsColor();
+
+    }
+
+    private void setBottomButtonsColor() {
+
+        RelativeLayout background = (RelativeLayout) findViewById(R.id.bottom_buttons);
+
+        float[] hsv = new float[3];
+        int color = Setting.getBackgroundModeBackgroundColor(textMode,this);
+        Color.colorToHSV(color, hsv);
+
+        if(textMode == Setting.keySunMode){
+            hsv[2] *= 0.8f; // value component
+        }else{
+            hsv[2] = 1.0f - 0.8f * (1.0f - hsv[2]);
+        }
+        color = Color.HSVToColor(hsv);
+        background.setBackgroundColor(color);
+
+        articleButtonUp.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));
+        articleButtonDown.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));;
+        articlePercent.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));;
+
     }
 
     @Override
     protected void onPause() {
         NovelAPI.createRecentBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, true),
                 ArticleActivity.this);
-        NovelAPI.keepNovelLastViewDateIfInDB(myArticle.getNovelId(),ArticleActivity.this);
+        NovelAPI.keepNovelLastViewDateIfInDB(myArticle.getNovelId(), ArticleActivity.this);
         super.onPause();
     }
     
