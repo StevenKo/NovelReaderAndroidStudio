@@ -83,7 +83,6 @@ public class SQLiteNovel extends SQLiteOpenHelper {
                     db = SQLiteDatabase.openDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
                     if (db.getVersion() < DATABASE_VERSION) {
                         onUpgrade(db, db.getVersion(), DATABASE_VERSION);
-                        db = SQLiteDatabase.openDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
                     }
                 } catch (Exception ex) {
                     try {
