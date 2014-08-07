@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,7 +81,8 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 	private TextView articleTitleTextView;
 	private ImageView bookmarkImage;
 	private ImageView novelImage;
-	
+    private boolean adHasShowed = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,6 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 	  	    }
 	  	
 	  	    new DownloadArticleTask().execute();
-	  	    new UploadUserReadNovelTask().execute();
         }
         
         ab.setDisplayShowCustomEnabled(true);
@@ -158,20 +157,23 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 	     	articleNum = savedInstanceState.getInt("ArticleNum");
 	     if(savedInstanceState.containsKey("ArticleNums"));
 	     	articleNums = savedInstanceState.getIntegerArrayList("ArticleNums");
+        if(savedInstanceState.getBoolean("AdHasShowed"))
+            adHasShowed = savedInstanceState.getBoolean("AdHasShowed");
     }
     
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
       NovelAPI.createRecentBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, true),
                 ArticleActivity.this);
-      savedInstanceState.putString("ArticleTitle", myArticle.getTitle());
-      savedInstanceState.putInt("ArticleId", myArticle.getId());
-      savedInstanceState.putBoolean("ArticleDownloadBoolean", myArticle.isDownload());
-      savedInstanceState.putInt("ReadingRate", yRate);
-      savedInstanceState.putIntegerArrayList("ArticleIDs", articleIDs);
-      savedInstanceState.putInt("ArticlePosition", ariticlePosition);
-      savedInstanceState.putInt("ArticleNum", myArticle.getNum());
-      savedInstanceState.putIntegerArrayList("ArticleNums", articleNums);
+        savedInstanceState.putString("ArticleTitle", myArticle.getTitle());
+        savedInstanceState.putInt("ArticleId", myArticle.getId());
+        savedInstanceState.putBoolean("ArticleDownloadBoolean", myArticle.isDownload());
+        savedInstanceState.putInt("ReadingRate", yRate);
+        savedInstanceState.putIntegerArrayList("ArticleIDs", articleIDs);
+        savedInstanceState.putInt("ArticlePosition", ariticlePosition);
+        savedInstanceState.putInt("ArticleNum", myArticle.getNum());
+        savedInstanceState.putIntegerArrayList("ArticleNums", articleNums);
+        savedInstanceState.putBoolean("AdHasShowed", true);
       super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -291,8 +293,8 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
         currentY = y;
         yRate = (int) (((double) (y) / (double) (tt)) * 100);
-        int xx = (int) (((double) (y + kk) / (double) (tt)) * 100);
-        if (xx > 100)
+        int xx = (int) (((double) (y) / (double) (tt-kk)) * 100);
+        if (xx > 100 || xx < 0)
             xx = 100;
         String yPositon = Integer.toString(xx);
         articlePercent.setText(yPositon + "%");
@@ -530,18 +532,7 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
     	});
 
     	builder.create().show();
-	}    
-
-
-	private class UploadUserReadNovelTask extends AsyncTask{
-
-		@Override
-		protected Object doInBackground(Object... arg0) {
-			NovelAPI.sendNovel(myArticle.getId(), Settings.Secure.getString(ArticleActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID));
-			return null;
-		}
-    	
-    }
+	}
 
     private class DownloadArticleTask extends AsyncTask {
 
@@ -570,8 +561,10 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
             myArticle.setNovelId(novelId);
 
             new GetLastPositionTask().execute();
-            if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0)
+            if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0 && !adHasShowed) {
                 requestInterstitialAd();
+                adHasShowed = false;
+            }
 
         }
     }
@@ -745,15 +738,10 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
             super.onPostExecute(result);
 
-            int kk = articleScrollView.getHeight();
             int tt = articleTextView.getHeight();
 
             if (yRate == 0) {
-                int xx = (int) (((double) (kk) / (double) (tt)) * 100);
-                if (xx > 100)
-                    xx = 100;
-                String yPositon = Integer.toString(xx);
-                articlePercent.setText(yPositon + "%");
+                articlePercent.setText(0 + "%");
                 articleScrollView.scrollTo(0, 0);
             } else {
                 String yPositon = Integer.toString(yRate);
@@ -840,10 +828,10 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         RelativeLayout background = (RelativeLayout) findViewById(R.id.bottom_buttons);
 
         float[] hsv = new float[3];
-        int color = Setting.getBackgroundModeBackgroundColor(textMode,this);
+        int color = Setting.getBackgroundModeBackgroundColor(textMode, this);
         Color.colorToHSV(color, hsv);
 
-        if(textMode == Setting.keySunMode){
+        if(textMode.equals(Setting.keySunMode)){
             hsv[2] *= 0.8f; // value component
         }else{
             hsv[2] = 1.0f - 0.8f * (1.0f - hsv[2]);
