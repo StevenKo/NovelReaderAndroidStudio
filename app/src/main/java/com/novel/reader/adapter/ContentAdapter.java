@@ -1,6 +1,4 @@
-package com.novel.reader;
-
-import java.util.ArrayList;
+package com.novel.reader.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +12,8 @@ import android.widget.TextView;
 import com.novel.reader.R;
 import com.novel.reader.entity.Article;
 import com.novel.reader.util.NovelReaderUtil;
+
+import java.util.ArrayList;
 
 public class ContentAdapter extends BaseAdapter {
 

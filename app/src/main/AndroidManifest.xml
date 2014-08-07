@@ -72,11 +72,6 @@
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name=".ClassicNovelsActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        <activity
             android:name=".MyDownloadArticleActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>

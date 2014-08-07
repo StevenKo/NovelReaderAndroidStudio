@@ -1,17 +1,10 @@
 package com.novel.reader;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
-import com.ifixit.android.sectionheaders.SectionListView;
-import com.kosbrother.fragments.MyBookmarkFragment.BookmarkSectionAdapter;
-import com.kosbrother.tool.ChildArticle;
-import com.kosbrother.tool.ExpandListDownLoadAdapter;
-import com.kosbrother.tool.Group;
+import com.novel.reader.adapter.ContentAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
-import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
 
 import android.app.ProgressDialog;
@@ -24,11 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class NovelContentsActivity extends ActionBarActivity {
 	private Bundle mBundle;
