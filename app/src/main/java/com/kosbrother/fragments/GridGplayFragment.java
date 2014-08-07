@@ -21,13 +21,16 @@ package com.kosbrother.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,71 +57,60 @@ import it.gmariotti.cardslib.library.view.CardGridView;
  */
 public class GridGplayFragment extends Fragment {
 
-    protected LinearLayout mScrollView;
-    ArrayList<Category> categories;
+    protected ListView mListView;
+    private static final int LOADER_ID = 1;
+    ProgressDialog progressDialog     = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.demo_fragment_grid_gplay, container, false);
-        mScrollView = (LinearLayout) contentView.findViewById(R.id.card_layoutview);
-
+        mListView = (ListView) contentView.findViewById(R.id.list_view);
         return contentView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new DownloadRecommendsTask().execute();
+
+        progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
+        progressDialog.setCancelable(true);
+
+        LoaderManager lm = getLoaderManager();
+        lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>(){
+
+            @Override
+            public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
+                return new DownloadRecommnedLoader(getActivity());
+            }
+
+            @Override
+            public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
+                ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(),categories);
+                mListView.setAdapter(listItemAdapter);
+                progressDialog.cancel();
+            }
+
+            @Override
+            public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
+
+            }
+        }).forceLoad();;
     }
 
     public Fragment newInstance() {
         return new GridGplayFragment();
     }
 
-    private class DownloadRecommendsTask extends AsyncTask {
+    public static class DownloadRecommnedLoader extends AsyncTaskLoader<ArrayList<Category>> {
 
-        private ProgressDialog progressDialog     = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
-            progressDialog.setCancelable(true);
+        public DownloadRecommnedLoader(Context context) {
+            super(context);
         }
 
         @Override
-        protected Object doInBackground(Object[] objects) {
-            categories = NovelAPI.getRecommendCategoryWithNovels();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            super.onPostExecute(result);
-            for(int i = 0; i < categories.size(); i++){
-                LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View gridLayout = layoutInflater.inflate(R.layout.carddemo_scrollview_ltem, null);
-                mScrollView.addView(gridLayout);
-                TextView categoryName = (TextView) gridLayout.findViewById(R.id.category_name);
-                categoryName.setText(categories.get(i).getCateName());
-                RelativeLayout cateogyLayout = (RelativeLayout)gridLayout.findViewById(R.id.recommend_title);
-
-                final int finalI = i;
-                cateogyLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent();
-                        intent.putExtra("RecommendCategoryId",categories.get(finalI).getId());
-                        intent.putExtra("RecommendCategoryName",categories.get(finalI).getCateName());
-                        intent.setClass(getActivity(), NovelRecommendActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-                CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
-                initCards(groupGridView, categories.get(i).novels);
-            }
-            progressDialog.cancel();
+        public ArrayList<Category> loadInBackground() {
+            ArrayList<Category> categories = NovelAPI.getRecommendCategoryWithNovels();
+            return categories;
         }
     }
 
@@ -147,6 +139,56 @@ public class GridGplayFragment extends Fragment {
 
         if (gridView != null) {
             gridView.setAdapter(mCardArrayAdapter);
+        }
+    }
+
+    public class ListItemAdapter extends BaseAdapter{
+        ArrayList<Category> categories;
+        Context mContext;
+
+        public ListItemAdapter(Context mContext, ArrayList<Category> categories) {
+            this.categories = categories;
+            this.mContext = mContext;
+        }
+
+        @Override
+        public int getCount() {
+            return categories.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View gridLayout = layoutInflater.inflate(R.layout.carddemo_scrollview_ltem, null);
+            TextView categoryName = (TextView) gridLayout.findViewById(R.id.category_name);
+            categoryName.setText(categories.get(i).getCateName());
+            RelativeLayout cateogyLayout = (RelativeLayout)gridLayout.findViewById(R.id.recommend_title);
+
+            final int finalI = i;
+            cateogyLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("RecommendCategoryId",categories.get(finalI).getId());
+                    intent.putExtra("RecommendCategoryName",categories.get(finalI).getCateName());
+                    intent.setClass(getActivity(), NovelRecommendActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
+            initCards(groupGridView, categories.get(i).novels);
+            return gridLayout;
         }
     }
 
