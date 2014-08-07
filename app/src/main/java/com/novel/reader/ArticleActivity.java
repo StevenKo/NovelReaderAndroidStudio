@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 	
 	private int                 textSize;
     private int                 textLanguage;                                    // 0 for 繁體, 1 for 簡體
-    private int                 readingDirection;                                // 0 for 直向, 1 for 橫向
     private int                 clickToNextPage;                                 // 0 for yes, 1 for no
     private int                 stopSleeping;                                    // 0 for yes, 1 for no
     private String 				textMode;
@@ -186,15 +184,8 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
     	textSize = Setting.getSettingInt(Setting.keyTextSize, ArticleActivity.this);
         textMode = Setting.getSettingString(Setting.keyMode, ArticleActivity.this);
         textLanguage = Setting.getSettingInt(Setting.keyTextLanguage, ArticleActivity.this);
-        readingDirection = Setting.getSettingInt(Setting.keyReadingDirection, ArticleActivity.this);
         clickToNextPage = Setting.getSettingInt(Setting.keyClickToNextPage, ArticleActivity.this);
         stopSleeping = Setting.getSettingInt(Setting.keyStopSleeping, ArticleActivity.this);
-
-        if (readingDirection == 0) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else if (readingDirection == 1) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
 
         if (stopSleeping == 0) {
             ArticleActivity.this.findViewById(android.R.id.content).setKeepScreenOn(true);
@@ -782,7 +773,6 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         textSize = Setting.getSettingInt(Setting.keyTextSize, ArticleActivity.this);
         textMode = Setting.getSettingString(Setting.keyMode, ArticleActivity.this);
         textLanguage = Setting.getSettingInt(Setting.keyTextLanguage, ArticleActivity.this);
-        readingDirection = Setting.getSettingInt(Setting.keyReadingDirection, ArticleActivity.this);
         clickToNextPage = Setting.getSettingInt(Setting.keyClickToNextPage, ArticleActivity.this);
         stopSleeping = Setting.getSettingInt(Setting.keyStopSleeping, ArticleActivity.this);
 
@@ -803,12 +793,6 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
             } else {
                 articleTextView.setText(articleTitle + "\n\n" + myArticle.getText());
             }
-        }
-
-        if (readingDirection == 0) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else if (readingDirection == 1) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
 
         if (clickToNextPage == 0) {

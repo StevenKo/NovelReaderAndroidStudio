@@ -1,13 +1,10 @@
 package com.novel.reader;
 
-import yuku.ambilwarna.AmbilWarnaDialog;
-import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +22,10 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.util.Setting;
 
-public class SettingActivity extends ActionBarActivity implements RadioGroup.OnCheckedChangeListener{
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
+
+public class SettingActivity extends NovelReaderBaseActivity implements RadioGroup.OnCheckedChangeListener{
 
     // private SharedPreferences prefs;
     private int                 textSize;

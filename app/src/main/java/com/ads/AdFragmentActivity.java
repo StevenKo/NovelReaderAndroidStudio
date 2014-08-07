@@ -1,6 +1,5 @@
 package com.ads;
 
-import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.widget.RelativeLayout;
 
@@ -8,10 +7,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.novel.reader.NovelReaderBaseActivity;
 import com.novel.reader.R;
 
 
-public class AdFragmentActivity extends ActionBarActivity{
+public class AdFragmentActivity extends NovelReaderBaseActivity {
 	protected AdView mAdView;
 	
 	@Override

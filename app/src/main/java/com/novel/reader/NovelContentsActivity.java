@@ -1,18 +1,10 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-
-import com.novel.reader.adapter.ContentAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.util.Setting;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +12,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class NovelContentsActivity extends ActionBarActivity {
+import com.novel.reader.adapter.ContentAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+import com.novel.reader.util.Setting;
+
+import java.util.ArrayList;
+
+public class NovelContentsActivity extends NovelReaderBaseActivity {
 	private Bundle mBundle;
 	private ListView novelListView;
 	private String novelName;

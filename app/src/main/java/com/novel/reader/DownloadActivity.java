@@ -1,8 +1,5 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +26,10 @@ import com.novel.reader.entity.Article;
 import com.novel.reader.service.DownloadService;
 import com.novel.reader.util.Setting;
 
-public class DownloadActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+public class DownloadActivity extends NovelReaderBaseActivity {
 
     private static final int                          ID_SELECT_ALL  = 0;
     private static final int                          ID_SELECT_NONE = 1;

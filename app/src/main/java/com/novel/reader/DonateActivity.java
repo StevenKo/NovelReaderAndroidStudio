@@ -3,7 +3,6 @@ package com.novel.reader;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,7 +11,7 @@ import android.widget.Button;
 import com.android.vending.billing.InAppBillingForNovel;
 import com.novel.reader.util.Setting;
 
-public class DonateActivity extends ActionBarActivity {
+public class DonateActivity extends NovelReaderBaseActivity {
 	
 	private Button donate_btn;
 	private Button validate_btn;

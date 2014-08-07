@@ -340,6 +340,12 @@
 			      android:layout_height="wrap_content"
 			      android:text="@string/setting_direction_horizontal"
 			    />
+                <RadioButton
+                    android:id="@+id/myRadioButton3_reading_direction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_direction_none"
+                 />
 			</RadioGroup>
 			
 		    <LinearLayout 

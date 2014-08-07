@@ -25,7 +25,7 @@ public class Setting {
     public final static String                    keyPref                 = "pref";
     public final static String                    keyTextSize             = "TextSize";
     public final static String                    keyTextLanguage         = "TextLanguage";
-    public final static String                    keyReadingDirection     = "ReadingDirection";
+    public final static String                    keyReadingDirection     = "ReadingDirections";
     public final static String                    keyClickToNextPage      = "ClickToNextPage";
     public final static String                    keyStopSleeping         = "StopSleeping";
     public final static String                    keyOpenDownloadPage     = "OpenDownloadPage";
@@ -40,7 +40,7 @@ public class Setting {
 
     public final static int                       initialTextSize         = 20;                // textsize in pixel
     public final static int                       initialTextLanguage     = 0;                 // 0 繁體, 1 簡體
-    public final static int                       initialReadingDirection = 0;
+    public final static int                       initialReadingDirection = 2; // 0 vertical, 1 horizontal, 2 none
     public final static int                       initialClickToNextPage  = 1;
     public final static int                       initialStopSleeping     = 1;
     public final static int                       initialOpenDownloadPage = 0;

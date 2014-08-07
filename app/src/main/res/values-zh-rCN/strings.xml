@@ -29,6 +29,7 @@
   <string name="setting_select_direction">阅读方向</string>
   <string name="setting_direction_portrait">直向</string>
   <string name="setting_direction_horizontal">橫向</string>
+  <string name="setting_direction_none">不锁定方向</string>
   <string name="setting_select_tap">点击换页</string>
   <string name="setting_tap_open">开启</string>
   <string name="setting_tap_close">关闭</string>

@@ -1,8 +1,5 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -42,7 +38,10 @@ import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
 
-public class NovelIntroduceActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+public class NovelIntroduceActivity extends NovelReaderBaseActivity {
 
     private static final int                    ID_SETTING        = 0;
     private static final int                    ID_RESPONSE       = 1;
