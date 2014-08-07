@@ -1,12 +1,14 @@
 package com.kosbrother.fragments;
 
 import android.app.Activity;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,7 +24,7 @@ import com.taiwan.imageload.LoadMoreGridView;
 
 import java.util.ArrayList;
 
-public final class CategoryFinishFragment extends Fragment {
+public final class CategoryFinishFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Novel>>{
 
     private ArrayList<Novel> novels     = new ArrayList<Novel>();
     private ArrayList<Novel> moreNovels = new ArrayList<Novel>();
@@ -34,7 +36,7 @@ public final class CategoryFinishFragment extends Fragment {
     private LinearLayout     loadmoreLayout;
     private LinearLayout     noDataLayout;
     private LinearLayout     layoutReload;
-//    private static int       id;
+    private int  Loader_Id = 38;
     private Button           buttonReload;
 	private Activity mActivity;
 	public ArrayList<GameAPP> apps;
@@ -72,6 +74,13 @@ public final class CategoryFinishFragment extends Fragment {
         layoutReload = (LinearLayout) myFragmentView.findViewById(R.id.layout_reload);
         buttonReload = (Button) myFragmentView.findViewById(R.id.button_reload);
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
+
+        return myFragmentView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
             public void onLoadMore() {
                 // Do the work to load more items at the end of list
@@ -79,19 +88,21 @@ public final class CategoryFinishFragment extends Fragment {
                 if (checkLoad) {
                     myPage = myPage + 1;
                     loadmoreLayout.setVisibility(View.VISIBLE);
-                    new LoadMoreTask().execute();
+                    LoaderManager lm = getLoaderManager();
+                    lm.restartLoader(Loader_Id, null, CategoryFinishFragment.this).forceLoad();
                 } else {
                     myGrid.onLoadMoreComplete();
                 }
             }
         });
 
-        buttonReload.setOnClickListener(new OnClickListener() {
+        buttonReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 progressLayout.setVisibility(View.VISIBLE);
                 layoutReload.setVisibility(View.GONE);
-                new DownloadChannelsTask().execute();
+                LoaderManager lm = getLoaderManager();
+                lm.restartLoader(Loader_Id, null, CategoryFinishFragment.this).forceLoad();
             }
         });
 
@@ -100,103 +111,81 @@ public final class CategoryFinishFragment extends Fragment {
             loadmoreLayout.setVisibility(View.GONE);
             myGrid.setAdapter(myGridViewAdapter);
         } else {
-            new DownloadChannelsTask().execute();
+            LoaderManager lm = getLoaderManager();
+            lm.restartLoader(Loader_Id, null, CategoryFinishFragment.this).forceLoad();
         }
+    }
 
-        return myFragmentView;
+    private void setLoadMoreNovels(){
+        if (moreNovels != null && moreNovels.size()!=0) {
+            myGridViewAdapter.addDatas(mActivity,moreNovels,NovelAPI.getAppInfo(mActivity));
+            myGridViewAdapter.notifyDataSetChanged();
+        } else {
+            checkLoad = false;
+            Toast.makeText(mActivity, "no more data", Toast.LENGTH_SHORT).show();
+        }
+        myGrid.onLoadMoreComplete();
+    }
+
+    private void setNovesAdapter(){
+        if (novels != null) {
+            try {
+                layoutReload.setVisibility(View.GONE);
+                myGridViewAdapter = new GridViewAdapter(mActivity, novels,NovelAPI.getAppInfo(mActivity));
+                myGrid.setAdapter(myGridViewAdapter);
+            } catch (Exception e) {
+
+            }
+        } else {
+            layoutReload.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
+    public Loader<ArrayList<Novel>> onCreateLoader(int i, Bundle bundle) {
+        return new NovelLoader(getActivity(),myPage);
     }
 
-    private class DownloadChannelsTask extends AsyncTask {
 
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Novel>> arrayListLoader, ArrayList<Novel> getNovels) {
+        moreNovels = getNovels;
 
-		@Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Object doInBackground(Object... params) {
-            // TODO Auto-generated method stub
-
-            novels = NovelAPI.getCategoryFinish(CategoryActivity.categoryId, myPage);
-            apps = NovelAPI.getAppInfo(mActivity);
-            // moreNovels = NovelAPI.getThisWeekHotNovels();
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
-
-            if (novels != null && novels.size() != 0) {
-                try {
-                    layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewAdapter(mActivity, novels,apps);
-                    myGrid.setAdapter(myGridViewAdapter);
-                } catch (Exception e) {
-
-                }
-            } else {
-                layoutReload.setVisibility(View.VISIBLE);
-                // noDataLayout.setVisibility(View.VISIBLE);
-                // ListNothingAdapter nothingAdapter = new ListNothingAdapter(mActivity);
-                // myGrid.setAdapter(nothingAdapter);
+        if (moreNovels != null && moreNovels.size()!=0) {
+            for (int i = 0; i < moreNovels.size(); i++) {
+                novels.add(moreNovels.get(i));
             }
+        }
 
+        progressLayout.setVisibility(View.GONE);
+        loadmoreLayout.setVisibility(View.GONE);
+
+        if (myPage > 1)
+            setLoadMoreNovels();
+        else{
+            setNovesAdapter();
         }
     }
 
-    private class LoadMoreTask extends AsyncTask {
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Novel>> arrayListLoader) {
 
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
+    }
 
+    public static class NovelLoader extends AsyncTaskLoader<ArrayList<Novel>> {
+
+        private int myPage;
+
+        public NovelLoader(Context context, int myPage) {
+            super(context);
+            this.myPage = myPage;
         }
 
         @Override
-        protected Object doInBackground(Object... params) {
-            // TODO Auto-generated method stub
+        public ArrayList<Novel> loadInBackground() {
 
-            moreNovels = NovelAPI.getCategoryFinish(CategoryActivity.categoryId, myPage);
-            if (moreNovels != null && moreNovels.size()!=0) {
-                for (int i = 0; i < moreNovels.size(); i++) {
-                    novels.add(moreNovels.get(i));
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-
-            loadmoreLayout.setVisibility(View.GONE);
-
-            if (moreNovels != null && moreNovels.size()!=0) {
-            	myGridViewAdapter.addDatas(mActivity,moreNovels,apps);
-                myGridViewAdapter.notifyDataSetChanged();
-            } else {
-                checkLoad = false;
-                Toast.makeText(mActivity, "no more data", Toast.LENGTH_SHORT).show();
-            }
-            myGrid.onLoadMoreComplete();
-
+            ArrayList<Novel> moreNovels = NovelAPI.getCategoryFinish(CategoryActivity.categoryId, myPage);
+            return moreNovels;
         }
     }
 
