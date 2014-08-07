@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -77,7 +79,7 @@ public class CollectNovelsService extends IntentService {
         String title = String.format(strFormat, novels.size());
 
         Bitmap iconBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.app_icon);
-
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_stat_notify)
@@ -87,6 +89,7 @@ public class CollectNovelsService extends IntentService {
                         .setContentText(content)
                         .setContentIntent(viewPendingIntent)
                         .setTicker(ticker)
+                        .setSound(alarmSound)
                         .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager =
