@@ -58,7 +58,7 @@ import it.gmariotti.cardslib.library.view.CardGridView;
 public class GridGplayFragment extends Fragment {
 
     protected ListView mListView;
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = 1000;
     ProgressDialog progressDialog     = null;
 
     @Override
