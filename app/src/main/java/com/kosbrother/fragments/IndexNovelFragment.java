@@ -79,11 +79,6 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
