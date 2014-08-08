@@ -38,26 +38,30 @@ public class CollectNovelsService extends IntentService {
         NovelReaderUtil.dailyCollectNovelsAlarmSetup(getApplicationContext());
 
         ArrayList<Novel> novels = NovelAPI.getCollectedNovels(getApplicationContext());
+        if(novels.size() == 0)
+            return;
+
         ArrayList<Novel> novelsFromServer = NovelAPI.getCollectNovelsInfoFromServer(novels);
-        if(novelsFromServer != null)
+        if (novelsFromServer != null) {
             NovelAPI.updateNovelsInfo(novelsFromServer, getApplicationContext());
 
-        ArrayList<Novel> hasNewArticleNovel = new ArrayList<Novel>();
-        for(Novel novel: novelsFromServer){
+            ArrayList<Novel> hasNewArticleNovel = new ArrayList<Novel>();
+            for (Novel novel : novelsFromServer) {
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
-            try {
-                Date date = dateFormat.parse(novel.getLastUpdate());
-                if(novel.getLastViewDate().before(date)){
-                    hasNewArticleNovel.add(novel);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+                try {
+                    Date date = dateFormat.parse(novel.getLastUpdate());
+                    if (novel.getLastViewDate().before(date)) {
+                        hasNewArticleNovel.add(novel);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
+            }
+            if (hasNewArticleNovel.size() > 0)
+                createCollectNovelNotification(hasNewArticleNovel);
         }
-        if(hasNewArticleNovel.size() > 0)
-            createCollectNovelNotification(hasNewArticleNovel);
     }
 
     private void createCollectNovelNotification(ArrayList<Novel> novels) {
@@ -65,8 +69,8 @@ public class CollectNovelsService extends IntentService {
         PendingIntent viewPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), MyNovelActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
 
         String content = "";
-        for(int i = 0; i < novels.size(); i++){
-            if(i == novels.size() -1)
+        for (int i = 0; i < novels.size(); i++) {
+            if (i == novels.size() - 1)
                 content += "(" + novels.get(i).getName() + ")";
             else
                 content += "(" + novels.get(i).getName() + ")" + ",";
