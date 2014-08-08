@@ -1,88 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_height="wrap_content" 
-     android:layout_width="fill_parent"
-     android:padding="3dp"
-     android:background="@drawable/grid_selector"
-     >
-     <ImageView android:id="@+id/bookmark_poster"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:padding="3dp"
+    android:background="@drawable/grid_selector">
+
+    <ImageView
+        android:id="@+id/bookmark_poster"
         android:layout_width="52dp"
-	  android:layout_height="67dp"
+        android:layout_height="67dp"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="20px"
         android:layout_marginLeft="10px"
         android:layout_marginBottom="10px"
         android:layout_marginTop="10px"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/app_icon_black" 
-        android:background="@color/main_color_grey_dark"/>
-     
-	<RelativeLayout android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
+        android:src="@drawable/app_icon_black"
+        android:background="@color/main_color_grey_dark" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/bookmark_poster"
         android:layout_marginLeft="5dp"
         android:orientation="vertical">
+
         <Button
-            android:id="@+id/novel_introduce_btn" 
+            android:id="@+id/novel_introduce_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="@string/title_novel_introduce"
             android:textSize="15dp"
-            android:focusable="false"
-            />
-        <LinearLayout 
-        android:layout_toLeftOf="@+id/novel_introduce_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        >
+            android:focusable="false" />
+
+        <LinearLayout
+            android:layout_toLeftOf="@+id/novel_introduce_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/bookmark_novel_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/report_novel"
-                  android:layout_marginBottom="2px"
-                android:textSize="15dp" 
-                  android:textStyle="bold"
-                  android:typeface="serif"/>
-           
-            <RelativeLayout android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="10px"
-            >
-                <TextView
-                  android:id="@+id/author_tip"
+                android:layout_marginBottom="2px"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:typeface="serif" />
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/article_name"
-                android:textSize="10dp"
-                android:layout_marginTop="3dp"
-                  android:textColor="#999999"
-                  android:typeface="serif">
-                </TextView>
+                android:orientation="horizontal"
+                android:layout_marginRight="10px">
+
+                <TextView
+                    android:id="@+id/author_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/article_name"
+                    android:textSize="10dp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#999999"
+                    android:typeface="serif"></TextView>
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" 
+                    android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/author_tip">
-                <TextView
-                android:id="@+id/bookmark_article_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5px"
-                android:text="@string/article_name"
-                android:textSize="16dp" 
-                android:textColor="#555555"
-                android:typeface="serif">
-                </TextView>
+
+                    <TextView
+                        android:id="@+id/bookmark_article_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5px"
+                        android:text="@string/article_name"
+                        android:textSize="16dp"
+                        android:textColor="#555555"
+                        android:typeface="serif"></TextView>
                 </RelativeLayout>
             </RelativeLayout>
-          
+
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

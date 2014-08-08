@@ -18,12 +18,10 @@
   ~  *****************************************************************************
   -->
 
-<it.gmariotti.cardslib.library.view.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<it.gmariotti.cardslib.library.view.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_cardId"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     style="@style/grid_card"
-    card:card_layout_resourceID="@layout/carddemo_googleplay_layout"
-    />
+    card:card_layout_resourceID="@layout/carddemo_googleplay_layout" />

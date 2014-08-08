@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 public class NavigationListAdapter extends BaseAdapter {
 
-    private Activity            activity;
+    private Activity activity;
     private ArrayList<NavigationItem> data;
-    private static LayoutInflater     inflater = null;
+    private static LayoutInflater inflater = null;
 
     public NavigationListAdapter(Activity a) {
         activity = a;

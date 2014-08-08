@@ -28,11 +28,11 @@ import com.novel.reader.util.NovelReaderUtil;
 public class ExpandListAdapter extends BaseExpandableListAdapter {
 
     private static LayoutInflater inflater = null;
-    private final Activity        activity;
-    public ArrayList<Group>       theGroups;
-    private final Novel           theNovel;
-    private final Bookmark        theNovelBookmark;
-    private int             expandGroup;
+    private final Activity activity;
+    public ArrayList<Group> theGroups;
+    private final Novel theNovel;
+    private final Bookmark theNovelBookmark;
+    private int expandGroup;
 
     public ExpandListAdapter(Activity a, ArrayList<Group> mGroups, Novel mNovel, int expandGroup) {
 
@@ -64,7 +64,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_expandible_child, null);
         TextView text = (TextView) vi.findViewById(R.id.expandlist_child);
-        String childString = NovelReaderUtil.translateTextIfCN(activity,child.getTitle());
+        String childString = NovelReaderUtil.translateTextIfCN(activity, child.getTitle());
         text.setText(childString);
 
         vi.setOnClickListener(new OnClickListener() {
@@ -155,25 +155,25 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_expandbile_parent, null);
         TextView text = (TextView) vi.findViewById(R.id.expandlist_parent);
-        String groupString = NovelReaderUtil.translateTextIfCN(activity,group.getTitle());
+        String groupString = NovelReaderUtil.translateTextIfCN(activity, group.getTitle());
         text.setText(groupString);
 
         int id = (!isExpanded) ? R.drawable.right_arrow : R.drawable.up_arrow;
         ImageView image = (ImageView) vi.findViewById(R.id.expandlist_parent_button);
         image.setImageResource(id);
-        
+
         if ((expandGroup != -1) && (expandGroup == groupPosition)) {
             final ExpandableListView eLV = (ExpandableListView) parent;
             eLV.expandGroup(expandGroup);
             vi.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                	if(expandGroup != -1){
-                		eLV.collapseGroup(expandGroup);
-                		expandGroup = -1;
-                	}else{
-                		eLV.expandGroup(expandGroup);
-                	}
+                    if (expandGroup != -1) {
+                        eLV.collapseGroup(expandGroup);
+                        expandGroup = -1;
+                    } else {
+                        eLV.expandGroup(expandGroup);
+                    }
                 }
             });
         }

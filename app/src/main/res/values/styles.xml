@@ -16,16 +16,17 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
+
     <style name="NotificationText">
-      <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-    <style name="NotificationTitle">
-      <item name="android:textColor">?android:attr/textColorPrimary</item>
-      <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="carddemo_myapps_main_inner_ratingbar"  >
+    <style name="NotificationTitle">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="carddemo_myapps_main_inner_ratingbar">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/ratingbar_small_holo_dark</item>
         <item name="android:indeterminateDrawable">@drawable/ratingbar_small_holo_dark</item>

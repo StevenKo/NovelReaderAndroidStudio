@@ -11,10 +11,10 @@ import android.widget.ListView;
 import com.novel.reader.R;
 
 public class SectionListView extends FrameLayout implements AbsListView.OnScrollListener {
-    private ListView              mListView;
+    private ListView mListView;
     private SectionHeadersAdapter mAdapter;
-    private View                  mPinnedHeader;
-    private int                   mHeaderPosition = -1;
+    private View mPinnedHeader;
+    private int mHeaderPosition = -1;
 
     public SectionListView(Context context) {
         super(context);

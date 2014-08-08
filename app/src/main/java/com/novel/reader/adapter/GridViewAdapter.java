@@ -34,10 +34,10 @@ import java.util.Date;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private Activity         activity;
+    private Activity activity;
     private ArrayList<Object> data = new ArrayList<Object>();
-    private static LayoutInflater  inflater = null;
-    public ImageLoader             imageLoader;
+    private static LayoutInflater inflater = null;
+    public ImageLoader imageLoader;
 
     public GridViewAdapter(Activity a, ArrayList<Novel> d, ArrayList<GameAPP> apps) {
         activity = a;
@@ -46,13 +46,13 @@ public class GridViewAdapter extends BaseAdapter {
         imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
-    
 
-	public void addDatas(Activity a, ArrayList<Novel> d, ArrayList<GameAPP> apps){
-    	
-    	for(int i=0; i<d.size();i++){
-			data.add(d.get(i));
-		}
+
+    public void addDatas(Activity a, ArrayList<Novel> d, ArrayList<GameAPP> apps) {
+
+        for (int i = 0; i < d.size(); i++) {
+            data.add(d.get(i));
+        }
     }
 
     public int getCount() {
@@ -68,15 +68,15 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-    	if (data.get(position) instanceof Novel)
-    		return getNovelGridView(position,convertView,parent, (Novel)data.get(position));
-    	else
-    		return getAppGridView(position,convertView,parent, (GameAPP)data.get(position));
+        if (data.get(position) instanceof Novel)
+            return getNovelGridView(position, convertView, parent, (Novel) data.get(position));
+        else
+            return getAppGridView(position, convertView, parent, (GameAPP) data.get(position));
     }
-    
-    private View getAppGridView(final int position, View convertView, ViewGroup parent,final GameAPP app){
-    	View vi = convertView;
-    	Display display = activity.getWindowManager().getDefaultDisplay();
+
+    private View getAppGridView(final int position, View convertView, ViewGroup parent, final GameAPP app) {
+        View vi = convertView;
+        Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth(); // deprecated
         int height = display.getHeight(); // deprecated
 
@@ -85,83 +85,84 @@ public class GridViewAdapter extends BaseAdapter {
         } else {
             vi = inflater.inflate(R.layout.item_app_small, null);
         }
-        
+
         vi.setClickable(true);
         vi.setFocusable(true);
         vi.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-            	showRecommendAppDialog(app);
+                showRecommendAppDialog(app);
             }
 
         });
         ImageView image = (ImageView) vi.findViewById(R.id.grid_item_image);
         TextView textName = (TextView) vi.findViewById(R.id.grid_item_name);
         TextView description = (TextView) vi.findViewById(R.id.description);
-        
+
         if (NovelReaderUtil.isDisplayDefaultBookCover(app.imageUrl)) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
             imageLoader.DisplayImage(app.imageUrl, image);
         }
-        
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(app.title)));
+
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
         if (app.title.length() > 6)
             textName.setTextSize(12);
         description.setText("推薦優質APP");
         if (app.description.length() > 6)
-        	description.setTextSize(12);
-       
-        
-    	return vi;
-    }
-    
-    protected void showRecommendAppDialog(final GameAPP app) {
-    	
-    	LayoutInflater inflater = activity.getLayoutInflater();
-    	LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_recommend_app,null);
+            description.setTextSize(12);
 
-    	ImageView image = (ImageView) recomendLayout.findViewById(R.id.grid_item_image);
+
+        return vi;
+    }
+
+    protected void showRecommendAppDialog(final GameAPP app) {
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_recommend_app, null);
+
+        ImageView image = (ImageView) recomendLayout.findViewById(R.id.grid_item_image);
         TextView textName = (TextView) recomendLayout.findViewById(R.id.grid_item_name);
         TextView description = (TextView) recomendLayout.findViewById(R.id.description);
-    	
+
         if (NovelReaderUtil.isDisplayDefaultBookCover(app.imageUrl)) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
             imageLoader.DisplayImage(app.imageUrl, image);
         }
-        
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(app.title)));
+
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
         if (app.title.length() > 6)
             textName.setTextSize(12);
-        description.setText(NovelReaderUtil.translateTextIfCN(activity,(app.description)));
+        description.setText(NovelReaderUtil.translateTextIfCN(activity, (app.description)));
         if (app.description.length() > 6)
-        	description.setTextSize(12);
-    	
-    	Builder a = new Builder(activity).setTitle("推薦優質APP")
-        .setPositiveButton("前往下載", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-	            	Intent browseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.appStoreUrl));
-	            	activity.startActivity(browseIntent);
-	            	new AsyncTask() {
-						@Override
-						protected Object doInBackground(Object... arg0) {
-							NovelAPI.sendClickInfo(activity, app.appid);
-							return null;
-					}}.execute();
-            	
-            }
-        });
-    	a.setView(recomendLayout);
-    	AlertDialog dialog = a.create();
-    	dialog.show();
-		
-	}
+            description.setTextSize(12);
 
-	private View getNovelGridView(final int position, View convertView, ViewGroup parent,final Novel novel){
-    	View vi = convertView;
+        Builder a = new Builder(activity).setTitle("推薦優質APP")
+                .setPositiveButton("前往下載", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent browseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.appStoreUrl));
+                        activity.startActivity(browseIntent);
+                        new AsyncTask() {
+                            @Override
+                            protected Object doInBackground(Object... arg0) {
+                                NovelAPI.sendClickInfo(activity, app.appid);
+                                return null;
+                            }
+                        }.execute();
+
+                    }
+                });
+        a.setView(recomendLayout);
+        AlertDialog dialog = a.create();
+        dialog.show();
+
+    }
+
+    private View getNovelGridView(final int position, View convertView, ViewGroup parent, final Novel novel) {
+        View vi = convertView;
         // if (convertView == null)
         // vi = inflater.inflate(R.layout.item_gridview_novel, null);
 
@@ -206,8 +207,8 @@ public class GridViewAdapter extends BaseAdapter {
         TextView textFinish = (TextView) vi.findViewById(R.id.grid_item_finish);
         TextView textSerialize = (TextView) vi.findViewById(R.id.serializing);
 
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(novel.getName())));
-        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity,novel.getAuthor()));
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (novel.getName())));
+        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity, novel.getAuthor()));
 
         textCounts.setText(novel.getArticleNum());
         textFinish.setText(novel.getLastUpdate());
@@ -223,14 +224,14 @@ public class GridViewAdapter extends BaseAdapter {
         } else {
             textSerialize.setText("全本");
         }
-        
+
         String format = "yy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(format);
         Date today = new Date();
         String currentDateTimeString = formater.format(today);
-        if(currentDateTimeString.equals(novel.getLastUpdate())){
-        	TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
-        	textNewArticle.setVisibility(View.VISIBLE);
+        if (currentDateTimeString.equals(novel.getLastUpdate())) {
+            TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
+            textNewArticle.setVisibility(View.VISIBLE);
         }
 
         Date date = null;
@@ -240,12 +241,12 @@ public class GridViewAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        if(novel.getLastViewDate()!=null && novel.getLastViewDate().before(date)){
+        if (novel.getLastViewDate() != null && novel.getLastViewDate().before(date)) {
             TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
             textNewArticle.setVisibility(View.VISIBLE);
             textNewArticle.setText("有新文章!!");
         }
-        
+
         return vi;
     }
 }

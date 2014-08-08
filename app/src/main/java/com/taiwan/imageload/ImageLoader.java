@@ -26,12 +26,12 @@ import com.novel.reader.R;
 
 public class ImageLoader {
 
-    MemoryCache                          memoryCache   = new MemoryCache();
-    FileCache                            fileCache;
-    private final Map<ImageView, String> imageViews    = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService                      executorService;
-    int                                  REQUIRED_SIZE = 70;
-    private int                          width;
+    MemoryCache memoryCache = new MemoryCache();
+    FileCache fileCache;
+    private final Map<ImageView, String> imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
+    ExecutorService executorService;
+    int REQUIRED_SIZE = 70;
+    private int width;
 
     public ImageLoader(Context context) {
         fileCache = new FileCache(context);
@@ -167,7 +167,7 @@ public class ImageLoader {
 
     // Task for the queue
     private class PhotoToLoad {
-        public String    url;
+        public String url;
         public ImageView imageView;
 
         public PhotoToLoad(String u, ImageView i) {
@@ -177,9 +177,9 @@ public class ImageLoader {
     }
 
     private class FillPhotoToLoad {
-        public String    url;
+        public String url;
         public ImageView imageView;
-        public int       width;
+        public int width;
 
         public FillPhotoToLoad(String u, ImageView i, int width) {
             url = u;
@@ -247,7 +247,7 @@ public class ImageLoader {
 
     // Used to display bitmap in the UI thread
     class BitmapDisplayer implements Runnable {
-        Bitmap      bitmap;
+        Bitmap bitmap;
         PhotoToLoad photoToLoad;
 
         public BitmapDisplayer(Bitmap b, PhotoToLoad p) {
@@ -266,10 +266,10 @@ public class ImageLoader {
     }
 
     class FillBitmapDisplayer implements Runnable {
-        Bitmap          bitmap;
+        Bitmap bitmap;
         FillPhotoToLoad photoToLoad;
-        int             width;
-        int             height;
+        int width;
+        int height;
 
         public FillBitmapDisplayer(Bitmap b, FillPhotoToLoad p, int width, int height) {
             bitmap = b;

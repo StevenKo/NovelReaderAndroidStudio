@@ -24,11 +24,11 @@ import com.novel.reader.util.NovelReaderUtil;
 public class ExpandListDownLoadReadAdapter extends BaseExpandableListAdapter {
 
     private static LayoutInflater inflater = null;
-    private final Activity        activity;
+    private final Activity activity;
     // private String theNovelName;
-    public ArrayList<Group>       theGroups;
+    public ArrayList<Group> theGroups;
     // private final TextView theCountText;
-    public Novel                  theNovel;
+    public Novel theNovel;
 
     public ExpandListDownLoadReadAdapter(Activity a, ArrayList<Group> mGroups, Novel novel) {
 
@@ -57,7 +57,7 @@ public class ExpandListDownLoadReadAdapter extends BaseExpandableListAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_expandable_download_child, null);
         TextView text = (TextView) vi.findViewById(R.id.expandlist_child);
-        String childString = NovelReaderUtil.translateTextIfCN(activity,child.getTitle());
+        String childString = NovelReaderUtil.translateTextIfCN(activity, child.getTitle());
         text.setText(childString);
 
         CheckBox checkBox = (CheckBox) vi.findViewById(R.id.checkbox_child);
@@ -158,7 +158,7 @@ public class ExpandListDownLoadReadAdapter extends BaseExpandableListAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_expandable_download_parent, null);
         TextView text = (TextView) vi.findViewById(R.id.expandlist_parent);
-        String groupString = NovelReaderUtil.translateTextIfCN(activity,group.getTitle());
+        String groupString = NovelReaderUtil.translateTextIfCN(activity, group.getTitle());
         text.setText(groupString);
 
         int id = (!isExpanded) ? R.drawable.right_arrow : R.drawable.up_arrow;

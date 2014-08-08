@@ -1,10 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent">
 
     <GridView
         android:id="@+id/gridView1"
@@ -14,15 +12,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp">
-    </GridView>
+        android:horizontalSpacing="2dp"></GridView>
 
     <RelativeLayout
         android:id="@+id/adonView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        />
+        android:gravity="center" />
 
 </LinearLayout>

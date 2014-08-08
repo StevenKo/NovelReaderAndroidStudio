@@ -23,17 +23,17 @@ import com.taiwan.imageload.LoadMoreGridView;
 import java.util.ArrayList;
 
 
-public class IndexNovelFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Novel>>{
+public class IndexNovelFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Novel>> {
 
     private ArrayList<Novel> novels = new ArrayList<Novel>();
     private LoadMoreGridView myGrid;
-    private GridViewAdapter  myGridViewAdapter;
-    private LinearLayout     progressLayout;
-    private LinearLayout     loadmoreLayout;
-    private LinearLayout     layoutReload;
-    private Button           buttonReload;
-    private int       myPage     = 1;
-    private Boolean          checkLoad  = true;
+    private GridViewAdapter myGridViewAdapter;
+    private LinearLayout progressLayout;
+    private LinearLayout loadmoreLayout;
+    private LinearLayout layoutReload;
+    private Button buttonReload;
+    private int myPage = 1;
+    private Boolean checkLoad = true;
 
     public static final int HOT_NOVEL = 1;
     public static final int MONTH_NOVEL = 2;
@@ -46,9 +46,9 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity= activity;
+        mActivity = activity;
     }
-    
+
     public static IndexNovelFragment newInstance(int novelFragment) {
 
         IndexNovelFragment fragment = new IndexNovelFragment();
@@ -115,9 +115,9 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
         }
     }
 
-    private void setLoadMoreNovels(){
-        if (moreNovels != null && moreNovels.size()!=0) {
-            myGridViewAdapter.addDatas(mActivity,moreNovels,NovelAPI.getAppInfo(mActivity));
+    private void setLoadMoreNovels() {
+        if (moreNovels != null && moreNovels.size() != 0) {
+            myGridViewAdapter.addDatas(mActivity, moreNovels, NovelAPI.getAppInfo(mActivity));
             myGridViewAdapter.notifyDataSetChanged();
         } else {
             checkLoad = false;
@@ -126,11 +126,11 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
         myGrid.onLoadMoreComplete();
     }
 
-    private void setNovesAdapter(){
+    private void setNovesAdapter() {
         if (novels != null) {
             try {
                 layoutReload.setVisibility(View.GONE);
-                myGridViewAdapter = new GridViewAdapter(mActivity, novels,NovelAPI.getAppInfo(mActivity));
+                myGridViewAdapter = new GridViewAdapter(mActivity, novels, NovelAPI.getAppInfo(mActivity));
                 myGrid.setAdapter(myGridViewAdapter);
             } catch (Exception e) {
 
@@ -142,7 +142,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public Loader<ArrayList<Novel>> onCreateLoader(int i, Bundle bundle) {
-        return new NovelLoader(getActivity(),novelFragment,myPage);
+        return new NovelLoader(getActivity(), novelFragment, myPage);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
 
         moreNovels = getNovels;
 
-        if (moreNovels != null && moreNovels.size()!=0) {
+        if (moreNovels != null && moreNovels.size() != 0) {
             for (int i = 0; i < moreNovels.size(); i++) {
                 novels.add(moreNovels.get(i));
             }
@@ -161,7 +161,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
 
         if (myPage > 1)
             setLoadMoreNovels();
-        else{
+        else {
             setNovesAdapter();
         }
     }
@@ -175,7 +175,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
         private int novelFragment;
         private int myPage;
 
-        public NovelLoader(Context context,int novelFragment, int myPage) {
+        public NovelLoader(Context context, int novelFragment, int myPage) {
             super(context);
             this.novelFragment = novelFragment;
             this.myPage = myPage;
@@ -187,18 +187,18 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
             ArrayList<Novel> moreNovels = null;
 
             switch (novelFragment) {
-            case HOT_NOVEL:
-              moreNovels = NovelAPI.getHotNovels(myPage);
-              break;
-            case MONTH_NOVEL:
-              moreNovels = NovelAPI.getThisMonthHotNovels(myPage);
-              break;
-            case WEEK_NOVEL:
-              moreNovels = NovelAPI.getThisWeekHotNovels(myPage);
-              break;
-            case LATEST_NOVEL:
-              moreNovels = NovelAPI.getLatestUpdateNovels(myPage);
-              break;
+                case HOT_NOVEL:
+                    moreNovels = NovelAPI.getHotNovels(myPage);
+                    break;
+                case MONTH_NOVEL:
+                    moreNovels = NovelAPI.getThisMonthHotNovels(myPage);
+                    break;
+                case WEEK_NOVEL:
+                    moreNovels = NovelAPI.getThisWeekHotNovels(myPage);
+                    break;
+                case LATEST_NOVEL:
+                    moreNovels = NovelAPI.getLatestUpdateNovels(myPage);
+                    break;
             }
             return moreNovels;
         }

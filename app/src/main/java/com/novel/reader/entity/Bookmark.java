@@ -1,13 +1,13 @@
 package com.novel.reader.entity;
 
 public class Bookmark {
-    int     id;
-    int     novelId;
-    int     articleId;
-    int     rate;
-    String  novelName;
-    String  articleTitle;
-    String  novelPic;
+    int id;
+    int novelId;
+    int articleId;
+    int rate;
+    String novelName;
+    String articleTitle;
+    String novelPic;
     boolean is_recent_read;
 
     public Bookmark() {

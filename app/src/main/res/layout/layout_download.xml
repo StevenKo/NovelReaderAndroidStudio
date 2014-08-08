@@ -2,50 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <LinearLayout android:id="@+id/novel_layout_progress"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/novel_layout_progress"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
-        >
-        <ProgressBar 
+        android:gravity="center">
+
+        <ProgressBar
             android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	/>       
+            android:layout_height="wrap_content" />
     </LinearLayout>
-    
-	<ExpandableListView android:id="@+id/download_artiles_list"
+
+    <ExpandableListView
+        android:id="@+id/download_artiles_list"
         android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:groupIndicator="@null"
-	    android:layout_weight="1"
-	    android:fastScrollEnabled="true"
-        >      
-    </ExpandableListView>
-    
-	<RelativeLayout 
-	    android:layout_width="fill_parent"
-	    android:layout_height="50dp"
-	    android:background="@color/main_color_grey_dark"
-	    >
-        <TextView android:id="@+id/download_count_text"
+        android:layout_height="0dp"
+        android:groupIndicator="@null"
+        android:layout_weight="1"
+        android:fastScrollEnabled="true"></ExpandableListView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color_grey_dark">
+
+        <TextView
+            android:id="@+id/download_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/novel_select_zero"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            />
-        <Button android:id="@+id/download_button"
+            android:layout_centerVertical="true" />
+
+        <Button
+            android:id="@+id/download_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           	android:text="@string/novel_start_download"
+            android:text="@string/novel_start_download"
             android:textSize="15dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            />	    
-	</RelativeLayout>
-    
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
 </LinearLayout>

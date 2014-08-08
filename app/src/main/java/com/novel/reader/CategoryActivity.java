@@ -37,27 +37,27 @@ import com.novel.reader.util.Setting;
 
 public class CategoryActivity extends AdFragmentActivity {
 
-    private static final int    ID_SETTING  = 0;
-    private static final int    ID_RESPONSE = 1;
-    private static final int    ID_ABOUT_US = 2;
-    private static final int    ID_GRADE    = 3;
-    private static final int    ID_DOWNLOAD = 4;
-    private static final int    ID_SEARCH   = 5;
-    private static final int    ID_Report   = 6;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_DOWNLOAD = 4;
+    private static final int ID_SEARCH = 5;
+    private static final int ID_Report = 6;
 
-    private String[]            CONTENT;
-    private EditText            search;
-    private Bundle              mBundle;
-    private String              categoryName;
-    public static int           categoryId;
-    private MenuItem            itemSearch;
+    private String[] CONTENT;
+    private EditText search;
+    private Bundle mBundle;
+    private String categoryName;
+    public static int categoryId;
+    private MenuItem itemSearch;
 
     private AlertDialog.Builder aboutUsDialog;
 
-	private RelativeLayout bannerAdView;
-	private ActionBar actionbar;
-	private ViewPager pager;
-	private SlidingTabLayout mSlidingTabLayout;
+    private RelativeLayout bannerAdView;
+    private ActionBar actionbar;
+    private ViewPager pager;
+    private SlidingTabLayout mSlidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class CategoryActivity extends AdFragmentActivity {
         mBundle = this.getIntent().getExtras();
         categoryName = mBundle.getString("CategoryName");
         categoryId = mBundle.getInt("CategoryId");
-        
+
         actionbar = getSupportActionBar();
         actionbar.setTitle(categoryName);
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -83,18 +83,16 @@ public class CategoryActivity extends AdFragmentActivity {
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(pager);
-        
+
         setAboutUsDialog();
-        
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
-        
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
+
 
     }
-    
-    
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,8 +104,8 @@ public class CategoryActivity extends AdFragmentActivity {
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -157,40 +155,40 @@ public class CategoryActivity extends AdFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(CategoryActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_SEARCH: // response
-            break;
-        case ID_Report:
-        	Report.createReportDialog(this,this.getResources().getString(R.string.report_not_novel_problem),this.getResources().getString(R.string.report_not_article_problem));
-            break;
-        case 7:
-        	Intent intent1 = new Intent();
-            intent1.setClass(this, DonateActivity.class);
-            startActivity(intent1);
-        	break;
-        
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(CategoryActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US:
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case ID_SEARCH: // response
+                break;
+            case ID_Report:
+                Report.createReportDialog(this, this.getResources().getString(R.string.report_not_novel_problem), this.getResources().getString(R.string.report_not_article_problem));
+                break;
+            case 7:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
+
         }
         return true;
     }
@@ -213,7 +211,7 @@ public class CategoryActivity extends AdFragmentActivity {
                 kk = CategoryLatestNovelsFragment.newInstance();
             } else if (position == 4) {
                 kk = CategoryFinishFragment.newInstance();
-            }else if (position == 5) {
+            } else if (position == 5) {
                 kk = CategoryAllNovelsFragment.newInstance();
             }
             return kk;
@@ -233,8 +231,8 @@ public class CategoryActivity extends AdFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
 
     private void setAboutUsDialog() {
@@ -249,17 +247,17 @@ public class CategoryActivity extends AdFragmentActivity {
                 });
     }
 
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

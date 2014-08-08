@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    
+
     <color name="background">#C0C0C0</color>
     <color name="background_deep">#FF313131</color>
     <color name="selector_blue">#3399CC</color>
-    
+
     <color name="main_color_yellow">#f6c737</color>
     <color name="main_color_grey_dark">#dddddd</color>
-    
+
     <color name="bookmark_section_head">#aaaaaa</color>
     <color name="bookmark_section_text">#041014</color>
-    
+
     <color name="dark_slate_gray">#2F4F4F</color>
-	<color name="gray_2">#AFAFAF</color>
-	<color name="gray_1">#C0C0C0</color>
-	<color name="black">#151515</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="gray_1">#C0C0C0</color>
+    <color name="black">#151515</color>
     <color name="light_black">#202020</color>
-    
-     <!-- Add for Report -->
+
+    <!-- Add for Report -->
     <color name="report_view_1">#f6c737</color>
     <color name="report_view_2">#e1e1e1</color>
     <color name="report_press">#606060</color>
     <color name="report_normal">#f6c737</color>
-    
-    
+
+
     <!-- Add for About Us -->
     <color name="about_us_press">#1e1e1e</color>
     <color name="about_us_seperate">#858585</color>
-    
+
     <!-- Add for Tab -->
     <color name="tab_press_bg_light">#dcba02</color>
     <color name="tab_press_bg_dark">#d39c04</color>
@@ -38,16 +38,16 @@
     <color name="tab_info_normal_bg_light">#454a50</color>
     <color name="tab_info_normal_bg_dark">#2e3136</color>
     <color name="tab_normal_text_color">#a3a3a3</color>
-    
+
     <color name="theater_bg_light">#2b2e31</color>
     <color name="theater_bg_dark">#141618</color>
     <color name="theater_normal_bg_light">#454a50</color>
     <color name="theater_normal_bg_dark">#2e3136</color>
     <color name="theater_stroke">#242424</color>
-    
+
     <color name="seperator_grey">#959391</color>
     <color name="textcolor_grey">#f1f1f1</color>
-    
+
     <color name="title_light">#FFCC1818</color>
     <color name="title_dark">#FF660404</color>
     <color name="white">#FFFFFF</color>
@@ -57,10 +57,10 @@
     <color name="transparent80">#33000000</color>
     <color name="transparent50">#88000000</color>
     <color name="redorange">#d14329</color>
-    
+
     <color name="setting_text_color">#2098db</color>
-   
-   
+
+
     <!-- Add for VPON -->
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
@@ -85,6 +85,6 @@
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>
     <color name="viewfinder_mask">#60000000</color>
-    
+
 
 </resources>

@@ -12,17 +12,17 @@ import com.android.vending.billing.InAppBillingForNovel;
 import com.novel.reader.util.Setting;
 
 public class DonateActivity extends NovelReaderBaseActivity {
-	
-	private Button donate_btn;
-	private Button validate_btn;
+
+    private Button donate_btn;
+    private Button validate_btn;
     private InAppBillingForNovel iap;
 
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_donate);
-        
+
         final ActionBar ab = getSupportActionBar();
         ab.setTitle("贊助小說王");
         ab.setDisplayHomeAsUpEnabled(true);
@@ -33,65 +33,64 @@ public class DonateActivity extends NovelReaderBaseActivity {
 
     }
 
-	private void setListener() {
-		donate_btn.setOnClickListener(new OnClickListener() {
+    private void setListener() {
+        donate_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	iap.launchSubscriptionFlow();
+                iap.launchSubscriptionFlow();
             }
         });
-		validate_btn.setOnClickListener(new OnClickListener() {
+        validate_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	iap = new InAppBillingForNovel(DonateActivity.this);
+                iap = new InAppBillingForNovel(DonateActivity.this);
             }
         });
-		
-		
-	}
 
-	private void findViews() {
-		donate_btn = (Button) findViewById(R.id.donate_button);
-		validate_btn = (Button) findViewById(R.id.validate_button);
-	}
-	
+
+    }
+
+    private void findViews() {
+        donate_btn = (Button) findViewById(R.id.donate_button);
+        validate_btn = (Button) findViewById(R.id.validate_button);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
 
         // very important:
         if (iap != null && iap.mHelper != null) {
-        	try {
-        		iap.mHelper.dispose();
-        	}catch (IllegalArgumentException ex){
+            try {
+                iap.mHelper.dispose();
+            } catch (IllegalArgumentException ex) {
                 ex.printStackTrace();
-            }finally{}
-        	
-        	iap.mHelper = null;
+            } finally {
+            }
+
+            iap.mHelper = null;
         }
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (iap.mHelper == null) return;
 
         if (!iap.mHelper.handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
-        }
-        else {
+        } else {
         }
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
+            case android.R.id.home:
+                finish();
         }
-		return true;
+        return true;
     }
 
-	
 
 }

@@ -37,44 +37,44 @@ import com.taiwan.imageload.ImageLoader;
 
 public class MyDownloadArticleActivity extends AdFragmentActivity {
 
-    private static final int                     ID_SETTING         = 0;
-    private static final int                     ID_RESPONSE        = 1;
-    private static final int                     ID_ABOUT_US        = 2;
-    private static final int                     ID_GRADE           = 3;
-    private static final int                     ID_DELETE_DOWNLOAD = 4;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_DELETE_DOWNLOAD = 4;
 
-    private Bundle                               mBundle;
-    private String                               novelName;
-    private int                                  novelId;
-    private String                               novelAuthor;
-    private String                               novelPicUrl;
-    private String                               novelArticleNum;
-    private ImageView                            novelImageView;
-    private TextView                             novelTextName;
-    private TextView                             novelTextAuthor;
-    private TextView                             downloadedCount;
-    private ImageLoader                          mImageLoader;
-    private LinearLayout                         novelLayoutProgress;
-    private ArrayList<Article>                   articleList        = new ArrayList<Article>();
-    private ExpandableListView                   novelListView;
-    private Novel                                theNovel;
+    private Bundle mBundle;
+    private String novelName;
+    private int novelId;
+    private String novelAuthor;
+    private String novelPicUrl;
+    private String novelArticleNum;
+    private ImageView novelImageView;
+    private TextView novelTextName;
+    private TextView novelTextAuthor;
+    private TextView downloadedCount;
+    private ImageLoader mImageLoader;
+    private LinearLayout novelLayoutProgress;
+    private ArrayList<Article> articleList = new ArrayList<Article>();
+    private ExpandableListView novelListView;
+    private Novel theNovel;
 
-    private TreeMap<String, ArrayList<Article>>  myData             = new TreeMap<String, ArrayList<Article>>();
-    private static ArrayList<Group>              mGroups            = new ArrayList<Group>();
-    private AlertDialog.Builder                  deleteDialog;
-    private AlertDialog.Builder                  aboutUsDialog;
+    private TreeMap<String, ArrayList<Article>> myData = new TreeMap<String, ArrayList<Article>>();
+    private static ArrayList<Group> mGroups = new ArrayList<Group>();
+    private AlertDialog.Builder deleteDialog;
+    private AlertDialog.Builder aboutUsDialog;
 
 
-    private static MyDownloadArticleActivity              myActivity;
-    private static ActionMode                    myMode;
+    private static MyDownloadArticleActivity myActivity;
+    private static ActionMode myMode;
     private static ExpandListDownLoadReadAdapter mAdapter;
-    private static boolean                       actionModeShowing  = false;
-    private static boolean                       isDeleteArticles   = false;
-    private ProgressDialog                       progressDialog     = null;
-	private Button updateNovelButton;
-	private RelativeLayout novel_layout;
-	
-	private RelativeLayout bannerAdView;
+    private static boolean actionModeShowing = false;
+    private static boolean isDeleteArticles = false;
+    private ProgressDialog progressDialog = null;
+    private Button updateNovelButton;
+    private RelativeLayout novel_layout;
+
+    private RelativeLayout bannerAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,21 +101,20 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         setAboutUsDialog();
 
         new DownloadArticlesTask().execute();
-        
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
 
 
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
 
 
     private void setViews() {
@@ -125,8 +124,8 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         novelListView = (ExpandableListView) findViewById(R.id.novel_download_artiles_list);
         downloadedCount = (TextView) findViewById(R.id.text_downloaded_count);
         novelLayoutProgress = (LinearLayout) findViewById(R.id.novel_layout_progress);
-        updateNovelButton = (Button)findViewById(R.id.update_novel_button);
-        novel_layout = (RelativeLayout)findViewById(R.id.novel_layout);
+        updateNovelButton = (Button) findViewById(R.id.update_novel_button);
+        novel_layout = (RelativeLayout) findViewById(R.id.novel_layout);
 
         novelTextName.setText(novelName + "(" + novelArticleNum + ")");
         novelTextAuthor.setText(getResources().getString(R.string.novel_author) + novelAuthor);
@@ -151,7 +150,7 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         updateNovelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	Intent intent_to_download = new Intent(MyDownloadArticleActivity.this, DownloadActivity.class);
+                Intent intent_to_download = new Intent(MyDownloadArticleActivity.this, DownloadActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("NovelId", novelId);
                 bundle.putString("NovelName", novelName);
@@ -162,14 +161,14 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         novel_layout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	Intent activity_intent2 = new Intent(MyDownloadArticleActivity.this, NovelIntroduceActivity.class);
-        		activity_intent2.putExtra("NovelName",novelName);
-        		activity_intent2.putExtra("NovelAuthor",novelAuthor);
-        		activity_intent2.putExtra("NovelDescription","");
-        		activity_intent2.putExtra("NovelUpdate","");
-        		activity_intent2.putExtra("NovelPicUrl",novelPicUrl);
-        		activity_intent2.putExtra("NovelArticleNum",novelPicUrl);
-        		activity_intent2.putExtra("NovelId",novelId);
+                Intent activity_intent2 = new Intent(MyDownloadArticleActivity.this, NovelIntroduceActivity.class);
+                activity_intent2.putExtra("NovelName", novelName);
+                activity_intent2.putExtra("NovelAuthor", novelAuthor);
+                activity_intent2.putExtra("NovelDescription", "");
+                activity_intent2.putExtra("NovelUpdate", "");
+                activity_intent2.putExtra("NovelPicUrl", novelPicUrl);
+                activity_intent2.putExtra("NovelArticleNum", novelPicUrl);
+                activity_intent2.putExtra("NovelId", novelId);
                 startActivity(activity_intent2);
             }
         });
@@ -193,32 +192,32 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(MyDownloadArticleActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "service@kosbrother.com" });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "意見回餽 from 小說王");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US: // response
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE: // response
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=KosBrother"));
-            startActivity(browserIntent);
-            break;
-        case ID_DELETE_DOWNLOAD: // response
-            deleteDialog.show();
-            break;
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(MyDownloadArticleActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"service@kosbrother.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "意見回餽 from 小說王");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US: // response
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE: // response
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=KosBrother"));
+                startActivity(browserIntent);
+                break;
+            case ID_DELETE_DOWNLOAD: // response
+                deleteDialog.show();
+                break;
 
         }
         return true;
@@ -269,7 +268,8 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
                     for (int j = 0; j < articles.size(); j++) {
                         mGroups.get(i).addChildrenItem(
                                 new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
-                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum()));
+                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
+                        );
                     }
                 }
 
@@ -318,44 +318,44 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
 
     public static ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
-	      // Called when the action mode is created; startActionMode() was called
-	      public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	          // Inflate a menu resource providing context menu items
-	          MenuInflater inflater = mode.getMenuInflater();
-	          // Assumes that you have "contexual.xml" menu resources
-	          inflater.inflate(R.menu.contextual, menu);
-	          myMode = mode;
-	          isDeleteArticles = false;
-	          return true;
-	      }
-	
-	      // Called each time the action mode is shown. Always called after
-	      // onCreateActionMode, but
-	      // may be called multiple times if the mode is invalidated.
-	      public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-	          return false; // Return false if nothing is done
-	      }
-	
-	      // Called when the user selects a contextual menu item
-	      public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	          switch (item.getItemId()) {
-	          case R.id.delete_articles:
-	              isDeleteArticles = true;
-	              myMode = mode;
-	              actionModeShowing = false;
-	              myMode.finish();
-	              return true;
-	          default:
-	              return false;
-	          }
-	      }
-	
-	      // Called when the user exits the action mode
-	      public void onDestroyActionMode(ActionMode mode) {
-	          // mActionMode = null;
-	
-	      }
-	  };
+        // Called when the action mode is created; startActionMode() was called
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            // Assumes that you have "contexual.xml" menu resources
+            inflater.inflate(R.menu.contextual, menu);
+            myMode = mode;
+            isDeleteArticles = false;
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after
+        // onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.delete_articles:
+                    isDeleteArticles = true;
+                    myMode = mode;
+                    actionModeShowing = false;
+                    myMode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // Called when the user exits the action mode
+        public void onDestroyActionMode(ActionMode mode) {
+            // mActionMode = null;
+
+        }
+    };
 
     public static void showCallBackAction() {
         boolean show = checkSelectOrNot();
@@ -409,17 +409,17 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
             NovelAPI.removeArticles(articlesList, myActivity);
         }
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

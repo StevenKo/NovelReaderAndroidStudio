@@ -33,28 +33,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyBookmarkFragment extends Fragment{
-	
-	private SectionListView bookmarkListView;
-	private int isRecent;
-	private ArrayList<String> arrayKey;
-	private ArrayList<Bookmark> bookmarks;
-	private ArrayList<Bookmark> deleteBookmarks;
-	private TreeMap<String, ArrayList<Bookmark>> bookmarksMap;
-	public static int BOOKMARK_VIEW = 1;
-	public static int RECENT_READ_VIEW = 2;
-	public boolean isShowDeleteCallbackAction = false;
-	private Activity mActivity;
-	
-	@Override
-	  public void onAttach(Activity activity) {
-	    super.onAttach(activity);
-	    mActivity= activity;
-	  }
-	
-	public static MyBookmarkFragment newInstance(int isRecent) {
+public class MyBookmarkFragment extends Fragment {
 
-		MyBookmarkFragment fragment = new MyBookmarkFragment();
+    private SectionListView bookmarkListView;
+    private int isRecent;
+    private ArrayList<String> arrayKey;
+    private ArrayList<Bookmark> bookmarks;
+    private ArrayList<Bookmark> deleteBookmarks;
+    private TreeMap<String, ArrayList<Bookmark>> bookmarksMap;
+    public static int BOOKMARK_VIEW = 1;
+    public static int RECENT_READ_VIEW = 2;
+    public boolean isShowDeleteCallbackAction = false;
+    private Activity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
+
+    public static MyBookmarkFragment newInstance(int isRecent) {
+
+        MyBookmarkFragment fragment = new MyBookmarkFragment();
         Bundle bdl = new Bundle();
         bdl.putInt("IS_RECNET", isRecent);
         fragment.setArguments(bdl);
@@ -67,9 +67,9 @@ public class MyBookmarkFragment extends Fragment{
         super.onCreate(savedInstanceState);
         isRecent = getArguments().getInt("IS_RECNET");
     }
-    
+
     @Override
-	public void onResume() {
+    public void onResume() {
         super.onResume();
         new LoadDataTask().execute();
     }
@@ -80,7 +80,7 @@ public class MyBookmarkFragment extends Fragment{
         View myFragmentView = inflater.inflate(R.layout.layout_bookmark, container, false);
         bookmarkListView = (SectionListView) myFragmentView.findViewById(R.id.bookmark_listview);
         bookmarkListView.getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        
+
         return myFragmentView;
     }
 
@@ -115,12 +115,12 @@ public class MyBookmarkFragment extends Fragment{
         }
 
     }
-    
+
     private void setListAdatper() {
         SectionHeadersAdapter adapter = new SectionHeadersAdapter();
 
         for (int i = 0; i < arrayKey.size(); i++) {
-        	adapter.addSection(new BookmarkSectionAdapter(mActivity, bookmarksMap.get(arrayKey.get(i)), arrayKey.get(i)));
+            adapter.addSection(new BookmarkSectionAdapter(mActivity, bookmarksMap.get(arrayKey.get(i)), arrayKey.get(i)));
         }
         bookmarkListView.setAdapter(adapter);
         bookmarkListView.getListView().setOnItemClickListener(adapter);
@@ -157,13 +157,13 @@ public class MyBookmarkFragment extends Fragment{
         }
         return bookMap;
     }
-    
+
     public class BookmarkSectionAdapter extends Section implements Filterable {
 
-        private Context             mContext;
+        private Context mContext;
         private ArrayList<Bookmark> bookList;
-        private ImageLoader         imageLoader;
-        private String              headerString = "";
+        private ImageLoader imageLoader;
+        private String headerString = "";
 
         public BookmarkSectionAdapter(Context context, ArrayList<Bookmark> bookList, String headerString) {
             this.mContext = context;
@@ -247,61 +247,60 @@ public class MyBookmarkFragment extends Fragment{
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        	if(isShowDeleteCallbackAction){
-        		if (deleteBookmarks.contains((Bookmark) getItem(position))){
-        			deleteBookmarks.remove((Bookmark) getItem(position));
-        		}else{
-        			deleteBookmarks.add((Bookmark) getItem(position));
-        		}
-        	}else{
-        		((BookmarkActivity)MyBookmarkFragment.this.mActivity).closeActionMode();
-        		
-        		Bookmark bookmark = bookList.get(position);
-	              if (bookmark.getId() == 0)
-	                  return;
-	              Intent newAct = new Intent();
-	              newAct.putExtra("NovelName", bookmark.getNovelName());
-	              newAct.putExtra("ArticleTitle", bookmark.getArticleTitle());
-	              newAct.putExtra("ArticleId", bookmark.getArticleId());
-	              newAct.putExtra("ReadingRate", bookmark.getReadRate());
-	              newAct.putExtra("NovelPic", bookmark.getNovelPic());
-	              newAct.putExtra("NovelId", bookmark.getNovelId());
-	              newAct.setClass(mContext, ArticleActivity.class);
-	              startActivity(newAct);
-        	}
+            if (isShowDeleteCallbackAction) {
+                if (deleteBookmarks.contains((Bookmark) getItem(position))) {
+                    deleteBookmarks.remove((Bookmark) getItem(position));
+                } else {
+                    deleteBookmarks.add((Bookmark) getItem(position));
+                }
+            } else {
+                ((BookmarkActivity) MyBookmarkFragment.this.mActivity).closeActionMode();
+
+                Bookmark bookmark = bookList.get(position);
+                if (bookmark.getId() == 0)
+                    return;
+                Intent newAct = new Intent();
+                newAct.putExtra("NovelName", bookmark.getNovelName());
+                newAct.putExtra("ArticleTitle", bookmark.getArticleTitle());
+                newAct.putExtra("ArticleId", bookmark.getArticleId());
+                newAct.putExtra("ReadingRate", bookmark.getReadRate());
+                newAct.putExtra("NovelPic", bookmark.getNovelPic());
+                newAct.putExtra("NovelId", bookmark.getNovelId());
+                newAct.setClass(mContext, ArticleActivity.class);
+                startActivity(newAct);
+            }
         }
 
         @Override
         public void onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-        	if(isShowDeleteCallbackAction){
-        		if (deleteBookmarks.contains((Bookmark) getItem(position))){
-        			deleteBookmarks.remove((Bookmark) getItem(position));
-        		}else{
-        			deleteBookmarks.add((Bookmark) getItem(position));
-        		}
-        	}else{
-        		((BookmarkActivity)MyBookmarkFragment.this.mActivity).showCallBackAction();
-        		isShowDeleteCallbackAction = true;
-        		deleteBookmarks = new ArrayList<Bookmark>();
-        	}
-        	
+            if (isShowDeleteCallbackAction) {
+                if (deleteBookmarks.contains((Bookmark) getItem(position))) {
+                    deleteBookmarks.remove((Bookmark) getItem(position));
+                } else {
+                    deleteBookmarks.add((Bookmark) getItem(position));
+                }
+            } else {
+                ((BookmarkActivity) MyBookmarkFragment.this.mActivity).showCallBackAction();
+                isShowDeleteCallbackAction = true;
+                deleteBookmarks = new ArrayList<Bookmark>();
+            }
+
         }
-        
-        
+
+
     }
 
-	public void deleteAndReload() {
-		isShowDeleteCallbackAction = false;
-		if(deleteBookmarks!=null)
-			NovelAPI.deleteBookmarks(deleteBookmarks, this.mActivity);
-		new LoadDataTask().execute();
-	}
-	
-	public void resetIsShowDeleteCallbackAction(){
-		isShowDeleteCallbackAction = false;
-		new LoadDataTask().execute();
-	}
+    public void deleteAndReload() {
+        isShowDeleteCallbackAction = false;
+        if (deleteBookmarks != null)
+            NovelAPI.deleteBookmarks(deleteBookmarks, this.mActivity);
+        new LoadDataTask().execute();
+    }
 
-    
+    public void resetIsShowDeleteCallbackAction() {
+        isShowDeleteCallbackAction = false;
+        new LoadDataTask().execute();
+    }
+
 
 }

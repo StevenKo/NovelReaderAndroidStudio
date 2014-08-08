@@ -23,18 +23,18 @@ public class MyBookcaseFragment extends Fragment {
 
     private ArrayList<Novel> novels = new ArrayList<Novel>();
     private LoadMoreGridView myGrid;
-    private GridViewAdapter  myGridViewAdapter;
-    private LinearLayout     progressLayout;
-    private LinearLayout     loadmoreLayout;
-    private LinearLayout     noDataLayout;
-	private Activity mActivity;
-	public ArrayList<Novel> novelsFromServer;
-    
+    private GridViewAdapter myGridViewAdapter;
+    private LinearLayout progressLayout;
+    private LinearLayout loadmoreLayout;
+    private LinearLayout noDataLayout;
+    private Activity mActivity;
+    public ArrayList<Novel> novelsFromServer;
+
     @Override
-	  public void onAttach(Activity activity) {
-	    super.onAttach(activity);
-	    mActivity= activity;
-	  }
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
 
     public static MyBookcaseFragment newInstance() {
 
@@ -114,43 +114,43 @@ public class MyBookcaseFragment extends Fragment {
             new getNovelsInfoFromServerTask().execute();
         }
     }
-    
+
     private class getNovelsInfoFromServerTask extends AsyncTask {
 
-		@Override
-		protected Object doInBackground(Object... params) {
+        @Override
+        protected Object doInBackground(Object... params) {
 
-			novelsFromServer = NovelAPI.getCollectNovelsInfoFromServer(novels);
-			if(novelsFromServer != null)
-				NovelAPI.updateNovelsInfo(novelsFromServer, mActivity);
-			return null;
-		}
-		
-		@Override
+            novelsFromServer = NovelAPI.getCollectNovelsInfoFromServer(novels);
+            if (novelsFromServer != null)
+                NovelAPI.updateNovelsInfo(novelsFromServer, mActivity);
+            return null;
+        }
+
+        @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if(novelsFromServer != null){
-            	myGridViewAdapter = new GridViewAdapter(mActivity, novelsFromServer, new ArrayList<GameAPP>());
-            	myGrid.setAdapter(myGridViewAdapter);
+            if (novelsFromServer != null) {
+                myGridViewAdapter = new GridViewAdapter(mActivity, novelsFromServer, new ArrayList<GameAPP>());
+                myGrid.setAdapter(myGridViewAdapter);
             }
         }
-    	
+
     }
 
-    
+
     private class UpdateServerCollectTask extends AsyncTask {
 
-		@Override
-		protected Object doInBackground(Object... params) {
-			String collect_novels_str = "";
-			for(Novel novel :novels){
-				collect_novels_str += novel.getId() + ",";
-			}
-			
-			NovelAPI.sendCollectedNovels(collect_novels_str, Settings.Secure.getString(mActivity.getContentResolver(),Settings.Secure.ANDROID_ID));
-			return null;
-		}
-    	
+        @Override
+        protected Object doInBackground(Object... params) {
+            String collect_novels_str = "";
+            for (Novel novel : novels) {
+                collect_novels_str += novel.getId() + ",";
+            }
+
+            NovelAPI.sendCollectedNovels(collect_novels_str, Settings.Secure.getString(mActivity.getContentResolver(), Settings.Secure.ANDROID_ID));
+            return null;
+        }
+
     }
 
 }

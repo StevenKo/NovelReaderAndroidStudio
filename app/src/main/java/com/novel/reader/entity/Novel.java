@@ -3,14 +3,14 @@ package com.novel.reader.entity;
 import java.util.Date;
 
 public class Novel {
-    int     id;
-    String  name;
-    String  author;
-    String  description;
-    String  pic;
-    int     categoryId;
-    String  articleNum;
-    String  lastUpdate;
+    int id;
+    String name;
+    String author;
+    String description;
+    String pic;
+    int categoryId;
+    String articleNum;
+    String lastUpdate;
     boolean isSerializing;
     boolean isCollected;
     boolean isDownloaded;
@@ -21,7 +21,7 @@ public class Novel {
     }
 
     public Novel(int id, String name, String author, String description, String pic, int categoryId, String articleNum, String lastUpdate,
-            boolean isSerializing, boolean isCollected, boolean isDownloaded) {
+                 boolean isSerializing, boolean isCollected, boolean isDownloaded) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -51,11 +51,11 @@ public class Novel {
         this.lastViewDate = lastViewDate;
     }
 
-    public Date getLastViewDate(){
+    public Date getLastViewDate() {
         return lastViewDate;
     }
 
-    public void setLastViewDate(Date date){
+    public void setLastViewDate(Date date) {
         this.lastViewDate = date;
     }
 

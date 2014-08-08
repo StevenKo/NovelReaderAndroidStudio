@@ -16,9 +16,9 @@ import com.novel.reader.util.NovelReaderUtil;
 
 public class ListAdapter extends BaseAdapter {
 
-    private final Activity            activity;
+    private final Activity activity;
     private final ArrayList<Category> data;
-    private static LayoutInflater     inflater = null;
+    private static LayoutInflater inflater = null;
 
     public ListAdapter(Activity a, ArrayList<Category> d) {
         activity = a;
@@ -45,7 +45,7 @@ public class ListAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.item_list, null);
         TextView text = (TextView) vi.findViewById(R.id.text_category_name);
         TextView testId = (TextView) vi.findViewById(R.id.text_category_id);
-        text.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getCateName()));
+        text.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getCateName()));
         testId.setText(Integer.toString(data.get(position).getId()));
 
         return vi;

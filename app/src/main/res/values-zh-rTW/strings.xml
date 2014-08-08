@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string name="MY_INTERSTITIAL_UNIT_ID">d875d0cc47ef403b</string>
     <string name="admobKey">292fbab7f4ea4848</string>
     <string name="app_name">小說王</string>
     <string name="remind_title">小提醒</string>
     <string name="remind_string">下載後請至我的書櫃觀看</string>
-    
+
     <string name="novel_author">作者:</string>
     <string name="novel_update_time">更新:</string>
     <string name="novel_front">由前往後</string>
@@ -16,13 +16,13 @@
     <string name="novel_select_zero">共選了 0 項</string>
     <string name="novel_start_download">開始下載</string>
     <string name="novel_downloaded">已下載</string>
-    
+
     <string name="article_up">上一篇</string>
     <string name="article_down">下一篇</string>
     <string name="article_no_up">無上一篇</string>
     <string name="article_no_down">無下一篇</string>
     <string name="article_no_data">資料錯誤</string>
-    
+
     <string name="setting_text">文字大小</string>
     <string name="setting_text_preview">文字預覽:小說王</string>
     <string name="setting_select_lan">繁簡字體選擇</string>
@@ -58,20 +58,20 @@
     <string name="moon_mode">夜間模式</string>
     <string name="mode_setting_title">文字背景模式</string>
     <string name="fontsize_setting_title">文字大小設定</string>
-    
+
     <string name="title_my_downloading"> 我的下載</string>
     <string name="title_my_bookcase"> 我的書櫃</string>
     <string name="title_novel_introduce"> 小說介紹</string>
     <string name="title_reading_setting"> 閱讀設定</string>
     <string name="update_novel">小說更新</string>
-    
+
     <string name="setting_living">離開設定</string>
     <string name="setting_message">是否要儲存設定?</string>
     <string name="setting_yes">儲存</string>
     <string name="setting_neutral">取消</string>
     <string name="setting_no">不儲存</string>
-    
-    
+
+
     <string name="add_my_bookcase1">加入書櫃(收藏)</string>
     <string name="add_my_bookcase">已加入我的書櫃</string>
     <string name="remove_my_bookcase">已從我的書櫃移除</string>
@@ -80,19 +80,19 @@
     <string name="my_bookmark_none">目前沒有書籤！</string>
     <string name="reading_novel">觀看小說</string>
     <string name="remove_bookmark">刪除書籤</string>
-    
+
     <string name="toast_all_collect_title"> 共選了</string>
     <string name="toast_all_collect_final"> 項</string>
     <string name="toast_novel_downloading">小說下載中,...</string>
     <string name="toast_downloading_success">成功下載</string>
     <string name="toast_downloading_fail">出現錯誤, 請重新下載</string>
     <string name="toast_downloading_wait">資料下載中,請稍候</string>
-    
+
     <string name="respond_mail_address">service@kosbrother.com</string>
     <string name="respond_mail_title">意見回餽 from 小說王</string>
-    
+
     <string name="recommend_url">https://play.google.com/store/apps/details?id=com.novel.reader</string>
-    
+
     <string name="menu_settings">設定</string>
     <string name="menu_respond">意見回饋</string>
     <string name="menu_aboutus">關於我們</string>
@@ -107,7 +107,7 @@
     <string name="menu_article_report">章節問題回報</string>
     <string name="menu_collect_novel">收藏此本小說</string>
     <string name="menu_remove_collect_novel">取消收藏此本小說</string>
-    
+
     <string name="report_title">小說王問題回報</string>
     <string name="report_chapter">回報章節:</string>
     <string name="report_confirm">回報</string>
@@ -119,11 +119,11 @@
     <string name="report_hint">問題內容...</string>
     <string name="report_content">問題內容:</string>
     <string name="report_novel">小說名稱:</string>
-    
+
     <string name="about_us_string">關於我們</string>
     <string name="about_us">您好, \n\n『小說王』是一個從網路收集小說的第三方App軟體,資料不屬於小說王所有，直接來自網路 \n\n如果您有什麼建議與指教, 歡迎 Email 讓我們知道. \n\n感謝您. \n\nEmail: service\@kosbrother.com</string>
     <string name="yes_string">確定</string>
-    
+
     <string name="my_bookcase">我的書櫃</string>
     <string name="my_bookmark">我的書籤</string>
     <string name="my_recent_reading">最近閱讀</string>
@@ -132,20 +132,20 @@
     <string name="my_classic_action_novel">經典武俠</string>
     <string name="my_collect">我的收藏</string>
     <string name="my_download">我的下載</string>
-    
+
     <string name="reminder">提醒</string>
     <string name="delete_bookmark_reminder">長按書籤可以刪除書籤哦！</string>
     <string name="reminder_next">下次再提醒</string>
     <string name="do_not_reminder">不要再提醒</string>
-    
+
     <string name="delete_title">刪除</string>
     <string name="delete_message">是否刪除此小說</string>
     <string name="delete_yes">刪除</string>
     <string name="delete_no">不刪除</string>
     <string name="delete_articles">刪除所選章節</string>
-    
+
     <string name="search_hint">搜尋小說名稱或作者</string>
-    
+
     <string name="no_data">目前無資料</string>
     <string name="no_internet">無法連線</string>
     <string name="try_again">重試</string>
@@ -155,36 +155,36 @@
     <string name="article_num">篇數:</string>
     <string name="update_time">更新日期:</string>
     <string name="serializing">連載中</string>
-    
-    
+
+
     <string name="report_problem_hint">請輸入問題內容...</string>
     <string name="report_not_article_problem">非特定章節！</string>
     <string name="report_not_novel_problem">非特定小說！</string>
     <string name="bookmarks_recent_read">查看書籤及最近閱讀</string>
     <string name="look_collect_download">查看收藏及下載</string>
-    
+
     <string name="title">標題:</string>
     <string name="no_novel_in_bookcase">目前還沒有收藏或下載的小說</string>
     <string name="no_bookmark_in_my_bookmarks">目前還沒有收集書籤或閱讀過小說章節</string>
-    
-    <string name="update_info" ><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增推薦小說, 並把部分功能移到左列選單<br><font color=\'blue\'>V2.9.3:</font> <br>顯示今日更新小說<br><font color=\'blue\'>V2.9.0:</font> <br>更換小說類別、推薦方式，新增3000本小說<br><font color=\'blue\'>V2.8.5:</font> <br>新增購買<font color=\'red\'>贊助版本(免廣告)</font>, 懇請大家多多支持!<br>]]></string>
+
+    <string name="update_info"><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增推薦小說, 並把部分功能移到左列選單<br><font color=\'blue\'>V2.9.3:</font> <br>顯示今日更新小說<br><font color=\'blue\'>V2.9.0:</font> <br>更換小說類別、推薦方式，新增3000本小說<br><font color=\'blue\'>V2.8.5:</font> <br>新增購買<font color=\'red\'>贊助版本(免廣告)</font>, 懇請大家多多支持!<br>]]></string>
     <string name="update">版本更新通知</string>
-    
+
     <string name="buy_year_subscription">購買贊助版</string>
     <string name="buy_fail">購買失敗，請再試一次！</string>
     <string name="restart_novel">請重啟\"小說王\"即是贊助版本，謝謝!</string>
-    
+
     <string name="need_you">小說王需要你</string>
     <string name="notice_no_ad">現在只要贊助\'小說王\', 即可以免除廣告！</string>
     <string name="donate_des">小說王開發者、設計師、編輯之前皆是無薪開發, 所以不得不在APP裡面, 放一些廣告, 造成大家的困擾, 我們十分抱歉！希望大家可以贊助我們, 也享受看小說不再受到廣告的干擾, 謝謝!</string>
     <string name="donate_app">贊助小說王</string>
     <string name="verify_buy">已購買, 重新驗證!</string>
-    
-    
+
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
-    
+
+
     <!-- for vpon -->
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
     <string name="msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>
@@ -212,7 +212,7 @@
     <string name="msg_share_subject_line">Here are the contents of a barcode I scanned</string>
     <string name="msg_share_text">Or type some text and press Enter</string>
     <string name="msg_unmount_usb">Sorry, the SD card is not accessible.</string>
-    
+
     <!-- for load more -->
     <string name="hello">Hello World, LoadMoreListView!</string>
     <string name="pull_to_refresh_pull_label">Pull to refresh...</string>

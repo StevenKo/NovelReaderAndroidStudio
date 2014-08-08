@@ -20,10 +20,10 @@ import com.novel.reader.util.NovelReaderUtil;
 
 public class ListArticleAdapter extends BaseAdapter {
 
-    private final Activity           activity;
+    private final Activity activity;
     private final ArrayList<Article> data;
-    private static LayoutInflater    inflater = null;
-    private final String             novelName;
+    private static LayoutInflater inflater = null;
+    private final String novelName;
 
     public ListArticleAdapter(Activity a, ArrayList<Article> d, String theNovelName) {
         activity = a;
@@ -48,7 +48,7 @@ public class ListArticleAdapter extends BaseAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_expandible_child, null);
         TextView text = (TextView) vi.findViewById(R.id.expandlist_child);
-        text.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getTitle()));
+        text.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getTitle()));
 
         vi.setOnClickListener(new OnClickListener() {
 

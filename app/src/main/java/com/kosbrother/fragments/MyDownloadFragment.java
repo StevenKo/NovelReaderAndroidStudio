@@ -22,20 +22,20 @@ import com.taiwan.imageload.LoadMoreGridView;
 
 public class MyDownloadFragment extends Fragment {
 
-    private ArrayList<Novel>        novels = new ArrayList<Novel>();
-    private LoadMoreGridView        myGrid;
+    private ArrayList<Novel> novels = new ArrayList<Novel>();
+    private LoadMoreGridView myGrid;
     private GridViewDownloadAdapter myGridViewAdapter;
-    private LinearLayout            progressLayout;
-    private LinearLayout            loadmoreLayout;
-    private LinearLayout            noDataLayout;
-	private Activity mActivity;
-	public ArrayList<Novel> novelsFromServer;
-    
+    private LinearLayout progressLayout;
+    private LinearLayout loadmoreLayout;
+    private LinearLayout noDataLayout;
+    private Activity mActivity;
+    public ArrayList<Novel> novelsFromServer;
+
     @Override
-	  public void onAttach(Activity activity) {
-	    super.onAttach(activity);
-	    mActivity= activity;
-	  }
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
 
     public static MyDownloadFragment newInstance() {
 
@@ -127,42 +127,42 @@ public class MyDownloadFragment extends Fragment {
             new getNovelsInfoFromServerTask().execute();
         }
     }
-    
+
     private class getNovelsInfoFromServerTask extends AsyncTask {
 
-		@Override
-		protected Object doInBackground(Object... params) {
+        @Override
+        protected Object doInBackground(Object... params) {
 
-			novelsFromServer = NovelAPI.getCollectNovelsInfoFromServer(novels);
-			if(novelsFromServer != null)
-				NovelAPI.updateNovelsInfo(novelsFromServer, mActivity);
-			return null;
-		}
-		
-		@Override
+            novelsFromServer = NovelAPI.getCollectNovelsInfoFromServer(novels);
+            if (novelsFromServer != null)
+                NovelAPI.updateNovelsInfo(novelsFromServer, mActivity);
+            return null;
+        }
+
+        @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if(novelsFromServer != null){
-            	myGridViewAdapter = new GridViewDownloadAdapter(mActivity, novelsFromServer);
+            if (novelsFromServer != null) {
+                myGridViewAdapter = new GridViewDownloadAdapter(mActivity, novelsFromServer);
                 myGrid.setAdapter(myGridViewAdapter);
             }
         }
-    	
+
     }
-    
+
     private class UpdateServerDownloadTask extends AsyncTask {
 
-		@Override
-		protected Object doInBackground(Object... params) {
-			String collect_novels_str = "";
-			for(Novel novel :novels){
-				collect_novels_str += novel.getId() + ",";
-			}
-			
-			NovelAPI.sendDownloadedNovels(collect_novels_str, Settings.Secure.getString(mActivity.getContentResolver(),Settings.Secure.ANDROID_ID));
-			return null;
-		}
-    	
+        @Override
+        protected Object doInBackground(Object... params) {
+            String collect_novels_str = "";
+            for (Novel novel : novels) {
+                collect_novels_str += novel.getId() + ",";
+            }
+
+            NovelAPI.sendDownloadedNovels(collect_novels_str, Settings.Secure.getString(mActivity.getContentResolver(), Settings.Secure.ANDROID_ID));
+            return null;
+        }
+
     }
 
 }

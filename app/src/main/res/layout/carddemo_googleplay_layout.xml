@@ -19,10 +19,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:card="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <!-- Card visible layout -->
     <LinearLayout
@@ -30,8 +30,7 @@
         style="@style/card.main_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <it.gmariotti.cardslib.library.view.component.CardThumbnailView
             style="@style/card_thumbnail_outer_layout"
@@ -39,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             card:card_thumbnail_layout_resourceID="@layout/carddemo_grid_gplay_thumbnail_layout"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <it.gmariotti.cardslib.library.view.component.CardHeaderView
             style="@style/card.header_outer_layout"
@@ -47,14 +46,14 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
         <!-- Main Content View -->
         <FrameLayout
             android:id="@+id/card_main_content_layout"
             style="@style/Birth.card.content_outer_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -64,6 +63,6 @@
         style="@style/card.shadow_outer_layout"
         android:id="@+id/card_shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -3,18 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white" >
-    
+    android:background="@color/white">
+
     <TextView
-       android:id="@+id/update_tip"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textSize="15dp" 
-       android:textColor="#222222"
-       android:typeface="serif"
-       android:layout_margin="5dp"
-       >
-     </TextView>
-    
+        android:id="@+id/update_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="#222222"
+        android:typeface="serif"
+        android:layout_margin="5dp"></TextView>
+
 
 </LinearLayout>

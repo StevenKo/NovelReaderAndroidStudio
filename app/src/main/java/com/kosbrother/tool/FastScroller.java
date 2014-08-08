@@ -91,49 +91,49 @@ import com.novel.reader.R;
 public class FastScroller {
 
     // Minimum number of pages to justify showing a fast scroll thumb
-    private static int        MIN_PAGES      = 4;
+    private static int MIN_PAGES = 4;
     // Scroll thumb not showing
-    private static final int  STATE_NONE     = 0;
+    private static final int STATE_NONE = 0;
     // Not implemented yet - fade-in transition
-    private static final int  STATE_ENTER    = 1;
+    private static final int STATE_ENTER = 1;
     // Scroll thumb visible and moving along with the scrollbar
-    private static final int  STATE_VISIBLE  = 2;
+    private static final int STATE_VISIBLE = 2;
     // Scroll thumb being dragged by user
-    private static final int  STATE_DRAGGING = 3;
+    private static final int STATE_DRAGGING = 3;
     // Scroll thumb fading out due to inactivity timeout
-    private static final int  STATE_EXIT     = 4;
+    private static final int STATE_EXIT = 4;
 
-    private Drawable          mThumbDrawable;
-    private Drawable          mOverlayDrawable;
+    private Drawable mThumbDrawable;
+    private Drawable mOverlayDrawable;
 
-    private int               mThumbH;
-    private int               mThumbW;
-    private int               mThumbY;
+    private int mThumbH;
+    private int mThumbW;
+    private int mThumbY;
 
-    private RectF             mOverlayPos;
-    private final int         mOverlaySize   = 104;
+    private RectF mOverlayPos;
+    private final int mOverlaySize = 104;
 
     private final AbsListView mList;
-    private boolean           mScrollCompleted;
-    private int               mVisibleItem;
-    private TextPaint         mPaint;
-    private int               mListOffset;
-    private int               mItemCount     = -1;
-    private boolean           mLongList;
+    private boolean mScrollCompleted;
+    private int mVisibleItem;
+    private TextPaint mPaint;
+    private int mListOffset;
+    private int mItemCount = -1;
+    private boolean mLongList;
 
-    private Object[]          mSections;
-    private String            mSectionText;
-    private boolean           mDrawOverlay;
-    private ScrollFade        mScrollFade;
+    private Object[] mSections;
+    private String mSectionText;
+    private boolean mDrawOverlay;
+    private ScrollFade mScrollFade;
 
-    private int               mState;
+    private int mState;
 
-    private final Handler     mHandler       = new Handler();
+    private final Handler mHandler = new Handler();
 
-    private BaseAdapter       mListAdapter;
-    private SectionIndexer    mSectionIndexer;
+    private BaseAdapter mListAdapter;
+    private SectionIndexer mSectionIndexer;
 
-    private boolean           mChangedBounds;
+    private boolean mChangedBounds;
 
     public FastScroller(Context context, AbsListView listView) {
         mList = listView;
@@ -144,22 +144,22 @@ public class FastScroller {
 
         System.out.println("State: " + state);
         switch (state) {
-        case STATE_NONE:
-            mHandler.removeCallbacks(mScrollFade);
-            mList.invalidate();
-            break;
-        case STATE_VISIBLE:
-            if (mState != STATE_VISIBLE) { // Optimization
-                resetThumbPos();
-            }
-            // Fall through
-        case STATE_DRAGGING:
-            mHandler.removeCallbacks(mScrollFade);
-            break;
-        case STATE_EXIT:
-            int viewWidth = mList.getWidth();
-            mList.invalidate(viewWidth - mThumbW, mThumbY, viewWidth, mThumbY + mThumbH);
-            break;
+            case STATE_NONE:
+                mHandler.removeCallbacks(mScrollFade);
+                mList.invalidate();
+                break;
+            case STATE_VISIBLE:
+                if (mState != STATE_VISIBLE) { // Optimization
+                    resetThumbPos();
+                }
+                // Fall through
+            case STATE_DRAGGING:
+                mHandler.removeCallbacks(mScrollFade);
+                break;
+            case STATE_EXIT:
+                int viewWidth = mList.getWidth();
+                mList.invalidate(viewWidth - mThumbW, mThumbY, viewWidth, mThumbY + mThumbH);
+                break;
         }
         mState = state;
     }
@@ -199,7 +199,7 @@ public class FastScroller {
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setTextSize(mOverlaySize / 3);
-        TypedArray ta = context.getTheme().obtainStyledAttributes(new int[] { android.R.attr.textColorPrimary });
+        TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorPrimary});
         ColorStateList textColor = ta.getColorStateList(ta.getIndex(0));
         int textColorNormal = textColor.getDefaultColor();
         mPaint.setColor(textColorNormal);
@@ -259,7 +259,7 @@ public class FastScroller {
             final RectF rectF = mOverlayPos;
             final String text = TextUtils.ellipsize(mSectionText, paint, (mOverlayPos.right - mOverlayPos.left) * 0.8f, TextUtils.TruncateAt.END).toString();
             canvas.drawText(text, (int) (rectF.left + rectF.right) / 2,
-            // Base of text at: (middle) + (half text height) - descent : so it is vertically centred
+                    // Base of text at: (middle) + (half text height) - descent : so it is vertically centred
                     (int) (rectF.bottom + rectF.top) / 2 + mOverlaySize / 6 - descent, paint);
         } else if (mState == STATE_EXIT) {
             if (alpha == 0) { // Done with exit
@@ -341,7 +341,7 @@ public class FastScroller {
 
             } else {
                 mListAdapter = (BaseAdapter) adapter;
-                mSections = new String[] { " " };
+                mSections = new String[]{" "};
             }
         }
     }
@@ -438,9 +438,9 @@ public class FastScroller {
 
     public class ScrollFade implements Runnable {
 
-        long              mStartTime;
-        long              mFadeDuration;
-        static final int  ALPHA_MAX     = 208;
+        long mStartTime;
+        long mFadeDuration;
+        static final int ALPHA_MAX = 208;
         static final long FADE_DURATION = 200;
 
         void startFade() {

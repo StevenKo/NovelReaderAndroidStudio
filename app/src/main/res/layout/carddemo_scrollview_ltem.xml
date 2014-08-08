@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background="@color/main_color_grey_dark"
-    >
+    android:background="@color/main_color_grey_dark">
 
 
-    <RelativeLayout android:id="@+id/recommend_title"
+    <RelativeLayout
+        android:id="@+id/recommend_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/my_novel_selector"
         android:clickable="true"
         android:layout_margin="2dp"
-        android:padding="5dp"
-        >
+        android:padding="5dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R-Novel"
             android:textSize="20dp"
-            android:id="@+id/category_name"
-            />
+            android:id="@+id/category_name" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,8 +32,7 @@
             android:background="@drawable/index_text_background"
             android:textColor="#dfdfdf"
             android:textSize="18dp"
-            android:padding="2dp"
-            />
+            android:padding="2dp" />
 
     </RelativeLayout>
 
@@ -46,5 +46,5 @@
         android:stretchMode="none"
         android:gravity="center"
         card:list_card_layout_resourceID="@layout/carddemo_grid_gplay"
-        android:id="@+id/carddemo_grid_base1"/>
+        android:id="@+id/carddemo_grid_base1" />
 </LinearLayout>

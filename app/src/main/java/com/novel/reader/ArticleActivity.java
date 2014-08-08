@@ -36,51 +36,51 @@ import java.util.ArrayList;
 
 public class ArticleActivity extends AdFragmentActivity implements DetectScrollViewListener {
 
-    private static final int    ID_SETTING  = 0;
-    private static final int    ID_Bookmark = 4;
-    private static final int    ID_Report   = 5;
-	private static final int    ID_MODE = 6;
-	private static final int    ID_FONT_SIZE = 7;
-	private static final int    ID_CONTENTS = 8;
-	private static final int    ID_NOVEL = 9;
-	
-	private int                 textSize;
-    private int                 textLanguage;                                    // 0 for 繁體, 1 for 簡體
-    private int                 clickToNextPage;                                 // 0 for yes, 1 for no
-    private int                 stopSleeping;                                    // 0 for yes, 1 for no
-    private String 				textMode;
+    private static final int ID_SETTING = 0;
+    private static final int ID_Bookmark = 4;
+    private static final int ID_Report = 5;
+    private static final int ID_MODE = 6;
+    private static final int ID_FONT_SIZE = 7;
+    private static final int ID_CONTENTS = 8;
+    private static final int ID_NOVEL = 9;
 
-    private TextView            articleTextView;
-    private DetectScrollView    articleScrollView;
-    private Button              articleButtonUp;
-    private Button              articleButtonDown;
-    private TextView            articlePercent;
-    private Article             myArticle;                                        // uset to get article text
-    private Article             theGottenArticle;
-    private Boolean             downloadBoolean;
-    private Bundle              mBundle;
-    private String              novelName;
-    private String              articleTitle;
-    private int                 articleId = -1;
-    private String              novelPic;
-    private int                 novelId;
-    private int                 yRate = -1;
-    private int                 ariticlePosition = -1;
-    private ArrayList<Integer>  articleIDs;
+    private int textSize;
+    private int textLanguage;                                    // 0 for 繁體, 1 for 簡體
+    private int clickToNextPage;                                 // 0 for yes, 1 for no
+    private int stopSleeping;                                    // 0 for yes, 1 for no
+    private String textMode;
+
+    private TextView articleTextView;
+    private DetectScrollView articleScrollView;
+    private Button articleButtonUp;
+    private Button articleButtonDown;
+    private TextView articlePercent;
+    private Article myArticle;                                        // uset to get article text
+    private Article theGottenArticle;
+    private Boolean downloadBoolean;
+    private Bundle mBundle;
+    private String novelName;
+    private String articleTitle;
+    private int articleId = -1;
+    private String novelPic;
+    private int novelId;
+    private int yRate = -1;
+    private int ariticlePosition = -1;
+    private ArrayList<Integer> articleIDs;
     // private ProgressDialog progressDialog= null;
-    private ActionBar           ab;
-    private LinearLayout        layoutProgress;
-    private int                 currentY    = 0;
-    private int                 articleNum = -1;
-    private ArrayList<Integer>  articleNums;
-	private WebView             articleWebView;
-	private LinearLayout articleLayout;
-	private int articleAdType;
+    private ActionBar ab;
+    private LinearLayout layoutProgress;
+    private int currentY = 0;
+    private int articleNum = -1;
+    private ArrayList<Integer> articleNums;
+    private WebView articleWebView;
+    private LinearLayout articleLayout;
+    private int articleAdType;
 
-	private RelativeLayout bannerAdView;
-	private TextView articleTitleTextView;
-	private ImageView bookmarkImage;
-	private ImageView novelImage;
+    private RelativeLayout bannerAdView;
+    private TextView articleTitleTextView;
+    private ImageView bookmarkImage;
+    private ImageView novelImage;
     private boolean adHasShowed = false;
 
 
@@ -90,7 +90,7 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_article);
 
-        
+
         restorePreValues();
         setViews();
 
@@ -99,71 +99,71 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         novelName = mBundle.getString("NovelName");
         novelPic = mBundle.getString("NovelPic");
         novelId = mBundle.getInt("NovelId");
-        
-        if(myArticle == null){
-	         articleTitle = mBundle.getString("ArticleTitle");
-	         articleId = mBundle.getInt("ArticleId");
-	         downloadBoolean = mBundle.getBoolean("ArticleDownloadBoolean", false);
-	         yRate = mBundle.getInt("ReadingRate", 0);
-	         articleIDs = mBundle.getIntegerArrayList("ArticleIDs");
-	         ariticlePosition = mBundle.getInt("ArticlePosition");
-	         articleNum = mBundle.getInt("ArticleNum");
-	         articleNums = mBundle.getIntegerArrayList("ArticleNums");
-	         if(savedInstanceState != null){
-	        	 getSavedState(savedInstanceState);
-	         }
 
-	  	    if (articleIDs != null) {
-	  	        if (downloadBoolean) {
-	  	            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
-	  	        } else {
-	  	            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
-	  	        }
-	  	    } else {
-	  	        if (downloadBoolean) {
-	  	            myArticle = new Article(articleId, novelId, "", articleTitle, "", true, articleNum);
-	  	        } else {
-	  	            myArticle = new Article(articleId, novelId, "", articleTitle, "", false, articleNum);
-	  	        }
-	  	    }
-	  	
-	  	    new DownloadArticleTask().execute();
+        if (myArticle == null) {
+            articleTitle = mBundle.getString("ArticleTitle");
+            articleId = mBundle.getInt("ArticleId");
+            downloadBoolean = mBundle.getBoolean("ArticleDownloadBoolean", false);
+            yRate = mBundle.getInt("ReadingRate", 0);
+            articleIDs = mBundle.getIntegerArrayList("ArticleIDs");
+            ariticlePosition = mBundle.getInt("ArticlePosition");
+            articleNum = mBundle.getInt("ArticleNum");
+            articleNums = mBundle.getIntegerArrayList("ArticleNums");
+            if (savedInstanceState != null) {
+                getSavedState(savedInstanceState);
+            }
+
+            if (articleIDs != null) {
+                if (downloadBoolean) {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
+                } else {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
+                }
+            } else {
+                if (downloadBoolean) {
+                    myArticle = new Article(articleId, novelId, "", articleTitle, "", true, articleNum);
+                } else {
+                    myArticle = new Article(articleId, novelId, "", articleTitle, "", false, articleNum);
+                }
+            }
+
+            new DownloadArticleTask().execute();
         }
-        
+
         ab.setDisplayShowCustomEnabled(true);
         ab.setDisplayShowTitleEnabled(false);
-        
+
         setArticleTitle(articleTitle);
-        
+
         // ab.setTitle(novelName);
-        ab.setDisplayHomeAsUpEnabled(true);        
+        ab.setDisplayHomeAsUpEnabled(true);
     }
-    
-    
-    public void getSavedState(Bundle savedInstanceState){
-    	 if(savedInstanceState.containsKey("ArticleTitle"));
-	 		articleTitle = savedInstanceState.getString("ArticleTitle");
-	 	 if(savedInstanceState.containsKey("ArticleId"));
-	 	 	articleId = savedInstanceState.getInt("ArticleId");
-	 	 if(savedInstanceState.containsKey("ArticleDownloadBoolean"));
-	 	 	downloadBoolean = savedInstanceState.getBoolean("ArticleDownloadBoolean", false);
-	     if(savedInstanceState.containsKey("ReadingRate"));
-	     	yRate = savedInstanceState.getInt("ReadingRate", 0);
-	     if(savedInstanceState.containsKey("ArticleIDs"));
-	     	articleIDs = savedInstanceState.getIntegerArrayList("ArticleIDs");
-	     if(savedInstanceState.containsKey("ArticlePosition"));
-	     	ariticlePosition = savedInstanceState.getInt("ArticlePosition");
-	     if(savedInstanceState.containsKey("ArticleNum"));
-	     	articleNum = savedInstanceState.getInt("ArticleNum");
-	     if(savedInstanceState.containsKey("ArticleNums"));
-	     	articleNums = savedInstanceState.getIntegerArrayList("ArticleNums");
-        if(savedInstanceState.getBoolean("AdHasShowed"))
+
+
+    public void getSavedState(Bundle savedInstanceState) {
+        if (savedInstanceState.containsKey("ArticleTitle")) ;
+        articleTitle = savedInstanceState.getString("ArticleTitle");
+        if (savedInstanceState.containsKey("ArticleId")) ;
+        articleId = savedInstanceState.getInt("ArticleId");
+        if (savedInstanceState.containsKey("ArticleDownloadBoolean")) ;
+        downloadBoolean = savedInstanceState.getBoolean("ArticleDownloadBoolean", false);
+        if (savedInstanceState.containsKey("ReadingRate")) ;
+        yRate = savedInstanceState.getInt("ReadingRate", 0);
+        if (savedInstanceState.containsKey("ArticleIDs")) ;
+        articleIDs = savedInstanceState.getIntegerArrayList("ArticleIDs");
+        if (savedInstanceState.containsKey("ArticlePosition")) ;
+        ariticlePosition = savedInstanceState.getInt("ArticlePosition");
+        if (savedInstanceState.containsKey("ArticleNum")) ;
+        articleNum = savedInstanceState.getInt("ArticleNum");
+        if (savedInstanceState.containsKey("ArticleNums")) ;
+        articleNums = savedInstanceState.getIntegerArrayList("ArticleNums");
+        if (savedInstanceState.getBoolean("AdHasShowed"))
             adHasShowed = savedInstanceState.getBoolean("AdHasShowed");
     }
-    
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-      NovelAPI.createRecentBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, true),
+        NovelAPI.createRecentBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, true),
                 ArticleActivity.this);
         savedInstanceState.putString("ArticleTitle", myArticle.getTitle());
         savedInstanceState.putInt("ArticleId", myArticle.getId());
@@ -174,16 +174,16 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         savedInstanceState.putInt("ArticleNum", myArticle.getNum());
         savedInstanceState.putIntegerArrayList("ArticleNums", articleNums);
         savedInstanceState.putBoolean("AdHasShowed", true);
-      super.onSaveInstanceState(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     private void setArticleTitle(String articleTitle) {
-              articleTitleTextView.setText(novelName + ":" + articleTitle);
+        articleTitleTextView.setText(novelName + ":" + articleTitle);
     }
 
     private void restorePreValues() {
-    	
-    	textSize = Setting.getSettingInt(Setting.keyTextSize, ArticleActivity.this);
+
+        textSize = Setting.getSettingInt(Setting.keyTextSize, ArticleActivity.this);
         textMode = Setting.getSettingString(Setting.keyMode, ArticleActivity.this);
         textLanguage = Setting.getSettingInt(Setting.keyTextLanguage, ArticleActivity.this);
         clickToNextPage = Setting.getSettingInt(Setting.keyClickToNextPage, ArticleActivity.this);
@@ -198,26 +198,24 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
         layoutProgress = (LinearLayout) findViewById(R.id.layout_progress);
         articleTextView = (TextView) findViewById(R.id.article_text);
-        articleWebView = (WebView)findViewById(R.id.article_webview);
+        articleWebView = (WebView) findViewById(R.id.article_webview);
         articleScrollView = (DetectScrollView) findViewById(R.id.article_scrollview);
         articleButtonUp = (Button) findViewById(R.id.article_button_up);
         articleButtonDown = (Button) findViewById(R.id.article_button_down);
         articlePercent = (TextView) findViewById(R.id.article_percent);
-        articleLayout = (LinearLayout)findViewById(R.id.article_layout);
-        articleTitleTextView = (TextView)findViewById(R.id.article_title);
-        bookmarkImage = (ImageView)findViewById(R.id.bookmarkImage);
-        novelImage = (ImageView)findViewById(R.id.novelImage);
+        articleLayout = (LinearLayout) findViewById(R.id.article_layout);
+        articleTitleTextView = (TextView) findViewById(R.id.article_title);
+        bookmarkImage = (ImageView) findViewById(R.id.bookmarkImage);
+        novelImage = (ImageView) findViewById(R.id.novelImage);
 
         articleScrollView.setScrollViewListener(ArticleActivity.this);
 
         articleTextView.setTextSize(textSize);
-        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));
-        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode,this));
-        layoutProgress.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode,this));
-        	
-        
-        
-        
+        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(textMode, this));
+        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
+        layoutProgress.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
+
+
         articleButtonUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -236,7 +234,7 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                     }
                 } else {
                     new GetPreviousArticleTask().execute();
-                }                
+                }
             }
         });
 
@@ -277,23 +275,23 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
 
     private void updateBookmark() {
-		Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
-    	if(bookmark != null){
-    		bookmarkImage.setVisibility(View.VISIBLE);
-    	}else{
-    		bookmarkImage.setVisibility(View.GONE);
-    	}
-	}
+        Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
+        if (bookmark != null) {
+            bookmarkImage.setVisibility(View.VISIBLE);
+        } else {
+            bookmarkImage.setVisibility(View.GONE);
+        }
+    }
 
 
-	@Override
+    @Override
     public void onScrollChanged(DetectScrollView scrollView, int x, int y, int oldx, int oldy) {
         int kk = articleScrollView.getHeight();
         int tt = articleTextView.getHeight();
 
         currentY = y;
         yRate = (int) (((double) (y) / (double) (tt)) * 100);
-        int xx = (int) (((double) (y) / (double) (tt-kk)) * 100);
+        int xx = (int) (((double) (y) / (double) (tt - kk)) * 100);
         if (xx > 100 || xx < 0)
             xx = 100;
         String yPositon = Integer.toString(xx);
@@ -307,153 +305,156 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	
-    	menu.add(0, ID_MODE, 0, "日間模式").setIcon(getModeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    	menu.add(0, ID_FONT_SIZE, 1, "字型大小").setIcon(getFontSizeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    	menu.add(0, ID_CONTENTS, 2, "目錄").setIcon(getContentsIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    	menu.add(0, ID_Bookmark, 3, getResources().getString(R.string.menu_add_bookmark)).setIcon(R.drawable.article_bookmark_black).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-    	menu.add(0, ID_NOVEL, 4, getResources().getString(R.string.menu_collect_novel)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-    	menu.add(0, ID_SETTING, 5, getResources().getString(R.string.my_read_setting)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-    	menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_article_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        
+        menu.add(0, ID_MODE, 0, "日間模式").setIcon(getModeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, ID_FONT_SIZE, 1, "字型大小").setIcon(getFontSizeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, ID_CONTENTS, 2, "目錄").setIcon(getContentsIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, ID_Bookmark, 3, getResources().getString(R.string.menu_add_bookmark)).setIcon(R.drawable.article_bookmark_black).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        menu.add(0, ID_NOVEL, 4, getResources().getString(R.string.menu_collect_novel)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(0, ID_SETTING, 5, getResources().getString(R.string.my_read_setting)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_article_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
         return true;
     }
 
 
-
-    private boolean isLightAppTheme(){
-    	if(Setting.getSettingInt(Setting.keyAppTheme, this) == 0)
-    		return true;
-    	else
-    		return false;
+    private boolean isLightAppTheme() {
+        if (Setting.getSettingInt(Setting.keyAppTheme, this) == 0)
+            return true;
+        else
+            return false;
     }
 
     private int getModeIcon() {
-		if(isLightAppTheme())
-			return R.drawable.article_sun;
-		else
-			return R.drawable.article_sun_white;
-	}
-    private int getFontSizeIcon(){
-    	if(isLightAppTheme())
-			return R.drawable.article_font_size;
-		else
-			return R.drawable.article_font_size_white;
+        if (isLightAppTheme())
+            return R.drawable.article_sun;
+        else
+            return R.drawable.article_sun_white;
     }
-    private int getContentsIcon(){
-    	if(isLightAppTheme())
-			return R.drawable.article_contents;
-		else
-			return R.drawable.article_contents_white;
+
+    private int getFontSizeIcon() {
+        if (isLightAppTheme())
+            return R.drawable.article_font_size;
+        else
+            return R.drawable.article_font_size_white;
+    }
+
+    private int getContentsIcon() {
+        if (isLightAppTheme())
+            return R.drawable.article_contents;
+        else
+            return R.drawable.article_contents_white;
     }
 
 
-	@Override
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-    	setBookMarkItem(menu);
-    	setCollectNovelItem(menu);
-    	
+        setBookMarkItem(menu);
+        setCollectNovelItem(menu);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
     private void setCollectNovelItem(Menu menu) {
-    	if (NovelAPI.isNovelCollected(this, novelId)){
-    		novelImage.setVisibility(View.VISIBLE);
-    		menu.findItem(ID_NOVEL).setTitle(getResources().getString(R.string.menu_remove_collect_novel));
-    	}else{
-    		novelImage.setVisibility(View.GONE);
-    		menu.findItem(ID_NOVEL).setTitle(getResources().getString(R.string.menu_collect_novel));
-    	}
-	}
+        if (NovelAPI.isNovelCollected(this, novelId)) {
+            novelImage.setVisibility(View.VISIBLE);
+            menu.findItem(ID_NOVEL).setTitle(getResources().getString(R.string.menu_remove_collect_novel));
+        } else {
+            novelImage.setVisibility(View.GONE);
+            menu.findItem(ID_NOVEL).setTitle(getResources().getString(R.string.menu_collect_novel));
+        }
+    }
 
 
-	private void setBookMarkItem(Menu menu) {
-    	Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
-    	if(bookmark != null){
-    		bookmarkImage.setVisibility(View.VISIBLE);
-    		menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark);
-    	}else{
+    private void setBookMarkItem(Menu menu) {
+        Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
+        if (bookmark != null) {
+            bookmarkImage.setVisibility(View.VISIBLE);
+            menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark);
+        } else {
             bookmarkImage.setVisibility(View.GONE);
-            if(isLightAppTheme())
+            if (isLightAppTheme())
                 menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark_black);
             else
                 menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark_white);
-    	}
-	}
+        }
+    }
 
 
-	@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemId = item.getItemId();
-		switch (itemId) {
-        case android.R.id.home:
-            finish();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_Bookmark:
-        	Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
-        	if(bookmark != null){
-        		NovelAPI.deleteBookmark(bookmark, ArticleActivity.this);
-        		Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_delete_bookmark), Toast.LENGTH_SHORT).show();
-        	}else{
-	            NovelAPI.insertBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, false),ArticleActivity.this);
-	            Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_add_bookmark), Toast.LENGTH_SHORT).show();
-        	}
-            invalidateOptionsMenu();
-            break;
-        case ID_Report:
-        	Report.createReportDialog(this,novelName+"("+novelId+")",myArticle.getTitle()+"(Num:"+myArticle.getNum()+")");  	
-            break;
-        case ID_MODE:
-        	showModeDialog();
-        	break;
-        case ID_NOVEL:
-        	if (NovelAPI.isNovelCollected(this, novelId)){
-        		Novel theNovel = NovelAPI.getNovel(novelId, this);
-        		NovelAPI.removeNovelFromCollected(theNovel, this);
-        		Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_remove_collect_novel), Toast.LENGTH_SHORT).show();
-        		invalidateOptionsMenu();
-        	}else{
-        		new AsyncTask(){
-        			Novel theNovel;
-        			@Override
-        			protected Object doInBackground(Object... arg0) {
-        				theNovel = NovelAPI.getNovel(novelId, ArticleActivity.this);
-        				NovelAPI.collecNovel(theNovel, ArticleActivity.this);
-        				return null;
-        			}
-        			 @Override
-        		        protected void onPostExecute(Object result) {
-        		            super.onPostExecute(result);
-        	        		Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_collect_novel), Toast.LENGTH_SHORT).show();
-        	        		invalidateOptionsMenu();
-        		        }
-        		}.execute();
-        		
-        		
-        	}
-        	break;
-        case ID_FONT_SIZE:
-        	showFontSizeDialog();
-        	break;
-        case ID_CONTENTS:
-        	Intent intentContents = new Intent(ArticleActivity.this, NovelContentsActivity.class);
-        	intentContents.putExtra("NovelName", novelName);
-        	intentContents.putExtra("NovelId", novelId);
-        	intentContents.putExtra("ArticleId", myArticle.getId());
-            startActivityForResult(intentContents, 1);
-            break;
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_Bookmark:
+                Bookmark bookmark = NovelAPI.findBookMarkByArticle(myArticle, ArticleActivity.this);
+                if (bookmark != null) {
+                    NovelAPI.deleteBookmark(bookmark, ArticleActivity.this);
+                    Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_delete_bookmark), Toast.LENGTH_SHORT).show();
+                } else {
+                    NovelAPI.insertBookmark(new Bookmark(0, myArticle.getNovelId(), myArticle.getId(), yRate, novelName, myArticle.getTitle(), novelPic, false), ArticleActivity.this);
+                    Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_add_bookmark), Toast.LENGTH_SHORT).show();
+                }
+                invalidateOptionsMenu();
+                break;
+            case ID_Report:
+                Report.createReportDialog(this, novelName + "(" + novelId + ")", myArticle.getTitle() + "(Num:" + myArticle.getNum() + ")");
+                break;
+            case ID_MODE:
+                showModeDialog();
+                break;
+            case ID_NOVEL:
+                if (NovelAPI.isNovelCollected(this, novelId)) {
+                    Novel theNovel = NovelAPI.getNovel(novelId, this);
+                    NovelAPI.removeNovelFromCollected(theNovel, this);
+                    Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_remove_collect_novel), Toast.LENGTH_SHORT).show();
+                    invalidateOptionsMenu();
+                } else {
+                    new AsyncTask() {
+                        Novel theNovel;
+
+                        @Override
+                        protected Object doInBackground(Object... arg0) {
+                            theNovel = NovelAPI.getNovel(novelId, ArticleActivity.this);
+                            NovelAPI.collecNovel(theNovel, ArticleActivity.this);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Object result) {
+                            super.onPostExecute(result);
+                            Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_collect_novel), Toast.LENGTH_SHORT).show();
+                            invalidateOptionsMenu();
+                        }
+                    }.execute();
+
+
+                }
+                break;
+            case ID_FONT_SIZE:
+                showFontSizeDialog();
+                break;
+            case ID_CONTENTS:
+                Intent intentContents = new Intent(ArticleActivity.this, NovelContentsActivity.class);
+                intentContents.putExtra("NovelName", novelName);
+                intentContents.putExtra("NovelId", novelId);
+                intentContents.putExtra("ArticleId", myArticle.getId());
+                startActivityForResult(intentContents, 1);
+                break;
         }
         return true;
     }
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data != null) {
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
             int resultArticleId = data.getIntExtra("SelectArticleId", 0);
             int resultPosition = data.getIntExtra("SelectArticlePosition", 0);
             if (requestCode == 1 && resultCode == RESULT_OK && resultArticleId != 0 && resultPosition != 0) {
@@ -462,77 +463,77 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                 new UpdateArticleTask().execute();
             }
         }
-	}
+    }
 
-    
+
     private void showFontSizeDialog() {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	CharSequence[] array = getResources().getStringArray(R.array.fontsize_selection);
-    	builder.setTitle(getResources().getString(R.string.fontsize_setting_title)).setSingleChoiceItems(array, -1, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        CharSequence[] array = getResources().getStringArray(R.array.fontsize_selection);
+        builder.setTitle(getResources().getString(R.string.fontsize_setting_title)).setSingleChoiceItems(array, -1, new DialogInterface.OnClickListener() {
 
-	    	@Override
-	    	public void onClick(DialogInterface dialog, int position) {
-	    		switch(position){
-	    		case 0:
-	    			articleTextView.setTextSize(28);
-	    			Setting.saveSetting(Setting.keyTextSize, 28, ArticleActivity.this);
-	    			break;
-	    		case 1:
-	    			articleTextView.setTextSize(20);
-	    			Setting.saveSetting(Setting.keyTextSize, 20, ArticleActivity.this);
-	    			break;
-	    		case 2:
-	    			articleTextView.setTextSize(14);
-	    			Setting.saveSetting(Setting.keyTextSize, 12, ArticleActivity.this);
-	    			break;
-	    		case 3:
-	    			Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
-	                startActivity(intent);
-	                break;
-	    		}
-	    		dialog.dismiss();
-	    	}
-    	});
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                switch (position) {
+                    case 0:
+                        articleTextView.setTextSize(28);
+                        Setting.saveSetting(Setting.keyTextSize, 28, ArticleActivity.this);
+                        break;
+                    case 1:
+                        articleTextView.setTextSize(20);
+                        Setting.saveSetting(Setting.keyTextSize, 20, ArticleActivity.this);
+                        break;
+                    case 2:
+                        articleTextView.setTextSize(14);
+                        Setting.saveSetting(Setting.keyTextSize, 12, ArticleActivity.this);
+                        break;
+                    case 3:
+                        Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
 
-    	builder.create().show();
-	}
+        builder.create().show();
+    }
 
 
-	private void showModeDialog() {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	CharSequence[] array = getResources().getStringArray(R.array.mode_selection);
-    	builder.setTitle(getResources().getString(R.string.mode_setting_title)).setSingleChoiceItems(array, Setting.getTextModePosition(textMode), new DialogInterface.OnClickListener() {
+    private void showModeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        CharSequence[] array = getResources().getStringArray(R.array.mode_selection);
+        builder.setTitle(getResources().getString(R.string.mode_setting_title)).setSingleChoiceItems(array, Setting.getTextModePosition(textMode), new DialogInterface.OnClickListener() {
 
-	    	@Override
-	    	public void onClick(DialogInterface dialog, int position) {
-	    		switch(position){
-	    		case 0:
-	    			articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(Setting.keySunMode,ArticleActivity.this));
-	    			articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keySunMode,ArticleActivity.this));
-	    			textMode = Setting.keySunMode;
-	    			Setting.saveSetting(Setting.keyMode, Setting.keySunMode, ArticleActivity.this);
-                    setBottomButtonsColor();
-	    			break;
-	    		case 1:
-	    			articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(Setting.keyMoonMode,ArticleActivity.this));
-	    			articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keyMoonMode,ArticleActivity.this));
-	    			textMode = Setting.keyMoonMode;
-	    			Setting.saveSetting(Setting.keyMode, Setting.keyMoonMode, ArticleActivity.this);
-                    setBottomButtonsColor();
-	    			break;
-	    		case 2:
-	    			Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
-	                startActivity(intent);
-	                break;
-	    		}
-	    		dialog.dismiss();
-	    	}
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                switch (position) {
+                    case 0:
+                        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(Setting.keySunMode, ArticleActivity.this));
+                        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keySunMode, ArticleActivity.this));
+                        textMode = Setting.keySunMode;
+                        Setting.saveSetting(Setting.keyMode, Setting.keySunMode, ArticleActivity.this);
+                        setBottomButtonsColor();
+                        break;
+                    case 1:
+                        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(Setting.keyMoonMode, ArticleActivity.this));
+                        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(Setting.keyMoonMode, ArticleActivity.this));
+                        textMode = Setting.keyMoonMode;
+                        Setting.saveSetting(Setting.keyMode, Setting.keyMoonMode, ArticleActivity.this);
+                        setBottomButtonsColor();
+                        break;
+                    case 2:
+                        Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                dialog.dismiss();
+            }
 
-			
-    	});
 
-    	builder.create().show();
-	}
+        });
+
+        builder.create().show();
+    }
 
     private class DownloadArticleTask extends AsyncTask {
 
@@ -561,47 +562,47 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
             myArticle.setNovelId(novelId);
 
             new GetLastPositionTask().execute();
-            if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0 && !adHasShowed) {
+            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
                 requestInterstitialAd();
                 adHasShowed = false;
             }
 
         }
     }
-    
-    private void setArticleText(){
-    	if(myArticle.getText().indexOf("*&&$$*") > 0){
-        	// this is img of text
-        	articleScrollView.setVisibility(View.GONE);
-        	articleWebView.setVisibility(View.VISIBLE);
-        	String[] urls = myArticle.getText().split("\\*&&\\$\\$\\*");
-        	String html = "<html><body>";
-        	String imgString = "";
-        	for(int i=0; i < urls.length ; i++){
-        		imgString += "<img src=\""+urls[i]+"\"><br><br>";
-        	}
-        	html += imgString + "<br><br></body></html>";
-        	String mime = "text/html";
-        	String encoding = "utf-8";
-        	articleWebView.getSettings().setSupportZoom(true);
+
+    private void setArticleText() {
+        if (myArticle.getText().indexOf("*&&$$*") > 0) {
+            // this is img of text
+            articleScrollView.setVisibility(View.GONE);
+            articleWebView.setVisibility(View.VISIBLE);
+            String[] urls = myArticle.getText().split("\\*&&\\$\\$\\*");
+            String html = "<html><body>";
+            String imgString = "";
+            for (int i = 0; i < urls.length; i++) {
+                imgString += "<img src=\"" + urls[i] + "\"><br><br>";
+            }
+            html += imgString + "<br><br></body></html>";
+            String mime = "text/html";
+            String encoding = "utf-8";
+            articleWebView.getSettings().setSupportZoom(true);
             articleWebView.getSettings().setBuiltInZoomControls(true);
             articleWebView.getSettings().setLoadWithOverviewMode(true);
             articleWebView.getSettings().setUseWideViewPort(true);
             articleWebView.loadDataWithBaseURL(null, html, mime, encoding, null);
-        }else{
-        	articleScrollView.setVisibility(View.VISIBLE);
-        	articleWebView.setVisibility(View.GONE);
+        } else {
+            articleScrollView.setVisibility(View.VISIBLE);
+            articleWebView.setVisibility(View.GONE);
             String text = "";
-            if(textLanguage == 1){
-            	try {
-            	    text = taobe.tec.jcc.JChineseConvertor.getInstance().t2s(myArticle.getText());
-	            }catch (IOException e) {
-	            	e.printStackTrace();
-	            }
-            }else{
-            	text = myArticle.getText();
+            if (textLanguage == 1) {
+                try {
+                    text = taobe.tec.jcc.JChineseConvertor.getInstance().t2s(myArticle.getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                text = myArticle.getText();
             }
-            articleTextView.setText(text+"\n");
+            articleTextView.setText(text + "\n");
         }
     }
 
@@ -630,14 +631,14 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
             super.onPostExecute(result);
             layoutProgress.setVisibility(View.GONE);
             if (theGottenArticle != null) {
-            	setArticleText();
+                setArticleText();
 
                 myArticle.setNovelId(novelId);
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0)
-                	requestInterstitialAd();
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
+                    requestInterstitialAd();
 
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_data), Toast.LENGTH_SHORT).show();
@@ -677,8 +678,8 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0)
-                	requestInterstitialAd();
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
+                    requestInterstitialAd();
 
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_up), Toast.LENGTH_SHORT).show();
@@ -710,14 +711,14 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
             super.onPostExecute(result);
             layoutProgress.setVisibility(View.GONE);
             if (theGottenArticle != null) {
-            	setArticleText();
+                setArticleText();
 
                 myArticle.setNovelId(novelId);
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if(articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) ==  0)
-                	requestInterstitialAd();
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
+                    requestInterstitialAd();
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_down), Toast.LENGTH_SHORT).show();
             }
@@ -765,9 +766,9 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         stopSleeping = Setting.getSettingInt(Setting.keyStopSleeping, ArticleActivity.this);
 
         articleTextView.setTextSize(textSize);
-        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));
-        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode,this));
-        layoutProgress.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode,this));
+        articleTextView.setTextColor(Setting.getBackgroundModeTextColor(textMode, this));
+        articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
+        layoutProgress.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
 
         if (originTextLan != textLanguage) {
             if (textLanguage == 1) {
@@ -805,18 +806,18 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         if (stopSleeping == 0) {
             ArticleActivity.this.findViewById(android.R.id.content).setKeepScreenOn(true);
         }
-        
+
         articleAdType = Setting.getSettingInt(Setting.keyArticleAdType, ArticleActivity.this);
-        if(articleAdType == Setting.BannerAd){
-        	((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.VISIBLE);
-        }else
-        	((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
-        
+        if (articleAdType == Setting.BannerAd) {
+            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.VISIBLE);
+        } else
+            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
         else
-        	((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
+            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
 
 
         setBottomButtonsColor();
@@ -831,17 +832,19 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         int color = Setting.getBackgroundModeBackgroundColor(textMode, this);
         Color.colorToHSV(color, hsv);
 
-        if(textMode.equals(Setting.keySunMode)){
+        if (textMode.equals(Setting.keySunMode)) {
             hsv[2] *= 0.8f; // value component
-        }else{
+        } else {
             hsv[2] = 1.0f - 0.8f * (1.0f - hsv[2]);
         }
         color = Color.HSVToColor(hsv);
         background.setBackgroundColor(color);
 
-        articleButtonUp.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));
-        articleButtonDown.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));;
-        articlePercent.setTextColor(Setting.getBackgroundModeTextColor(textMode,this));;
+        articleButtonUp.setTextColor(Setting.getBackgroundModeTextColor(textMode, this));
+        articleButtonDown.setTextColor(Setting.getBackgroundModeTextColor(textMode, this));
+        ;
+        articlePercent.setTextColor(Setting.getBackgroundModeTextColor(textMode, this));
+        ;
 
     }
 
@@ -852,17 +855,17 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         NovelAPI.keepNovelLastViewDateIfInDB(myArticle.getNovelId(), ArticleActivity.this);
         super.onPause();
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

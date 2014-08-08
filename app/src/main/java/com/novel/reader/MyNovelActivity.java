@@ -24,24 +24,24 @@ import com.kosbrother.fragments.MyDownloadFragment;
 import com.kosbrother.tool.Report;
 import com.novel.reader.util.Setting;
 
-public class MyNovelActivity extends AdFragmentActivity{
+public class MyNovelActivity extends AdFragmentActivity {
 
-    private static final int          ID_SETTING  = 0;
-    private static final int          ID_RESPONSE = 1;
-    private static final int          ID_ABOUT_US = 2;
-    private static final int          ID_GRADE    = 3;
-    private static final int          ID_Report   = 6;
-    private String[]                  CONTENT;
-    private AlertDialog.Builder       aboutUsDialog;
-    
-    private ViewPager                 pager;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_Report = 6;
+    private String[] CONTENT;
+    private AlertDialog.Builder aboutUsDialog;
+
+    private ViewPager pager;
     private FragmentStatePagerAdapter adapter;
-    
-	private RelativeLayout bannerAdView;
-	private ActionBar actionbar;
-	private SlidingTabLayout mSlidingTabLayout;
 
-   
+    private RelativeLayout bannerAdView;
+    private ActionBar actionbar;
+    private SlidingTabLayout mSlidingTabLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,13 +72,13 @@ public class MyNovelActivity extends AdFragmentActivity{
 
 
         setAboutUsDialog();
-       
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
 
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,8 +90,8 @@ public class MyNovelActivity extends AdFragmentActivity{
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
 
         return true;
@@ -102,37 +102,37 @@ public class MyNovelActivity extends AdFragmentActivity{
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(MyNovelActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_Report:
-        	Report.createReportDialog(this,getResources().getString(R.string.report_not_novel_problem),getResources().getString(R.string.report_not_article_problem));
-            break;
-        case 7:
-        	Intent intent1 = new Intent();
-            intent1.setClass(this, DonateActivity.class);
-            startActivity(intent1);
-        	break;
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(MyNovelActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US:
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case ID_Report:
+                Report.createReportDialog(this, getResources().getString(R.string.report_not_novel_problem), getResources().getString(R.string.report_not_article_problem));
+                break;
+            case 7:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
         }
         return true;
     }
@@ -183,21 +183,21 @@ public class MyNovelActivity extends AdFragmentActivity{
         int position = pager.getCurrentItem();
         pager.setAdapter(adapter);
         pager.setCurrentItem(position);
-        
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

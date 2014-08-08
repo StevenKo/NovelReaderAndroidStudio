@@ -3,21 +3,20 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <include layout="@layout/loadmore_grid"
+    <include
+        layout="@layout/loadmore_grid"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-	<RelativeLayout
+    <RelativeLayout
         android:id="@+id/adonView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        />
+        android:gravity="center" />
 
-    
 
 </LinearLayout>

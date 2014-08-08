@@ -23,31 +23,31 @@ import com.taiwan.imageload.LoadMoreGridView;
 
 import java.util.ArrayList;
 
-public final class CategoryAllNovelsFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Novel>>{
+public final class CategoryAllNovelsFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Novel>> {
 
-    private ArrayList<Novel> novels     = new ArrayList<Novel>();
+    private ArrayList<Novel> novels = new ArrayList<Novel>();
     private ArrayList<Novel> moreNovels = new ArrayList<Novel>();
-    private int       myPage     = 1;
+    private int myPage = 1;
     private LoadMoreGridView myGrid;
-    private GridViewAdapter  myGridViewAdapter;
-    private Boolean          checkLoad  = true;
-    private LinearLayout     progressLayout;
-    private LinearLayout     loadmoreLayout;
-    private LinearLayout     noDataLayout;
-    private LinearLayout     layoutReload;
-    private int  Loader_Id = 37;
-    private Button           buttonReload;
-	private Activity mActivity;
+    private GridViewAdapter myGridViewAdapter;
+    private Boolean checkLoad = true;
+    private LinearLayout progressLayout;
+    private LinearLayout loadmoreLayout;
+    private LinearLayout noDataLayout;
+    private LinearLayout layoutReload;
+    private int Loader_Id = 37;
+    private Button buttonReload;
+    private Activity mActivity;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity= activity;
+        mActivity = activity;
     }
 
     public static CategoryAllNovelsFragment newInstance() {
 
-    	CategoryAllNovelsFragment fragment = new CategoryAllNovelsFragment();
+        CategoryAllNovelsFragment fragment = new CategoryAllNovelsFragment();
 
         return fragment;
 
@@ -111,9 +111,9 @@ public final class CategoryAllNovelsFragment extends Fragment implements LoaderM
         }
     }
 
-    private void setLoadMoreNovels(){
-        if (moreNovels != null && moreNovels.size()!=0) {
-            myGridViewAdapter.addDatas(mActivity,moreNovels,NovelAPI.getAppInfo(mActivity));
+    private void setLoadMoreNovels() {
+        if (moreNovels != null && moreNovels.size() != 0) {
+            myGridViewAdapter.addDatas(mActivity, moreNovels, NovelAPI.getAppInfo(mActivity));
             myGridViewAdapter.notifyDataSetChanged();
         } else {
             checkLoad = false;
@@ -122,11 +122,11 @@ public final class CategoryAllNovelsFragment extends Fragment implements LoaderM
         myGrid.onLoadMoreComplete();
     }
 
-    private void setNovesAdapter(){
+    private void setNovesAdapter() {
         if (novels != null) {
             try {
                 layoutReload.setVisibility(View.GONE);
-                myGridViewAdapter = new GridViewAdapter(mActivity, novels,NovelAPI.getAppInfo(mActivity));
+                myGridViewAdapter = new GridViewAdapter(mActivity, novels, NovelAPI.getAppInfo(mActivity));
                 myGrid.setAdapter(myGridViewAdapter);
             } catch (Exception e) {
 
@@ -138,7 +138,7 @@ public final class CategoryAllNovelsFragment extends Fragment implements LoaderM
 
     @Override
     public Loader<ArrayList<Novel>> onCreateLoader(int i, Bundle bundle) {
-        return new NovelLoader(getActivity(),myPage);
+        return new NovelLoader(getActivity(), myPage);
     }
 
 
@@ -146,7 +146,7 @@ public final class CategoryAllNovelsFragment extends Fragment implements LoaderM
     public void onLoadFinished(Loader<ArrayList<Novel>> arrayListLoader, ArrayList<Novel> getNovels) {
         moreNovels = getNovels;
 
-        if (moreNovels != null && moreNovels.size()!=0) {
+        if (moreNovels != null && moreNovels.size() != 0) {
             for (int i = 0; i < moreNovels.size(); i++) {
                 novels.add(moreNovels.get(i));
             }
@@ -157,7 +157,7 @@ public final class CategoryAllNovelsFragment extends Fragment implements LoaderM
 
         if (myPage > 1)
             setLoadMoreNovels();
-        else{
+        else {
             setNovesAdapter();
         }
     }

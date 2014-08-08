@@ -38,21 +38,21 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AdFragmentActivity {
 
-    private static final int    ID_SETTING  = 0;
-    private static final int    ID_RESPONSE = 1;
-    private static final int    ID_ABOUT_US = 2;
-    private static final int    ID_GRADE    = 3;
-    private static final int    ID_SEARCH   = 5;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_SEARCH = 5;
 
-    private Bundle              mBundle;
-    private String              keyword;
-    private ArrayList<Novel>    novels;
-    private LoadMoreGridView    myGrid;
-    private MenuItem            item;
+    private Bundle mBundle;
+    private String keyword;
+    private ArrayList<Novel> novels;
+    private LoadMoreGridView myGrid;
+    private MenuItem item;
 
     private AlertDialog.Builder aboutUsDialog;
-    
-	private RelativeLayout bannerAdView;
+
+    private RelativeLayout bannerAdView;
     private LinearLayout progressLayout;
     private LinearLayout loadmoreLayout;
     private LinearLayout noDataLayout;
@@ -66,7 +66,7 @@ public class SearchActivity extends AdFragmentActivity {
         final ActionBar ab = getSupportActionBar();
         mBundle = this.getIntent().getExtras();
         keyword = mBundle.getString("SearchKeyword");
-        myGrid = (LoadMoreGridView)findViewById(R.id.news_list);
+        myGrid = (LoadMoreGridView) findViewById(R.id.news_list);
         progressLayout = (LinearLayout) findViewById(R.id.layout_progress);
         loadmoreLayout = (LinearLayout) findViewById(R.id.load_more_grid);
         noDataLayout = (LinearLayout) findViewById(R.id.layout_no_data);
@@ -97,27 +97,27 @@ public class SearchActivity extends AdFragmentActivity {
         new LoadDataTask().execute();
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
 
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
+
     private void fetchData() {
         novels = NovelAPI.searchNovels(keyword);
     }
 
     public class SearchAdapter extends BaseAdapter {
 
-        private final Context          mContext;
+        private final Context mContext;
         private final ArrayList<Novel> novels;
-        private final ImageLoader      imageLoader;
+        private final ImageLoader imageLoader;
 
         public SearchAdapter(Context mContext, ArrayList<Novel> novels) {
             this.novels = novels;
@@ -177,8 +177,8 @@ public class SearchActivity extends AdFragmentActivity {
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         item = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -225,36 +225,36 @@ public class SearchActivity extends AdFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(SearchActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_SEARCH: // response
-            break;
-        case 7:
-        	Intent intent1 = new Intent();
-            intent1.setClass(this, DonateActivity.class);
-            startActivity(intent1);
-        	break;
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(SearchActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US:
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case ID_SEARCH: // response
+                break;
+            case 7:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
         }
         return true;
     }
@@ -314,17 +314,17 @@ public class SearchActivity extends AdFragmentActivity {
                     }
                 });
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

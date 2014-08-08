@@ -59,7 +59,7 @@ public class GridGplayFragment extends Fragment {
 
     protected ListView mListView;
     private static final int LOADER_ID = 1000;
-    ProgressDialog progressDialog     = null;
+    ProgressDialog progressDialog = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class GridGplayFragment extends Fragment {
         progressDialog.setCancelable(true);
 
         LoaderManager lm = getLoaderManager();
-        lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>(){
+        lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>() {
 
             @Override
             public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
@@ -85,7 +85,7 @@ public class GridGplayFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
-                ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(),categories);
+                ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), categories);
                 mListView.setAdapter(listItemAdapter);
                 progressDialog.cancel();
             }
@@ -94,7 +94,8 @@ public class GridGplayFragment extends Fragment {
             public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
 
             }
-        }).forceLoad();;
+        }).forceLoad();
+        ;
     }
 
     public Fragment newInstance() {
@@ -113,7 +114,6 @@ public class GridGplayFragment extends Fragment {
             return categories;
         }
     }
-
 
 
     private void initCards(CardGridView gridView, ArrayList<Novel> novels) {
@@ -142,7 +142,7 @@ public class GridGplayFragment extends Fragment {
         }
     }
 
-    public class ListItemAdapter extends BaseAdapter{
+    public class ListItemAdapter extends BaseAdapter {
         ArrayList<Category> categories;
         Context mContext;
 
@@ -172,15 +172,15 @@ public class GridGplayFragment extends Fragment {
             View gridLayout = layoutInflater.inflate(R.layout.carddemo_scrollview_ltem, null);
             TextView categoryName = (TextView) gridLayout.findViewById(R.id.category_name);
             categoryName.setText(categories.get(i).getCateName());
-            RelativeLayout cateogyLayout = (RelativeLayout)gridLayout.findViewById(R.id.recommend_title);
+            RelativeLayout cateogyLayout = (RelativeLayout) gridLayout.findViewById(R.id.recommend_title);
 
             final int finalI = i;
             cateogyLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
-                    intent.putExtra("RecommendCategoryId",categories.get(finalI).getId());
-                    intent.putExtra("RecommendCategoryName",categories.get(finalI).getCateName());
+                    intent.putExtra("RecommendCategoryId", categories.get(finalI).getId());
+                    intent.putExtra("RecommendCategoryName", categories.get(finalI).getCateName());
                     intent.setClass(getActivity(), NovelRecommendActivity.class);
                     startActivity(intent);
                 }
@@ -225,13 +225,13 @@ public class GridGplayFragment extends Fragment {
                 @Override
                 public void onClick(Card card, View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("NovelId",novelId );
+                    bundle.putInt("NovelId", novelId);
                     bundle.putString("NovelName", novelName);
                     bundle.putString("NovelAuthor", novelAuthor);
                     bundle.putString("NovelDescription", "");
                     bundle.putString("NovelUpdate", novelUpdateDate);
                     bundle.putString("NovelPicUrl", novelPic);
-                    bundle.putString("NovelArticleNum",novelNum);
+                    bundle.putString("NovelArticleNum", novelNum);
                     Intent intent = new Intent();
                     intent.putExtras(bundle);
                     intent.setClass(mContext, NovelIntroduceActivity.class);
