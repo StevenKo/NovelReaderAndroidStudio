@@ -134,8 +134,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
     private void alterNovelTableAddLastViewDate(SQLiteDatabase db) {
         if (!existsColumnInTable(db, NovelSchema.TABLE_NAME, NovelSchema.LAST_VIEW_DATE)) {
-            String upgradeQuery = "ALTER TABLE " + NovelSchema.TABLE_NAME + " ADD COLUMN " + NovelSchema.LAST_VIEW_DATE + " DATETIME default CURRENT_TIMESTAMP";
-            db.execSQL(upgradeQuery);
+            String upgradeQuery = "ALTER TABLE " + NovelSchema.TABLE_NAME + " ADD COLUMN " + NovelSchema.LAST_VIEW_DATE + " DATETIME default '2014-08-05 04:30:30'";
             db.execSQL(upgradeQuery);
         }
     }

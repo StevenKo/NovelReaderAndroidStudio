@@ -177,6 +177,9 @@
     <string name="donate_app">赞助小说王</string>
     <string name="verify_buy">已购买, 重新验证!</string>
 
+    <string name="collect_notification_title">%1$d本小说有新文章！</string>
+    <string name="collect_notification_ticker">%1$d本收藏小说有新文章啰！</string>
+
     <!-- for load more -->
     <string name="hello">Hello World, LoadMoreListView!</string>
     <string name="pull_to_refresh_pull_label">Pull to refresh...</string>

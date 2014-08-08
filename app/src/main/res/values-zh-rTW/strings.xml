@@ -180,6 +180,9 @@
     <string name="donate_app">贊助小說王</string>
     <string name="verify_buy">已購買, 重新驗證!</string>
 
+    <string name="collect_notification_title">%1$d本小說有新文章！</string>
+    <string name="collect_notification_ticker">%1$d本收藏小說有新文章囉！</string>
+
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

@@ -69,9 +69,8 @@ public class GridGplayFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public void onStart() {
+        super.onStart();
         progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
         progressDialog.setCancelable(true);
 
@@ -95,7 +94,6 @@ public class GridGplayFragment extends Fragment {
 
             }
         }).forceLoad();
-        ;
     }
 
     public Fragment newInstance() {
