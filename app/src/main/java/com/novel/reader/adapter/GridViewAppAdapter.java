@@ -35,23 +35,23 @@ import com.taiwan.imageload.ImageLoader;
 
 public class GridViewAppAdapter extends BaseAdapter {
 
-    private Activity         activity;
+    private Activity activity;
     private ArrayList<GameAPP> data = new ArrayList<GameAPP>();
-    private static LayoutInflater  inflater = null;
-    public ImageLoader             imageLoader;
+    private static LayoutInflater inflater = null;
+    public ImageLoader imageLoader;
 
     public GridViewAppAdapter(Activity a, ArrayList<GameAPP> apps) {
         activity = a;
-        
-        TelephonyManager telephonyManager = (TelephonyManager)a.getSystemService(Context.TELEPHONY_SERVICE);
-    	String device_id = telephonyManager.getDeviceId();
-    	if (device_id != null)
-    		data = apps;
+
+        TelephonyManager telephonyManager = (TelephonyManager) a.getSystemService(Context.TELEPHONY_SERVICE);
+        String device_id = telephonyManager.getDeviceId();
+        if (device_id != null)
+            data = apps;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
-    
+
 
     public int getCount() {
         return data.size();
@@ -66,12 +66,12 @@ public class GridViewAppAdapter extends BaseAdapter {
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-    	return getAppGridView(position,convertView,parent, (GameAPP)data.get(position));
+        return getAppGridView(position, convertView, parent, (GameAPP) data.get(position));
     }
-    
-    private View getAppGridView(final int position, View convertView, ViewGroup parent,final GameAPP app){
-    	View vi = convertView;
-    	Display display = activity.getWindowManager().getDefaultDisplay();
+
+    private View getAppGridView(final int position, View convertView, ViewGroup parent, final GameAPP app) {
+        View vi = convertView;
+        Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth(); // deprecated
         int height = display.getHeight(); // deprecated
 
@@ -80,76 +80,77 @@ public class GridViewAppAdapter extends BaseAdapter {
         } else {
             vi = inflater.inflate(R.layout.item_app_small, null);
         }
-        
+
         vi.setClickable(true);
         vi.setFocusable(true);
         vi.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-            	showRecommendAppDialog(app);
+                showRecommendAppDialog(app);
             }
 
         });
         ImageView image = (ImageView) vi.findViewById(R.id.grid_item_image);
         TextView textName = (TextView) vi.findViewById(R.id.grid_item_name);
         TextView description = (TextView) vi.findViewById(R.id.description);
-        
+
         image.setImageResource(R.drawable.andromoney_icon);
-        
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(app.title)));
+
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
         if (app.title.length() > 6)
             textName.setTextSize(12);
         description.setText("推薦優質APP");
         if (app.description.length() > 6)
-        	description.setTextSize(12);
-       
-        
-    	return vi;
-    }
-    
-    protected void showRecommendAppDialog(final GameAPP app) {
-    	
-    	LayoutInflater inflater = activity.getLayoutInflater();
-    	LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_recommend_app,null);
+            description.setTextSize(12);
 
-    	ImageView image = (ImageView) recomendLayout.findViewById(R.id.grid_item_image);
+
+        return vi;
+    }
+
+    protected void showRecommendAppDialog(final GameAPP app) {
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_recommend_app, null);
+
+        ImageView image = (ImageView) recomendLayout.findViewById(R.id.grid_item_image);
         TextView textName = (TextView) recomendLayout.findViewById(R.id.grid_item_name);
         TextView description = (TextView) recomendLayout.findViewById(R.id.description);
-    	
-        
+
+
         image.setImageResource(R.drawable.andromoney_icon);
-        
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(app.title)));
+
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
         if (app.title.length() > 6)
             textName.setTextSize(12);
-        description.setText(NovelReaderUtil.translateTextIfCN(activity,(app.description)));
+        description.setText(NovelReaderUtil.translateTextIfCN(activity, (app.description)));
         if (app.description.length() > 6)
-        	description.setTextSize(12);
-    	
-    	Builder a = new Builder(activity).setTitle("推薦優質APP")
-        .setPositiveButton("前往下載", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-	            	Intent browseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.appStoreUrl));
-	            	activity.startActivity(browseIntent);
-	            	new AsyncTask() {
-						@Override
-						protected Object doInBackground(Object... arg0) {
-							NovelAPI.sendClickInfo(activity, app.appid);
-							return null;
-					}}.execute();
-            	
-            }
-        });
-    	a.setView(recomendLayout);
-    	AlertDialog dialog = a.create();
-    	dialog.show();
-		
-	}
+            description.setTextSize(12);
 
-	private View getNovelGridView(final int position, View convertView, ViewGroup parent,final Novel novel){
-    	View vi = convertView;
+        Builder a = new Builder(activity).setTitle("推薦優質APP")
+                .setPositiveButton("前往下載", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent browseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.appStoreUrl));
+                        activity.startActivity(browseIntent);
+                        new AsyncTask() {
+                            @Override
+                            protected Object doInBackground(Object... arg0) {
+                                NovelAPI.sendClickInfo(activity, app.appid);
+                                return null;
+                            }
+                        }.execute();
+
+                    }
+                });
+        a.setView(recomendLayout);
+        AlertDialog dialog = a.create();
+        dialog.show();
+
+    }
+
+    private View getNovelGridView(final int position, View convertView, ViewGroup parent, final Novel novel) {
+        View vi = convertView;
         // if (convertView == null)
         // vi = inflater.inflate(R.layout.item_gridview_novel, null);
 
@@ -194,10 +195,10 @@ public class GridViewAppAdapter extends BaseAdapter {
         TextView textFinish = (TextView) vi.findViewById(R.id.grid_item_finish);
         TextView textSerialize = (TextView) vi.findViewById(R.id.serializing);
 
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,(novel.getName())));
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, (novel.getName())));
         if (novel.getName().length() > 6)
             textName.setTextSize(12);
-        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity,novel.getAuthor()));
+        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity, novel.getAuthor()));
         if (novel.getAuthor().length() > 14) {
             textAuthor.setTextSize(8);
         }
@@ -211,7 +212,7 @@ public class GridViewAppAdapter extends BaseAdapter {
         }
 
         if (novel.isSerializing()) {
-        	textSerialize.setText(activity.getResources().getString(R.string.serializing));
+            textSerialize.setText(activity.getResources().getString(R.string.serializing));
         } else {
             textSerialize.setText("全本");
         }

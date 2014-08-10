@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="ambilwarna_hsvHeight">240dp</dimen>
-	<dimen name="ambilwarna_hsvWidth">240dp</dimen>
-	<dimen name="ambilwarna_hueWidth">30dp</dimen>
-	<dimen name="ambilwarna_spacer">8dp</dimen>
+    <dimen name="ambilwarna_hsvHeight">240dp</dimen>
+    <dimen name="ambilwarna_hsvWidth">240dp</dimen>
+    <dimen name="ambilwarna_hueWidth">30dp</dimen>
+    <dimen name="ambilwarna_spacer">8dp</dimen>
     <dimen name="carddemo_gplay_grid_columnwidth">140dp</dimen>
     <dimen name="carddemo_gplay_grid_columnwidth_card">125dp</dimen>
     <dimen name="card_header_simple_title_text_size">12dp</dimen>

@@ -25,10 +25,10 @@ import com.taiwan.imageload.ImageLoader;
 
 public class GridViewDownloadAdapter extends BaseAdapter {
 
-    private final Activity         activity;
+    private final Activity activity;
     private final ArrayList<Novel> data;
-    private static LayoutInflater  inflater = null;
-    public ImageLoader             imageLoader;
+    private static LayoutInflater inflater = null;
+    public ImageLoader imageLoader;
 
     public GridViewDownloadAdapter(Activity a, ArrayList<Novel> d) {
         activity = a;
@@ -94,10 +94,10 @@ public class GridViewDownloadAdapter extends BaseAdapter {
         TextView textFinish = (TextView) vi.findViewById(R.id.grid_item_finish);
         TextView textSerialize = (TextView) vi.findViewById(R.id.serializing);
 
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getName()));
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getName()));
         if (data.get(position).getName().length() > 6)
             textName.setTextSize(12);
-        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getAuthor()));
+        textAuthor.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getAuthor()));
         if (data.get(position).getAuthor().length() > 14) {
             textAuthor.setTextSize(8);
         }
@@ -111,18 +111,18 @@ public class GridViewDownloadAdapter extends BaseAdapter {
         }
 
         if (data.get(position).isSerializing()) {
-        	textSerialize.setText(activity.getResources().getString(R.string.serializing));
+            textSerialize.setText(activity.getResources().getString(R.string.serializing));
         } else {
             textSerialize.setText("全本");
         }
-        
+
         String format = "yy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(format);
         Date today = new Date();
         String currentDateTimeString = formater.format(today);
-        if(currentDateTimeString.equals(data.get(position).getLastUpdate())){
-        	TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
-        	textNewArticle.setVisibility(View.VISIBLE);
+        if (currentDateTimeString.equals(data.get(position).getLastUpdate())) {
+            TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
+            textNewArticle.setVisibility(View.VISIBLE);
         }
 
         return vi;

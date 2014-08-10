@@ -18,12 +18,12 @@ import com.novel.reader.entity.Article;
 
 public class DownloadService extends IntentService {
 
-    private static final String Tag                     = "DownloadService";
-    private Context             context;
-    private final int           STATUS_BAR_NOTIFICATION = 10883;
+    private static final String Tag = "DownloadService";
+    private Context context;
+    private final int STATUS_BAR_NOTIFICATION = 10883;
     private NotificationManager nm;
-    private long                startTime;
-    static ArrayList<Article>   articles                = new ArrayList<Article>(10);
+    private long startTime;
+    static ArrayList<Article> articles = new ArrayList<Article>(10);
 
     public DownloadService() {
         super("NovelReaderArticleDownloadService");

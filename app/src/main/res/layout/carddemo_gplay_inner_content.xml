@@ -3,15 +3,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    >
+    android:gravity="center_horizontal">
 
-    <RelativeLayout android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        >
+        android:layout_marginLeft="5dp">
+
         <TextView
             android:id="@+id/author_tip"
             android:layout_width="wrap_content"
@@ -19,12 +19,13 @@
             android:text="@string/novel_author"
             android:textSize="10dp"
             android:textColor="#999999"
-            android:typeface="serif">
-        </TextView>
+            android:typeface="serif"></TextView>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/author_tip">
+
             <TextView
                 android:id="@+id/grid_item_author"
                 android:layout_width="wrap_content"
@@ -35,26 +36,25 @@
                 android:textSize="10dp"
                 android:textColor="#555555"
                 android:typeface="serif"
-                android:maxLines="1"
-                >
-            </TextView>
+                android:maxLines="1"></TextView>
         </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        >
+        android:layout_marginLeft="5dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/article_num"
             android:textSize="10dp"
             android:textColor="#999999"
-            android:typeface="serif">
-        </TextView>
+            android:typeface="serif"></TextView>
+
         <TextView
             android:id="@+id/grid_item_counts"
             android:layout_width="wrap_content"
@@ -64,23 +64,24 @@
             android:textSize="10dp"
             android:textColor="#555555"
             android:typeface="serif"
-            android:layout_marginTop="2dp">
-        </TextView>
+            android:layout_marginTop="2dp"></TextView>
     </RelativeLayout>
-    <RelativeLayout android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        >
+        android:layout_marginLeft="5dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_time"
             android:textSize="10dp"
             android:textColor="#999999"
-            android:typeface="serif">
-        </TextView>
+            android:typeface="serif"></TextView>
+
         <TextView
             android:id="@+id/grid_item_finish"
             android:layout_width="wrap_content"
@@ -90,15 +91,16 @@
             android:textSize="10dp"
             android:textColor="#555555"
             android:typeface="serif"
-            android:layout_marginTop="2dp">
-        </TextView>
+            android:layout_marginTop="2dp"></TextView>
     </RelativeLayout>
-    <RelativeLayout android:layout_width="fill_parent"
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        >
+        android:layout_marginLeft="5dp">
+
         <TextView
             android:id="@+id/serializing"
             android:layout_width="wrap_content"
@@ -108,7 +110,6 @@
             android:textSize="10dp"
             android:textColor="#FF3333"
             android:typeface="serif"
-            android:layout_marginTop="3dp">
-        </TextView>
+            android:layout_marginTop="3dp"></TextView>
     </RelativeLayout>
 </LinearLayout>

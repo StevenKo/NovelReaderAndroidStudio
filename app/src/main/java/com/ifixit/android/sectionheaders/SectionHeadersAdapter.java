@@ -13,8 +13,8 @@ public class SectionHeadersAdapter extends BaseAdapter implements OnItemClickLis
     // Needed because Java can't return two values from a function
     private static class SectionPosition {
         public Section section;
-        public int     position;
-        public int     sectionNumber;
+        public int position;
+        public int sectionNumber;
 
         public SectionPosition(Section section, int position, int sectionNumber) {
             this.section = section;
@@ -23,11 +23,11 @@ public class SectionHeadersAdapter extends BaseAdapter implements OnItemClickLis
         }
     }
 
-    protected static final int   NO_NEXT_HEADER   = -1;
-    private static final int     HEADER_POSITION  = -1;
-    private static final int     VIEW_TYPES       = 2;
-    private static final int     HEADER_VIEW_TYPE = 0;
-    private static final int     ITEM_VIEW_TYPE   = 1;
+    protected static final int NO_NEXT_HEADER = -1;
+    private static final int HEADER_POSITION = -1;
+    private static final int VIEW_TYPES = 2;
+    private static final int HEADER_VIEW_TYPE = 0;
+    private static final int ITEM_VIEW_TYPE = 1;
 
     protected ArrayList<Section> mSections;
 

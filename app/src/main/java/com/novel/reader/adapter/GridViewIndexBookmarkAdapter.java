@@ -24,18 +24,18 @@ import com.taiwan.imageload.ImageLoader;
 
 public class GridViewIndexBookmarkAdapter extends BaseAdapter {
 
-    private final Activity         activity;
+    private final Activity activity;
     private final ArrayList<Bookmark> data;
-    private static LayoutInflater  inflater = null;
-    public ImageLoader             imageLoader;
-	private int bookmark_size;
+    private static LayoutInflater inflater = null;
+    public ImageLoader imageLoader;
+    private int bookmark_size;
 
     public GridViewIndexBookmarkAdapter(Activity a) {
         activity = a;
         SQLiteNovel db = new SQLiteNovel(activity);
         ArrayList<Bookmark> bookmarks = db.getLastBookmarks(3);
         bookmark_size = bookmarks.size();
-    	bookmarks.addAll(db.getLastRecentBookmarks(3));
+        bookmarks.addAll(db.getLastRecentBookmarks(3));
         data = bookmarks;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
@@ -83,9 +83,9 @@ public class GridViewIndexBookmarkAdapter extends BaseAdapter {
         TextView textArticleTitle = (TextView) vi.findViewById(R.id.grid_item_article_title);
         TextView textSerialize = (TextView) vi.findViewById(R.id.bookmark);
 
-        textName.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getNovelName()));
-        textArticleTitle.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getArticleTitle()));
- 
+        textName.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getNovelName()));
+        textArticleTitle.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getArticleTitle()));
+
 
         if (NovelReaderUtil.isDisplayDefaultBookCover(data.get(position).getNovelPic())) {
             image.setImageResource(R.drawable.bookcover_default);
@@ -94,9 +94,9 @@ public class GridViewIndexBookmarkAdapter extends BaseAdapter {
         }
 
         if (position < bookmark_size) {
-           textSerialize.setText("書籤"); 
+            textSerialize.setText("書籤");
         } else {
-           textSerialize.setText("最近閱讀");
+            textSerialize.setText("最近閱讀");
         }
 
         return vi;

@@ -57,61 +57,60 @@ import java.util.Locale;
 
 public class MainActivity extends AdFragmentActivity {
 
-    private static final int    ID_SETTING  = 0;
-    private static final int    ID_RESPONSE = 1;
-    private static final int    ID_ABOUT_US = 2;
-    private static final int    ID_GRADE    = 3;
-    private static final int    ID_SEARCH   = 5;
-    private static final int    ID_Report   = 6;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_SEARCH = 5;
+    private static final int ID_Report = 6;
 
-    private String[]            CONTENT;
-    private MenuItem            itemSearch;
-    private ViewPager           pager;
+    private String[] CONTENT;
+    private MenuItem itemSearch;
+    private ViewPager pager;
     private Builder aboutUsDialog;
 
 
     //gcm
     public static final String EXTRA_MESSAGE = "message";
-    
-    
+
+
     /**
      * Substitute you own sender ID here.
      */
     String SENDER_ID = "1037018589447";
-	private Context context;
-	String regid;
-	GoogleCloudMessaging gcm;
+    private Context context;
+    String regid;
+    GoogleCloudMessaging gcm;
 
-	private RelativeLayout bannerAdView;
-	private SlidingTabLayout mSlidingTabLayout;
-	
-	
-	//navigationdrawler
-	private DrawerLayout mDrawerLayout;
+    private RelativeLayout bannerAdView;
+    private SlidingTabLayout mSlidingTabLayout;
+
+
+    //navigationdrawler
+    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
-    
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Setting.setApplicationActionBarTheme(this);
-        
+
         setContentView(R.layout.layout_main);
         setTextLocale();
         setViewPagerAndSlidingTab();
         setAboutUsDialog();
         setNavigationDrawler();
-        
-        if(Setting.getSettingInt(Setting.keyUpdateAppVersion,this) < Setting.getAppVersion(this)){
-        	showUpdateInfoDialog(this);
-        	Setting.saveSetting(Setting.keyUpdateAppVersion, Setting.getAppVersion(this), this);
+
+        if (Setting.getSettingInt(Setting.keyUpdateAppVersion, this) < Setting.getAppVersion(this)) {
+            showUpdateInfoDialog(this);
+            Setting.saveSetting(Setting.keyUpdateAppVersion, Setting.getAppVersion(this), this);
         }
-        
+
         context = getApplicationContext();
         regid = Setting.getRegistrationId(context);
         String device_id = Setting.getDeviceId(context);
@@ -121,10 +120,10 @@ public class MainActivity extends AdFragmentActivity {
         }
         gcm = GoogleCloudMessaging.getInstance(this);
         checkDB();
-        
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
 
 
         setCheckCollectNovelsAlarm();
@@ -136,18 +135,18 @@ public class MainActivity extends AdFragmentActivity {
     }
 
     private void setNavigationDrawler() {
-    	mTitle = mDrawerTitle = getTitle();
+        mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-    	mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerList.setAdapter(new NavigationListAdapter(this));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        
+
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        
+
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -156,7 +155,7 @@ public class MainActivity extends AdFragmentActivity {
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
-                ) {
+        ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
@@ -169,58 +168,58 @@ public class MainActivity extends AdFragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-	}
+    }
 
-	private void setViewPagerAndSlidingTab() {
-    	Resources res = getResources();
+    private void setViewPagerAndSlidingTab() {
+        Resources res = getResources();
         CONTENT = res.getStringArray(R.array.sections);
-    	FragmentPagerAdapter adapter = new NovelPagerAdapter(getSupportFragmentManager());
+        FragmentPagerAdapter adapter = new NovelPagerAdapter(getSupportFragmentManager());
 
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
-        
+
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(pager);
 
         pager.setCurrentItem(1);
-	}
+    }
 
-	@Override
+    @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
-    private void showUpdateInfoDialog(Activity mActivity){
-		LayoutInflater inflater = mActivity.getLayoutInflater();
-    	LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_update_info,null);
-    	TextView update_text = (TextView)recomendLayout.findViewById(R.id.update_tip);
-    	update_text.setText(Html.fromHtml(getResources().getString(R.string.update_info)));
-    	
-    	Builder a = new Builder(mActivity).setTitle(mActivity.getResources().getString(R.string.update)).setIcon(R.drawable.ic_stat_notify)
-        .setPositiveButton(mActivity.getResources().getString(R.string.yes_string), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            	
-            	
-            }
-        });
-    	a.setView(recomendLayout);
-    	a.show();
-	}
 
-    
+    private void showUpdateInfoDialog(Activity mActivity) {
+        LayoutInflater inflater = mActivity.getLayoutInflater();
+        LinearLayout recomendLayout = (LinearLayout) inflater.inflate(R.layout.dialog_update_info, null);
+        TextView update_text = (TextView) recomendLayout.findViewById(R.id.update_tip);
+        update_text.setText(Html.fromHtml(getResources().getString(R.string.update_info)));
+
+        Builder a = new Builder(mActivity).setTitle(mActivity.getResources().getString(R.string.update)).setIcon(R.drawable.ic_stat_notify)
+                .setPositiveButton(mActivity.getResources().getString(R.string.yes_string), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+        a.setView(recomendLayout);
+        a.show();
+    }
+
+
     private void setTextLocale() {
-    	Locale current = getResources().getConfiguration().locale;
+        Locale current = getResources().getConfiguration().locale;
         String country = current.getCountry();
         SharedPreferences sharePreference = getSharedPreferences(Setting.keyPref, 0);
         int text_setting_value = sharePreference.getInt(Setting.keyTextLanguage, 1000);
-        if(text_setting_value==1000 && country.toLowerCase().contains("cn"))
-        	Setting.saveSetting(Setting.keyTextLanguage, Setting.TEXT_CHINA, this);
-	}
+        if (text_setting_value == 1000 && country.toLowerCase().contains("cn"))
+            Setting.saveSetting(Setting.keyTextLanguage, Setting.TEXT_CHINA, this);
+    }
 
-	void checkDB() {
+    void checkDB() {
         File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "kosnovel");
         if (!cacheDir.exists())
             cacheDir.mkdirs();
@@ -286,13 +285,13 @@ public class MainActivity extends AdFragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	
-    	if (mDrawerToggle.onOptionsItemSelected(item)) {
+
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return true;
     }
-    
+
 
     class NovelPagerAdapter extends FragmentPagerAdapter {
         public NovelPagerAdapter(FragmentManager fm) {
@@ -307,13 +306,13 @@ public class MainActivity extends AdFragmentActivity {
             } else if (position == 1) {
                 kk = new GridGplayFragment().newInstance();
             } else if (position == 2) {
-            	kk = IndexNovelFragment.newInstance(IndexNovelFragment.LATEST_NOVEL);
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.LATEST_NOVEL);
             } else if (position == 3) {
-            	kk = IndexNovelFragment.newInstance(IndexNovelFragment.WEEK_NOVEL);
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.WEEK_NOVEL);
             } else if (position == 4) {
-            	kk = IndexNovelFragment.newInstance(IndexNovelFragment.MONTH_NOVEL);
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.MONTH_NOVEL);
             } else if (position == 5) {
-            	kk = IndexNovelFragment.newInstance(IndexNovelFragment.HOT_NOVEL);
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.HOT_NOVEL);
             }
             return kk;
         }
@@ -349,64 +348,63 @@ public class MainActivity extends AdFragmentActivity {
                     }
                 });
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
-    
-    
-    
+
+
     private void registerBackground() {
         new AsyncTask() {
 
-			@Override
-			protected String doInBackground(Object... params) {
-				
-				String msg = "";
-	            try {
-	                if (gcm == null) {
-	                    gcm = GoogleCloudMessaging.getInstance(context);
-	                }
-	                regid = gcm.register(SENDER_ID);
-	                msg = "Device registered, registration id=" + regid;
-	                String deviceId = Settings.Secure.getString(MainActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID); 
-	                
-	                boolean isRegistered = NovelAPI.sendRegistrationId(regid,deviceId,Locale.getDefault().getCountry(),getPackageManager().getPackageInfo(getPackageName(), 0).versionCode,"GooglePlay");
-	                
-	                if(isRegistered)
-	                  setRegistrationId(context, regid,deviceId);
-	                
-	            } catch (IOException ex) {
-	                msg = "Error :" + ex.getMessage();
-	            } catch (NameNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            return msg;
-			}
+            @Override
+            protected String doInBackground(Object... params) {
 
-			private void setRegistrationId(Context context, String regid,String deviceId) {
-				final SharedPreferences prefs = Setting.getGCMPreferences(context);
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putString(Setting.PROPERTY_REG_ID, regid);
-				editor.putString(Setting.PROPERTY_DEVICE_ID, deviceId);
-				editor.putInt(Setting.PROPERTY_APP_VERSION, Setting.getAppVersion(context));
-				editor.putLong(Setting.PROPERTY_ON_SERVER_EXPIRATION_TIME, Setting.REGISTRATION_EXPIRY_TIME_MS + System.currentTimeMillis());
-				editor.commit();
-				
-			}
-            
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+                    regid = gcm.register(SENDER_ID);
+                    msg = "Device registered, registration id=" + regid;
+                    String deviceId = Settings.Secure.getString(MainActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+                    boolean isRegistered = NovelAPI.sendRegistrationId(regid, deviceId, Locale.getDefault().getCountry(), getPackageManager().getPackageInfo(getPackageName(), 0).versionCode, "GooglePlay");
+
+                    if (isRegistered)
+                        setRegistrationId(context, regid, deviceId);
+
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                } catch (NameNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                return msg;
+            }
+
+            private void setRegistrationId(Context context, String regid, String deviceId) {
+                final SharedPreferences prefs = Setting.getGCMPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(Setting.PROPERTY_REG_ID, regid);
+                editor.putString(Setting.PROPERTY_DEVICE_ID, deviceId);
+                editor.putInt(Setting.PROPERTY_APP_VERSION, Setting.getAppVersion(context));
+                editor.putLong(Setting.PROPERTY_ON_SERVER_EXPIRATION_TIME, Setting.REGISTRATION_EXPIRY_TIME_MS + System.currentTimeMillis());
+                editor.commit();
+
+            }
+
         }.execute(null, null, null);
     }
-    
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -415,52 +413,52 @@ public class MainActivity extends AdFragmentActivity {
     }
 
     private void selectItem(int position) {
-       switch(position){
-	       case 0:
-	    	   Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-	           startActivity(intent);
-	           break;
-	       case 1:
-	           Intent bookmarkIntent = new Intent();
-	           bookmarkIntent.putExtra("IS_RECNET", false);
-	           bookmarkIntent.setClass(MainActivity.this, BookmarkActivity.class);
-	           startActivity(bookmarkIntent);
-	           break;
-	       case 2:
-	           Intent recent_intent = new Intent();
-	           recent_intent.putExtra("IS_RECNET", true);
-	           recent_intent.setClass(MainActivity.this, BookmarkActivity.class);
-	           startActivity(recent_intent);
-	    	   break;
-	       case 3:
-	    	   Intent collectIntent = new Intent(MainActivity.this, MyNovelActivity.class);
-               startActivity(collectIntent);
-	    	   break;
-	       case 4:
-	    	   Intent downloadIntent = new Intent(MainActivity.this, MyNovelActivity.class);
-	    	   downloadIntent.putExtra("noti", true);
-               startActivity(downloadIntent);
-	    	   break;
-	       case 5:
-	    	   aboutUsDialog.show();
-	           break;
-	       case 6:
-	    	   Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-	           startActivity(browserIntent);
-	    	   break;
-	       case 7:
-	    	   Report.createReportDialog(this,this.getResources().getString(R.string.report_not_novel_problem),this.getResources().getString(R.string.report_not_article_problem));
-	    	   break;
-	       case 8:
-	    	   Intent intent1 = new Intent();
-	           intent1.setClass(this, DonateActivity.class);
-	           startActivity(intent1);
-	    	   break;
-       }
-       mDrawerLayout.closeDrawer(mDrawerList);
-       
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                Intent bookmarkIntent = new Intent();
+                bookmarkIntent.putExtra("IS_RECNET", false);
+                bookmarkIntent.setClass(MainActivity.this, BookmarkActivity.class);
+                startActivity(bookmarkIntent);
+                break;
+            case 2:
+                Intent recent_intent = new Intent();
+                recent_intent.putExtra("IS_RECNET", true);
+                recent_intent.setClass(MainActivity.this, BookmarkActivity.class);
+                startActivity(recent_intent);
+                break;
+            case 3:
+                Intent collectIntent = new Intent(MainActivity.this, MyNovelActivity.class);
+                startActivity(collectIntent);
+                break;
+            case 4:
+                Intent downloadIntent = new Intent(MainActivity.this, MyNovelActivity.class);
+                downloadIntent.putExtra("noti", true);
+                startActivity(downloadIntent);
+                break;
+            case 5:
+                aboutUsDialog.show();
+                break;
+            case 6:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case 7:
+                Report.createReportDialog(this, this.getResources().getString(R.string.report_not_novel_problem), this.getResources().getString(R.string.report_not_article_problem));
+                break;
+            case 8:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
+        }
+        mDrawerLayout.closeDrawer(mDrawerList);
+
     }
-    
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;

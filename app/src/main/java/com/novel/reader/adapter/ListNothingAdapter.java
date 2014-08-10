@@ -12,7 +12,7 @@ import com.novel.reader.R;
 
 public class ListNothingAdapter extends BaseAdapter {
 
-    private final Activity        activity;
+    private final Activity activity;
     private static LayoutInflater inflater = null;
 
     public ListNothingAdapter(Activity a) {

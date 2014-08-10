@@ -24,7 +24,6 @@ public class NovelRecommendActivity extends AdFragmentActivity {
     private GridView gridView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class NovelRecommendActivity extends AdFragmentActivity {
         actionbar.setTitle(categoryName);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        gridView = (GridView)findViewById(R.id.gridView1);
+        gridView = (GridView) findViewById(R.id.gridView1);
 
         new DownloadRecommendNovelTask().execute();
 
@@ -65,7 +64,7 @@ public class NovelRecommendActivity extends AdFragmentActivity {
         private ArrayList<Novel> novels;
         private ArrayList<GameAPP> apps;
 
-        private ProgressDialog         progressdialogInit;
+        private ProgressDialog progressdialogInit;
         private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
                 finish();

@@ -1,8 +1,5 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -42,50 +38,53 @@ import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
 
-public class NovelIntroduceActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.TreeMap;
 
-    private static final int                    ID_SETTING        = 0;
-    private static final int                    ID_RESPONSE       = 1;
-    private static final int                    ID_ABOUT_US       = 2;
-    private static final int                    ID_GRADE          = 3;
-    private static final int                    ID_DOWNLOAD       = 4;
-    private static final int                    ID_SEARCH         = 5;
-    private static final int                    ID_Report         = 6;
+public class NovelIntroduceActivity extends NovelReaderBaseActivity {
 
-    private EditText                            search;
-    private Bundle                              mBundle;
-    private String                              novelName;
-    private int                                 novelId;
-    private String                              novelAuthor;
-    private String                              novelDescription;
-    private String                              novelUpdate;
-    private String                              novelPicUrl;
-    private String                              novelArticleNum;
-    private ImageView                           novelImageView;
-    private TextView                            novelTextName;
-    private TextView                            novelTextAuthor;
-    private TextView                            novelTextDescription;
-    private TextView                            novelTextUpdate;
-    private Button                              novelButton;
-    private ImageLoader                         mImageLoader;
-    private LinearLayout                        novelLayoutProgress;
-    private LinearLayout                        layoutTextArrow;
-    private CheckBox                            checkBoxAddBookcase;
-    private ImageView                           imageArrow;
-    private ArrayList<Article>                  articleList       = new ArrayList<Article>();
-    private ExpandableListView                  novelListView;
-    private Novel                               theNovel;
-    private Boolean                             descriptionExpand = false;
-    private MenuItem                            itemSearch;
-    private int                                 expandGroup       = -1;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_DOWNLOAD = 4;
+    private static final int ID_SEARCH = 5;
+    private static final int ID_Report = 6;
 
-    private TreeMap<String, ArrayList<Article>> myData            = new TreeMap<String, ArrayList<Article>>();
+    private EditText search;
+    private Bundle mBundle;
+    private String novelName;
+    private int novelId;
+    private String novelAuthor;
+    private String novelDescription;
+    private String novelUpdate;
+    private String novelPicUrl;
+    private String novelArticleNum;
+    private ImageView novelImageView;
+    private TextView novelTextName;
+    private TextView novelTextAuthor;
+    private TextView novelTextDescription;
+    private TextView novelTextUpdate;
+    private Button novelButton;
+    private ImageLoader mImageLoader;
+    private LinearLayout novelLayoutProgress;
+    private LinearLayout layoutTextArrow;
+    private CheckBox checkBoxAddBookcase;
+    private ImageView imageArrow;
+    private ArrayList<Article> articleList = new ArrayList<Article>();
+    private ExpandableListView novelListView;
+    private Novel theNovel;
+    private Boolean descriptionExpand = false;
+    private MenuItem itemSearch;
+    private int expandGroup = -1;
+
+    private TreeMap<String, ArrayList<Article>> myData = new TreeMap<String, ArrayList<Article>>();
     // private ArrayList<String> groupTitleList = new ArrayList<String>();
-    private ArrayList<Group>                    mGroups           = new ArrayList<Group>();
-    private AlertDialog.Builder                 aboutUsDialog;
-    
-	private LinearLayout bannerAdView;
-	private Boolean isNovelChecked;
+    private ArrayList<Group> mGroups = new ArrayList<Group>();
+    private AlertDialog.Builder aboutUsDialog;
+
+    private LinearLayout bannerAdView;
+    private Boolean isNovelChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,19 +115,19 @@ public class NovelIntroduceActivity extends ActionBarActivity {
 
 
     }
-    
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         isNovelChecked = NovelAPI.isNovelCollected(NovelIntroduceActivity.this, novelId);
         if (isNovelChecked) {
             checkBoxAddBookcase.setChecked(true);
         } else {
             checkBoxAddBookcase.setChecked(false);
         }
-        
+
         novelLayoutProgress.setVisibility(View.VISIBLE);
         if (articleList == null || articleList.size() == 0) {
             new DownloadArticlesTask().execute();
@@ -136,10 +135,10 @@ public class NovelIntroduceActivity extends ActionBarActivity {
             setGroupsAndAdatper();
             novelLayoutProgress.setVisibility(View.GONE);
         }
-        
+
 
     }
-    
+
 
     private void findViews() {
         novelImageView = (ImageView) findViewById(R.id.novel_image);
@@ -157,9 +156,9 @@ public class NovelIntroduceActivity extends ActionBarActivity {
 
     private void setViews() {
 
-        novelTextName.setText(NovelReaderUtil.translateTextIfCN(this,theNovel.getName() + "(" + theNovel.getArticleNum() + ")"));
-        novelTextAuthor.setText(NovelReaderUtil.translateTextIfCN(this,getResources().getString(R.string.novel_author) + theNovel.getAuthor()));
-        novelTextDescription.setText(NovelReaderUtil.translateTextIfCN(this,theNovel.getDescription()));
+        novelTextName.setText(NovelReaderUtil.translateTextIfCN(this, theNovel.getName() + "(" + theNovel.getArticleNum() + ")"));
+        novelTextAuthor.setText(NovelReaderUtil.translateTextIfCN(this, getResources().getString(R.string.novel_author) + theNovel.getAuthor()));
+        novelTextDescription.setText(NovelReaderUtil.translateTextIfCN(this, theNovel.getDescription()));
         novelTextUpdate.setText(getResources().getString(R.string.novel_update_time) + theNovel.getLastUpdate());
 
         mImageLoader = new ImageLoader(NovelIntroduceActivity.this, 70);
@@ -288,7 +287,8 @@ public class NovelIntroduceActivity extends ActionBarActivity {
                 for (int j = 0; j < articles.size(); j++) {
                     mGroups.get(i).addChildrenItem(
                             new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
-                                    .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum()));
+                                    .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
+                    );
 
                     if (theNovelBookmark != null) {
                         if (theNovelBookmark.getArticleTitle().equals(articles.get(j).getTitle()))
@@ -315,8 +315,8 @@ public class NovelIntroduceActivity extends ActionBarActivity {
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_DOWNLOAD, 5, getResources().getString(R.string.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -365,48 +365,48 @@ public class NovelIntroduceActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(NovelIntroduceActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_DOWNLOAD: // response
-            Intent intent_to_download = new Intent(NovelIntroduceActivity.this, DownloadActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("NovelId", novelId);
-            bundle.putString("NovelName", novelName);
-            intent_to_download.putExtras(bundle);
-            startActivity(intent_to_download);
-            break;
-        case ID_SEARCH: // response
-            Toast.makeText(NovelIntroduceActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
-            break;
-        case ID_Report:
-        	Report.createReportDialog(this,novelName+"("+novelId+")",this.getResources().getString(R.string.report_not_article_problem));  	
-            break;
-        case 7:
-        	Intent intent1 = new Intent();
-            intent1.setClass(this, DonateActivity.class);
-            startActivity(intent1);
-        	break;
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(NovelIntroduceActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US:
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case ID_DOWNLOAD: // response
+                Intent intent_to_download = new Intent(NovelIntroduceActivity.this, DownloadActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("NovelId", novelId);
+                bundle.putString("NovelName", novelName);
+                intent_to_download.putExtras(bundle);
+                startActivity(intent_to_download);
+                break;
+            case ID_SEARCH: // response
+                Toast.makeText(NovelIntroduceActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
+                break;
+            case ID_Report:
+                Report.createReportDialog(this, novelName + "(" + novelId + ")", this.getResources().getString(R.string.report_not_article_problem));
+                break;
+            case 7:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
         }
         return true;
     }
@@ -465,17 +465,17 @@ public class NovelIntroduceActivity extends ActionBarActivity {
                     }
                 });
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

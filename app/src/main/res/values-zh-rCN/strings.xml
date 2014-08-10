@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">小说王</string>
-  <string name="remind_title">小提醒</string>
-  <string name="remind_string">下载后请至我的书柜观看</string>
-    
+    <string name="remind_title">小提醒</string>
+    <string name="remind_string">下载后请至我的书柜观看</string>
+
     <string name="novel_author">作者:</string>
     <string name="novel_update_time">更新:</string>
     <string name="novel_front">由前往后</string>
@@ -14,134 +14,135 @@
     <string name="novel_select_zero">共选了0 项</string>
     <string name="novel_start_download">开始下载</string>
     <string name="novel_downloaded">已下载</string>
-    
+
     <string name="article_up">上一篇</string>
-  <string name="article_down">下一篇</string>
-  <string name="article_no_up">无上一篇</string>
-  <string name="article_no_down">无下一篇</string>
-  <string name="article_no_data">资料错误</string>
-    
-  <string name="setting_text">文字大小</string>
-  <string name="setting_text_preview">文字预览:小说王</string>
-  <string name="setting_select_lan">繁简字体选择</string>
-  <string name="setting_lan_tra">繁体</string>
-  <string name="setting_lan_sim">简体</string>
-  <string name="setting_select_direction">阅读方向</string>
-  <string name="setting_direction_portrait">直向</string>
-  <string name="setting_direction_horizontal">橫向</string>
-  <string name="setting_select_tap">点击换页</string>
-  <string name="setting_tap_open">开启</string>
-  <string name="setting_tap_close">关闭</string>
-  <string name="setting_select_sleeping">阅读时停止休眠</string>
-  <string name="setting_sleeping_open">开启停止休眠</string>
-  <string name="setting_sleeping_close">关闭停止休眠</string>
-  <string name="setting_select_text_color">字色:</string>
-  <string name="setting_select_text_background">背景:</string>
-  <string name="theme_setting">App主题色＆上下边颜色\n(App要重开,设定才会生效)</string>
-  <string name="theme_light">亮白(预设)</string>
-  <string name="theme_dark">灰黑</string>
-  <string name="aritcle_ad_type">小说阅读页广告模式</string>
-  <string name="InterstitialAd">插页广告</string>
-  <string name="BannerAd">横幅广告</string>
-  <string name="reset_db_hint">资料库重置(清空DB)</string>
-  <string name="reset_db_message">确定要重置资料库吗？ (完成后,请重开APP)</string>
-  <string name="reset_db_success">重置完成</string>
-  <string name="reset_db_fail">重置失败</string>
-  <string name="reset">重置</string>
-  <string name="setting_sun_mode">日间模式设定</string>
-  <string name="setting_moon_mode">夜间模式设定</string>
-  <string name="setting_select_mode">阅读模式选择</string>
-  <string name="sun_mode">日间模式</string>
-  <string name="moon_mode">夜间模式</string>
-  <string name="mode_setting_title">文字背景模式</string>
-  <string name="fontsize_setting_title">文字大小设定</string>
-  
-  <string name="title_my_downloading"> 我的下载</string>
-  <string name="title_my_bookcase"> 我的书柜</string>
-  <string name="title_novel_introduce"> 小说介绍</string>
-  <string name="title_reading_setting"> 阅读设定</string>
-  <string name="update_novel">小说更新</string>
-  
-  <string name="setting_living">离开设定</string>
-  <string name="setting_message">是否要储存设定?</string>
-  <string name="setting_yes">储存</string>
-  <string name="setting_neutral">取消</string>
-  <string name="setting_no">不储存</string>
-  
-  <string name="delete_title">删除</string>
-  <string name="delete_message">是否删除此小说</string>
-  <string name="delete_yes">删除</string>
-  <string name="delete_no">不删除</string>
-  
-  <string name="add_my_bookcase1">加入书柜(收藏)</string>
-  <string name="add_my_bookcase">已加入我的书柜</string>
-  <string name="remove_my_bookcase">已从我的书柜移除</string>
-  <string name="add_my_bookmark_title">加书签</string>
-  <string name="add_my_bookmark_content">要加入书签吗?</string>
-  <string name="my_bookmark_none">目前没有书签!</string>
-  <string name="reading_novel">观看小说</string>
-  <string name="remove_bookmark">删除书签</string>
-  
-  <string name="toast_all_collect_title"> 共选了</string>
-  <string name="toast_all_collect_final"> 项</string>
-  <string name="toast_novel_downloading">小说下载中,...</string>
-  <string name="toast_downloading_success">成功下载</string>
-  <string name="toast_downloading_fail">出现错误, 请重新下载</string>
-  <string name="toast_downloading_wait">资料下载中,请稍候</string>
-  
-  
-  <string name="respond_mail_address">service@kosbrother.com</string>
-  <string name="respond_mail_title">意见回馈from 小说王</string>
-  
-  <string name="recommend_url">https://play.google.com/store/apps/details?id=com.novel.reader</string>
-  
-  <string name="menu_settings">设定</string>
-  <string name="menu_respond">意见回馈</string>
-  <string name="menu_aboutus">关于我们</string>
-  <string name="menu_recommend">为App评分</string>
-  <string name="menu_add_bookmark">此章节加入书签</string>
-  <string name="menu_delete_bookmark">此章节移除书签</string>
-  <string name="menu_search">搜索</string>
-  <string name="menu_add_all">全选</string>
-  <string name="menu_remove_all">全取消</string>
-  <string name="menu_download">下载</string>
-  <string name="menu_report">问题回报</string>
-  <string name="menu_article_report">章节问题回报</string>
-  <string name="menu_collect_novel">收藏此本小说</string>
+    <string name="article_down">下一篇</string>
+    <string name="article_no_up">无上一篇</string>
+    <string name="article_no_down">无下一篇</string>
+    <string name="article_no_data">资料错误</string>
+
+    <string name="setting_text">文字大小</string>
+    <string name="setting_text_preview">文字预览:小说王</string>
+    <string name="setting_select_lan">繁简字体选择</string>
+    <string name="setting_lan_tra">繁体</string>
+    <string name="setting_lan_sim">简体</string>
+    <string name="setting_select_direction">阅读方向</string>
+    <string name="setting_direction_portrait">直向</string>
+    <string name="setting_direction_horizontal">橫向</string>
+    <string name="setting_direction_none">不锁定方向</string>
+    <string name="setting_select_tap">点击换页</string>
+    <string name="setting_tap_open">开启</string>
+    <string name="setting_tap_close">关闭</string>
+    <string name="setting_select_sleeping">阅读时停止休眠</string>
+    <string name="setting_sleeping_open">开启停止休眠</string>
+    <string name="setting_sleeping_close">关闭停止休眠</string>
+    <string name="setting_select_text_color">字色:</string>
+    <string name="setting_select_text_background">背景:</string>
+    <string name="theme_setting">App主题色＆上下边颜色\n(App要重开,设定才会生效)</string>
+    <string name="theme_light">亮白(预设)</string>
+    <string name="theme_dark">灰黑</string>
+    <string name="aritcle_ad_type">小说阅读页广告模式</string>
+    <string name="InterstitialAd">插页广告</string>
+    <string name="BannerAd">横幅广告</string>
+    <string name="reset_db_hint">资料库重置(清空DB)</string>
+    <string name="reset_db_message">确定要重置资料库吗？ (完成后,请重开APP)</string>
+    <string name="reset_db_success">重置完成</string>
+    <string name="reset_db_fail">重置失败</string>
+    <string name="reset">重置</string>
+    <string name="setting_sun_mode">日间模式设定</string>
+    <string name="setting_moon_mode">夜间模式设定</string>
+    <string name="setting_select_mode">阅读模式选择</string>
+    <string name="sun_mode">日间模式</string>
+    <string name="moon_mode">夜间模式</string>
+    <string name="mode_setting_title">文字背景模式</string>
+    <string name="fontsize_setting_title">文字大小设定</string>
+
+    <string name="title_my_downloading"> 我的下载</string>
+    <string name="title_my_bookcase"> 我的书柜</string>
+    <string name="title_novel_introduce"> 小说介绍</string>
+    <string name="title_reading_setting"> 阅读设定</string>
+    <string name="update_novel">小说更新</string>
+
+    <string name="setting_living">离开设定</string>
+    <string name="setting_message">是否要储存设定?</string>
+    <string name="setting_yes">储存</string>
+    <string name="setting_neutral">取消</string>
+    <string name="setting_no">不储存</string>
+
+    <string name="delete_title">删除</string>
+    <string name="delete_message">是否删除此小说</string>
+    <string name="delete_yes">删除</string>
+    <string name="delete_no">不删除</string>
+
+    <string name="add_my_bookcase1">加入书柜(收藏)</string>
+    <string name="add_my_bookcase">已加入我的书柜</string>
+    <string name="remove_my_bookcase">已从我的书柜移除</string>
+    <string name="add_my_bookmark_title">加书签</string>
+    <string name="add_my_bookmark_content">要加入书签吗?</string>
+    <string name="my_bookmark_none">目前没有书签!</string>
+    <string name="reading_novel">观看小说</string>
+    <string name="remove_bookmark">删除书签</string>
+
+    <string name="toast_all_collect_title"> 共选了</string>
+    <string name="toast_all_collect_final"> 项</string>
+    <string name="toast_novel_downloading">小说下载中,...</string>
+    <string name="toast_downloading_success">成功下载</string>
+    <string name="toast_downloading_fail">出现错误, 请重新下载</string>
+    <string name="toast_downloading_wait">资料下载中,请稍候</string>
+
+
+    <string name="respond_mail_address">service@kosbrother.com</string>
+    <string name="respond_mail_title">意见回馈from 小说王</string>
+
+    <string name="recommend_url">https://play.google.com/store/apps/details?id=com.novel.reader</string>
+
+    <string name="menu_settings">设定</string>
+    <string name="menu_respond">意见回馈</string>
+    <string name="menu_aboutus">关于我们</string>
+    <string name="menu_recommend">为App评分</string>
+    <string name="menu_add_bookmark">此章节加入书签</string>
+    <string name="menu_delete_bookmark">此章节移除书签</string>
+    <string name="menu_search">搜索</string>
+    <string name="menu_add_all">全选</string>
+    <string name="menu_remove_all">全取消</string>
+    <string name="menu_download">下载</string>
+    <string name="menu_report">问题回报</string>
+    <string name="menu_article_report">章节问题回报</string>
+    <string name="menu_collect_novel">收藏此本小说</string>
     <string name="menu_remove_collect_novel">取消收藏此本小说</string>
-  
-  <string name="report_title">小说王问题回报</string>
-  <string name="report_chapter">回报章节:</string>
-  <string name="report_confirm">回报</string>
-  <string name="report_cancel">取消</string>
-  <string name="report_reporting">回报中...</string>
-  <string name="report_remind">请输入问题内容！</string>
-  <string name="report_success">成功回报！</string>
-  <string name="report_fail">回报失败！</string>
-  <string name="report_hint">问题内容...</string>
-  <string name="report_content">问题内容:</string>
-  <string name="report_novel">小说名称:</string>
-  
-  <string name="search_hint">请输入作者或书名</string>
-  <string name="about_us_string">关于我们</string>
-  <string name="about_us">您好, \n\n『小说王』是一个从网路收集小说的第三方App软体,资料不属于小说王所有，直接来自网路\n\n如果您有什么建议与指教, 欢迎Email 让我们知道. \n\n感谢您. \n\nEmail: service\@kosbrother.com</string>
-  <string name="yes_string">确定</string>
-  
-  <string name="my_bookcase">我的书柜</string>
-  <string name="my_bookmark">我的书签</string>
-  <string name="my_recent_reading">最近阅读</string>
-  <string name="my_read_setting">阅读设定</string>
-  <string name="my_classic_novel">经典小说</string>
-  <string name="my_classic_action_novel">经典武侠</string>
-  <string name="my_download">我的下载</string>
-    
+
+    <string name="report_title">小说王问题回报</string>
+    <string name="report_chapter">回报章节:</string>
+    <string name="report_confirm">回报</string>
+    <string name="report_cancel">取消</string>
+    <string name="report_reporting">回报中...</string>
+    <string name="report_remind">请输入问题内容！</string>
+    <string name="report_success">成功回报！</string>
+    <string name="report_fail">回报失败！</string>
+    <string name="report_hint">问题内容...</string>
+    <string name="report_content">问题内容:</string>
+    <string name="report_novel">小说名称:</string>
+
+    <string name="search_hint">请输入作者或书名</string>
+    <string name="about_us_string">关于我们</string>
+    <string name="about_us">您好, \n\n『小说王』是一个从网路收集小说的第三方App软体,资料不属于小说王所有，直接来自网路\n\n如果您有什么建议与指教, 欢迎Email 让我们知道. \n\n感谢您. \n\nEmail: service\@kosbrother.com</string>
+    <string name="yes_string">确定</string>
+
+    <string name="my_bookcase">我的书柜</string>
+    <string name="my_bookmark">我的书签</string>
+    <string name="my_recent_reading">最近阅读</string>
+    <string name="my_read_setting">阅读设定</string>
+    <string name="my_classic_novel">经典小说</string>
+    <string name="my_classic_action_novel">经典武侠</string>
+    <string name="my_download">我的下载</string>
+
     <string name="reminder">提醒</string>
     <string name="delete_bookmark_reminder">长按书签可以删除书签哦！</string>
     <string name="reminder_next">下次再提醒</string>
     <string name="do_not_reminder">不要再提醒</string>
-    
-  <string name="delete_articles">删除所选章节</string>
-    
+
+    <string name="delete_articles">删除所选章节</string>
+
     <string name="no_data">目前无资料</string>
     <string name="no_internet">无法连线</string>
     <string name="try_again">重试</string>
@@ -151,38 +152,41 @@
     <string name="article_num">篇数:</string>
     <string name="update_time">更新日期:</string>
     <string name="serializing">连载中</string>
-    
+
     <string name="report_problem_hint">请输入问题内容...</string>
     <string name="report_not_article_problem">非特定章节！</string>
     <string name="report_not_novel_problem">非特定小说！</string>
     <string name="bookmarks_recent_read">查看书签及最近阅读</string>
     <string name="look_collect_download">查看收藏及下载</string>
-    
+
     <string name="title">标题:</string>
     <string name="no_novel_in_bookcase">目前还没有收藏或下载的小说</string>
     <string name="no_bookmark_in_my_bookmarks">目前还没有收集书签或阅读过小说章节</string>
-    
-    <string name="update_info" ><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增​​推荐小说, 并把部分功能移到左列选单<br ><font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5:</font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br>]]></string>
+
+    <string name="update_info"><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增​​推荐小说, 并把部分功能移到左列选单<br ><font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5:</font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br>]]></string>
     <string name="update">版本更新通知</string>
-    
-    
+
+
     <string name="buy_year_subscription">购买赞助版</string>
     <string name="buy_fail">购买失败，请再试一次！</string>
     <string name="restart_novel">购买失败，请再试一次！</string>
-    
+
     <string name="need_you">小说王需要你</string>
     <string name="notice_no_ad">现在只要赞助\'小说王\', 即可以免除广告！ </string>
     <string name="donate_des">小说王开发者、设计师、编辑之前皆是无薪开发, 所以不得不在APP里面, 放一些广告, 造成大家的困扰, 我们十分抱歉！希望大家可以赞助我们, 也享受看小说不再受到广告的干扰, 谢谢!</string>
     <string name="donate_app">赞助小说王</string>
     <string name="verify_buy">已购买, 重新验证!</string>
-    
+
+    <string name="collect_notification_title">%1$d本小说有新文章！</string>
+    <string name="collect_notification_ticker">%1$d本收藏小说有新文章啰！</string>
+
     <!-- for load more -->
     <string name="hello">Hello World, LoadMoreListView!</string>
     <string name="pull_to_refresh_pull_label">Pull to refresh...</string>
     <string name="pull_to_refresh_release_label">Release to refresh...</string>
     <string name="pull_to_refresh_refreshing_label">Loading...</string>
     <string name="pull_to_refresh_tap_label">Tap to refresh...</string>
-    
+
     <!-- for vpon -->
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
     <string name="msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>

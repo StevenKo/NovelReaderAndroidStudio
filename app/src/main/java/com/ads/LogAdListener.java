@@ -37,7 +37,7 @@ public class LogAdListener extends AdListener {
     @Override
     public void onAdFailedToLoad(int errorCode) {
         String errorReason = "";
-        switch(errorCode) {
+        switch (errorCode) {
             case AdRequest.ERROR_CODE_INTERNAL_ERROR:
                 errorReason = "Internal error";
                 break;
@@ -56,16 +56,16 @@ public class LogAdListener extends AdListener {
 
     @Override
     public void onAdOpened() {
-    	Log.d("admob_ads", "onAdOpened()");
+        Log.d("admob_ads", "onAdOpened()");
     }
 
     @Override
     public void onAdClosed() {
-    	Log.d("admob_ads", "onAdClosed()");
+        Log.d("admob_ads", "onAdClosed()");
     }
 
     @Override
     public void onAdLeftApplication() {
-    	Log.d("admob_ads", "onAdLeftApplication()");
+        Log.d("admob_ads", "onAdLeftApplication()");
     }
 }

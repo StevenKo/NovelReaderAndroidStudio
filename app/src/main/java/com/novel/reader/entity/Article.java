@@ -1,13 +1,13 @@
 package com.novel.reader.entity;
 
 public class Article {
-    public int     id;
-    protected int     novelId;
-    protected String  text;
-    protected String  title;
-    protected String  subject;
+    public int id;
+    protected int novelId;
+    protected String text;
+    protected String title;
+    protected String subject;
     protected boolean isDownloaded;
-    protected int     num;
+    protected int num;
 
     public Article() {
         this(1, 1, "", "", "", false, 0);
@@ -31,7 +31,7 @@ public class Article {
         this.isDownloaded = isDownloaded;
         this.num = num;
     }
-    
+
     public int getNum() {
         return num;
     }

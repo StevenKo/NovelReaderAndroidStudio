@@ -1,6 +1,4 @@
-package com.novel.reader;
-
-import java.util.ArrayList;
+package com.novel.reader.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,11 +13,13 @@ import com.novel.reader.R;
 import com.novel.reader.entity.Article;
 import com.novel.reader.util.NovelReaderUtil;
 
+import java.util.ArrayList;
+
 public class ContentAdapter extends BaseAdapter {
 
-    private final Activity            activity;
+    private final Activity activity;
     private final ArrayList<Article> data;
-    private static LayoutInflater     inflater = null;
+    private static LayoutInflater inflater = null;
     private int selectId;
 
     public ContentAdapter(Activity a, ArrayList<Article> d, int selectArticleId) {
@@ -30,7 +30,7 @@ public class ContentAdapter extends BaseAdapter {
 
     }
 
-	public int getCount() {
+    public int getCount() {
         return data.size();
     }
 
@@ -46,10 +46,10 @@ public class ContentAdapter extends BaseAdapter {
         View vi = convertView;
         vi = inflater.inflate(R.layout.item_contents_list, null);
         TextView text = (TextView) vi.findViewById(R.id.text_category_name);
-        
-        text.setText(NovelReaderUtil.translateTextIfCN(activity,data.get(position).getTitle()));
-        if(data.get(position).getId() == selectId)
-        	text.setTextColor(Color.RED);
+
+        text.setText(NovelReaderUtil.translateTextIfCN(activity, data.get(position).getTitle()));
+        if (data.get(position).getId() == selectId)
+            text.setTextColor(Color.RED);
 
         return vi;
     }

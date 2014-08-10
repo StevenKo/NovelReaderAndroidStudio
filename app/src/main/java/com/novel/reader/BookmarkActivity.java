@@ -25,30 +25,30 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.kosbrother.fragments.MyBookmarkFragment;
 import com.novel.reader.util.Setting;
 
-public class BookmarkActivity extends AdFragmentActivity{
+public class BookmarkActivity extends AdFragmentActivity {
 
-   
-    private boolean                              alertDeleteBookmark;
-    SharedPreferences                            settings;
-    private final String                         alertKey   = "alertDeleteBookmark";
-    private String[]                  CONTENT;
-    private static ViewPager                 pager;
+
+    private boolean alertDeleteBookmark;
+    SharedPreferences settings;
+    private final String alertKey = "alertDeleteBookmark";
+    private String[] CONTENT;
+    private static ViewPager pager;
     private static FragmentStatePagerAdapter adapter;
-	private static BookmarkActivity mActivity;
+    private static BookmarkActivity mActivity;
 
-	
-	private RelativeLayout bannerAdView;
-	private ActionBar actionbar;
-	private SlidingTabLayout mSlidingTabLayout;
+
+    private RelativeLayout bannerAdView;
+    private ActionBar actionbar;
+    private SlidingTabLayout mSlidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-        
+
         mActivity = BookmarkActivity.this;
-        
+
         actionbar = getSupportActionBar();
         actionbar.setTitle(getResources().getString(R.string.my_bookmark));
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -67,33 +67,34 @@ public class BookmarkActivity extends AdFragmentActivity{
                 pager.setCurrentItem(1);
             }
         }
-        
+
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(pager);
 
         settings = getSharedPreferences(Setting.keyPref, 0);
         alertDeleteBookmark = settings.getBoolean(alertKey, true);
-        
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
-        
+
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
+
         if (alertDeleteBookmark)
             showArticleDeleteDialog();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
-    
+
+
     class NovelPagerAdapter extends FragmentStatePagerAdapter {
-    	
-    	SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-    	
+
+        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+
         public NovelPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -119,7 +120,7 @@ public class BookmarkActivity extends AdFragmentActivity{
         public int getCount() {
             return CONTENT.length;
         }
-        
+
         public Fragment getRegisteredFragment(int position) {
             return registeredFragments.get(position);
         }
@@ -130,15 +131,13 @@ public class BookmarkActivity extends AdFragmentActivity{
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            break;
+            case android.R.id.home:
+                finish();
+                break;
         }
         return true;
     }
 
-
-    
 
     private void showArticleDeleteDialog() {
         new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.reminder)).setIcon(R.drawable.ic_stat_notify)
@@ -153,88 +152,87 @@ public class BookmarkActivity extends AdFragmentActivity{
 
                 }).setNegativeButton(getResources().getString(R.string.reminder_next), new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
 
-                    }
+            }
 
-                }).show();
+        }).show();
 
     }
 
 
-    
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
-    
+
     public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
-	      // Called when the action mode is created; startActionMode() was called
-	      public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	          // Inflate a menu resource providing context menu items
-	          MenuInflater inflater = mode.getMenuInflater();
-	          // Assumes that you have "contexual.xml" menu resources
-	          inflater.inflate(R.menu.contextual, menu);
-	          
-	          return true;
-	      }
-	
-	      // Called each time the action mode is shown. Always called after
-	      // onCreateActionMode, but
-	      // may be called multiple times if the mode is invalidated.
-	      public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-	          return false; // Return false if nothing is done
-	      }
-	
-	      // Called when the user selects a contextual menu item
-	      public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	    	  MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
-        	  MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
-	          switch (item.getItemId()) {
-	          case R.id.delete_articles:
-	        	  fragment1.deleteAndReload();
-	        	  fragment2.deleteAndReload();
-	        	  mode.finish();
-	              return true;
-	          default:
-	        	  fragment1.resetIsShowDeleteCallbackAction();
-	        	  fragment2.resetIsShowDeleteCallbackAction();
-	              return false;
-	          }
-	      }
-	
-	      // Called when the user exits the action mode
-	      public void onDestroyActionMode(ActionMode mode) {
-	    	  MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
-        	  MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
-        	  fragment1.resetIsShowDeleteCallbackAction();
-        	  fragment2.resetIsShowDeleteCallbackAction();
-	
-	      }
-	};
-	private ActionMode mActionMode;
-	  
+        // Called when the action mode is created; startActionMode() was called
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            // Assumes that you have "contexual.xml" menu resources
+            inflater.inflate(R.menu.contextual, menu);
+
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after
+        // onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
+            MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
+            switch (item.getItemId()) {
+                case R.id.delete_articles:
+                    fragment1.deleteAndReload();
+                    fragment2.deleteAndReload();
+                    mode.finish();
+                    return true;
+                default:
+                    fragment1.resetIsShowDeleteCallbackAction();
+                    fragment2.resetIsShowDeleteCallbackAction();
+                    return false;
+            }
+        }
+
+        // Called when the user exits the action mode
+        public void onDestroyActionMode(ActionMode mode) {
+            MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
+            MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
+            fragment1.resetIsShowDeleteCallbackAction();
+            fragment2.resetIsShowDeleteCallbackAction();
+
+        }
+    };
+    private ActionMode mActionMode;
+
     public void showCallBackAction() {
-    	mActionMode = mActivity.startSupportActionMode(mActionModeCallback);  
+        mActionMode = mActivity.startSupportActionMode(mActionModeCallback);
     }
-    
-    public void closeActionMode(){
-    	if (mActionMode!=null){
-    		mActionMode.finish();
-    		MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
-      	  	MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
-      	    fragment1.isShowDeleteCallbackAction = false;
-      	    fragment2.isShowDeleteCallbackAction = false;
-    	}
+
+    public void closeActionMode() {
+        if (mActionMode != null) {
+            mActionMode.finish();
+            MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
+            MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
+            fragment1.isShowDeleteCallbackAction = false;
+            fragment2.isShowDeleteCallbackAction = false;
+        }
     }
 
 }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Group {
     // private String id;
-    private final String                  title;
+    private final String title;
     private final ArrayList<ChildArticle> children;
-    private boolean                       isChecked;
+    private boolean isChecked;
 
     public Group(String title) {
         // this.id = id;

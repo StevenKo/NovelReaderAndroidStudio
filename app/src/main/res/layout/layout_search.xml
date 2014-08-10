@@ -3,47 +3,20 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-	<LinearLayout 
-   	 	android:id="@+id/layout_no_search"
-   	 	android:layout_width="fill_parent"
-   	 	android:layout_height="fill_parent"
-     	android:gravity="center"
-     	android:visibility="gone"
-     	android:background="@color/main_color_grey_dark"
-     	>
-	    <ImageView 
-	       android:layout_width="80dp"
-   	 	   android:layout_height="80dp"
-   	 	   android:src="@drawable/app_icon_black" 
-	        />
-	    <TextView 
-	        android:layout_width="wrap_content"
-   	 		android:layout_height="wrap_content"
-   	 		android:text="@string/cannot_find_data"
-   	 		android:textSize="23dp"
-   	 		android:layout_marginLeft="5dp"
-   	 		android:textColor="#6E6E6E"
-	        />
-	</LinearLayout>
-    
-	<ListView
-        android:id="@+id/listView"
-        android:cacheColorHint="#00000000"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/loadmore_grid"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-     	android:layout_weight="1"      
-        />
-	
-	<RelativeLayout
+        android:layout_weight="1" />
+
+    <RelativeLayout
         android:id="@+id/adonView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        />
-    
-    
+        android:gravity="center" />
+
 
 </LinearLayout>

@@ -29,15 +29,15 @@ import java.util.ArrayList;
 
 public class NovelAPI {
 
-    final static String         HOST  = "http://106.187.40.42";
-    public static final String  TAG   = "NOVEL_API";
+    final static String HOST = "http://106.187.40.42";
+    public static final String TAG = "NOVEL_API";
     public static final boolean DEBUG = true;
     final static String GAME_HOST = "http://apply.inapp.tw";
     public static ArrayList<GameAPP> apps;
-    
-    public static void sendClickInfo(Context context, int appid){
+
+    public static void sendClickInfo(Context context, int appid) {
 //    	String device_id = Settings.Secure.getString(context.getContentResolver(),Settings.Secure.ANDROID_ID);
-    	
+
 //    	TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 //    	String device_id = telephonyManager.getDeviceId();
 //    	
@@ -77,25 +77,25 @@ public class NovelAPI {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} 
-    	
+
 //    	String message = getMessageFromServer("GET", "", null,GAME_HOST + "/adlog" + "?ip="+ip+"&appid="+appid+"&imei="+device_id+"&bigtype=3");
 //		return message;
     }
-    
-    public static ArrayList<GameAPP> getAppInfo(Context context){
-    	if(apps!=null)
-    		return apps;
-    	apps = new ArrayList<GameAPP>();
-    	int id = 0;
+
+    public static ArrayList<GameAPP> getAppInfo(Context context) {
+        if (apps != null)
+            return apps;
+        apps = new ArrayList<GameAPP>();
+        int id = 0;
         int appid = 0;
         String title = "AndroMoney理財幫手";
         String description = "榮獲Google Play 首頁之效率排行工具之記帳理財APP。";
         String imageUrl = "";
         String appStoreUrl = "https://play.google.com/store/apps/details?id=com.kpmoney.android";
-        GameAPP app = new GameAPP(id,appid,title,description,imageUrl,appStoreUrl);
+        GameAPP app = new GameAPP(id, appid, title, description, imageUrl, appStoreUrl);
         apps.add(app);
         return apps;
-        
+
 //    	String message = getMessageFromServer("GET", "", null,GAME_HOST+"/api/spread?index=1&count=15");
 //    	if (message == null) {
 //    		return null;
@@ -148,7 +148,7 @@ public class NovelAPI {
         SQLiteNovel db = new SQLiteNovel(context);
         db.deleteBookmark(bookmark);
     }
-    
+
     public static void deleteBookmarks(ArrayList<Bookmark> bookmarks, Context context) {
         SQLiteNovel db = new SQLiteNovel(context);
         db.deleteBookmarks(bookmarks);
@@ -263,14 +263,14 @@ public class NovelAPI {
         SQLiteNovel db = new SQLiteNovel(context);
         db.deleteArticles(articles);
     }
-    
-    public static void updateNovelsInfo(ArrayList<Novel> novels, Context context){
-    	SQLiteNovel db = new SQLiteNovel(context);
-    	for (Novel novel: novels){
-    		novel.setIsDownload(db.isNovelDownloaded(novel.getId()));
-    		novel.setIsCollected(db.isNovelCollected(novel.getId()));
-    		db.updateNovel(novel);
-    	}
+
+    public static void updateNovelsInfo(ArrayList<Novel> novels, Context context) {
+        SQLiteNovel db = new SQLiteNovel(context);
+        for (Novel novel : novels) {
+            novel.setIsDownload(db.isNovelDownloaded(novel.getId()));
+            novel.setIsCollected(db.isNovelCollected(novel.getId()));
+            db.updateNovel(novel);
+        }
     }
 
     public static boolean collecNovel(final Novel novel, final Context context) {
@@ -342,7 +342,7 @@ public class NovelAPI {
             db.updateNovel(n);
         else
             db.insertNovel(n);
-        
+
 
         // for (int i = 0; i < articles.size(); i++) {
         // if (db.isArticleExists(articles.get(i).getId()))
@@ -353,21 +353,21 @@ public class NovelAPI {
 
         return true;
     }
-    
-    public static ArrayList<Novel> getCollectNovelsInfoFromServer(ArrayList<Novel> collectNovels){
-    	String idLst = "";
+
+    public static ArrayList<Novel> getCollectNovelsInfoFromServer(ArrayList<Novel> collectNovels) {
+        String idLst = "";
         for (int i = 0; i < collectNovels.size(); i++)
             idLst = collectNovels.get(i).getId() + "," + idLst;
         if (idLst.length() > 0)
-        	idLst = idLst.substring(0, idLst.length() - 1);
-        
+            idLst = idLst.substring(0, idLst.length() - 1);
+
         ArrayList<Novel> novels = new ArrayList<Novel>();
         String message = getMessageFromServer("GET", "/api/v1/novels/collect_novels_info.json?novels_id=" + idLst, null);
         if (message == null) {
             return null;
         } else {
             novels = parseNovel(message, novels);
-            for(int i = 0; i < novels.size() ; i++){
+            for (int i = 0; i < novels.size(); i++) {
                 novels.get(i).setLastViewDate(collectNovels.get(i).getLastViewDate());
             }
             return novels;
@@ -420,7 +420,7 @@ public class NovelAPI {
                 articleFromDB.setText(articleFromDB.getText());
             return articleFromDB;
         }
-        
+
 
         String message = getMessageFromServer("GET", "/api/v1/articles/" + article.getId() + ".json", null);
         if (message == null) {
@@ -562,7 +562,7 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getThisWeekHotNovels(int myPage) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/this_week_hot.json"+ "?page=" + myPage, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/this_week_hot.json" + "?page=" + myPage, null);
         if (message == null) {
             return null;
         } else {
@@ -572,7 +572,7 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getHotNovels(int myPage) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/hot.json"+ "?page=" + myPage, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/hot.json" + "?page=" + myPage, null);
         if (message == null) {
             return null;
         } else {
@@ -604,7 +604,7 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getCategoryRecommendNovels(int category_id, int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/category_recommend.json?category_id=" + category_id+ "&page=" + page, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/category_recommend.json?category_id=" + category_id + "&page=" + page, null);
         if (message == null) {
             return null;
         } else {
@@ -614,7 +614,7 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getCategoryThisWeekHotNovels(int category_id, int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/category_this_week_hot.json?category_id=" + category_id+ "&page=" + page, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/category_this_week_hot.json?category_id=" + category_id + "&page=" + page, null);
         if (message == null) {
             return null;
         } else {
@@ -624,7 +624,7 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getCategoryHotNovels(int category_id, int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/category_hot.json?category_id=" + category_id+ "&page=" + page, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/category_hot.json?category_id=" + category_id + "&page=" + page, null);
         if (message == null) {
             return null;
         } else {
@@ -677,8 +677,8 @@ public class NovelAPI {
             return parseNovel(message, novels);
         }
     }
-    
-	public static ArrayList<Novel> getCategoryLatestNovels(int category_id, int page) {
+
+    public static ArrayList<Novel> getCategoryLatestNovels(int category_id, int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
         String message = getMessageFromServer("GET", "/api/v1/novels/category_latest_update.json?category_id=" + category_id + "&page=" + page, null);
         if (message == null) {
@@ -687,7 +687,7 @@ public class NovelAPI {
             return parseNovel(message, novels);
         }
     }
-    
+
     public static ArrayList<Novel> getLatestUpdateNovels(int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
         String message = getMessageFromServer("GET", "/api/v1/novels/all_novel_update.json?&page=" + page, null);
@@ -697,16 +697,16 @@ public class NovelAPI {
             return parseNovel(message, novels);
         }
     }
-    
+
     public static ArrayList<Novel> getCategoryFinish(int categoryId, int page) {
-    	ArrayList<Novel> novels = new ArrayList<Novel>();
+        ArrayList<Novel> novels = new ArrayList<Novel>();
         String message = getMessageFromServer("GET", "/api/v1/novels/category_finish.json?category_id=" + categoryId + "&page=" + page, null);
         if (message == null) {
             return null;
         } else {
             return parseNovel(message, novels);
         }
-	}
+    }
 
     public static ArrayList<Category> getCategories() {
         return Category.getCategories();
@@ -763,7 +763,7 @@ public class NovelAPI {
             return null;
         }
     }
-    
+
     private static String getMessageFromServer(String requestMethod, String apiPath, JSONObject json, String apiUrl) {
         URL url;
         try {
@@ -846,9 +846,9 @@ public class NovelAPI {
         }
         return novels;
     }
-    
-    public static boolean sendRegistrationId(String regid,String deviceId,String country,int versionCode,String platform){
-    	return false;
+
+    public static boolean sendRegistrationId(String regid, String deviceId, String country, int versionCode, String platform) {
+        return false;
 //    	try{
 //			DefaultHttpClient httpClient = new DefaultHttpClient();
 //			String url = HOST + "/api/v1/users.json?regid="+regid+"&device_id="+deviceId+"&platform="+platform+"&version="+versionCode+"&country="+country;				
@@ -869,9 +869,9 @@ public class NovelAPI {
 //			return false;
 //		} 
     }
-    
-    public static boolean sendNovel(int novel,String deviceId){
-    	return false;
+
+    public static boolean sendNovel(int novel, String deviceId) {
+        return false;
 //    	try{
 //			DefaultHttpClient httpClient = new DefaultHttpClient();
 //			String url = HOST + "/api/v1/users/update_novel.json?novel="+novel+"&device_id="+deviceId;						
@@ -893,9 +893,9 @@ public class NovelAPI {
 //		} 
 
     }
-    
-    public static boolean sendDownloadedNovels(String novels,String deviceId){
-    	return false;
+
+    public static boolean sendDownloadedNovels(String novels, String deviceId) {
+        return false;
 //    	try{
 //			DefaultHttpClient httpClient = new DefaultHttpClient();
 //			String url = HOST + "/api/v1/users/update_downloaded_novels.json?novels="+novels+"&device_id="+deviceId;						
@@ -916,9 +916,9 @@ public class NovelAPI {
 //			return false;
 //		} 
     }
-    
-    public static boolean sendCollectedNovels(String novels,String deviceId){
-    	return false;
+
+    public static boolean sendCollectedNovels(String novels, String deviceId) {
+        return false;
 //    	try{
 //			DefaultHttpClient httpClient = new DefaultHttpClient();
 //			String url = HOST + "/api/v1/users/update_collected_novels.json?novels="+novels+"&device_id="+deviceId;						
@@ -940,10 +940,10 @@ public class NovelAPI {
 //		} 
     }
 
-	public static Bookmark findBookMarkByArticle(Article article, Context context) {
-		SQLiteNovel db = new SQLiteNovel(context);
-		return db.findBookMarkByArticle(article);
-	}
+    public static Bookmark findBookMarkByArticle(Article article, Context context) {
+        SQLiteNovel db = new SQLiteNovel(context);
+        return db.findBookMarkByArticle(article);
+    }
 
 
     public static ArrayList<Category> getRecommendCategoryWithNovels() {
@@ -966,7 +966,7 @@ public class NovelAPI {
                 String categoryName = categoriesArray.getJSONObject(i).getString("name");
                 ArrayList<Novel> novels = new ArrayList<Novel>();
                 JSONArray novelsArray = categoriesArray.getJSONObject(i).getJSONArray("novels");
-                for(int j=0; j < novelsArray.length() ; j++){
+                for (int j = 0; j < novelsArray.length(); j++) {
 
                     int novelId = novelsArray.getJSONObject(j).getInt("id");
                     String articleNum = novelsArray.getJSONObject(j).getString("article_num");
@@ -979,7 +979,7 @@ public class NovelAPI {
                     novels.add(novel);
 
                 }
-                Category category = new Category(id,categoryName);
+                Category category = new Category(id, categoryName);
                 category.novels = novels;
                 categories.add(category);
 
@@ -994,7 +994,7 @@ public class NovelAPI {
 
     public static void keepNovelLastViewDateIfInDB(int novelId, ArticleActivity articleActivity) {
         SQLiteNovel db = new SQLiteNovel(articleActivity);
-        if(db.isNovelExists(novelId)){
+        if (db.isNovelExists(novelId)) {
             db.updateNovelLastViewDate(novelId);
         }
     }
@@ -1002,11 +1002,11 @@ public class NovelAPI {
 
     public static ArrayList<Novel> getRecommendCategoryNovels(int recommendCateoryId) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/recommend_category_novels.json?recommend_category_id="+recommendCateoryId, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/recommend_category_novels.json?recommend_category_id=" + recommendCateoryId, null);
         if (message == null) {
             return novels;
         } else {
-            return parseNovel(message,novels);
+            return parseNovel(message, novels);
         }
     }
 

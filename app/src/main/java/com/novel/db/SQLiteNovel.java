@@ -22,51 +22,50 @@ import java.util.HashMap;
 
 public class SQLiteNovel extends SQLiteOpenHelper {
 
-    public static final String DB_NAME            = "kosnovel.sqlite";                                   // 資料庫名稱
-    private static final int   DATABASE_VERSION   = 6;                                                   // 資料庫版本
-    private static SQLiteDatabase     db;
-    private final Context      ctx;
-    public static final File   DATABASE_FILE_PATH = android.os.Environment.getExternalStorageDirectory();
-
+    public static final String DB_NAME = "kosnovel.sqlite";                                   // 資料庫名稱
+    private static final int DATABASE_VERSION = 6;                                                   // 資料庫版本
+    private static SQLiteDatabase db;
+    private final Context ctx;
+    public static final File DATABASE_FILE_PATH = android.os.Environment.getExternalStorageDirectory();
 
 
     // Define database schema
     public interface NovelSchema {
-        String TABLE_NAME     = "novels";
-        String ID             = "id";
-        String NAME           = "name";
-        String AUTHOR         = "author";
-        String DESCRIPTION    = "description";
-        String PIC            = "pic";
-        String CATEGORY_ID    = "category_id";
-        String ARTICLE_NUM    = "article_num";
-        String LAST_UPDATE    = "last_update";
+        String TABLE_NAME = "novels";
+        String ID = "id";
+        String NAME = "name";
+        String AUTHOR = "author";
+        String DESCRIPTION = "description";
+        String PIC = "pic";
+        String CATEGORY_ID = "category_id";
+        String ARTICLE_NUM = "article_num";
+        String LAST_UPDATE = "last_update";
         String IS_SERIALIZING = "is_serializing";
-        String IS_COLLECTED   = "is_collected";
-        String IS_DOWNLOAD    = "is_downloaded";
+        String IS_COLLECTED = "is_collected";
+        String IS_DOWNLOAD = "is_downloaded";
         String LAST_VIEW_DATE = "last_view_date";
     }
 
     public interface ArtcileSchema {
-        String TABLE_NAME    = "articles";
-        String ID            = "id";
-        String NOVEL_ID      = "novel_id";
-        String TEXT          = "text";
-        String TITLE         = "title";
-        String SUBJECT       = "subject";
+        String TABLE_NAME = "articles";
+        String ID = "id";
+        String NOVEL_ID = "novel_id";
+        String TEXT = "text";
+        String TITLE = "title";
+        String SUBJECT = "subject";
         String IS_DOWNLOADED = "is_downloaded";
-        String NUM           = "num";
+        String NUM = "num";
     }
 
     public interface BookmarkSchema {
-        String TABLE_NAME     = "bookmarks";
-        String ID             = "id";
-        String NOVEL_ID       = "novel_id";
-        String ARTICLE_ID     = "article_id";
-        String READ_RATE      = "read_rate";
-        String NOVEL_NAME     = "novel_name";
-        String ARTICLE_TITLE  = "article_title";
-        String NOVEL_PIC      = "novel_pic";
+        String TABLE_NAME = "bookmarks";
+        String ID = "id";
+        String NOVEL_ID = "novel_id";
+        String ARTICLE_ID = "article_id";
+        String READ_RATE = "read_rate";
+        String NOVEL_NAME = "novel_name";
+        String ARTICLE_TITLE = "article_title";
+        String NOVEL_PIC = "novel_pic";
         String IS_RECENT_READ = "is_recent_read";
     }
 
@@ -83,7 +82,6 @@ public class SQLiteNovel extends SQLiteOpenHelper {
                     db = SQLiteDatabase.openDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
                     if (db.getVersion() < DATABASE_VERSION) {
                         onUpgrade(db, db.getVersion(), DATABASE_VERSION);
-                        db = SQLiteDatabase.openDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
                     }
                 } catch (Exception ex) {
                     try {
@@ -133,10 +131,10 @@ public class SQLiteNovel extends SQLiteOpenHelper {
             db.execSQL(upgradeQuery);
         }
     }
-    private void alterNovelTableAddLastViewDate(SQLiteDatabase db){
+
+    private void alterNovelTableAddLastViewDate(SQLiteDatabase db) {
         if (!existsColumnInTable(db, NovelSchema.TABLE_NAME, NovelSchema.LAST_VIEW_DATE)) {
-            String upgradeQuery = "ALTER TABLE " + NovelSchema.TABLE_NAME + " ADD COLUMN " + NovelSchema.LAST_VIEW_DATE + " DATETIME default CURRENT_TIMESTAMP";
-            db.execSQL(upgradeQuery);
+            String upgradeQuery = "ALTER TABLE " + NovelSchema.TABLE_NAME + " ADD COLUMN " + NovelSchema.LAST_VIEW_DATE + " DATETIME default '2014-08-05 04:30:30'";
             db.execSQL(upgradeQuery);
         }
     }
@@ -147,15 +145,14 @@ public class SQLiteNovel extends SQLiteOpenHelper {
             Cursor mCursor = inDatabase.rawQuery("SELECT * FROM " + inTable + " LIMIT 0", null);
 
             // getColumnIndex gives us the index (0 to ...) of the column - otherwise we get a -1
-            if (mCursor.getColumnIndex(columnToCheck) != -1)
-            {
-            	mCursor.close();
+            if (mCursor.getColumnIndex(columnToCheck) != -1) {
+                mCursor.close();
                 return true;
-            }else{
-            	mCursor.close();
-            	return false;
+            } else {
+                mCursor.close();
+                return false;
             }
-                
+
 
         } catch (Exception Exp) {
             // something went wrong. Missing the database? The table?
@@ -239,19 +236,19 @@ public class SQLiteNovel extends SQLiteOpenHelper {
     }
 
     public boolean deleteNovel(Novel novel) {
-        Cursor cursor = db.rawQuery("DELETE FROM novels WHERE `novels`.`id` = ?", new String[] { novel.getId() + "" });
+        Cursor cursor = db.rawQuery("DELETE FROM novels WHERE `novels`.`id` = ?", new String[]{novel.getId() + ""});
         cursor.moveToFirst();
         cursor.close();
         return true;
     }
 
     public boolean deleteBookmark(Bookmark bookmark) {
-        Cursor cursor = db.rawQuery("DELETE FROM bookmarks WHERE `bookmarks`.`id` = ?", new String[] { bookmark.getId() + "" });
+        Cursor cursor = db.rawQuery("DELETE FROM bookmarks WHERE `bookmarks`.`id` = ?", new String[]{bookmark.getId() + ""});
         cursor.moveToFirst();
         cursor.close();
         return true;
     }
-    
+
     public boolean deleteBookmarks(ArrayList<Bookmark> bookmarks) {
 
         if (bookmarks.size() == 0)
@@ -271,7 +268,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
     }
 
     public boolean deleteArticle(Article article) {
-        Cursor cursor = db.rawQuery("DELETE FROM articles WHERE `articles`.`id` = ?", new String[] { article.getId() + "" });
+        Cursor cursor = db.rawQuery("DELETE FROM articles WHERE `articles`.`id` = ?", new String[]{article.getId() + ""});
         cursor.moveToFirst();
         cursor.close();
         return true;
@@ -329,8 +326,9 @@ public class SQLiteNovel extends SQLiteOpenHelper {
     public boolean updateBookmark(Bookmark bookmark) {
         Cursor cursor = db.rawQuery(
                 "UPDATE bookmarks SET `novel_id` = ?, `article_id` = ?, `read_rate` = ? , `novel_name` = ?, `article_title` = ? WHERE `bookmarks`.`id` = ?",
-                new String[] { bookmark.getNovelId() + "", bookmark.getArticleId() + "", bookmark.getReadRate() + "", bookmark.getNovelName(),
-                        bookmark.getArticleTitle(), bookmark.getId() + "" });
+                new String[]{bookmark.getNovelId() + "", bookmark.getArticleId() + "", bookmark.getReadRate() + "", bookmark.getNovelName(),
+                        bookmark.getArticleTitle(), bookmark.getId() + ""}
+        );
         cursor.moveToFirst();
         cursor.close();
         return true;
@@ -379,11 +377,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         cursor.close();
         return bookmarks;
     }
-    
+
     public ArrayList<Bookmark> getLastBookmarks(int num) {
         Cursor cursor = null;
         ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
-        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 0 ORDER BY id DESC LIMIT "+num, null);
+        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 0 ORDER BY id DESC LIMIT " + num, null);
 
         while (cursor.moveToNext()) {
             int ID = cursor.getInt(0);
@@ -401,11 +399,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         cursor.close();
         return bookmarks;
     }
-    
+
     public ArrayList<Bookmark> getLastRecentBookmarks(int num) {
         Cursor cursor = null;
         ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
-        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 1 ORDER BY id LIMIT "+num, null);
+        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 1 ORDER BY id LIMIT " + num, null);
 
         while (cursor.moveToNext()) {
             int ID = cursor.getInt(0);
@@ -449,16 +447,17 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         Cursor cursor = db
                 .rawQuery(
                         "UPDATE novels SET `article_num` = ?, `last_update` = ?, `is_serializing` = ? , `is_collected` = ? , `is_downloaded` = ? WHERE `novels`.`id` = ?",
-                        new String[] { novel.getArticleNum(), novel.getLastUpdate(), getSQLiteBoolean(novel.isSerializing()) + "",
-                                getSQLiteBoolean(novel.isCollected()) + "", getSQLiteBoolean(novel.isDownloaded()) + "", novel.getId() + "" });
+                        new String[]{novel.getArticleNum(), novel.getLastUpdate(), getSQLiteBoolean(novel.isSerializing()) + "",
+                                getSQLiteBoolean(novel.isCollected()) + "", getSQLiteBoolean(novel.isDownloaded()) + "", novel.getId() + ""}
+                );
         cursor.moveToFirst();
         cursor.close();
         return true;
     }
 
     public boolean updateArticle(Article article) {
-        Cursor cursor = db.rawQuery("UPDATE articles SET `text` = ?, `is_downloaded` = ? WHERE `articles`.`id` = ?", new String[] { article.getText(),
-                getSQLiteBoolean(article.isDownload()) + "", article.getId() + "" });
+        Cursor cursor = db.rawQuery("UPDATE articles SET `text` = ?, `is_downloaded` = ? WHERE `articles`.`id` = ?", new String[]{article.getText(),
+                getSQLiteBoolean(article.isDownload()) + "", article.getId() + ""});
         cursor.moveToFirst();
         cursor.close();
         return true;
@@ -581,11 +580,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         args.put(ArtcileSchema.NUM, article.getNum());
         return db.insert(ArtcileSchema.TABLE_NAME, null, args);
     }
-    
-    public ArrayList<Novel> getLastCollectNovels(int num){
-    	Cursor cursor = null;
+
+    public ArrayList<Novel> getLastCollectNovels(int num) {
+        Cursor cursor = null;
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        cursor = db.rawQuery("SELECT * FROM " + NovelSchema.TABLE_NAME + " WHERE is_collected != 0 ORDER BY id DESC LIMIT "+num, null);
+        cursor = db.rawQuery("SELECT * FROM " + NovelSchema.TABLE_NAME + " WHERE is_collected != 0 ORDER BY id DESC LIMIT " + num, null);
         while (cursor.moveToNext()) {
             int ID = cursor.getInt(0);
             String NAME = cursor.getString(1);
@@ -604,11 +603,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         cursor.close();
         return novels;
     }
-    
-    public ArrayList<Novel> getLastDownloadNovels(int num){
-    	Cursor cursor = null;
+
+    public ArrayList<Novel> getLastDownloadNovels(int num) {
+        Cursor cursor = null;
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        cursor = db.rawQuery("SELECT * FROM " + NovelSchema.TABLE_NAME + " WHERE is_downloaded != 0 ORDER BY id DESC LIMIT "+num, null);
+        cursor = db.rawQuery("SELECT * FROM " + NovelSchema.TABLE_NAME + " WHERE is_downloaded != 0 ORDER BY id DESC LIMIT " + num, null);
         while (cursor.moveToNext()) {
             int ID = cursor.getInt(0);
             String NAME = cursor.getString(1);
@@ -758,11 +757,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         return updateNovel(novel);
     }
 
-	public Bookmark findBookMarkByArticle(Article article) {
-		Cursor cursor = null;
-        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 0 AND novel_id = " + article.getNovelId() + " AND article_id = " + article.getId() +" ORDER BY id DESC LIMIT 1", null);
+    public Bookmark findBookMarkByArticle(Article article) {
+        Cursor cursor = null;
+        cursor = db.rawQuery("SELECT * FROM " + BookmarkSchema.TABLE_NAME + " WHERE is_recent_read = 0 AND novel_id = " + article.getNovelId() + " AND article_id = " + article.getId() + " ORDER BY id DESC LIMIT 1", null);
         Bookmark bookmark = null;
-		while (cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             int ID = cursor.getInt(0);
             int NOVEL_ID = cursor.getInt(1);
             int ARTICLE_ID = cursor.getInt(2);
@@ -775,9 +774,9 @@ public class SQLiteNovel extends SQLiteOpenHelper {
             bookmark = new Bookmark(ID, NOVEL_ID, ARTICLE_ID, READ_RATE, NOVEL_NAME, ARTICLE_TITLE, NOVEL_PIC, IS_RECENT_READ);
         }
         cursor.close();
-        
-		return bookmark;
-	}
+
+        return bookmark;
+    }
 
     public void updateNovelLastViewDate(int novelId) {
 
@@ -785,7 +784,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "UPDATE novels SET `last_view_date` = ? WHERE `novels`.`id` = ?",
-                new String[] { sdf.format(new Date()), novelId + ""});
+                new String[]{sdf.format(new Date()), novelId + ""});
         cursor.moveToFirst();
         cursor.close();
     }

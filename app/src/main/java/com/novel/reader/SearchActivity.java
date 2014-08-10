@@ -1,12 +1,8 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,7 +23,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,39 +32,46 @@ import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
+import com.taiwan.imageload.LoadMoreGridView;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends AdFragmentActivity {
 
-    private static final int    ID_SETTING  = 0;
-    private static final int    ID_RESPONSE = 1;
-    private static final int    ID_ABOUT_US = 2;
-    private static final int    ID_GRADE    = 3;
-    private static final int    ID_SEARCH   = 5;
+    private static final int ID_SETTING = 0;
+    private static final int ID_RESPONSE = 1;
+    private static final int ID_ABOUT_US = 2;
+    private static final int ID_GRADE = 3;
+    private static final int ID_SEARCH = 5;
 
-    private Bundle              mBundle;
-    private String              keyword;
-    private ArrayList<Novel>    novels;
-    private ListView            novelListView;
-    private MenuItem            item;
+    private Bundle mBundle;
+    private String keyword;
+    private ArrayList<Novel> novels;
+    private LoadMoreGridView myGrid;
+    private MenuItem item;
 
-    private LinearLayout        layoutNoSearch;
     private AlertDialog.Builder aboutUsDialog;
-    
-	private RelativeLayout bannerAdView;
+
+    private RelativeLayout bannerAdView;
+    private LinearLayout progressLayout;
+    private LinearLayout loadmoreLayout;
+    private LinearLayout noDataLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_search);
-        layoutNoSearch = (LinearLayout) findViewById(R.id.layout_no_search);
 
         final ActionBar ab = getSupportActionBar();
         mBundle = this.getIntent().getExtras();
         keyword = mBundle.getString("SearchKeyword");
-        novelListView = (ListView)findViewById(R.id.listView);
+        myGrid = (LoadMoreGridView) findViewById(R.id.news_list);
+        progressLayout = (LinearLayout) findViewById(R.id.layout_progress);
+        loadmoreLayout = (LinearLayout) findViewById(R.id.load_more_grid);
+        noDataLayout = (LinearLayout) findViewById(R.id.layout_no_data);
 
-        novelListView.setOnItemClickListener(new OnItemClickListener() {
+        myGrid.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Novel movie = novels.get(position);
@@ -93,29 +95,29 @@ public class SearchActivity extends AdFragmentActivity {
 
         setAboutUsDialog();
         new LoadDataTask().execute();
-        
+
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	mAdView = setBannerAdView(bannerAdView);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            mAdView = setBannerAdView(bannerAdView);
 
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  1)
-        	bannerAdView.setVisibility(View.GONE);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            bannerAdView.setVisibility(View.GONE);
     }
-    
+
     private void fetchData() {
         novels = NovelAPI.searchNovels(keyword);
     }
 
     public class SearchAdapter extends BaseAdapter {
 
-        private final Context          mContext;
+        private final Context mContext;
         private final ArrayList<Novel> novels;
-        private final ImageLoader      imageLoader;
+        private final ImageLoader imageLoader;
 
         public SearchAdapter(Context mContext, ArrayList<Novel> novels) {
             this.novels = novels;
@@ -141,7 +143,7 @@ public class SearchActivity extends AdFragmentActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater myInflater = LayoutInflater.from(mContext);
-            View converView = myInflater.inflate(R.layout.item_novel_search, null);
+            View converView = myInflater.inflate(R.layout.item_gridview_novel, null);
             ImageView pic = (ImageView) converView.findViewById(R.id.grid_item_image);
             TextView name = (TextView) converView.findViewById(R.id.grid_item_name);
             TextView author = (TextView) converView.findViewById(R.id.grid_item_author);
@@ -175,8 +177,8 @@ public class SearchActivity extends AdFragmentActivity {
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if(Setting.getSettingInt(Setting.keyYearSubscription, this) ==  0)
-        	menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         item = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -223,59 +225,48 @@ public class SearchActivity extends AdFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SETTING: // setting
-            Intent intent = new Intent(SearchActivity.this, SettingActivity.class);
-            startActivity(intent);
-            break;
-        case ID_RESPONSE: // response
-            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_SEARCH: // response
-            break;
-        case 7:
-        	Intent intent1 = new Intent();
-            intent1.setClass(this, DonateActivity.class);
-            startActivity(intent1);
-        	break;
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SETTING: // setting
+                Intent intent = new Intent(SearchActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case ID_RESPONSE: // response
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                break;
+            case ID_ABOUT_US:
+                aboutUsDialog.show();
+                break;
+            case ID_GRADE:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+                startActivity(browserIntent);
+                break;
+            case ID_SEARCH: // response
+                break;
+            case 7:
+                Intent intent1 = new Intent();
+                intent1.setClass(this, DonateActivity.class);
+                startActivity(intent1);
+                break;
         }
         return true;
     }
 
     class LoadDataTask extends AsyncTask<Integer, Integer, String> {
 
-        private ProgressDialog         progressdialogInit;
-        private final OnCancelListener cancelListener = new OnCancelListener() {
-                                                          public void onCancel(DialogInterface arg0) {
-                                                              LoadDataTask.this.cancel(true);
-                                                              finish();
-                                                          }
-                                                      };
 
         @Override
         protected void onPreExecute() {
-            progressdialogInit = ProgressDialog.show(SearchActivity.this, "Load", "Loading…");
-            progressdialogInit.setTitle("Load");
-            progressdialogInit.setMessage("Loading…");
-            progressdialogInit.setOnCancelListener(cancelListener);
-            progressdialogInit.setCanceledOnTouchOutside(false);
-            progressdialogInit.setCancelable(true);
-            progressdialogInit.show();
+            loadmoreLayout.setVisibility(View.GONE);
+            progressLayout.setVisibility(View.VISIBLE);
+            noDataLayout.setVisibility(View.GONE);
             super.onPreExecute();
         }
 
@@ -292,12 +283,14 @@ public class SearchActivity extends AdFragmentActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            progressdialogInit.dismiss();
             if (novels != null && novels.size() != 0) {
-                novelListView.setAdapter(new SearchAdapter(SearchActivity.this, novels));
-                layoutNoSearch.setVisibility(View.GONE);
+                myGrid.setVisibility(View.VISIBLE);
+                myGrid.setAdapter(new SearchAdapter(SearchActivity.this, novels));
+                progressLayout.setVisibility(View.GONE);
             } else {
-                layoutNoSearch.setVisibility(View.VISIBLE);
+                progressLayout.setVisibility(View.GONE);
+                noDataLayout.setVisibility(View.VISIBLE);
+                myGrid.setVisibility(View.GONE);
             }
             try {
                 item.expandActionView();
@@ -321,17 +314,17 @@ public class SearchActivity extends AdFragmentActivity {
                     }
                 });
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }

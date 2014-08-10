@@ -1,13 +1,10 @@
 package com.novel.reader;
 
-import yuku.ambilwarna.AmbilWarnaDialog;
-import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,41 +22,44 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.util.Setting;
 
-public class SettingActivity extends ActionBarActivity implements RadioGroup.OnCheckedChangeListener{
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
+
+public class SettingActivity extends NovelReaderBaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     // private SharedPreferences prefs;
-    private int                 textSize;
-    private int                 textLanguage;           // 0 for 繁體, 1 for 簡體
-    private int                 readingDirection;       // 0 for 直向, 1 for 橫向
-    private int                 clickToNextPage;        // 0 for yes, 1 for no
-    private int                 stopSleeping;           // 0 for yes, 1 for no
-    private SeekBar             mSeekBar;
-    private RadioGroup          langRadioGroup;
-    private RadioGroup          directionRadioGroup;
-    private RadioGroup          tapRadioGroup;
-    private RadioGroup          stopSleepRadioGroup;
-    private RadioGroup          themeRadioGroup;
-    private RadioGroup          articleAdTypeRadioGroup; 
-    private int                 appTheme;
-    private int                 articleAdType;
+    private int textSize;
+    private int textLanguage;           // 0 for 繁體, 1 for 簡體
+    private int readingDirection;       // 0 for 直向, 1 for 橫向
+    private int clickToNextPage;        // 0 for yes, 1 for no
+    private int stopSleeping;           // 0 for yes, 1 for no
+    private SeekBar mSeekBar;
+    private RadioGroup langRadioGroup;
+    private RadioGroup directionRadioGroup;
+    private RadioGroup tapRadioGroup;
+    private RadioGroup stopSleepRadioGroup;
+    private RadioGroup themeRadioGroup;
+    private RadioGroup articleAdTypeRadioGroup;
+    private int appTheme;
+    private int articleAdType;
 
     private AlertDialog.Builder finishDialog;
-    private Button              dbResetButton;
-    
+    private Button dbResetButton;
+
     private boolean isSettingChanged = false;
-	private RadioGroup modeRadioGroup;
-	private String textMode;
-	private TextView sunModeTextPreView;
-	private TextView moonModeTextPreView;
-    private int     sunModeTextColor;
-    private int     sunModeTextBackground;
-    private int     moonModeTextColor;
-    private int     moonModeTextBackground;
-	private ImageView sunModeImageViewTextColor;
-	private ImageView sunModeImageViewTextBackground;
-	private ImageView moonModeImageViewTextColor;
-	private ImageView moonnModeImageViewTextBackground;
-	
+    private RadioGroup modeRadioGroup;
+    private String textMode;
+    private TextView sunModeTextPreView;
+    private TextView moonModeTextPreView;
+    private int sunModeTextColor;
+    private int sunModeTextBackground;
+    private int moonModeTextColor;
+    private int moonModeTextBackground;
+    private ImageView sunModeImageViewTextColor;
+    private ImageView sunModeImageViewTextBackground;
+    private ImageView moonModeImageViewTextColor;
+    private ImageView moonnModeImageViewTextBackground;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +104,8 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         sunModeImageViewTextBackground = (ImageView) findViewById(R.id.imageview_sunmode_textbackground);
         moonModeImageViewTextColor = (ImageView) findViewById(R.id.imageview_moonmode_textcolor);
         moonnModeImageViewTextBackground = (ImageView) findViewById(R.id.imageview_moonmode_textbackground);
-        
-        
+
+
         dbResetButton = (Button) findViewById(R.id.dbResetButton);
 
         sunModeTextPreView.setTextSize(textSize);
@@ -114,12 +114,12 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         sunModeTextPreView.setBackgroundColor(sunModeTextBackground);
         moonModeTextPreView.setTextColor(moonModeTextColor);
         moonModeTextPreView.setBackgroundColor(moonModeTextBackground);
-        
+
         sunModeImageViewTextColor.setBackgroundColor(sunModeTextColor);
         sunModeImageViewTextBackground.setBackgroundColor(sunModeTextBackground);
         moonModeImageViewTextColor.setBackgroundColor(moonModeTextColor);
         moonnModeImageViewTextBackground.setBackgroundColor(moonModeTextBackground);
-        
+
         mSeekBar.setProgress(textSize);
         ((RadioButton) modeRadioGroup.getChildAt(Setting.getTextModePosition(textMode))).setChecked(true);
         ((RadioButton) langRadioGroup.getChildAt(textLanguage)).setChecked(true);
@@ -128,7 +128,7 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         ((RadioButton) stopSleepRadioGroup.getChildAt(textLanguage)).setChecked(true);
         ((RadioButton) themeRadioGroup.getChildAt(appTheme)).setChecked(true);
         ((RadioButton) articleAdTypeRadioGroup.getChildAt(articleAdType)).setChecked(true);
-        
+
         modeRadioGroup.setOnCheckedChangeListener(this);
         langRadioGroup.setOnCheckedChangeListener(this);
         directionRadioGroup.setOnCheckedChangeListener(this);
@@ -147,21 +147,21 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         sunModeImageViewTextColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTextColorPicker(sunModeTextColor,sunModeImageViewTextColor, sunModeTextPreView);
+                showTextColorPicker(sunModeTextColor, sunModeImageViewTextColor, sunModeTextPreView);
             }
         });
 
         sunModeImageViewTextBackground.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                showTextBackgroundPicker(sunModeTextBackground,sunModeImageViewTextBackground, sunModeTextPreView );
+                showTextBackgroundPicker(sunModeTextBackground, sunModeImageViewTextBackground, sunModeTextPreView);
             }
         });
-        
+
         moonModeImageViewTextColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                showTextColorPicker(moonModeTextColor,moonModeImageViewTextColor, moonModeTextPreView);
+                showTextColorPicker(moonModeTextColor, moonModeImageViewTextColor, moonModeTextPreView);
             }
         });
 
@@ -196,11 +196,11 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
     private void showTextColorPicker(int modeColor, final ImageView imageView, final TextView textPreview) {
         AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, modeColor, new OnAmbilWarnaListener() {
             @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {      	
-            	isSettingChanged = true;
-                
-            	imageView.setBackgroundColor(color);
-            	textPreview.setTextColor(color);
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                isSettingChanged = true;
+
+                imageView.setBackgroundColor(color);
+                textPreview.setTextColor(color);
             }
 
             @Override
@@ -215,10 +215,10 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, modeColor, new OnAmbilWarnaListener() {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-            	isSettingChanged = true;
-                
-            	imageView.setBackgroundColor(color);
-            	textPreview.setBackgroundColor(color);
+                isSettingChanged = true;
+
+                imageView.setBackgroundColor(color);
+                textPreview.setBackgroundColor(color);
             }
 
             @Override
@@ -240,12 +240,12 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            if(isSettingChanged)
-                finishDialog.show();
-            else
-            	finish();
-            break;
+            case android.R.id.home:
+                if (isSettingChanged)
+                    finishDialog.show();
+                else
+                    finish();
+                break;
         }
         return true;
     }
@@ -258,25 +258,26 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
         Setting.saveSetting(key, idx, SettingActivity.this);
 
     }
-    
-    private void saveModeRadioGroup(){
-    	int radioButtonID = modeRadioGroup.getCheckedRadioButtonId();
-    	View radioButton = modeRadioGroup.findViewById(radioButtonID);
+
+    private void saveModeRadioGroup() {
+        int radioButtonID = modeRadioGroup.getCheckedRadioButtonId();
+        View radioButton = modeRadioGroup.findViewById(radioButtonID);
         int idx = modeRadioGroup.indexOfChild(radioButton);
-        if(idx == 0){
-        	Setting.saveSetting(Setting.keyMode, Setting.keySunMode, SettingActivity.this);
-        }else{
-        	Setting.saveSetting(Setting.keyMode, Setting.keyMoonMode, SettingActivity.this);
+        if (idx == 0) {
+            Setting.saveSetting(Setting.keyMode, Setting.keySunMode, SettingActivity.this);
+        } else {
+            Setting.saveSetting(Setting.keyMode, Setting.keyMoonMode, SettingActivity.this);
         }
     }
+
     private void saveModeColor() {
-    	 sunModeTextBackground = ((ColorDrawable)sunModeImageViewTextBackground.getBackground()).getColor();
-         sunModeTextColor = ((ColorDrawable)sunModeImageViewTextColor.getBackground()).getColor();
-         moonModeTextBackground = ((ColorDrawable)moonnModeImageViewTextBackground.getBackground()).getColor();
-         moonModeTextColor = ((ColorDrawable)moonModeImageViewTextColor.getBackground()).getColor();
-         Setting.saveSetting(Setting.keySunMode, sunModeTextBackground + "," + sunModeTextColor , SettingActivity.this);
-         Setting.saveSetting(Setting.keyMoonMode, moonModeTextBackground + "," + moonModeTextColor , SettingActivity.this);
-	}
+        sunModeTextBackground = ((ColorDrawable) sunModeImageViewTextBackground.getBackground()).getColor();
+        sunModeTextColor = ((ColorDrawable) sunModeImageViewTextColor.getBackground()).getColor();
+        moonModeTextBackground = ((ColorDrawable) moonnModeImageViewTextBackground.getBackground()).getColor();
+        moonModeTextColor = ((ColorDrawable) moonModeImageViewTextColor.getBackground()).getColor();
+        Setting.saveSetting(Setting.keySunMode, sunModeTextBackground + "," + sunModeTextColor, SettingActivity.this);
+        Setting.saveSetting(Setting.keyMoonMode, moonModeTextBackground + "," + moonModeTextColor, SettingActivity.this);
+    }
 
     private void showDbResetDialog() {
         new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.reset_db_hint))
@@ -284,8 +285,8 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
                 .setPositiveButton(getResources().getString(R.string.yes_string), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    	isSettingChanged = true;
-                    	
+                        isSettingChanged = true;
+
                         SQLiteNovel db = new SQLiteNovel(SettingActivity.this);
                         boolean reset = db.resetDB();
                         if (reset) {
@@ -296,10 +297,10 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
                         db.close();
                     }
                 }).setNegativeButton(getResources().getString(R.string.report_cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }).show();
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        }).show();
 
     }
 
@@ -337,27 +338,27 @@ public class SettingActivity extends ActionBarActivity implements RadioGroup.OnC
 
     @Override
     public void onBackPressed() {
-    	if(isSettingChanged)
-    		finishDialog.show();
-    	else
-    		finish();
+        if (isSettingChanged)
+            finishDialog.show();
+        else
+            finish();
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
-	@Override
-	public void onCheckedChanged(RadioGroup arg0, int arg1) {
-		isSettingChanged = true;
-	}
+    @Override
+    public void onCheckedChanged(RadioGroup arg0, int arg1) {
+        isSettingChanged = true;
+    }
 
 }

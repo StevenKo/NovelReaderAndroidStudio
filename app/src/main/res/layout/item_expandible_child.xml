@@ -3,18 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/my_article_selector" 
-    >
-    
-    <TextView android:id="@+id/expandlist_child"
-	    android:layout_width="fill_parent"
-   		android:layout_height="wrap_content"
-   		android:background="@drawable/my_article_selector"
-   		android:text="child"
-   		android:paddingTop="8dp"
-	   	android:paddingBottom="8dp"
-	   	android:layout_marginLeft="5dp"
-	    />
-    
+    android:background="@drawable/my_article_selector">
+
+    <TextView
+        android:id="@+id/expandlist_child"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_article_selector"
+        android:text="child"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginLeft="5dp" />
+
 
 </LinearLayout>

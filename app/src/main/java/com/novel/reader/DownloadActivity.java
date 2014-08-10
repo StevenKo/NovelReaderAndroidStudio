@@ -1,8 +1,5 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,30 +26,33 @@ import com.novel.reader.entity.Article;
 import com.novel.reader.service.DownloadService;
 import com.novel.reader.util.Setting;
 
-public class DownloadActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.TreeMap;
 
-    private static final int                          ID_SELECT_ALL  = 0;
-    private static final int                          ID_SELECT_NONE = 1;
-    private Bundle                                    mBundle;
-    private String                                    novelName;
-    private int                                       novelId;
-    private Button                                    downLoadButton;
-    public static TextView                            downLoadCountText;
-    private LinearLayout                              novelLayoutProgress;
-    private ArrayList<Article>                        articleList    = new ArrayList<Article>();
-    private ExpandableListView                        novelListView;
+public class DownloadActivity extends NovelReaderBaseActivity {
 
-    private final TreeMap<String, ArrayList<Article>> myData         = new TreeMap<String, ArrayList<Article>>();
-    private final ArrayList<Group>                    mGroups        = new ArrayList<Group>();
+    private static final int ID_SELECT_ALL = 0;
+    private static final int ID_SELECT_NONE = 1;
+    private Bundle mBundle;
+    private String novelName;
+    private int novelId;
+    private Button downLoadButton;
+    public static TextView downLoadCountText;
+    private LinearLayout novelLayoutProgress;
+    private ArrayList<Article> articleList = new ArrayList<Article>();
+    private ExpandableListView novelListView;
 
-    private Boolean                                   downloadBoolean;
-    private ProgressDialog                            progressDialog = null;
-    private ExpandListDownLoadAdapter                 mAdapter;
-    private int                                       downloadCount;
-    private AlertDialog.Builder                       remindDialog;
-    
+    private final TreeMap<String, ArrayList<Article>> myData = new TreeMap<String, ArrayList<Article>>();
+    private final ArrayList<Group> mGroups = new ArrayList<Group>();
 
-	private LinearLayout bannerAdView;
+    private Boolean downloadBoolean;
+    private ProgressDialog progressDialog = null;
+    private ExpandListDownLoadAdapter mAdapter;
+    private int downloadCount;
+    private AlertDialog.Builder remindDialog;
+
+
+    private LinearLayout bannerAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +78,11 @@ public class DownloadActivity extends ActionBarActivity {
         new DownloadArticlesTask().execute();
 
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
     }
-    
 
 
     private void setViews() {
@@ -131,45 +129,45 @@ public class DownloadActivity extends ActionBarActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
-        case android.R.id.home:
-            finish();
-            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
-            break;
-        case ID_SELECT_ALL: // setting
-            if (articleList != null && articleList.size() != 0) {
-                Toast.makeText(DownloadActivity.this, getResources().getString(R.string.menu_add_all), Toast.LENGTH_SHORT).show();
-                downloadCount = 0;
-                for (int i = 0; i < mGroups.size(); i++) {
-                    mGroups.get(i).setChecked(true);
-                    for (int j = 0; j < mGroups.get(i).getChildrenCount(); j++) {
-                        downloadCount = downloadCount + 1;
-                        mGroups.get(i).getChildItem(j).setChecked(true);
+            case android.R.id.home:
+                finish();
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+            case ID_SELECT_ALL: // setting
+                if (articleList != null && articleList.size() != 0) {
+                    Toast.makeText(DownloadActivity.this, getResources().getString(R.string.menu_add_all), Toast.LENGTH_SHORT).show();
+                    downloadCount = 0;
+                    for (int i = 0; i < mGroups.size(); i++) {
+                        mGroups.get(i).setChecked(true);
+                        for (int j = 0; j < mGroups.get(i).getChildrenCount(); j++) {
+                            downloadCount = downloadCount + 1;
+                            mGroups.get(i).getChildItem(j).setChecked(true);
+                        }
                     }
+                    mAdapter.notifyDataSetChanged();
+                    downLoadCountText.setText(getResources().getString(R.string.toast_all_collect_title) + Integer.toString(downloadCount)
+                            + getResources().getString(R.string.toast_all_collect_final));
+                } else {
+                    Toast.makeText(DownloadActivity.this, getResources().getString(R.string.toast_downloading_wait), Toast.LENGTH_SHORT).show();
                 }
-                mAdapter.notifyDataSetChanged();
-                downLoadCountText.setText(getResources().getString(R.string.toast_all_collect_title) + Integer.toString(downloadCount)
-                        + getResources().getString(R.string.toast_all_collect_final));
-            } else {
-                Toast.makeText(DownloadActivity.this, getResources().getString(R.string.toast_downloading_wait), Toast.LENGTH_SHORT).show();
-            }
-            break;
-        case ID_SELECT_NONE: // response
-            if (articleList != null && articleList.size() != 0) {
-                Toast.makeText(DownloadActivity.this, getResources().getString(R.string.menu_remove_all), Toast.LENGTH_SHORT).show();
-                downloadCount = 0;
-                for (int i = 0; i < mGroups.size(); i++) {
-                    mGroups.get(i).setChecked(false);
-                    for (int j = 0; j < mGroups.get(i).getChildrenCount(); j++) {
-                        mGroups.get(i).getChildItem(j).setChecked(false);
+                break;
+            case ID_SELECT_NONE: // response
+                if (articleList != null && articleList.size() != 0) {
+                    Toast.makeText(DownloadActivity.this, getResources().getString(R.string.menu_remove_all), Toast.LENGTH_SHORT).show();
+                    downloadCount = 0;
+                    for (int i = 0; i < mGroups.size(); i++) {
+                        mGroups.get(i).setChecked(false);
+                        for (int j = 0; j < mGroups.get(i).getChildrenCount(); j++) {
+                            mGroups.get(i).getChildItem(j).setChecked(false);
+                        }
                     }
+                    mAdapter.notifyDataSetChanged();
+                    downLoadCountText.setText(getResources().getString(R.string.toast_all_collect_title) + Integer.toString(downloadCount)
+                            + getResources().getString(R.string.toast_all_collect_final));
+                } else {
+                    Toast.makeText(DownloadActivity.this, getResources().getString(R.string.toast_downloading_wait), Toast.LENGTH_SHORT).show();
                 }
-                mAdapter.notifyDataSetChanged();
-                downLoadCountText.setText(getResources().getString(R.string.toast_all_collect_title) + Integer.toString(downloadCount)
-                        + getResources().getString(R.string.toast_all_collect_final));
-            } else {
-                Toast.makeText(DownloadActivity.this, getResources().getString(R.string.toast_downloading_wait), Toast.LENGTH_SHORT).show();
-            }
-            break;
+                break;
         }
         return true;
     }
@@ -216,7 +214,8 @@ public class DownloadActivity extends ActionBarActivity {
                     for (int j = 0; j < articles.size(); j++) {
                         mGroups.get(i).addChildrenItem(
                                 new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
-                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum()));
+                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
+                        );
                     }
                 }
 
@@ -271,17 +270,17 @@ public class DownloadActivity extends ActionBarActivity {
             // }
         }
     }
-    
+
     @Override
     public void onStart() {
-      super.onStart();
-      EasyTracker.getInstance().activityStart(this);
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
-      super.onStop();
-      EasyTracker.getInstance().activityStop(this);
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 
 }
