@@ -1,15 +1,15 @@
 package com.novel.reader;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
@@ -35,13 +35,17 @@ import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
 
-public class MyDownloadArticleActivity extends AdFragmentActivity {
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+public class MyDownloadArticleActivity extends AdFragmentActivity implements LoaderManager.LoaderCallbacks<ArrayList<Article>>{
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
     private static final int ID_ABOUT_US = 2;
     private static final int ID_GRADE = 3;
     private static final int ID_DELETE_DOWNLOAD = 4;
+    private static final int LOADER_ID = 65;
 
     private Bundle mBundle;
     private String novelName;
@@ -100,7 +104,9 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         setViews();
         setAboutUsDialog();
 
-        new DownloadArticlesTask().execute();
+        progressDialog = ProgressDialog.show(MyDownloadArticleActivity.this, "資料處理中...", null);
+        LoaderManager lm = getSupportLoaderManager();
+        lm.restartLoader(LOADER_ID, null, this).forceLoad();
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
@@ -223,71 +229,6 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         return true;
     }
 
-    private class DownloadArticlesTask extends AsyncTask {
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(MyDownloadArticleActivity.this, "資料處理中...", null);
-        }
-
-        @Override
-        protected Object doInBackground(Object... params) {
-            if (isDeleteArticles) {
-                removeArticles();
-                isDeleteArticles = false;
-            }
-            articleList = NovelAPI.getDownloadedNovelArticles(novelId, false, MyDownloadArticleActivity.this);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            super.onPostExecute(result);
-            if (progressDialog.isShowing())
-                progressDialog.cancel();
-
-            myData = new TreeMap<String, ArrayList<Article>>();
-            mGroups = new ArrayList<Group>();
-
-            if (articleList != null) {
-
-                // use HashMap || TreeMap to make a parent key
-                for (int i = 0; i < articleList.size(); i++) {
-                    if (myData.containsKey(articleList.get(i).getSubject())) {
-                        myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
-                    } else {
-                        // groupTitleList.add(articleList.get(i).getSubject());
-                        mGroups.add(new Group(articleList.get(i).getSubject()));
-                        myData.put(articleList.get(i).getSubject(), new ArrayList<Article>());
-                        myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
-                    }
-                }
-
-                for (int i = 0; i < mGroups.size(); i++) {
-                    ArrayList<Article> articles = myData.get(mGroups.get(i).getTitle());
-                    for (int j = 0; j < articles.size(); j++) {
-                        mGroups.get(i).addChildrenItem(
-                                new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
-                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
-                        );
-                    }
-                }
-
-                reverseMGroups();
-                // ExpandListAdapter mAdapter = new ExpandListAdapter(MyDownloadArticleActivity.this, mGroups, theNovel, -1);
-                mAdapter = new ExpandListDownLoadReadAdapter(MyDownloadArticleActivity.this, mGroups, theNovel);
-
-                novelListView.setAdapter(mAdapter);
-
-            }
-
-            String txtCount = Integer.toString(articleList.size());
-            downloadedCount.setText("共 " + txtCount + " 個下載");
-
-            novelLayoutProgress.setVisibility(View.GONE);
-        }
-    }
-
     private void reverseMGroups() {
         // TODO Auto-generated method stub
         ArrayList<Group> aGroups = new ArrayList<Group>(mGroups.size());
@@ -386,8 +327,9 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
     public void onSupportActionModeFinished(ActionMode mode) {
         actionModeShowing = false;
         if (isDeleteArticles) {
-            new DownloadArticlesTask().execute();
-
+            progressDialog = ProgressDialog.show(MyDownloadArticleActivity.this, "資料處理中...", null);
+            LoaderManager lm = getSupportLoaderManager();
+            lm.restartLoader(LOADER_ID, null, this).forceLoad();
         }
     }
 
@@ -422,4 +364,81 @@ public class MyDownloadArticleActivity extends AdFragmentActivity {
         EasyTracker.getInstance().activityStop(this);
     }
 
+    @Override
+    public Loader<ArrayList<Article>> onCreateLoader(int i, Bundle bundle) {
+        if (isDeleteArticles) {
+            removeArticles();
+            isDeleteArticles = false;
+        }
+
+        return new ArticleLoader(getBaseContext(),novelId);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Article>> arrayListLoader, ArrayList<Article> getArticles) {
+        articleList = getArticles;
+
+        if (progressDialog.isShowing())
+            progressDialog.cancel();
+
+        myData = new TreeMap<String, ArrayList<Article>>();
+        mGroups = new ArrayList<Group>();
+
+        if (articleList != null) {
+
+            // use HashMap || TreeMap to make a parent key
+            for (int i = 0; i < articleList.size(); i++) {
+                if (myData.containsKey(articleList.get(i).getSubject())) {
+                    myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
+                } else {
+                    // groupTitleList.add(articleList.get(i).getSubject());
+                    mGroups.add(new Group(articleList.get(i).getSubject()));
+                    myData.put(articleList.get(i).getSubject(), new ArrayList<Article>());
+                    myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
+                }
+            }
+
+            for (int i = 0; i < mGroups.size(); i++) {
+                ArrayList<Article> articles = myData.get(mGroups.get(i).getTitle());
+                for (int j = 0; j < articles.size(); j++) {
+                    mGroups.get(i).addChildrenItem(
+                            new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
+                                    .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
+                    );
+                }
+            }
+
+            reverseMGroups();
+            // ExpandListAdapter mAdapter = new ExpandListAdapter(MyDownloadArticleActivity.this, mGroups, theNovel, -1);
+            mAdapter = new ExpandListDownLoadReadAdapter(MyDownloadArticleActivity.this, mGroups, theNovel);
+
+            novelListView.setAdapter(mAdapter);
+
+        }
+
+        String txtCount = Integer.toString(articleList.size());
+        downloadedCount.setText("共 " + txtCount + " 個下載");
+
+        novelLayoutProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Article>> arrayListLoader) {
+
+    }
+
+    public static class ArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
+
+        int novelId;
+
+        public ArticleLoader(Context context, int novelId) {
+            super(context);
+            this.novelId = novelId;
+        }
+
+        @Override
+        public ArrayList<Article> loadInBackground() {
+            return NovelAPI.getDownloadedNovelArticles(novelId, false, getContext());
+        }
+    }
 }
