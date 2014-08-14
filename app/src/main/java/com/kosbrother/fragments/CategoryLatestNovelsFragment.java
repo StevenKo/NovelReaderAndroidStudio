@@ -103,11 +103,7 @@ public final class CategoryLatestNovelsFragment extends Fragment implements Load
             }
         });
 
-        if (myGridViewAdapter != null) {
-            progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
-            myGrid.setAdapter(myGridViewAdapter);
-        } else {
+        if (myGridViewAdapter == null) {
             LoaderManager lm = getLoaderManager();
             lm.restartLoader(Loader_Id, null, CategoryLatestNovelsFragment.this).forceLoad();
         }

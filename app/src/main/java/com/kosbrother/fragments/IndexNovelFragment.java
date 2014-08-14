@@ -105,11 +105,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
             }
         });
 
-        if (myGridViewAdapter != null) {
-            progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
-            myGrid.setAdapter(myGridViewAdapter);
-        } else {
+        if (myGridViewAdapter == null) {
             LoaderManager lm = getLoaderManager();
             lm.restartLoader(novelFragment, null, this).forceLoad();
         }

@@ -106,11 +106,7 @@ public final class CategoryRecommendFragment extends Fragment implements LoaderM
             }
         });
 
-        if (myGridViewAdapter != null) {
-            progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
-            myGrid.setAdapter(myGridViewAdapter);
-        } else {
+        if (myGridViewAdapter == null) {
             LoaderManager lm = getLoaderManager();
             lm.restartLoader(Loader_Id, null, CategoryRecommendFragment.this).forceLoad();
         }
