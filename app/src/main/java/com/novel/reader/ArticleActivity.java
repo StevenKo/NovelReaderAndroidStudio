@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -219,43 +220,14 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         articleButtonUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
-                if (articleIDs != null) {
-                    if (ariticlePosition != 0) {
-                        ariticlePosition = ariticlePosition - 1;
-                        if (downloadBoolean) {
-                            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
-                        } else {
-                            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
-                        }
-                        new UpdateArticleTask().execute();
-                    } else {
-                        Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_up), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    new GetPreviousArticleTask().execute();
-                }
+                previousPage();
             }
         });
 
         articleButtonDown.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (articleIDs != null) {
-                    if (ariticlePosition < articleIDs.size() - 1) {
-                        ariticlePosition = ariticlePosition + 1;
-                        if (downloadBoolean) {
-                            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
-                        } else {
-                            myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
-                        }
-                        new UpdateArticleTask().execute();
-                    } else {
-                        Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_down), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    new GetNextArticleTask().execute();
-                }
+                nextPage();
             }
         });
 
@@ -847,6 +819,58 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
         ;
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            nextPage();
+            return true;
+        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            previousPage();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    private void nextPage() {
+        if (articleIDs != null) {
+            if (ariticlePosition < articleIDs.size() - 1) {
+                ariticlePosition = ariticlePosition + 1;
+                if (downloadBoolean) {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
+                } else {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
+                }
+                new UpdateArticleTask().execute();
+            } else {
+                Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_down), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            new GetNextArticleTask().execute();
+        }
+    }
+
+    private void previousPage() {
+        if (articleIDs != null) {
+            if (ariticlePosition != 0) {
+                ariticlePosition = ariticlePosition - 1;
+                if (downloadBoolean) {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
+                } else {
+                    myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", false, articleNums.get(ariticlePosition));
+                }
+                new UpdateArticleTask().execute();
+            } else {
+                Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_up), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            new GetPreviousArticleTask().execute();
+        }
+    }
+
+
 
     @Override
     protected void onPause() {
