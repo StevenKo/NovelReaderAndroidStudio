@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
+
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kosbrother.tool.ChildArticle;
@@ -29,10 +34,11 @@ import com.novel.reader.util.Setting;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class DownloadActivity extends NovelReaderBaseActivity {
+public class DownloadActivity extends NovelReaderBaseActivity implements LoaderManager.LoaderCallbacks<ArrayList<Article>>{
 
     private static final int ID_SELECT_ALL = 0;
     private static final int ID_SELECT_NONE = 1;
+
     private Bundle mBundle;
     private String novelName;
     private int novelId;
@@ -45,14 +51,12 @@ public class DownloadActivity extends NovelReaderBaseActivity {
     private final TreeMap<String, ArrayList<Article>> myData = new TreeMap<String, ArrayList<Article>>();
     private final ArrayList<Group> mGroups = new ArrayList<Group>();
 
-    private Boolean downloadBoolean;
     private ProgressDialog progressDialog = null;
     private ExpandListDownLoadAdapter mAdapter;
     private int downloadCount;
     private AlertDialog.Builder remindDialog;
 
-
-    private LinearLayout bannerAdView;
+    int LOADER_ID = 97;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,11 @@ public class DownloadActivity extends NovelReaderBaseActivity {
             Setting.saveSetting(Setting.keyOpenDownloadPage, 1, DownloadActivity.this);
         }
 
-        new DownloadArticlesTask().execute();
+        progressDialog = ProgressDialog.show(DownloadActivity.this, "", getResources().getString(R.string.toast_novel_downloading));
+        progressDialog.setCancelable(true);
+
+        LoaderManager lm = getSupportLoaderManager();
+        lm.restartLoader(LOADER_ID, null, this).forceLoad();
 
     }
 
@@ -172,69 +180,8 @@ public class DownloadActivity extends NovelReaderBaseActivity {
         return true;
     }
 
-    private class DownloadArticlesTask extends AsyncTask {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(DownloadActivity.this, "", getResources().getString(R.string.toast_novel_downloading));
-            progressDialog.setCancelable(true);
-        }
-
-        @Override
-        protected Object doInBackground(Object... params) {
-            // TODO Auto-generated method stub
-            articleList = NovelAPI.getNovelArticles(novelId, true, DownloadActivity.this);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            novelLayoutProgress.setVisibility(View.GONE);
-            progressDialog.cancel();
-            if (articleList != null && articleList.size() != 0) {
-
-                // use HashMap || TreeMap to make a parent key
-                for (int i = 0; i < articleList.size(); i++) {
-                    if (myData.containsKey(articleList.get(i).getSubject())) {
-                        myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
-                    } else {
-                        // groupTitleList.add(articleList.get(i).getSubject());
-
-                        mGroups.add(new Group(articleList.get(i).getSubject()));
-                        myData.put(articleList.get(i).getSubject(), new ArrayList<Article>());
-                        myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
-                    }
-                }
-
-                for (int i = 0; i < mGroups.size(); i++) {
-                    ArrayList<Article> articles = myData.get(mGroups.get(i).getTitle());
-                    for (int j = 0; j < articles.size(); j++) {
-                        mGroups.get(i).addChildrenItem(
-                                new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
-                                        .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
-                        );
-                    }
-                }
-
-                mAdapter = new ExpandListDownLoadAdapter(DownloadActivity.this, mGroups, downLoadCountText);
-                novelListView.setAdapter(mAdapter);
-
-            }
-
-        }
-    }
 
     private class DownloadToDBTask extends AsyncTask {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // progressDialog = ProgressDialog.show(DownloadActivity.this, "",getResources().getString(R.string.toast_novel_downloading));
-            // progressDialog.setCancelable(true);
-        }
 
         @Override
         protected Object doInBackground(Object... params) {
@@ -257,18 +204,6 @@ public class DownloadActivity extends NovelReaderBaseActivity {
 
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            // progressDialog.dismiss();
-            // if (downloadBoolean){
-            // Toast.makeText(DownloadActivity.this,getResources().getString(R.string.toast_downloading_success), Toast.LENGTH_SHORT).show();
-            // }else{
-            // Toast.makeText(DownloadActivity.this,getResources().getString(R.string.toast_downloading_fail), Toast.LENGTH_SHORT).show();
-            // }
-        }
     }
 
     @Override
@@ -281,6 +216,71 @@ public class DownloadActivity extends NovelReaderBaseActivity {
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
+    }
+
+
+    @Override
+    public Loader<ArrayList<Article>> onCreateLoader(int i, Bundle bundle) {
+        return new ArticleLoader(getBaseContext(),novelId);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Article>> arrayListLoader, ArrayList<Article> getArticles) {
+
+        articleList = getArticles;
+
+        novelLayoutProgress.setVisibility(View.GONE);
+        progressDialog.cancel();
+        if (articleList != null && articleList.size() != 0) {
+
+            // use HashMap || TreeMap to make a parent key
+            for (int i = 0; i < articleList.size(); i++) {
+                if (myData.containsKey(articleList.get(i).getSubject())) {
+                    myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
+                } else {
+                    // groupTitleList.add(articleList.get(i).getSubject());
+
+                    mGroups.add(new Group(articleList.get(i).getSubject()));
+                    myData.put(articleList.get(i).getSubject(), new ArrayList<Article>());
+                    myData.get(articleList.get(i).getSubject()).add(articleList.get(i));
+                }
+            }
+
+            for (int i = 0; i < mGroups.size(); i++) {
+                ArrayList<Article> articles = myData.get(mGroups.get(i).getTitle());
+                for (int j = 0; j < articles.size(); j++) {
+                    mGroups.get(i).addChildrenItem(
+                            new ChildArticle(articles.get(j).getId(), articles.get(j).getNovelId(), "", articles.get(j).getTitle(), articles.get(j)
+                                    .getSubject(), articles.get(j).isDownload(), articles.get(j).getNum())
+                    );
+                }
+            }
+
+            mAdapter = new ExpandListDownLoadAdapter(DownloadActivity.this, mGroups, downLoadCountText);
+            novelListView.setAdapter(mAdapter);
+
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Article>> arrayListLoader) {
+
+    }
+
+    public static class ArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
+
+        int novelId;
+
+        public ArticleLoader(Context context, int novelId) {
+            super(context);
+            this.novelId = novelId;
+        }
+
+        @Override
+        public ArrayList<Article> loadInBackground() {
+
+            return NovelAPI.getNovelArticles(novelId, true, getContext());
+        }
     }
 
 }
