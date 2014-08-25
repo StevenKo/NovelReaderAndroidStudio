@@ -73,6 +73,7 @@
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="InMobiAdNetwork-3.7.1" level="project" />
     <orderEntry type="library" exported="" name="InMobiCommons-3.7.1" level="project" />
+    <orderEntry type="library" exported="" name="crashlytics-1.1.11" level="project" />
     <orderEntry type="library" exported="" name="vpadn-sdk-obf426-82704102" level="project" />
   </component>
 </module>

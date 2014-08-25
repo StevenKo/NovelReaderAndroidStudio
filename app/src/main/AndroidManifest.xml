@@ -133,6 +133,7 @@
             android:name=".NovelRecommendActivity"
             android:label="@string/title_activity_novel_recommend" >
         </activity>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="061f74624449122730ac6789bc4ae591c8701a7c"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

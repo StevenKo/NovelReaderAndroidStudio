@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
 import com.android.slidingtab.SlidingTabLayout;
+import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.kosbrother.fragments.CategoryListFragment;
@@ -98,6 +99,7 @@ public class MainActivity extends AdFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         Setting.setApplicationActionBarTheme(this);
 
         setContentView(R.layout.layout_main);
