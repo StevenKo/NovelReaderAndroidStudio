@@ -3,3 +3,5 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+
+app/app-release.apk
