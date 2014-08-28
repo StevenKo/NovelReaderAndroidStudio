@@ -48,6 +48,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.kosbrother.fragments.CategoryListFragment;
 import com.kosbrother.fragments.GridGplayFragment;
 import com.kosbrother.fragments.IndexNovelFragment;
+import com.kosbrother.tool.RecommendNovelDialog;
 import com.kosbrother.tool.Report;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
@@ -481,6 +482,9 @@ public class MainActivity extends AdFragmentActivity {
                 Report.createReportDialog(this, this.getResources().getString(R.string.report_not_novel_problem), this.getResources().getString(R.string.report_not_article_problem));
                 break;
             case 8:
+                RecommendNovelDialog.createReportDialog(this);
+                break;
+            case 9:
                 Intent intent1 = new Intent();
                 intent1.setClass(this, DonateActivity.class);
                 startActivity(intent1);
