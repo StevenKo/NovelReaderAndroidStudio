@@ -416,6 +416,13 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                             super.onPostExecute(result);
                             Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_collect_novel), Toast.LENGTH_SHORT).show();
                             invalidateOptionsMenu();
+
+                            trackCollectNovel();
+                        }
+
+                        private void trackCollectNovel() {
+                            Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                            t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Collect).setAction(theNovel.getName()).build());
                         }
                     }.execute();
 

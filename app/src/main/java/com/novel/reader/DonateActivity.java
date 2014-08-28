@@ -48,7 +48,14 @@ public class DonateActivity extends NovelReaderBaseActivity {
         donate_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                trackDonateClick();
+
                 iap.launchSubscriptionFlow();
+            }
+
+            private void trackDonateClick() {
+                Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Donate).setAction(AnalyticsName.DonateClick).build());
             }
         });
         validate_btn.setOnClickListener(new OnClickListener() {

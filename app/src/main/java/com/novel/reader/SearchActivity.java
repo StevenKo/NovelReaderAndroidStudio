@@ -77,19 +77,26 @@ public class SearchActivity extends AdFragmentActivity {
         myGrid.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Novel movie = novels.get(position);
+                Novel novel = novels.get(position);
+                trackNovelClick(novel);
                 Intent newAct = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putInt("NovelId", movie.getId());
-                bundle.putString("NovelName", movie.getName());
-                bundle.putString("NovelAuthor", movie.getAuthor());
-                bundle.putString("NovelDescription", movie.getDescription());
-                bundle.putString("NovelUpdate", movie.getLastUpdate());
-                bundle.putString("NovelPicUrl", movie.getPic());
-                bundle.putString("NovelArticleNum", movie.getArticleNum());
+                bundle.putInt("NovelId", novel.getId());
+                bundle.putString("NovelName", novel.getName());
+                bundle.putString("NovelAuthor", novel.getAuthor());
+                bundle.putString("NovelDescription", novel.getDescription());
+                bundle.putString("NovelUpdate", novel.getLastUpdate());
+                bundle.putString("NovelPicUrl", novel.getPic());
+                bundle.putString("NovelArticleNum", novel.getArticleNum());
                 newAct.putExtras(bundle);
                 newAct.setClass(SearchActivity.this, NovelIntroduceActivity.class);
                 startActivity(newAct);
+            }
+
+            private void trackNovelClick(Novel novel) {
+                Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(novel.getName()).build());
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novel.getName()).setLabel(AnalyticsName.NovelIntro).build());
             }
 
         });
@@ -309,6 +316,16 @@ public class SearchActivity extends AdFragmentActivity {
                 search.setText(keyword);
             } catch (Exception e) {
 
+            }
+            trackSearch();
+        }
+
+        private void trackSearch() {
+            Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+            if(novels != null)
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(AnalyticsName.Index).setValue(novels.size()).build());
+            else {
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(AnalyticsName.SearchNull).build());
             }
         }
 

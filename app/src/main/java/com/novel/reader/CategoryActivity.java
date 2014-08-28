@@ -244,17 +244,17 @@ public class CategoryActivity extends AdFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = CategroyHotNovelsFragment.newInstance();
+                kk = CategroyHotNovelsFragment.newInstance(categoryName);
             } else if (position == 1) {
-                kk = CategoryRecommendFragment.newInstance();
+                kk = CategoryRecommendFragment.newInstance(categoryName);
             } else if (position == 2) {
-                kk = CategoryWeekFragment.newInstance();
+                kk = CategoryWeekFragment.newInstance(categoryName);
             } else if (position == 3) {
-                kk = CategoryLatestNovelsFragment.newInstance();
+                kk = CategoryLatestNovelsFragment.newInstance(categoryName);
             } else if (position == 4) {
-                kk = CategoryFinishFragment.newInstance();
+                kk = CategoryFinishFragment.newInstance(categoryName);
             } else if (position == 5) {
-                kk = CategoryAllNovelsFragment.newInstance();
+                kk = CategoryAllNovelsFragment.newInstance(categoryName);
             }
             return kk;
         }

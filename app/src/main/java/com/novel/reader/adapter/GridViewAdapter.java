@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.R;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
@@ -176,29 +174,29 @@ public class GridViewAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.item_gridview_novel_small, null);
         }
 
-        vi.setClickable(true);
-        vi.setFocusable(true);
-        // vi.setBackgroundResource(android.R.drawable.menuitem_background);
-        vi.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(activity, NovelIntroduceActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("NovelId", novel.getId());
-                bundle.putString("NovelName", novel.getName());
-                bundle.putString("NovelAuthor", novel.getAuthor());
-                bundle.putString("NovelDescription", novel.getDescription());
-                bundle.putString("NovelUpdate", novel.getLastUpdate());
-                bundle.putString("NovelPicUrl", novel.getPic());
-                bundle.putString("NovelArticleNum", novel.getArticleNum());
-                intent.putExtras(bundle);
-                activity.startActivity(intent);
-
-            }
-
-        });
+//        vi.setClickable(true);
+//        vi.setFocusable(true);
+//        // vi.setBackgroundResource(android.R.drawable.menuitem_background);
+//        vi.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(activity, NovelIntroduceActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("NovelId", novel.getId());
+//                bundle.putString("NovelName", novel.getName());
+//                bundle.putString("NovelAuthor", novel.getAuthor());
+//                bundle.putString("NovelDescription", novel.getDescription());
+//                bundle.putString("NovelUpdate", novel.getLastUpdate());
+//                bundle.putString("NovelPicUrl", novel.getPic());
+//                bundle.putString("NovelArticleNum", novel.getArticleNum());
+//                intent.putExtras(bundle);
+//                activity.startActivity(intent);
+//
+//            }
+//
+//        });
 
         TextView textName = (TextView) vi.findViewById(R.id.grid_item_name);
         ImageView image = (ImageView) vi.findViewById(R.id.grid_item_image);

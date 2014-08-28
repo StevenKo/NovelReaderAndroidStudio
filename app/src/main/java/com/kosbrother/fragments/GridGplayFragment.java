@@ -34,6 +34,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.NovelRecommendActivity;
 import com.novel.reader.R;
@@ -114,7 +118,7 @@ public class GridGplayFragment extends Fragment {
     }
 
 
-    private void initCards(CardGridView gridView, ArrayList<Novel> novels) {
+    private void initCards(CardGridView gridView, ArrayList<Novel> novels, String cateName) {
 
         ArrayList<Card> cards = new ArrayList<Card>();
         for (int i = 0; i < novels.size(); i++) {
@@ -128,6 +132,7 @@ public class GridGplayFragment extends Fragment {
             card.novelUpdateDate = novels.get(i).getLastUpdate();
             card.isSerializing = novels.get(i).isSerializing();
             card.novelId = novels.get(i).getId();
+            card.cateName = cateName;
 
             card.init();
             cards.add(card);
@@ -176,16 +181,24 @@ public class GridGplayFragment extends Fragment {
             cateogyLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    trackRecommendCategory();
+
                     Intent intent = new Intent();
                     intent.putExtra("RecommendCategoryId", categories.get(finalI).getId());
                     intent.putExtra("RecommendCategoryName", categories.get(finalI).getCateName());
                     intent.setClass(getActivity(), NovelRecommendActivity.class);
                     startActivity(intent);
                 }
+
+                private void trackRecommendCategory() {
+                    Tracker t = ((NovelReaderAnalyticsApp)getActivity().getApplication()).getTracker(
+                            NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(categories.get(finalI).getCateName()).setLabel(AnalyticsName.RecommendIndex).build());
+                }
             });
 
             CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
-            initCards(groupGridView, categories.get(i).novels);
+            initCards(groupGridView, categories.get(i).novels, categories.get(finalI).getCateName());
             return gridLayout;
         }
     }
@@ -200,6 +213,7 @@ public class GridGplayFragment extends Fragment {
         protected String novelUpdateDate;
         protected String novelPic;
         protected int novelId;
+        public String cateName;
 
         public NovelGplayGridCard(Context context) {
             super(context, R.layout.carddemo_gplay_inner_content);
@@ -222,6 +236,8 @@ public class GridGplayFragment extends Fragment {
             setOnClickListener(new OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
+                    trackRecommendNovelClick();
+
                     Bundle bundle = new Bundle();
                     bundle.putInt("NovelId", novelId);
                     bundle.putString("NovelName", novelName);
@@ -234,6 +250,12 @@ public class GridGplayFragment extends Fragment {
                     intent.putExtras(bundle);
                     intent.setClass(mContext, NovelIntroduceActivity.class);
                     startActivity(intent);
+                }
+
+                private void trackRecommendNovelClick() {
+                    Tracker t = ((NovelReaderAnalyticsApp)getActivity().getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(cateName).setLabel(novelName).build());
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novelName).setLabel(AnalyticsName.NovelIntro).build());
                 }
             });
         }

@@ -2,6 +2,7 @@ package com.kosbrother.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -10,10 +11,16 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.R;
 import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.api.NovelAPI;
@@ -128,6 +135,33 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
                 layoutReload.setVisibility(View.GONE);
                 myGridViewAdapter = new GridViewAdapter(mActivity, novels, NovelAPI.getAppInfo(mActivity));
                 myGrid.setAdapter(myGridViewAdapter);
+
+                myGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                        trackNovelClick(position);
+
+                        Intent intent = new Intent( getActivity(), NovelIntroduceActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("NovelId", novels.get(position).getId());
+                        bundle.putString("NovelName", novels.get(position).getName());
+                        bundle.putString("NovelAuthor", novels.get(position).getAuthor());
+                        bundle.putString("NovelDescription", novels.get(position).getDescription());
+                        bundle.putString("NovelUpdate", novels.get(position).getLastUpdate());
+                        bundle.putString("NovelPicUrl", novels.get(position).getPic());
+                        bundle.putString("NovelArticleNum", novels.get(position).getArticleNum());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
+                    private void trackNovelClick(int position) {
+                        Tracker t = ((NovelReaderAnalyticsApp) getActivity().getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                        t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Index).setAction(AnalyticsName.IndexFragmentMap.get(novelFragment)).setLabel(novels.get(position).getName()).build());
+                        t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novels.get(position).getName()).setLabel(AnalyticsName.NovelIntro).build());
+                    }
+                });
+
             } catch (Exception e) {
 
             }

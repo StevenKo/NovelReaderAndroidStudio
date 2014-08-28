@@ -243,12 +243,19 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
                     Toast.makeText(NovelIntroduceActivity.this, NovelIntroduceActivity.this.getResources().getString(R.string.add_my_bookcase),
                             Toast.LENGTH_SHORT).show();
                     NovelAPI.collecNovel(theNovel, NovelIntroduceActivity.this);
+
+                    trackCollectNovel();
                 } else {
                     Toast.makeText(NovelIntroduceActivity.this, NovelIntroduceActivity.this.getResources().getString(R.string.remove_my_bookcase),
                             Toast.LENGTH_SHORT).show();
                     NovelAPI.removeNovelFromCollected(theNovel, NovelIntroduceActivity.this);
                     // need remove api
                 }
+            }
+
+            private void trackCollectNovel() {
+                Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Collect).setAction(theNovel.getName()).build());
             }
         }));
     }

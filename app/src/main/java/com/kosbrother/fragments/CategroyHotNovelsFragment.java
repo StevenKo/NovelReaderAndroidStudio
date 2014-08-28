@@ -2,6 +2,7 @@ package com.kosbrother.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -10,11 +11,17 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.CategoryActivity;
+import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.R;
 import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.api.NovelAPI;
@@ -40,6 +47,7 @@ public final class CategroyHotNovelsFragment extends Fragment implements LoaderM
     private Button buttonReload;
     private Activity mActivity;
     public ArrayList<GameAPP> apps;
+    private String categoryName;
 
     @Override
     public void onAttach(Activity activity) {
@@ -47,13 +55,12 @@ public final class CategroyHotNovelsFragment extends Fragment implements LoaderM
         mActivity = activity;
     }
 
-    public static CategroyHotNovelsFragment newInstance() {
-
-        // myPage = page;
-        // novels = theNovels;
-        // id = categoryId;
+    public static CategroyHotNovelsFragment newInstance(String categoryName) {
 
         CategroyHotNovelsFragment fragment = new CategroyHotNovelsFragment();
+        Bundle args = new Bundle();
+        args.putString("CategoryName", categoryName);
+        fragment.setArguments(args);
 
         return fragment;
 
@@ -66,6 +73,7 @@ public final class CategroyHotNovelsFragment extends Fragment implements LoaderM
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        categoryName = getArguments().getString("CategoryName");
 
         View myFragmentView = inflater.inflate(R.layout.loadmore_grid, container, false);
         progressLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_progress);
@@ -132,6 +140,30 @@ public final class CategroyHotNovelsFragment extends Fragment implements LoaderM
             } catch (Exception e) {
 
             }
+            myGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    trackNovelClick(position);
+
+                    Intent intent = new Intent( getActivity(), NovelIntroduceActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("NovelId", novels.get(position).getId());
+                    bundle.putString("NovelName", novels.get(position).getName());
+                    bundle.putString("NovelAuthor", novels.get(position).getAuthor());
+                    bundle.putString("NovelDescription", novels.get(position).getDescription());
+                    bundle.putString("NovelUpdate", novels.get(position).getLastUpdate());
+                    bundle.putString("NovelPicUrl", novels.get(position).getPic());
+                    bundle.putString("NovelArticleNum", novels.get(position).getArticleNum());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
+                private void trackNovelClick(int position) {
+                    Tracker t = ((NovelReaderAnalyticsApp) getActivity().getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                    t.send(new HitBuilders.EventBuilder().setCategory(categoryName).setAction(AnalyticsName.CategroyHotNovelsFragment).setLabel(novels.get(position).getName()).build());
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novels.get(position).getName()).setLabel(AnalyticsName.NovelIntro).build());
+                }
+            });
         } else {
             layoutReload.setVisibility(View.VISIBLE);
         }
