@@ -12,6 +12,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.adapter.ContentAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
@@ -43,7 +47,13 @@ public class NovelContentsActivity extends NovelReaderBaseActivity {
         setViews();
         new DownloadArticlesTask().execute();
 
+        trackScreen();
+    }
 
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.NovelContentsActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void setViews() {

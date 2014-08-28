@@ -2,14 +2,15 @@ package com.novel.reader;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,11 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
 
-
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.ChildArticle;
 import com.kosbrother.tool.ExpandListDownLoadAdapter;
 import com.kosbrother.tool.Group;
@@ -85,6 +87,14 @@ public class DownloadActivity extends NovelReaderBaseActivity implements LoaderM
         LoaderManager lm = getSupportLoaderManager();
         lm.restartLoader(LOADER_ID, null, this).forceLoad();
 
+        trackScreen();
+
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.DownloadActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -205,19 +215,6 @@ public class DownloadActivity extends NovelReaderBaseActivity implements LoaderM
             return null;
         }
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
-    }
-
 
     @Override
     public Loader<ArrayList<Article>> onCreateLoader(int i, Bundle bundle) {

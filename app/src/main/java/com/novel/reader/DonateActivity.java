@@ -8,7 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
 import com.android.vending.billing.InAppBillingForNovel;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.util.Setting;
 
 public class DonateActivity extends NovelReaderBaseActivity {
@@ -31,6 +35,13 @@ public class DonateActivity extends NovelReaderBaseActivity {
         setListener();
         iap = new InAppBillingForNovel(DonateActivity.this);
 
+        trackScreen();
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.DonateActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void setListener() {

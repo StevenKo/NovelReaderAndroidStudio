@@ -17,8 +17,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.fragments.MyBookcaseFragment;
 import com.kosbrother.fragments.MyDownloadFragment;
 import com.kosbrother.tool.Report;
@@ -77,6 +80,38 @@ public class MyNovelActivity extends AdFragmentActivity {
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
 
+        trackScreen();
+    }
+
+    private void trackScreen() {
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                trackFragment(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        trackFragment(pager.getCurrentItem());
+    }
+
+    private void trackFragment(int position) {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        if (position == 0) {
+            t.setScreenName(AnalyticsName.MyNovelCollectedBookcaseFragment);
+        } else if (position == 1) {
+            t.setScreenName(AnalyticsName.MyNovelDownloadBookcaseFragment);
+        }
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 
@@ -186,18 +221,6 @@ public class MyNovelActivity extends AdFragmentActivity {
 
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
             bannerAdView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
 }

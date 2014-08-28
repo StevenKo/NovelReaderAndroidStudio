@@ -25,7 +25,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.ChildArticle;
 import com.kosbrother.tool.Group;
 import com.kosbrother.tool.Report;
@@ -113,7 +116,13 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
         setViews();
         setAboutUsDialog();
 
+        trackScreen();
+    }
 
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.NovelIntroduceActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 
@@ -464,18 +473,6 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
 
                     }
                 });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
 }

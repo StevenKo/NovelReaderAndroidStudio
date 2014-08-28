@@ -24,8 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.fragments.CategoryAllNovelsFragment;
 import com.kosbrother.fragments.CategoryFinishFragment;
 import com.kosbrother.fragments.CategoryLatestNovelsFragment;
@@ -90,7 +93,46 @@ public class CategoryActivity extends AdFragmentActivity {
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
 
+        trackScreen();
+    }
 
+    private void trackScreen() {
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                trackFragment(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        trackFragment(pager.getCurrentItem());
+    }
+
+    private void trackFragment(int position) {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        if (position == 0) {
+            t.setScreenName(AnalyticsName.CategroyHotNovelsFragment);
+        } else if (position == 1) {
+            t.setScreenName(AnalyticsName.CategoryRecommendFragment);
+        } else if (position == 2) {
+            t.setScreenName(AnalyticsName.CategoryWeekFragment);
+        } else if (position == 3) {
+            t.setScreenName(AnalyticsName.CategoryLatestNovelsFragment);
+        } else if (position == 4) {
+            t.setScreenName(AnalyticsName.CategoryFinishFragment);
+        } else if (position == 5) {
+            t.setScreenName(AnalyticsName.CategoryAllNovelsFragment);
+        }
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 
@@ -245,19 +287,6 @@ public class CategoryActivity extends AdFragmentActivity {
 
                     }
                 });
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
 }

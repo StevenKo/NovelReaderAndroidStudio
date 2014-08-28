@@ -25,7 +25,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.ChildArticle;
 import com.kosbrother.tool.ExpandListDownLoadReadAdapter;
 import com.kosbrother.tool.Group;
@@ -112,7 +115,13 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
 
+        trackScreen();
+    }
 
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.MyDownloadArticleActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -350,18 +359,6 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
             }
             NovelAPI.removeArticles(articlesList, myActivity);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
     @Override

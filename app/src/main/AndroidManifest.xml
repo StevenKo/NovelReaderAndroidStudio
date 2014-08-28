@@ -16,7 +16,8 @@
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light"
-        android:windowSoftInputMode="adjustPan" >
+        android:windowSoftInputMode="adjustPan"
+        android:name="com.analytics.NovelReaderAnalyticsApp">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

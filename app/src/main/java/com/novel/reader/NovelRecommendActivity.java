@@ -9,6 +9,10 @@ import android.view.MenuItem;
 import android.widget.GridView;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
@@ -40,6 +44,13 @@ public class NovelRecommendActivity extends AdFragmentActivity {
 
         new DownloadRecommendNovelTask().execute();
 
+        trackScreen();
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.NovelRecommendActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void getBundleExtras() {

@@ -20,8 +20,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.fragments.MyBookmarkFragment;
 import com.novel.reader.util.Setting;
 
@@ -81,6 +84,39 @@ public class BookmarkActivity extends AdFragmentActivity {
 
         if (alertDeleteBookmark)
             showArticleDeleteDialog();
+
+        trackScreen();
+    }
+
+    private void trackScreen() {
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                trackFragment(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        trackFragment(pager.getCurrentItem());
+    }
+
+    private void trackFragment(int position) {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        if (position == 0) {
+            t.setScreenName(AnalyticsName.BookmarkFragment);
+        } else if (position == 1) {
+            t.setScreenName(AnalyticsName.BookmarkRecentReadFragment);
+        }
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -162,17 +198,6 @@ public class BookmarkActivity extends AdFragmentActivity {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
-    }
 
     public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
