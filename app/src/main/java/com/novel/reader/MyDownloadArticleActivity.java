@@ -35,6 +35,7 @@ import com.kosbrother.tool.Group;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
 
@@ -146,7 +147,12 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
         novelTextAuthor.setText(getResources().getString(R.string.novel_author) + novelAuthor);
 
         mImageLoader = new ImageLoader(MyDownloadArticleActivity.this, 70);
-        mImageLoader.DisplayImage(novelPicUrl, novelImageView);
+
+        if (NovelReaderUtil.isDisplayDefaultBookCover(novelPicUrl)) {
+            novelImageView.setImageResource(R.drawable.bookcover_default);
+        } else {
+            mImageLoader.DisplayImage(novelPicUrl, novelImageView);
+        }
 
         deleteDialog = new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.delete_title))
                 .setMessage(getResources().getString(R.string.delete_message))

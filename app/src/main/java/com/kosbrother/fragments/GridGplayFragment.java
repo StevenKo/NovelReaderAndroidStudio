@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,9 +42,11 @@ import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.NovelRecommendActivity;
 import com.novel.reader.R;
+import com.novel.reader.adapter.GridViewDownloadAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Category;
 import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
 import com.taiwan.imageload.ImageLoader;
 
 import java.util.ArrayList;
@@ -64,40 +67,65 @@ public class GridGplayFragment extends Fragment {
     protected ListView mListView;
     private static final int LOADER_ID = 1000;
     ProgressDialog progressDialog = null;
+    private boolean isNetworkConnect;
+
+    private GridView mGridView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.demo_fragment_grid_gplay, container, false);
-        mListView = (ListView) contentView.findViewById(R.id.list_view);
-        return contentView;
+        if(NovelReaderUtil.isNetworkConnected(getActivity()))
+            isNetworkConnect = true;
+        else
+            isNetworkConnect = false;
+
+
+        if(isNetworkConnect) {
+            View contentView = inflater.inflate(R.layout.demo_fragment_grid_gplay, container, false);
+            mListView = (ListView) contentView.findViewById(R.id.list_view);
+            return contentView;
+        }else{
+            View contentView = inflater.inflate(R.layout.layout_no_network_index, container, false);
+            mGridView = (GridView) contentView.findViewById(R.id.gridView1);
+            TextView indexCategoryName = (TextView) contentView.findViewById(R.id.category_name);
+            indexCategoryName.setText(getString(R.string.my_download));
+            return contentView;
+        }
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
-        progressDialog.setCancelable(true);
 
-        LoaderManager lm = getLoaderManager();
-        lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>() {
+        if(isNetworkConnect) {
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
+            progressDialog.setCancelable(true);
 
-            @Override
-            public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
-                return new DownloadRecommnedLoader(getActivity());
-            }
+            LoaderManager lm = getLoaderManager();
+            lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>() {
 
-            @Override
-            public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
-                ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), categories);
-                mListView.setAdapter(listItemAdapter);
-                progressDialog.cancel();
-            }
+                @Override
+                public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
+                    return new DownloadRecommnedLoader(getActivity());
+                }
 
-            @Override
-            public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
+                @Override
+                public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
+                    ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), categories);
+                    mListView.setAdapter(listItemAdapter);
+                    progressDialog.cancel();
+                }
 
-            }
-        }).forceLoad();
+                @Override
+                public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
+
+                }
+            }).forceLoad();
+        }else{
+            final ArrayList<Novel> novels = NovelAPI.getDownloadedNovels(getActivity());
+            GridViewDownloadAdapter myGridViewAdapter = new GridViewDownloadAdapter(getActivity(), novels);
+            mGridView.setAdapter(myGridViewAdapter);
+        }
     }
 
     public Fragment newInstance() {
