@@ -59,6 +59,7 @@ public class SearchActivity extends AdFragmentActivity {
     private LinearLayout progressLayout;
     private LinearLayout loadmoreLayout;
     private LinearLayout noDataLayout;
+    private ActionBar ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class SearchActivity extends AdFragmentActivity {
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_search);
 
-        final ActionBar ab = getSupportActionBar();
+        ab = getSupportActionBar();
         mBundle = this.getIntent().getExtras();
         keyword = mBundle.getString("SearchKeyword");
         myGrid = (LoadMoreGridView) findViewById(R.id.news_list);
@@ -102,6 +103,7 @@ public class SearchActivity extends AdFragmentActivity {
         });
 
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(getString(R.string.menu_search) + ":" + keyword);
 
         setAboutUsDialog();
         new LoadDataTask().execute();
@@ -213,6 +215,7 @@ public class SearchActivity extends AdFragmentActivity {
                             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                                     keyword = v.getText().toString();
+                                    ab.setTitle(getString(R.string.menu_search)+":"+keyword);
                                     new LoadDataTask().execute();
 
                                     return true;
@@ -228,8 +231,6 @@ public class SearchActivity extends AdFragmentActivity {
 
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
                         return true;
                     }
                 }).setActionView(R.layout.collapsible_edittext);
@@ -282,6 +283,9 @@ public class SearchActivity extends AdFragmentActivity {
 
         @Override
         protected void onPreExecute() {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
             loadmoreLayout.setVisibility(View.GONE);
             progressLayout.setVisibility(View.VISIBLE);
             noDataLayout.setVisibility(View.GONE);
@@ -310,13 +314,12 @@ public class SearchActivity extends AdFragmentActivity {
                 noDataLayout.setVisibility(View.VISIBLE);
                 myGrid.setVisibility(View.GONE);
             }
-            try {
-                item.expandActionView();
-                EditText search = (EditText) item.getActionView();
-                search.setText(keyword);
-            } catch (Exception e) {
 
-            }
+            item.collapseActionView();
+            EditText search = (EditText) item.getActionView();
+            search.setText(keyword);
+            search.setSelection(keyword.length());
+
             trackSearch();
         }
 
