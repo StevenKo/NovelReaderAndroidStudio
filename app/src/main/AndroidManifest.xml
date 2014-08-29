@@ -5,8 +5,6 @@
     android:versionCode="57"
     android:versionName="3.2.0" >
 
-    <!-- android:theme="@style/Theme.Sherlock.Light.DarkActionBar" -->
-
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -135,6 +133,16 @@
             android:label="@string/title_activity_novel_recommend" >
         </activity>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="061f74624449122730ac6789bc4ae591c8701a7c"/>
+
+        <!-- Used for Google Play Store Campaign Measurement-->;
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+        <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
