@@ -93,6 +93,7 @@
     <string name="menu_remove_all">全取消</string>
     <string name="menu_download">下載</string>
     <string name="menu_report">問題回報</string>
+    <string name="menu_recommend_novel">我要推薦</string>
     <string name="menu_article_report">章節問題回報</string>
     <string name="menu_collect_novel">收藏此本小說</string>
     <string name="menu_remove_collect_novel">取消收藏此本小說</string>

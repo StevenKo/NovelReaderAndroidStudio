@@ -27,7 +27,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
@@ -56,6 +59,7 @@ public class SearchActivity extends AdFragmentActivity {
     private LinearLayout progressLayout;
     private LinearLayout loadmoreLayout;
     private LinearLayout noDataLayout;
+    private ActionBar ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class SearchActivity extends AdFragmentActivity {
         Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_search);
 
-        final ActionBar ab = getSupportActionBar();
+        ab = getSupportActionBar();
         mBundle = this.getIntent().getExtras();
         keyword = mBundle.getString("SearchKeyword");
         myGrid = (LoadMoreGridView) findViewById(R.id.news_list);
@@ -74,24 +78,32 @@ public class SearchActivity extends AdFragmentActivity {
         myGrid.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Novel movie = novels.get(position);
+                Novel novel = novels.get(position);
+                trackNovelClick(novel);
                 Intent newAct = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putInt("NovelId", movie.getId());
-                bundle.putString("NovelName", movie.getName());
-                bundle.putString("NovelAuthor", movie.getAuthor());
-                bundle.putString("NovelDescription", movie.getDescription());
-                bundle.putString("NovelUpdate", movie.getLastUpdate());
-                bundle.putString("NovelPicUrl", movie.getPic());
-                bundle.putString("NovelArticleNum", movie.getArticleNum());
+                bundle.putInt("NovelId", novel.getId());
+                bundle.putString("NovelName", novel.getName());
+                bundle.putString("NovelAuthor", novel.getAuthor());
+                bundle.putString("NovelDescription", novel.getDescription());
+                bundle.putString("NovelUpdate", novel.getLastUpdate());
+                bundle.putString("NovelPicUrl", novel.getPic());
+                bundle.putString("NovelArticleNum", novel.getArticleNum());
                 newAct.putExtras(bundle);
                 newAct.setClass(SearchActivity.this, NovelIntroduceActivity.class);
                 startActivity(newAct);
             }
 
+            private void trackNovelClick(Novel novel) {
+                Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(novel.getName()).build());
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novel.getName()).setLabel(AnalyticsName.NovelIntro).build());
+            }
+
         });
 
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(getString(R.string.menu_search) + ":" + keyword);
 
         setAboutUsDialog();
         new LoadDataTask().execute();
@@ -100,6 +112,14 @@ public class SearchActivity extends AdFragmentActivity {
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
 
+        trackScreen();
+
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.SearchActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -195,6 +215,7 @@ public class SearchActivity extends AdFragmentActivity {
                             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                                     keyword = v.getText().toString();
+                                    ab.setTitle(getString(R.string.menu_search)+":"+keyword);
                                     new LoadDataTask().execute();
 
                                     return true;
@@ -210,8 +231,6 @@ public class SearchActivity extends AdFragmentActivity {
 
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
                         return true;
                     }
                 }).setActionView(R.layout.collapsible_edittext);
@@ -264,6 +283,9 @@ public class SearchActivity extends AdFragmentActivity {
 
         @Override
         protected void onPreExecute() {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
             loadmoreLayout.setVisibility(View.GONE);
             progressLayout.setVisibility(View.VISIBLE);
             noDataLayout.setVisibility(View.GONE);
@@ -292,12 +314,21 @@ public class SearchActivity extends AdFragmentActivity {
                 noDataLayout.setVisibility(View.VISIBLE);
                 myGrid.setVisibility(View.GONE);
             }
-            try {
-                item.expandActionView();
-                EditText search = (EditText) item.getActionView();
-                search.setText(keyword);
-            } catch (Exception e) {
 
+            item.collapseActionView();
+            EditText search = (EditText) item.getActionView();
+            search.setText(keyword);
+            search.setSelection(keyword.length());
+
+            trackSearch();
+        }
+
+        private void trackSearch() {
+            Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+            if(novels != null)
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(AnalyticsName.Index).setValue(novels.size()).build());
+            else {
+                t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Search).setAction(keyword).setLabel(AnalyticsName.SearchNull).build());
             }
         }
 
@@ -313,18 +344,6 @@ public class SearchActivity extends AdFragmentActivity {
 
                     }
                 });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
 }

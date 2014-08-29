@@ -1,8 +1,7 @@
 package com.kosbrother.fragments;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,14 +9,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
+import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.R;
 import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
 import com.novel.reader.entity.Novel;
 import com.taiwan.imageload.LoadMoreGridView;
+
+import java.util.ArrayList;
 
 public class MyBookcaseFragment extends Fragment {
 
@@ -59,11 +62,6 @@ public class MyBookcaseFragment extends Fragment {
         loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
         noDataLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_no_data);
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
-        myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
-            public void onLoadMore() {
-
-            }
-        });
         return myFragmentView;
     }
 
@@ -100,17 +98,28 @@ public class MyBookcaseFragment extends Fragment {
             loadmoreLayout.setVisibility(View.GONE);
 
             if (novels != null && novels.size() != 0) {
-                try {
-                    myGridViewAdapter = new GridViewAdapter(mActivity, novels, new ArrayList<GameAPP>());
-                    myGrid.setAdapter(myGridViewAdapter);
-                } catch (Exception e) {
-
-                }
+                myGridViewAdapter = new GridViewAdapter(mActivity, novels, new ArrayList<GameAPP>());
+                myGrid.setAdapter(myGridViewAdapter);
+                myGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        Intent intent = new Intent( getActivity(), NovelIntroduceActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("NovelId", novels.get(position).getId());
+                        bundle.putString("NovelName", novels.get(position).getName());
+                        bundle.putString("NovelAuthor", novels.get(position).getAuthor());
+                        bundle.putString("NovelDescription", novels.get(position).getDescription());
+                        bundle.putString("NovelUpdate", novels.get(position).getLastUpdate());
+                        bundle.putString("NovelPicUrl", novels.get(position).getPic());
+                        bundle.putString("NovelArticleNum", novels.get(position).getArticleNum());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             } else {
                 myGrid.setVisibility(View.GONE);
                 noDataLayout.setVisibility(View.VISIBLE);
             }
-//            new UpdateServerCollectTask().execute();
             new getNovelsInfoFromServerTask().execute();
         }
     }

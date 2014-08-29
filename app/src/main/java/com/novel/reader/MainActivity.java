@@ -38,13 +38,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
 import com.crashlytics.android.Crashlytics;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.kosbrother.fragments.CategoryListFragment;
 import com.kosbrother.fragments.GridGplayFragment;
 import com.kosbrother.fragments.IndexNovelFragment;
+import com.kosbrother.tool.RecommendNovelDialog;
 import com.kosbrother.tool.Report;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
@@ -129,7 +133,44 @@ public class MainActivity extends AdFragmentActivity {
 
 
         setCheckCollectNovelsAlarm();
+        trackScreen();
+    }
 
+    private void trackScreen() {
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+                trackFragment(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        trackFragment(pager.getCurrentItem());
+    }
+
+    private void trackFragment(int position) {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        if (position == 0) {
+            t.setScreenName(AnalyticsName.IndexCatogry);
+        } else if (position == 1) {
+            t.setScreenName(AnalyticsName.IndexRecommendGrid);
+        } else if (position == 2) {
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.LATEST_NOVEL));
+        } else if (position == 3) {
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.WEEK_NOVEL));
+        } else if (position == 4) {
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.MONTH_NOVEL));
+        } else if (position == 5) {
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.HOT_NOVEL));
+        }
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void setCheckCollectNovelsAlarm() {
@@ -351,17 +392,6 @@ public class MainActivity extends AdFragmentActivity {
                 });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
-    }
 
 
     private void registerBackground() {
@@ -452,6 +482,9 @@ public class MainActivity extends AdFragmentActivity {
                 Report.createReportDialog(this, this.getResources().getString(R.string.report_not_novel_problem), this.getResources().getString(R.string.report_not_article_problem));
                 break;
             case 8:
+                RecommendNovelDialog.createReportDialog(this);
+                break;
+            case 9:
                 Intent intent1 = new Intent();
                 intent1.setClass(this, DonateActivity.class);
                 startActivity(intent1);

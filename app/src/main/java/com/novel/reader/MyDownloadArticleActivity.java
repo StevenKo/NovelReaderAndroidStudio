@@ -25,13 +25,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ads.AdFragmentActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.ChildArticle;
 import com.kosbrother.tool.ExpandListDownLoadReadAdapter;
 import com.kosbrother.tool.Group;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
 import com.taiwan.imageload.ImageLoader;
 
@@ -112,7 +116,13 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
 
+        trackScreen();
+    }
 
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.MyDownloadArticleActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -137,7 +147,12 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
         novelTextAuthor.setText(getResources().getString(R.string.novel_author) + novelAuthor);
 
         mImageLoader = new ImageLoader(MyDownloadArticleActivity.this, 70);
-        mImageLoader.DisplayImage(novelPicUrl, novelImageView);
+
+        if (NovelReaderUtil.isDisplayDefaultBookCover(novelPicUrl)) {
+            novelImageView.setImageResource(R.drawable.bookcover_default);
+        } else {
+            mImageLoader.DisplayImage(novelPicUrl, novelImageView);
+        }
 
         deleteDialog = new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.delete_title))
                 .setMessage(getResources().getString(R.string.delete_message))
@@ -350,18 +365,6 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
             }
             NovelAPI.removeArticles(articlesList, myActivity);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
     @Override

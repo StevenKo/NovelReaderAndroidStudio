@@ -22,7 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ads.AdFragmentActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.DetectScrollView;
 import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
 import com.kosbrother.tool.Report;
@@ -138,6 +141,14 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
         // ab.setTitle(novelName);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        trackScreen();
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.ArticleActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 
@@ -405,6 +416,13 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                             super.onPostExecute(result);
                             Toast.makeText(ArticleActivity.this, getResources().getString(R.string.menu_collect_novel), Toast.LENGTH_SHORT).show();
                             invalidateOptionsMenu();
+
+                            trackCollectNovel();
+                        }
+
+                        private void trackCollectNovel() {
+                            Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                            t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Collect).setAction(theNovel.getName()).build());
                         }
                     }.execute();
 
@@ -878,18 +896,6 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
                 ArticleActivity.this);
         NovelAPI.keepNovelLastViewDateIfInDB(myArticle.getNovelId(), ArticleActivity.this);
         super.onPause();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
 }

@@ -1,13 +1,5 @@
 package com.novel.navigationdrawler;
 
-import java.util.ArrayList;
-
-import com.novel.reader.R;
-import com.novel.reader.R.drawable;
-import com.novel.reader.R.id;
-import com.novel.reader.R.layout;
-import com.novel.reader.R.string;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.novel.reader.R.drawable;
+import com.novel.reader.R.id;
+import com.novel.reader.R.layout;
+import com.novel.reader.R.string;
+
+import java.util.ArrayList;
 
 public class NavigationListAdapter extends BaseAdapter {
 
@@ -35,6 +34,7 @@ public class NavigationListAdapter extends BaseAdapter {
         data.add(new NavigationItem(activity.getResources().getString(string.menu_aboutus), drawable.navigation_profile));
         data.add(new NavigationItem(activity.getResources().getString(string.menu_recommend), drawable.navigation_like));
         data.add(new NavigationItem(activity.getResources().getString(string.menu_report), drawable.navigation_voice));
+        data.add(new NavigationItem(activity.getResources().getString(string.menu_recommend_novel), drawable.navigation_recommend_novel));
         data.add(new NavigationItem(activity.getResources().getString(string.buy_year_subscription), drawable.navigation_trophy));
 
     }

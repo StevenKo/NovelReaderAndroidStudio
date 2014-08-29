@@ -30,16 +30,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.NovelRecommendActivity;
 import com.novel.reader.R;
+import com.novel.reader.adapter.GridViewDownloadAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Category;
 import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
 import com.taiwan.imageload.ImageLoader;
 
 import java.util.ArrayList;
@@ -60,40 +67,65 @@ public class GridGplayFragment extends Fragment {
     protected ListView mListView;
     private static final int LOADER_ID = 1000;
     ProgressDialog progressDialog = null;
+    private boolean isNetworkConnect;
+
+    private GridView mGridView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.demo_fragment_grid_gplay, container, false);
-        mListView = (ListView) contentView.findViewById(R.id.list_view);
-        return contentView;
+        if(NovelReaderUtil.isNetworkConnected(getActivity()))
+            isNetworkConnect = true;
+        else
+            isNetworkConnect = false;
+
+
+        if(isNetworkConnect) {
+            View contentView = inflater.inflate(R.layout.demo_fragment_grid_gplay, container, false);
+            mListView = (ListView) contentView.findViewById(R.id.list_view);
+            return contentView;
+        }else{
+            View contentView = inflater.inflate(R.layout.layout_no_network_index, container, false);
+            mGridView = (GridView) contentView.findViewById(R.id.gridView1);
+            TextView indexCategoryName = (TextView) contentView.findViewById(R.id.category_name);
+            indexCategoryName.setText(getString(R.string.my_download));
+            return contentView;
+        }
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
-        progressDialog.setCancelable(true);
 
-        LoaderManager lm = getLoaderManager();
-        lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>() {
+        if(isNetworkConnect) {
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.toast_novel_downloading));
+            progressDialog.setCancelable(true);
 
-            @Override
-            public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
-                return new DownloadRecommnedLoader(getActivity());
-            }
+            LoaderManager lm = getLoaderManager();
+            lm.initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<ArrayList<Category>>() {
 
-            @Override
-            public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
-                ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), categories);
-                mListView.setAdapter(listItemAdapter);
-                progressDialog.cancel();
-            }
+                @Override
+                public Loader<ArrayList<Category>> onCreateLoader(int i, Bundle bundle) {
+                    return new DownloadRecommnedLoader(getActivity());
+                }
 
-            @Override
-            public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
+                @Override
+                public void onLoadFinished(Loader<ArrayList<Category>> arrayListLoader, ArrayList<Category> categories) {
+                    ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), categories);
+                    mListView.setAdapter(listItemAdapter);
+                    progressDialog.cancel();
+                }
 
-            }
-        }).forceLoad();
+                @Override
+                public void onLoaderReset(Loader<ArrayList<Category>> arrayListLoader) {
+
+                }
+            }).forceLoad();
+        }else{
+            final ArrayList<Novel> novels = NovelAPI.getDownloadedNovels(getActivity());
+            GridViewDownloadAdapter myGridViewAdapter = new GridViewDownloadAdapter(getActivity(), novels);
+            mGridView.setAdapter(myGridViewAdapter);
+        }
     }
 
     public Fragment newInstance() {
@@ -114,7 +146,7 @@ public class GridGplayFragment extends Fragment {
     }
 
 
-    private void initCards(CardGridView gridView, ArrayList<Novel> novels) {
+    private void initCards(CardGridView gridView, ArrayList<Novel> novels, String cateName) {
 
         ArrayList<Card> cards = new ArrayList<Card>();
         for (int i = 0; i < novels.size(); i++) {
@@ -128,6 +160,7 @@ public class GridGplayFragment extends Fragment {
             card.novelUpdateDate = novels.get(i).getLastUpdate();
             card.isSerializing = novels.get(i).isSerializing();
             card.novelId = novels.get(i).getId();
+            card.cateName = cateName;
 
             card.init();
             cards.add(card);
@@ -176,16 +209,24 @@ public class GridGplayFragment extends Fragment {
             cateogyLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    trackRecommendCategory();
+
                     Intent intent = new Intent();
                     intent.putExtra("RecommendCategoryId", categories.get(finalI).getId());
                     intent.putExtra("RecommendCategoryName", categories.get(finalI).getCateName());
                     intent.setClass(getActivity(), NovelRecommendActivity.class);
                     startActivity(intent);
                 }
+
+                private void trackRecommendCategory() {
+                    Tracker t = ((NovelReaderAnalyticsApp)getActivity().getApplication()).getTracker(
+                            NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(categories.get(finalI).getCateName()).setLabel(AnalyticsName.RecommendIndex).build());
+                }
             });
 
             CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
-            initCards(groupGridView, categories.get(i).novels);
+            initCards(groupGridView, categories.get(i).novels, categories.get(finalI).getCateName());
             return gridLayout;
         }
     }
@@ -200,6 +241,7 @@ public class GridGplayFragment extends Fragment {
         protected String novelUpdateDate;
         protected String novelPic;
         protected int novelId;
+        public String cateName;
 
         public NovelGplayGridCard(Context context) {
             super(context, R.layout.carddemo_gplay_inner_content);
@@ -222,6 +264,8 @@ public class GridGplayFragment extends Fragment {
             setOnClickListener(new OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
+                    trackRecommendNovelClick();
+
                     Bundle bundle = new Bundle();
                     bundle.putInt("NovelId", novelId);
                     bundle.putString("NovelName", novelName);
@@ -234,6 +278,12 @@ public class GridGplayFragment extends Fragment {
                     intent.putExtras(bundle);
                     intent.setClass(mContext, NovelIntroduceActivity.class);
                     startActivity(intent);
+                }
+
+                private void trackRecommendNovelClick() {
+                    Tracker t = ((NovelReaderAnalyticsApp)getActivity().getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(cateName).setLabel(novelName).build());
+                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novelName).setLabel(AnalyticsName.NovelIntro).build());
                 }
             });
         }

@@ -1,7 +1,5 @@
 package com.kosbrother.fragments;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.novel.reader.R;
-import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.adapter.GridViewDownloadAdapter;
 import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.GameAPP;
 import com.novel.reader.entity.Novel;
 import com.taiwan.imageload.LoadMoreGridView;
+
+import java.util.ArrayList;
 
 public class MyDownloadFragment extends Fragment {
 
@@ -58,19 +56,6 @@ public class MyDownloadFragment extends Fragment {
         loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
         noDataLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_no_data);
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
-        myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
-            public void onLoadMore() {
-                // // Do the work to load more items at the end of list
-                //
-                // if(checkLoad){
-                // myPage = myPage +1;
-                // loadmoreLayout.setVisibility(View.VISIBLE);
-                // new LoadMoreTask().execute();
-                // }else{
-                // myGrid.onLoadMoreComplete();
-                // }
-            }
-        });
         return myFragmentView;
     }
 

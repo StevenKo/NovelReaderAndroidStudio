@@ -107,6 +107,7 @@
     <string name="menu_remove_all">全取消</string>
     <string name="menu_download">下载</string>
     <string name="menu_report">问题回报</string>
+    <string name="menu_recommend_novel">我要推荐</string>
     <string name="menu_article_report">章节问题回报</string>
     <string name="menu_collect_novel">收藏此本小说</string>
     <string name="menu_remove_collect_novel">取消收藏此本小说</string>

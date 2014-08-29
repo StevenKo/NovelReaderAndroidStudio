@@ -2,13 +2,20 @@ package com.novel.reader;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.ads.AdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
@@ -40,6 +47,13 @@ public class NovelRecommendActivity extends AdFragmentActivity {
 
         new DownloadRecommendNovelTask().execute();
 
+        trackScreen();
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.NovelRecommendActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void getBundleExtras() {
@@ -95,6 +109,31 @@ public class NovelRecommendActivity extends AdFragmentActivity {
             progressdialogInit.dismiss();
             GridViewAdapter myGridViewAdapter = new GridViewAdapter(NovelRecommendActivity.this, novels, apps);
             gridView.setAdapter(myGridViewAdapter);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    trackRecommendNovelClick(position);
+
+                    Intent intent = new Intent(NovelRecommendActivity.this, NovelIntroduceActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("NovelId", novels.get(position).getId());
+                    bundle.putString("NovelName", novels.get(position).getName());
+                    bundle.putString("NovelAuthor", novels.get(position).getAuthor());
+                    bundle.putString("NovelDescription", novels.get(position).getDescription());
+                    bundle.putString("NovelUpdate", novels.get(position).getLastUpdate());
+                    bundle.putString("NovelPicUrl", novels.get(position).getPic());
+                    bundle.putString("NovelArticleNum", novels.get(position).getArticleNum());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        private void trackRecommendNovelClick(int position) {
+            Tracker t = ((NovelReaderAnalyticsApp)getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+            t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(categoryName).setLabel(novels.get(position).getName()).build());
+            t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novels.get(position).getName()).setLabel(AnalyticsName.NovelIntro).build());
         }
     }
 }

@@ -18,7 +18,10 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.util.Setting;
 
@@ -86,6 +89,13 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         ab.setTitle(getResources().getString(R.string.title_reading_setting));
         ab.setDisplayHomeAsUpEnabled(true);
 
+        trackScreen();
+    }
+
+    private void trackScreen() {
+        Tracker t = ((NovelReaderAnalyticsApp) getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName(AnalyticsName.SettingActivity);
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     private void setViews() {
@@ -344,17 +354,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
             finish();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance().activityStop(this);
-    }
 
     @Override
     public void onCheckedChanged(RadioGroup arg0, int arg1) {
