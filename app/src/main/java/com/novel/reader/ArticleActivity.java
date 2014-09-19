@@ -841,10 +841,12 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+        int audioClickSetting = Setting.getSettingInt(Setting.keyAudioClickToNextPage,this);
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && audioClickSetting == 0){
             nextPage();
             return true;
-        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && audioClickSetting == 0) {
             previousPage();
             return true;
         } else {

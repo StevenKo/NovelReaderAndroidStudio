@@ -37,6 +37,7 @@ public class Setting {
     public final static String keySunMode = "SunModeSetting";
     public final static String keyMoonMode = "MoonModeSetting";
     public final static String keyMode = "ModeSetting"; // 0 for SunMode, 1 for MoonMode
+    public final static String keyAudioClickToNextPage = "AudioClickToNextPage";
 
     public final static int initialTextSize = 20;                // textsize in pixel
     public final static int initialTextLanguage = 0;                 // 0 繁體, 1 簡體
@@ -48,6 +49,7 @@ public class Setting {
     public final static int initialAppTheme = 0;                 // 0 for 亮白, 1 for 灰黑
     public final static int InterstitialAd = 0;                // 0 for InterstitialAd, 1 for Banner
     public final static int BannerAd = 1;
+    public final static int initialAudioClickToNextPage = 0; // 0 for open
 
     public final static int TEXT_CHINA = 1;
 
@@ -64,6 +66,7 @@ public class Setting {
             put(keyUpdateAppVersion, 0);
             put(keyYearSubscription, 0);
             put(keyCollectNotificationRandomNum, new Random().nextInt(60));
+            put(keyAudioClickToNextPage, initialAudioClickToNextPage);
         }
     };
     // WHITE is -1, Black is -16777216
