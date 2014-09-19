@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="MY_INTERSTITIAL_UNIT_ID" tools:ignore="MissingTranslation">d875d0cc47ef403b</string>
-    <string name="admobKey" tools:ignore="MissingTranslation">292fbab7f4ea4848</string>
+    <string name="MY_INTERSTITIAL_UNIT_ID" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/9817387548</string>
+    <string name="admobKey" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/5247587148</string>
     <string name="app_name">小說王</string>
     <string name="remind_title">小提醒</string>
     <string name="remind_string">下載後請至我的書櫃觀看</string>
