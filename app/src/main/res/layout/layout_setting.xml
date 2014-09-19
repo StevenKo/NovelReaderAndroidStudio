@@ -363,6 +363,37 @@
                     android:checked="true" />
             </RadioGroup>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_audio_button"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/setting_text_color" />
+
+            <RadioGroup
+                android:id="@+id/RadioGroup_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp">
+                <!--第一個RadioButton -->
+                <RadioButton
+                    android:id="@+id/myRadioButton_audio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_tap_open" />
+                <!--第二個RadioButton -->
+                <RadioButton
+                    android:id="@+id/myRadioButton2_audio2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_tap_close"
+                    android:checked="true" />
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"

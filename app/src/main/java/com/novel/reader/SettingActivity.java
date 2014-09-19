@@ -43,6 +43,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     private RadioGroup stopSleepRadioGroup;
     private RadioGroup themeRadioGroup;
     private RadioGroup articleAdTypeRadioGroup;
+    private RadioGroup audioClickRadioGroup;
     private int appTheme;
     private int articleAdType;
 
@@ -62,6 +63,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     private ImageView sunModeImageViewTextBackground;
     private ImageView moonModeImageViewTextColor;
     private ImageView moonnModeImageViewTextBackground;
+    private int audioClickToNextPage;
 
 
     @Override
@@ -82,6 +84,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         sunModeTextColor = Setting.getBackgroundModeTextColor(Setting.keySunMode, this);
         moonModeTextBackground = Setting.getBackgroundModeBackgroundColor(Setting.keyMoonMode, this);
         moonModeTextColor = Setting.getBackgroundModeTextColor(Setting.keyMoonMode, this);
+        audioClickToNextPage = Setting.getSettingInt(Setting.keyAudioClickToNextPage, this);
 
         setViews();
 
@@ -107,6 +110,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         tapRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_tap);
         stopSleepRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_stop_sleep);
         themeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_theme);
+        audioClickRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_audio);
         articleAdTypeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_AD);
         sunModeTextPreView = (TextView) findViewById(R.id.sunmode_text_preview);
         moonModeTextPreView = (TextView) findViewById(R.id.moonmode_text_preview);
@@ -138,6 +142,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         ((RadioButton) stopSleepRadioGroup.getChildAt(textLanguage)).setChecked(true);
         ((RadioButton) themeRadioGroup.getChildAt(appTheme)).setChecked(true);
         ((RadioButton) articleAdTypeRadioGroup.getChildAt(articleAdType)).setChecked(true);
+        ((RadioButton) audioClickRadioGroup.getChildAt(audioClickToNextPage)).setChecked(true);
 
         modeRadioGroup.setOnCheckedChangeListener(this);
         langRadioGroup.setOnCheckedChangeListener(this);
@@ -146,6 +151,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         stopSleepRadioGroup.setOnCheckedChangeListener(this);
         themeRadioGroup.setOnCheckedChangeListener(this);
         articleAdTypeRadioGroup.setOnCheckedChangeListener(this);
+        audioClickRadioGroup.setOnCheckedChangeListener(this);
 
         dbResetButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -330,6 +336,7 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
                         saveRadioGroupValue(stopSleepRadioGroup, Setting.keyStopSleeping);
                         saveRadioGroupValue(themeRadioGroup, Setting.keyAppTheme);
                         saveRadioGroupValue(articleAdTypeRadioGroup, Setting.keyArticleAdType);
+                        saveRadioGroupValue(audioClickRadioGroup, Setting.keyAudioClickToNextPage);
                         finish();
 
                     }
