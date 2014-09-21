@@ -106,7 +106,8 @@ public class NovelRecommendActivity extends AdFragmentActivity {
 
         @Override
         protected void onPostExecute(Object result) {
-            progressdialogInit.dismiss();
+            if(progressdialogInit!=null && progressdialogInit.isShowing())
+                progressdialogInit.dismiss();
             GridViewAdapter myGridViewAdapter = new GridViewAdapter(NovelRecommendActivity.this, novels, apps);
             gridView.setAdapter(myGridViewAdapter);
 

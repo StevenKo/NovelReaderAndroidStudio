@@ -124,8 +124,12 @@ public class NovelContentsActivity extends NovelReaderBaseActivity {
                 }
             });
             novelLayoutProgress.setVisibility(View.GONE);
-            progressDialog.cancel();
 
+            if(progressDialog!=null){
+                if(progressDialog.isShowing()) {
+                    progressDialog.cancel();
+                }
+            }
         }
 
         private int getArticlePosition() {

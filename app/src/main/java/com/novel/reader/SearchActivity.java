@@ -106,7 +106,6 @@ public class SearchActivity extends AdFragmentActivity {
         ab.setTitle(getString(R.string.menu_search) + ":" + keyword);
 
         setAboutUsDialog();
-        new LoadDataTask().execute();
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
@@ -114,6 +113,12 @@ public class SearchActivity extends AdFragmentActivity {
 
         trackScreen();
 
+    }
+
+    @Override
+    protected void onStart() {
+        new LoadDataTask().execute();
+        super.onStart();
     }
 
     private void trackScreen() {
@@ -268,6 +273,7 @@ public class SearchActivity extends AdFragmentActivity {
                 startActivity(browserIntent);
                 break;
             case ID_SEARCH: // response
+                this.item = item;
                 break;
             case 7:
                 Intent intent1 = new Intent();

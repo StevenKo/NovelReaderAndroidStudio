@@ -222,25 +222,31 @@ public class BookmarkActivity extends AdFragmentActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
             MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
-            switch (item.getItemId()) {
-                case R.id.delete_articles:
-                    fragment1.deleteAndReload();
-                    fragment2.deleteAndReload();
-                    mode.finish();
-                    return true;
-                default:
-                    fragment1.resetIsShowDeleteCallbackAction();
-                    fragment2.resetIsShowDeleteCallbackAction();
-                    return false;
+
+            if(fragment1 != null && fragment2 != null){
+                switch (item.getItemId()) {
+                    case R.id.delete_articles:
+                        fragment1.deleteAndReload();
+                        fragment2.deleteAndReload();
+                        mode.finish();
+                        return true;
+                    default:
+                        fragment1.resetIsShowDeleteCallbackAction();
+                        fragment2.resetIsShowDeleteCallbackAction();
+                        return false;
+                }
             }
+            return false;
         }
 
         // Called when the user exits the action mode
         public void onDestroyActionMode(ActionMode mode) {
             MyBookmarkFragment fragment1 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(0);
             MyBookmarkFragment fragment2 = (MyBookmarkFragment) ((NovelPagerAdapter) adapter).getRegisteredFragment(1);
-            fragment1.resetIsShowDeleteCallbackAction();
-            fragment2.resetIsShowDeleteCallbackAction();
+            if(fragment1 != null && fragment2 != null){
+                fragment1.resetIsShowDeleteCallbackAction();
+                fragment2.resetIsShowDeleteCallbackAction();
+            }
 
         }
     };
