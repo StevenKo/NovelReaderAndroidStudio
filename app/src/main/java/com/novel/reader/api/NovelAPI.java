@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.ArticleActivity;
 import com.novel.reader.entity.Article;
@@ -367,8 +368,11 @@ public class NovelAPI {
             return null;
         } else {
             novels = parseNovel(message, novels);
-            for (int i = 0; i < novels.size(); i++) {
-                novels.get(i).setLastViewDate(collectNovels.get(i).getLastViewDate());
+
+            if(novels != null) {
+                for (int i = 0; i < novels.size(); i++) {
+                    novels.get(i).setLastViewDate(collectNovels.get(i).getLastViewDate());
+                }
             }
             return novels;
         }
@@ -821,6 +825,7 @@ public class NovelAPI {
             }
 
         } catch (JSONException e) {
+            Crashlytics.log(Log.ERROR, "NovelParseError", message);
             e.printStackTrace();
             return null;
         }
