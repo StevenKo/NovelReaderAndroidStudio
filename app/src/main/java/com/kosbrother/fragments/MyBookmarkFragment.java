@@ -1,7 +1,23 @@
 package com.kosbrother.fragments;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ifixit.android.sectionheaders.Section;
 import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
@@ -14,33 +30,15 @@ import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Bookmark;
 import com.taiwan.imageload.ImageLoader;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class MyBookmarkFragment extends Fragment {
 
     private SectionListView bookmarkListView;
     private int isRecent;
-    private ArrayList<String> arrayKey;
     private ArrayList<Bookmark> bookmarks;
     private ArrayList<Bookmark> deleteBookmarks;
-    private TreeMap<String, ArrayList<Bookmark>> bookmarksMap;
     public static int BOOKMARK_VIEW = 1;
     public static int RECENT_READ_VIEW = 2;
     public boolean isShowDeleteCallbackAction = false;
@@ -111,16 +109,33 @@ public class MyBookmarkFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            setListAdatper();
+            setListAdatper(bookmarks);
         }
 
     }
 
-    private void setListAdatper() {
+    private void setListAdatper(ArrayList<Bookmark> bs) {
+
+        ArrayList<String> arrayKey = new ArrayList<String>();
+        TreeMap<String, ArrayList<Bookmark>> bookMap = new TreeMap<String, ArrayList<Bookmark>>();
+
+        for (int i = 0; i < bs.size(); i++) {
+            Bookmark bookmark = bs.get(i);
+            // 先確認key是否存在
+            if (bookMap.containsKey(bookmark.getNovelName())) {
+                ((ArrayList<Bookmark>) bookMap.get(bookmark.getNovelName())).add(bookmark);
+            } else {
+                ArrayList<Bookmark> newBookList = new ArrayList<Bookmark>(10);
+                newBookList.add(bookmark);
+                arrayKey.add(bookmark.getNovelName());
+                bookMap.put(bookmark.getNovelName(), newBookList);
+            }
+        }
+
         SectionHeadersAdapter adapter = new SectionHeadersAdapter();
 
         for (int i = 0; i < arrayKey.size(); i++) {
-            adapter.addSection(new BookmarkSectionAdapter(mActivity, bookmarksMap.get(arrayKey.get(i)), arrayKey.get(i)));
+            adapter.addSection(new BookmarkSectionAdapter(mActivity, bookMap.get(arrayKey.get(i)), arrayKey.get(i)));
         }
         bookmarkListView.setAdapter(adapter);
         bookmarkListView.getListView().setOnItemClickListener(adapter);
@@ -135,27 +150,6 @@ public class MyBookmarkFragment extends Fragment {
 
         if (bookmarks.size() == 0)
             bookmarks.add(new Bookmark(0, 0, 0, 0, mActivity.getResources().getString(R.string.my_bookmark_none), "", "", false));
-        bookmarksMap = getBookmarksMap(bookmarks);
-    }
-
-    private TreeMap<String, ArrayList<Bookmark>> getBookmarksMap(ArrayList<Bookmark> bs) {
-        arrayKey = new ArrayList<String>();
-        TreeMap bookMap = new TreeMap<String, ArrayList<Bookmark>>();
-        for (int i = 0; i < bs.size(); i++) {
-            Bookmark bookmark = bs.get(i);
-            // 先確認key是否存在
-            if (bookMap.containsKey(bookmark.getNovelName())) {
-                // 已經有的話就把movie加進去
-                ((ArrayList<Bookmark>) bookMap.get(bookmark.getNovelName())).add(bookmark);
-            } else {
-                // 沒有的話就建一個加進去
-                ArrayList<Bookmark> newBookList = new ArrayList<Bookmark>(10);
-                newBookList.add(bookmark);
-                arrayKey.add(bookmark.getNovelName());
-                bookMap.put(bookmark.getNovelName(), newBookList);
-            }
-        }
-        return bookMap;
     }
 
     public class BookmarkSectionAdapter extends Section implements Filterable {
