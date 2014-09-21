@@ -215,9 +215,6 @@ public class MyNovelActivity extends AdFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        int position = pager.getCurrentItem();
-        pager.setAdapter(adapter);
-        pager.setCurrentItem(position);
 
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
             bannerAdView.setVisibility(View.GONE);
