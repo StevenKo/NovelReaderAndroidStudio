@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.novel.reader.R;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.GameAPP;
@@ -209,16 +211,19 @@ public class GridViewAdapter extends BaseAdapter {
         }
 
         Date date = null;
-        try {
-            date = formater.parse(novel.getLastUpdate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        if (novel.getLastViewDate() != null && novel.getLastViewDate().before(date)) {
-            TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
-            textNewArticle.setVisibility(View.VISIBLE);
-            textNewArticle.setText("有新文章!!");
+        if(novel.getLastViewDate() != null ){
+            try {
+                date = formater.parse(novel.getLastUpdate());
+                if (novel.getLastViewDate().before(date)) {
+                    TextView textNewArticle = (TextView) vi.findViewById(R.id.new_article);
+                    textNewArticle.setVisibility(View.VISIBLE);
+                    textNewArticle.setText("有新文章!!");
+                }
+            } catch (ParseException e) {
+                Crashlytics.log(Log.ERROR, "NovelParseError", "novel id:" + novel.getId() + "  last date:" + novel.getLastUpdate());
+                e.printStackTrace();
+            }
         }
 
         return vi;
