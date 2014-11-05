@@ -141,6 +141,7 @@ public class MyBookcaseFragment extends Fragment {
             if (novelsFromServer != null) {
                 myGridViewAdapter = new GridViewAdapter(mActivity, novelsFromServer, new ArrayList<GameAPP>());
                 myGrid.setAdapter(myGridViewAdapter);
+                novels = novelsFromServer;
             }
         }
 
