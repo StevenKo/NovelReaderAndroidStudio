@@ -7,6 +7,7 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.ArticleActivity;
+import com.novel.reader.MainActivity;
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Bookmark;
 import com.novel.reader.entity.Category;
@@ -995,5 +996,21 @@ public class NovelAPI {
         }
     }
 
+    public static void getNewestVersionAndLink(MainActivity.UpdateInfo info) {
 
+        String message = getMessageFromServer("GET", "/api/version_check.json", null);
+        if (message == null) {
+        } else {
+            try {
+                JSONObject nObject;
+                nObject = new JSONObject(message.toString());
+                info.updateLink = nObject.getString("update_link");
+                info.newest_version = nObject.getInt("version");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

@@ -36,7 +36,8 @@ public class NavigationListAdapter extends BaseAdapter {
         data.add(new NavigationItem(activity.getResources().getString(string.menu_report), drawable.navigation_voice));
         data.add(new NavigationItem(activity.getResources().getString(string.menu_recommend_novel), drawable.navigation_recommend_novel));
         data.add(new NavigationItem(activity.getResources().getString(string.buy_year_subscription), drawable.navigation_trophy));
-
+        data.add(new NavigationItem(activity.getResources().getString(string.check_update), drawable.navigation_cloud_update));
+        data.add(new NavigationItem(activity.getResources().getString(string.official_website), drawable.navigation_official_website));
     }
 
     public int getCount() {

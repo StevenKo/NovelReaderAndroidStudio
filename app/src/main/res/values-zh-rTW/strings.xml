@@ -187,6 +187,13 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="check_update">檢查更新</string>
+    <string name="already_updated">已經是最新的版本了!</string>
+    <string name="need_updated">你的版本是 %1$s , 目前最新版本為 %2$s, 請下載最新版本！</string>
+    <string name="download_update_app">下載更新</string>
+
+    <string name="official_website">官方網站</string>
+
 
     <!-- for vpon -->
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>

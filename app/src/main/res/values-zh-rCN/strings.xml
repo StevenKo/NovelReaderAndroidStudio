@@ -182,6 +182,13 @@
     <string name="collect_notification_title">%1$d本小说有新文章！</string>
     <string name="collect_notification_ticker">%1$d本收藏小说有新文章啰！</string>
 
+    <string name="check_update">检查更新</string>
+    <string name="already_updated">已经是最新的版本了！</string>
+    <string name="need_updated">你的版本是%1$s，目前最新版本为%2$s，请下载最新版本！</string>
+    <string name="download_update_app">下载更新</string>
+
+    <string name="official_website">官方网站</string>
+
     <!-- for load more -->
     <string name="hello">Hello World, LoadMoreListView!</string>
     <string name="pull_to_refresh_pull_label">Pull to refresh...</string>

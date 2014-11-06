@@ -1,12 +1,14 @@
 package com.novel.reader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -59,6 +61,7 @@ import com.novel.reader.util.Setting;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Random;
 
 public class MainActivity extends AdFragmentActivity {
 
@@ -134,6 +137,11 @@ public class MainActivity extends AdFragmentActivity {
 
         setCheckCollectNovelsAlarm();
         trackScreen();
+
+        Random r = new Random();
+        int i1 = r.nextInt(20);
+        if(i1 == 15)
+            new AppOpenCheckUpdateTask().execute();
     }
 
     private void trackScreen() {
@@ -489,6 +497,13 @@ public class MainActivity extends AdFragmentActivity {
                 intent1.setClass(this, DonateActivity.class);
                 startActivity(intent1);
                 break;
+            case 10:
+                new CheckUpdateInfoTask().execute();
+                break;
+            case 11:
+                browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://novelking.cc"));
+                startActivity(browserIntent);
+                break;
         }
         mDrawerLayout.closeDrawer(mDrawerList);
 
@@ -512,5 +527,126 @@ public class MainActivity extends AdFragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    public class UpdateInfo{
+        public String updateLink = "";
+        public int newest_version;
+    }
 
+    public class CheckUpdateInfoTask extends AsyncTask{
+
+        boolean needUpdate = false;
+        int device_version;
+        UpdateInfo info = new UpdateInfo();
+
+        private ProgressDialog progressdialogInit;
+        private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                finish();
+            }
+        };
+        @Override
+        protected void onPreExecute() {
+            progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
+            progressdialogInit.setTitle("Load");
+            progressdialogInit.setMessage("Loading…");
+            progressdialogInit.setOnCancelListener(cancelListener);
+            progressdialogInit.setCanceledOnTouchOutside(false);
+            progressdialogInit.setCancelable(true);
+            progressdialogInit.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            device_version = getDeviceVersionCode();
+            NovelAPI.getNewestVersionAndLink(info);
+            needUpdate = isNeedUpdate(info, device_version);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (progressdialogInit != null && progressdialogInit.isShowing())
+                    progressdialogInit.dismiss();
+
+                if (needUpdate)
+                    showUpdateDialog(device_version, info);
+                else
+                    showAlreadyUpdateDialog();
+            }catch (Exception e){
+
+            }
+        }
+    }
+
+    public class AppOpenCheckUpdateTask extends AsyncTask{
+
+        boolean needUpdate = false;
+        int device_version;
+        UpdateInfo info = new UpdateInfo();
+
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            device_version = getDeviceVersionCode();
+            NovelAPI.getNewestVersionAndLink(info);
+            needUpdate = isNeedUpdate(info, device_version);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (needUpdate)
+                    showUpdateDialog(device_version, info);
+            }catch (Exception e){
+
+            }
+        }
+
+    }
+
+    private boolean isNeedUpdate(UpdateInfo info, int device_version) {
+        if(info.newest_version > device_version)
+            return true;
+        else
+            return false;
+    }
+
+    private int getDeviceVersionCode() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return pInfo.versionCode;
+    }
+
+    private void showUpdateDialog(int device_version, final UpdateInfo info) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle(getResources().getString(R.string.check_update));
+        alertDialogBuilder.setMessage(getString(R.string.need_updated,device_version,info.newest_version)).setPositiveButton(getString(R.string.download_update_app), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(info.updateLink));
+                startActivity(browserIntent);
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void showAlreadyUpdateDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle(getResources().getString(R.string.check_update));
+        alertDialogBuilder.setMessage(getString(R.string.already_updated)).setPositiveButton(getString(R.string.yes_string),new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }
