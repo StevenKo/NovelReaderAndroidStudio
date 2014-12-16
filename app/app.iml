@@ -96,6 +96,8 @@
     <orderEntry type="library" exported="" name="InMobiAdNetwork-3.7.1" level="project" />
     <orderEntry type="library" exported="" name="InMobiCommons-3.7.1" level="project" />
     <orderEntry type="library" exported="" name="vpadn-sdk-obf426-82704102" level="project" />
+    <orderEntry type="module" module-name="chocoADSDK" exported="" />
+    <orderEntry type="module" module-name="mopub-sdk" exported="" />
   </component>
 </module>
 

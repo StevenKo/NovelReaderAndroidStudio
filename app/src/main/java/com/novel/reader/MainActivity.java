@@ -52,6 +52,7 @@ import com.kosbrother.fragments.GridGplayFragment;
 import com.kosbrother.fragments.IndexNovelFragment;
 import com.kosbrother.tool.RecommendNovelDialog;
 import com.kosbrother.tool.Report;
+import com.mopub.mobileads.MoPubView;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
 import com.novel.reader.api.NovelAPI;
@@ -133,6 +134,11 @@ public class MainActivity extends AdFragmentActivity {
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
             mAdView = setBannerAdView(bannerAdView);
+
+        MoPubView moPubView;
+        moPubView = (MoPubView) findViewById(R.id.adview);
+        moPubView.setAdUnitId("9a4c985738d347e5a71b4733e9af0066");
+        moPubView.loadAd();
 
 
         setCheckCollectNovelsAlarm();
