@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.google.android.gms.analytics.HitBuilders;
@@ -39,7 +39,7 @@ import com.taiwan.imageload.LoadMoreGridView;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AdFragmentActivity {
+public class SearchActivity extends MopubAdFragmentActivity {
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -109,7 +109,7 @@ public class SearchActivity extends AdFragmentActivity {
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
 
         trackScreen();
 

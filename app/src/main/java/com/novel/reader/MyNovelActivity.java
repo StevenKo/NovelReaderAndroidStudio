@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
@@ -27,7 +27,7 @@ import com.kosbrother.fragments.MyDownloadFragment;
 import com.kosbrother.tool.Report;
 import com.novel.reader.util.Setting;
 
-public class MyNovelActivity extends AdFragmentActivity {
+public class MyNovelActivity extends MopubAdFragmentActivity {
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -78,7 +78,7 @@ public class MyNovelActivity extends AdFragmentActivity {
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
 
         trackScreen();
     }

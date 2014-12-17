@@ -16,15 +16,15 @@ repositories {
 
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 14
-        targetSdkVersion 20
-        versionCode 63
-        versionName "3.2.6"
+        targetSdkVersion 21
+        versionCode 64
+        versionName "3.2.7"
     }
     buildTypes {
         release {

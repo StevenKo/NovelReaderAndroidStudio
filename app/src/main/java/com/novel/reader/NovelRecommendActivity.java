@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.google.android.gms.analytics.HitBuilders;
@@ -24,7 +24,7 @@ import com.novel.reader.util.Setting;
 
 import java.util.ArrayList;
 
-public class NovelRecommendActivity extends AdFragmentActivity {
+public class NovelRecommendActivity extends MopubAdFragmentActivity {
 
     private int categoryId;
     private String categoryName;

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.google.android.gms.analytics.HitBuilders;
@@ -38,7 +39,7 @@ import com.novel.reader.util.Setting;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ArticleActivity extends AdFragmentActivity implements DetectScrollViewListener {
+public class ArticleActivity extends MopubAdFragmentActivity implements DetectScrollViewListener {
 
     private static final int ID_SETTING = 0;
     private static final int ID_Bookmark = 4;
@@ -805,7 +806,7 @@ public class ArticleActivity extends AdFragmentActivity implements DetectScrollV
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
         else
             ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
 

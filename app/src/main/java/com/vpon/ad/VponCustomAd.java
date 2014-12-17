@@ -1,8 +1,6 @@
 package com.vpon.ad;
 
 
-import java.util.HashSet;
-
 import android.app.Activity;
 import android.util.Log;
 
@@ -19,6 +17,8 @@ import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 import com.vpadn.ads.VpadnInterstitialAd;
+
+import java.util.HashSet;
 
 public class VponCustomAd implements CustomEventBanner, CustomEventInterstitial {
 

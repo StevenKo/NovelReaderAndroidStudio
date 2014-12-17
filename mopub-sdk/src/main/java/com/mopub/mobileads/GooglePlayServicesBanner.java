@@ -66,7 +66,7 @@ class GooglePlayServicesBanner extends CustomEventBanner {
             return;
         }
 
-        mGoogleAdView.setAdSize(adSize);
+        mGoogleAdView.setAdSize(AdSize.SMART_BANNER);
 
         final AdRequest adRequest = new AdRequest.Builder().build();
 
