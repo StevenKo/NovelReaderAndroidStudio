@@ -18,6 +18,7 @@ package com.analytics;
 
 import android.app.Application;
 
+import com.chocolabs.adsdk.ChocoAdSDK;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
@@ -51,5 +52,11 @@ public class NovelReaderAnalyticsApp extends Application {
             mTrackers.put(trackerId, t);
         }
         return mTrackers.get(trackerId);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ChocoAdSDK.initSingleton(getApplicationContext(), "a071082a9dcc12db59d2f525c6a64c66", "Novel");
     }
 }

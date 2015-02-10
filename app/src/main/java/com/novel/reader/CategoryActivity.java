@@ -23,7 +23,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
@@ -38,7 +38,7 @@ import com.kosbrother.fragments.CategroyHotNovelsFragment;
 import com.kosbrother.tool.Report;
 import com.novel.reader.util.Setting;
 
-public class CategoryActivity extends AdFragmentActivity {
+public class CategoryActivity extends MopubAdFragmentActivity {
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -91,7 +91,7 @@ public class CategoryActivity extends AdFragmentActivity {
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
 
         trackScreen();
     }

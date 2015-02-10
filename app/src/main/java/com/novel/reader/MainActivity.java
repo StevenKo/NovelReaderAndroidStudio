@@ -39,7 +39,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
@@ -52,6 +52,7 @@ import com.kosbrother.fragments.GridGplayFragment;
 import com.kosbrother.fragments.IndexNovelFragment;
 import com.kosbrother.tool.RecommendNovelDialog;
 import com.kosbrother.tool.Report;
+import com.mopub.mobileads.MoPubInterstitial;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
 import com.novel.reader.api.NovelAPI;
@@ -63,7 +64,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
 
-public class MainActivity extends AdFragmentActivity {
+public class MainActivity extends MopubAdFragmentActivity {
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -76,6 +77,7 @@ public class MainActivity extends AdFragmentActivity {
     private MenuItem itemSearch;
     private ViewPager pager;
     private Builder aboutUsDialog;
+    MoPubInterstitial mInterstitial;
 
 
     //gcm
@@ -131,9 +133,9 @@ public class MainActivity extends AdFragmentActivity {
         checkDB();
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
-
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0) {
+            moPubView = setBannerAdView(bannerAdView);
+        }
 
         setCheckCollectNovelsAlarm();
         trackScreen();

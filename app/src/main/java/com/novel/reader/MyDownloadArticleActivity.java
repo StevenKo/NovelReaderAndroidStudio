@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.google.android.gms.analytics.HitBuilders;
@@ -42,7 +42,7 @@ import com.taiwan.imageload.ImageLoader;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class MyDownloadArticleActivity extends AdFragmentActivity implements LoaderManager.LoaderCallbacks<ArrayList<Article>>{
+public class MyDownloadArticleActivity extends MopubAdFragmentActivity implements LoaderManager.LoaderCallbacks<ArrayList<Article>>{
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -114,7 +114,7 @@ public class MyDownloadArticleActivity extends AdFragmentActivity implements Loa
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
 
         trackScreen();
     }

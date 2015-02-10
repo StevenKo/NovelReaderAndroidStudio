@@ -3,6 +3,7 @@
 
     <string name="MY_INTERSTITIAL_UNIT_ID" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/9817387548</string>
     <string name="admobKey" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/5247587148</string>
+    <string name="mopub_key" tools:ignore="MissingTranslation">3bfb794399764fbabe615a7c03af7473</string>
     <string name="app_name">小說王</string>
     <string name="remind_title">小提醒</string>
     <string name="remind_string">下載後請至我的書櫃觀看</string>

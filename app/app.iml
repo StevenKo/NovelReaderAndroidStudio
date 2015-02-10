@@ -81,7 +81,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="HODoAD_1.4.2 _ob" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-1.1.13" level="project" />
@@ -96,6 +96,8 @@
     <orderEntry type="library" exported="" name="InMobiAdNetwork-3.7.1" level="project" />
     <orderEntry type="library" exported="" name="InMobiCommons-3.7.1" level="project" />
     <orderEntry type="library" exported="" name="vpadn-sdk-obf426-82704102" level="project" />
+    <orderEntry type="module" module-name="chocoADSDK" exported="" />
+    <orderEntry type="module" module-name="mopub-sdk" exported="" />
   </component>
 </module>
 

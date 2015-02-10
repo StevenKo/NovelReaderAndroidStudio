@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.ads.AdFragmentActivity;
+import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
@@ -28,7 +28,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.fragments.MyBookmarkFragment;
 import com.novel.reader.util.Setting;
 
-public class BookmarkActivity extends AdFragmentActivity {
+public class BookmarkActivity extends MopubAdFragmentActivity {
 
 
     private boolean alertDeleteBookmark;
@@ -80,7 +80,7 @@ public class BookmarkActivity extends AdFragmentActivity {
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
 
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            mAdView = setBannerAdView(bannerAdView);
+            moPubView = setBannerAdView(bannerAdView);
 
         if (alertDeleteBookmark)
             showArticleDeleteDialog();
