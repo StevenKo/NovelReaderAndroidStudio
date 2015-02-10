@@ -101,7 +101,7 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
         Bitmap iconBitmap = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.app_icon);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
-                .setSmallIcon(R.drawable.ic_stat_notify)
+                .setSmallIcon(R.drawable.ic_stat_custom)
                 .setLargeIcon(iconBitmap)
                 .setContentTitle(intent.getStringExtra("title"))
                 .setStyle(new NotificationCompat.BigTextStyle()

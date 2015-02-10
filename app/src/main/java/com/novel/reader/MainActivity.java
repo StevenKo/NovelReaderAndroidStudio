@@ -250,7 +250,7 @@ public class MainActivity extends MopubAdFragmentActivity {
         TextView update_text = (TextView) recomendLayout.findViewById(R.id.update_tip);
         update_text.setText(Html.fromHtml(getResources().getString(R.string.update_info)));
 
-        Builder a = new Builder(mActivity).setTitle(mActivity.getResources().getString(R.string.update)).setIcon(R.drawable.ic_stat_notify)
+        Builder a = new Builder(mActivity).setTitle(mActivity.getResources().getString(R.string.update)).setIcon(R.drawable.app_icon)
                 .setPositiveButton(mActivity.getResources().getString(R.string.yes_string), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

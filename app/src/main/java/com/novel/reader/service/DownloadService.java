@@ -1,7 +1,5 @@
 package com.novel.reader.service;
 
-import java.util.ArrayList;
-
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,6 +13,8 @@ import com.novel.reader.MyNovelActivity;
 import com.novel.reader.R;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
+
+import java.util.ArrayList;
 
 public class DownloadService extends IntentService {
 
@@ -66,7 +66,7 @@ public class DownloadService extends IntentService {
         nm = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
         CharSequence tickerText = "下載中 ...";
         long when = System.currentTimeMillis();
-        Notification noti = new Notification(R.drawable.ic_stat_notify, tickerText, when);
+        Notification noti = new Notification(R.drawable.ic_stat_custom, tickerText, when);
         context = this.getApplicationContext();
         Intent notiIntent = new Intent(context, MyNovelActivity.class);
         notiIntent.putExtra("noti", true);

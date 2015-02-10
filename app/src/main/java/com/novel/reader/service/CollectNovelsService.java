@@ -86,7 +86,7 @@ public class CollectNovelsService extends IntentService {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_stat_notify)
+                        .setSmallIcon(R.drawable.ic_stat_custom)
                         .setLargeIcon(iconBitmap)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
                         .setContentTitle(title)

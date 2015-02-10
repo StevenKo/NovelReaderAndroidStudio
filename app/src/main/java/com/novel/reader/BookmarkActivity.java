@@ -176,7 +176,7 @@ public class BookmarkActivity extends MopubAdFragmentActivity {
 
 
     private void showArticleDeleteDialog() {
-        new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.reminder)).setIcon(R.drawable.ic_stat_notify)
+        new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.reminder)).setIcon(R.drawable.app_icon)
                 .setMessage(getResources().getString(R.string.delete_bookmark_reminder))
                 .setPositiveButton(getResources().getString(R.string.do_not_reminder), new DialogInterface.OnClickListener() {
 
