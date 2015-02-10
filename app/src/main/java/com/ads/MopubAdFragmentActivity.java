@@ -19,6 +19,8 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
     protected void onDestroy() {
         if(moPubView != null)
             moPubView.destroy();
+        if(mInterstitial != null)
+            mInterstitial.destroy();
         super.onDestroy();
     }
 
@@ -37,15 +39,15 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
     }
 
     private MoPubView getBannerAdRequest(final RelativeLayout bannerAdView) {
-        final MoPubView adMobAdView = new MoPubView(this);
-        adMobAdView.setAdUnitId(getResources().getString(R.string.mopub_key));
-        adMobAdView.setBannerAdListener(new MoPubView.BannerAdListener() {
+        moPubView = new MoPubView(this);
+        moPubView.setAdUnitId(getResources().getString(R.string.mopub_key));
+        moPubView.setBannerAdListener(new MoPubView.BannerAdListener() {
             @Override
             public void onBannerLoaded(MoPubView banner) {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                if (adMobAdView.getParent() == null)
-                    bannerAdView.addView(adMobAdView, params);
+                if (moPubView.getParent() == null)
+                    bannerAdView.addView(moPubView, params);
             }
 
             @Override
@@ -69,9 +71,9 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
             }
         });
 
-        adMobAdView.loadAd();
+        moPubView.loadAd();
 
-        return adMobAdView;
+        return moPubView;
     }
 
     public void requestInterstitialAd() {
