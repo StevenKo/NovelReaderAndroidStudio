@@ -21,7 +21,8 @@
             android:id="@+id/status_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:textAppearance="@style/NotificationContent"/>
 
         <ProgressBar
             android:id="@+id/status_progress"

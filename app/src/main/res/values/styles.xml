@@ -46,4 +46,8 @@
         <item name="android:layout_marginRight">@dimen/card_content_outer_view_margin_right</item>
     </style>
 
+    <style name="NotificationContent" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+    </style>
+
 </resources>
