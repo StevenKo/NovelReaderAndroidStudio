@@ -23,8 +23,8 @@ android {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 64
-        versionName "3.2.7"
+        versionCode 65
+        versionName "3.2.8"
     }
     buildTypes {
         release {
