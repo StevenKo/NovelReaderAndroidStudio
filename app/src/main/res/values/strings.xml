@@ -30,7 +30,7 @@
     <string name="setting_direction_portrait">直向</string>
     <string name="setting_direction_horizontal">橫向</string>
     <string name="setting_direction_none">不鎖定方向</string>
-    <string name="setting_select_tap">點擊換頁</string>
+    <string name="setting_select_tap">點擊換頁(因為功能互斥，將無法選取章節裡文字)</string>
     <string name="setting_audio_button">音量鍵換頁</string>
     <string name="setting_tap_open">開啟</string>
     <string name="setting_tap_close">關閉</string>
