@@ -243,7 +243,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         });
 
         if (clickToNextPage == 0) {
-            articleTextView.setTextIsSelectable(false);
             articleTextView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {

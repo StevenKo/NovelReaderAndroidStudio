@@ -59,8 +59,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:lineSpacingMultiplier="1.1"
-                    android:textIsSelectable="true"/>
+                    android:lineSpacingMultiplier="1.1"/>
             </com.kosbrother.tool.DetectScrollView>
 
             <WebView
