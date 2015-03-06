@@ -683,6 +683,16 @@ public class NovelAPI {
         }
     }
 
+    public static ArrayList<Novel> getNewUploadedNovels(int page) {
+        ArrayList<Novel> novels = new ArrayList<Novel>();
+        String message = getMessageFromServer("GET", "/api/v1/novels/new_uploaded_novels.json?&page=" + page, null);
+        if (message == null) {
+            return null;
+        } else {
+            return parseNovel(message, novels);
+        }
+    }
+
     public static ArrayList<Novel> getCategoryFinish(int categoryId, int page) {
         ArrayList<Novel> novels = new ArrayList<Novel>();
         String message = getMessageFromServer("GET", "/api/v1/novels/category_finish.json?category_id=" + categoryId + "&page=" + page, null);

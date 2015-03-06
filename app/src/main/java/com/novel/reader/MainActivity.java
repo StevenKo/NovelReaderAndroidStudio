@@ -174,10 +174,12 @@ public class MainActivity extends MopubAdFragmentActivity {
         } else if (position == 2) {
             t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.LATEST_NOVEL));
         } else if (position == 3) {
-            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.WEEK_NOVEL));
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.NEW_UPLOADED));
         } else if (position == 4) {
-            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.MONTH_NOVEL));
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.WEEK_NOVEL));
         } else if (position == 5) {
+            t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.MONTH_NOVEL));
+        } else if (position == 6) {
             t.setScreenName(AnalyticsName.IndexFragmentMap.get(IndexNovelFragment.HOT_NOVEL));
         }
         t.send(new HitBuilders.AppViewBuilder().build());
@@ -361,10 +363,12 @@ public class MainActivity extends MopubAdFragmentActivity {
             } else if (position == 2) {
                 kk = IndexNovelFragment.newInstance(IndexNovelFragment.LATEST_NOVEL);
             } else if (position == 3) {
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.NEW_UPLOADED);
+            }else if (position == 4) {
                 kk = IndexNovelFragment.newInstance(IndexNovelFragment.WEEK_NOVEL);
-            } else if (position == 4) {
-                kk = IndexNovelFragment.newInstance(IndexNovelFragment.MONTH_NOVEL);
             } else if (position == 5) {
+                kk = IndexNovelFragment.newInstance(IndexNovelFragment.MONTH_NOVEL);
+            } else if (position == 6) {
                 kk = IndexNovelFragment.newInstance(IndexNovelFragment.HOT_NOVEL);
             }
             return kk;

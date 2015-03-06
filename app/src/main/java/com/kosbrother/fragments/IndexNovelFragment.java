@@ -46,6 +46,7 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
     public static final int MONTH_NOVEL = 2;
     public static final int WEEK_NOVEL = 3;
     public static final int LATEST_NOVEL = 4;
+    public static final int NEW_UPLOADED = 5;
     private int novelFragment = 0;
     private ArrayList<Novel> moreNovels;
     private Activity mActivity;
@@ -228,6 +229,9 @@ public class IndexNovelFragment extends Fragment implements LoaderManager.Loader
                     break;
                 case LATEST_NOVEL:
                     moreNovels = NovelAPI.getLatestUpdateNovels(myPage);
+                    break;
+                case NEW_UPLOADED:
+                    moreNovels = NovelAPI.getNewUploadedNovels(myPage);
                     break;
             }
             return moreNovels;
