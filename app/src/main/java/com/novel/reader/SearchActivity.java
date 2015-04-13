@@ -320,13 +320,14 @@ public class SearchActivity extends MopubAdFragmentActivity {
                 noDataLayout.setVisibility(View.VISIBLE);
                 myGrid.setVisibility(View.GONE);
             }
+            if (item != null){
+                item.collapseActionView();
+                EditText search = (EditText) item.getActionView();
+                search.setText(keyword);
+                search.setSelection(keyword.length());
 
-            item.collapseActionView();
-            EditText search = (EditText) item.getActionView();
-            search.setText(keyword);
-            search.setSelection(keyword.length());
-
-            trackSearch();
+                trackSearch();
+            }
         }
 
         private void trackSearch() {
