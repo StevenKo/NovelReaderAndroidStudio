@@ -73,6 +73,11 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DATABASE_VERSION);
         ctx = context;
 
+        db = getDb();
+
+    }
+
+    public synchronized SQLiteDatabase getDb(){
         if (db == null || !db.isOpen()) {
             if (DATABASE_FILE_PATH != null) {
                 try {
@@ -98,7 +103,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
             }
 
         }
-
+        return db;
     }
 
     @Override
