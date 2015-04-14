@@ -105,6 +105,7 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
         if(db.getVersion() < DATABASE_VERSION) {
             onUpgrade(db, db.getVersion(), DATABASE_VERSION);
+            db.setVersion(DATABASE_VERSION);
         }
         
         return db;
