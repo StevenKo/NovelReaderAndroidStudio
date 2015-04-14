@@ -73,29 +73,23 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DATABASE_VERSION);
         ctx = context;
 
-        // if (db == null)
-        // db = this.getWritableDatabase();
-
         if (db == null || !db.isOpen()) {
             if (DATABASE_FILE_PATH != null) {
                 try {
-                    db = SQLiteDatabase.openDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
-                    if (db.getVersion() < DATABASE_VERSION) {
+                    File cacheDir = new File(DATABASE_FILE_PATH, "kosnovel");
+                    if (!cacheDir.exists())
+                        cacheDir.mkdirs();
+                    db = SQLiteDatabase.openOrCreateDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null);
+                    if(db.getVersion() == 0){
+                        onCreate(db);
+                        db.setVersion(DATABASE_VERSION);
+                    }else if(db.getVersion() < DATABASE_VERSION) {
                         onUpgrade(db, db.getVersion(), DATABASE_VERSION);
                     }
                 } catch (Exception ex) {
-                    try {
-                        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "kosnovel");
-                        if (!cacheDir.exists())
-                            cacheDir.mkdirs();
-                        db = SQLiteDatabase.openOrCreateDatabase(DATABASE_FILE_PATH + File.separator + "kosnovel/" + DB_NAME, null);
-                        db.setVersion(DATABASE_VERSION);
+                    db = this.getWritableDatabase();
+                    if (!isTableExists(db, NovelSchema.TABLE_NAME))
                         onCreate(db);
-                    } catch (Exception e) {
-                        db = this.getWritableDatabase();
-                        if (!isTableExists(db, NovelSchema.TABLE_NAME))
-                            onCreate(db);
-                    }
                 }
             } else {
                 db = this.getWritableDatabase();
@@ -109,20 +103,10 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        try {
-            if (DATABASE_FILE_PATH != null) {
-                if (oldVersion < DATABASE_VERSION) {
-                    alterArticleTableAddNum(db);
-                    alterNovelTableAddLastViewDate(db);
-                }
-            } else {
-                alterArticleTableAddNum(db);
-                alterNovelTableAddLastViewDate(db);
-            }
-        } catch (Exception e) {
-            resetDB();
+        if (oldVersion < DATABASE_VERSION) {
+            alterArticleTableAddNum(db);
+            alterNovelTableAddLastViewDate(db);
         }
-
     }
 
     private void alterArticleTableAddNum(SQLiteDatabase db) {
