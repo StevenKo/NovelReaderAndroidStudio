@@ -73,6 +73,12 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DATABASE_VERSION);
         ctx = context;
 
+        db = getDb();
+
+    }
+
+    public synchronized SQLiteDatabase getDb(){
+
         if (db == null || !db.isOpen()) {
             if (DATABASE_FILE_PATH != null) {
                 try {
@@ -83,8 +89,6 @@ public class SQLiteNovel extends SQLiteOpenHelper {
                     if(db.getVersion() == 0){
                         onCreate(db);
                         db.setVersion(DATABASE_VERSION);
-                    }else if(db.getVersion() < DATABASE_VERSION) {
-                        onUpgrade(db, db.getVersion(), DATABASE_VERSION);
                     }
                 } catch (Exception ex) {
                     db = this.getWritableDatabase();
@@ -99,6 +103,12 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
         }
 
+        if(db.getVersion() < DATABASE_VERSION) {
+            onUpgrade(db, db.getVersion(), DATABASE_VERSION);
+            db.setVersion(DATABASE_VERSION);
+        }
+        
+        return db;
     }
 
     @Override
