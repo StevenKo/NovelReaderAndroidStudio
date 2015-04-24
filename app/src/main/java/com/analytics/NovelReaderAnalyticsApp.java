@@ -57,6 +57,6 @@ public class NovelReaderAnalyticsApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ChocoAdSDK.initSingleton(getApplicationContext(), "a071082a9dcc12db59d2f525c6a64c66", "Novel");
+        ChocoAdSDK.initSingleton(getApplicationContext(), "a071082a9dcc12db59d2f525c6a64c66");
     }
 }

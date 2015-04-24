@@ -1,4 +1,4 @@
-	package com.chocolabs.adsdk.account;
+package com.chocolabs.adsdk.account;
 
 import java.util.Locale;
 
@@ -46,16 +46,21 @@ public class UserInfo {
 			
 			@Override
 			public void run() {
-				Info adInfo = null;
-				try {
-					adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
-					isTrackingEnabled = adInfo.isLimitAdTrackingEnabled();
-					adId = adInfo.getId();
-				} catch (Exception e) {
-				}
+				setAdIdInBackThread(context);
 			}
 		}).start();
 	}
+
+    public String setAdIdInBackThread(Context context) {
+        Info adInfo = null;
+        try {
+            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+            isTrackingEnabled = adInfo.isLimitAdTrackingEnabled();
+            adId = adInfo.getId();
+        } catch (Exception e) {
+        }
+        return  adId;
+    }
 	
 	public String getAppId() {
 		return appId;

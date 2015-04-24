@@ -1,0 +1,39 @@
+apply plugin: 'android-library'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.google.android.gms:play-services:+'
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.1"
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/java']
+            renderscript.srcDirs = ['src/main/java']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.android.support:support-annotations:20.0.0'
+    compile 'com.google.android.gms:play-services:+'
+    compile files ('libs/AudienceNetwork.jar')
+    compile files ('libs/InMobi-4.5.1.jar')
+    compile files ('libs/MMSDK-5.3.0.jar')
+}
+
+// Don't run the Robolectric Unit Tests. They don't build properly in Gradle or Android Studio in this version.
+check.dependsOn.remove("test")
+check.dependsOn.remove("testDebug")

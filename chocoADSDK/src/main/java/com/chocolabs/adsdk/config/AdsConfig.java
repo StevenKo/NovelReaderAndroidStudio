@@ -17,10 +17,11 @@ public class AdsConfig {
 	private static final String TAG = AdsConfig.class.getSimpleName();
 	
 	public static final String AD_TRACKING = SDKConfig.BIGDATA + SDKConfig.AD + "tracking";
-	public static final String INSIGHT_API = SDKConfig.BIGDATA + SDKConfig.AD + "keywords";
 	public static final String DATA_PROFILE = SDKConfig.BIGDATA + SDKConfig.DATA + "profile";
 	public static final String DATA_BEHAVIOR = SDKConfig.BIGDATA + SDKConfig.DATA + "behavior";
 	public static final String DATA_PREFERENCE = SDKConfig.BIGDATA + SDKConfig.DATA + "preference";
+
+    public static final String INSIGHT_API = SDKConfig.ITA + SDKConfig.AD + "keywords";
 	public static final String IP_URL = "http://ip-api.com/json";
 	
 	protected static boolean isInDebugMode = false;

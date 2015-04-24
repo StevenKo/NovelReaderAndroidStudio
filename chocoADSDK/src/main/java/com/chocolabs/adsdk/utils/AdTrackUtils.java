@@ -1,10 +1,5 @@
 package com.chocolabs.adsdk.utils;
 
-import java.util.Locale;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -13,10 +8,15 @@ import com.chocolabs.adsdk.account.AdsInfo;
 import com.chocolabs.adsdk.account.UserInfo;
 import com.chocolabs.adsdk.config.AdsConfig;
 import com.chocolabs.adsdk.config.SDKConfig;
-import com.google.android.gms.internal.ig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Locale;
 
 public class AdTrackUtils {
 	private static final String TAG = AdTrackUtils.class.getSimpleName();
+    private static String adType = "";
 	
 	public static void impressionTracking(Context context) {
 		sendTrackingData(context, "impression");
@@ -25,12 +25,20 @@ public class AdTrackUtils {
 	public static void clickTracking(Context context) {
 		sendTrackingData(context, "click");
 	}
+
+    public static void setAdTypeBanner() {
+        adType = "banner";
+    }
+
+    public static void setAdTypeInterstitial() {
+        adType = "interstitial";
+    }
 	
 	private static void sendTrackingData(Context context, String action) {
 		JSONObject params = new JSONObject();
 		try {
 			UserInfo userInfo = ChocoAdSDK.getInstance().getUserInfo();
-			
+			userInfo.setBirthday("03/25/1989");
 			params.put("app_id", ChocoAdSDK.getInstance().getAPP_KEY());
 			params.put("timestamp", DateUtil.getFormateDateWithTime(System.currentTimeMillis()));
 			params.put("ad_id", userInfo.getAdId());
@@ -53,9 +61,10 @@ public class AdTrackUtils {
 			params.put("device", userInfo.getDevice());
 			params.put("os", "android");
 			params.put("version", AdsConfig.getAppVersion());
+            params.put("ad_type", adType);
 			params.put("carrier", userInfo.getCarrier());
 			params.put("connection", NetworkUtil.getConnectionStatus(context));
-			params.put("backup1", SDKConfig.sdkVersion);
+			params.put("backup1", SDKConfig.sdkVersion + "_full");
 			params.put("action", action);
 			setAdsInfo(params);
 			
@@ -70,14 +79,9 @@ public class AdTrackUtils {
 	private static void setAdsInfo(JSONObject params) throws JSONException {
 		AdsInfo adsInfo = ChocoAdSDK.getInstance().tmpAdsInfo;
 		params.put("advertisement_type", adsInfo.getAdvertisementType());
-		params.put("advertisement_id", adsInfo.getAdvertisementId());
 		params.put("progress", adsInfo.getProgress());
-		params.put("tag", adsInfo.getTag());
-		params.put("account_id", adsInfo.getAccountId());
+		params.put("percentage", "");
 		params.put("line_id", adsInfo.getLineId());
-		params.put("position_id", adsInfo.getPositionId());
-		params.put("category", adsInfo.getCategory());
-		params.put("subcategory", adsInfo.getSubcategory());
 		params.put("campaign", adsInfo.getCampaign());
 	}
 	

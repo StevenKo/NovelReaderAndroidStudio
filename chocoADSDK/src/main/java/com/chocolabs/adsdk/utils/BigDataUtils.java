@@ -102,7 +102,7 @@ public class BigDataUtils {
 		params.put("version", AdsConfig.getAppVersion());
 		params.put("carrier", userInfo.getCarrier());
 		params.put("connection", NetworkUtil.getConnectionStatus(context));
-		params.put("backup1", SDKConfig.sdkVersion);
+		params.put("backup1", SDKConfig.sdkVersion + "_full");
 		return params;
 	}
 

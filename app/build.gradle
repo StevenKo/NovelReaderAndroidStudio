@@ -41,6 +41,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:5.0.+'
     compile 'com.github.gabrielemariotti.cards:library:1.9.1'
     compile 'com.crashlytics.android:crashlytics:1.+'
-    dependencies { compile project(':mopub-sdk') }
-    dependencies { compile project(':chocoADSDK') }
+    compile project (':ChocoAdSDK')
 }

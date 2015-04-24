@@ -23,7 +23,7 @@ public class DateUtil {
     /** The default formatter for short date without year*/
     private static final DateFormat SHORT_DATE_WITHOUT_YEAR_FORMATTER = new SimpleDateFormat("dd/MM");
     /** The default formatter for short date */
-    private static final DateFormat SHORT_DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat SHORT_DATE_FORMATTER = new SimpleDateFormat("MM/dd/yyyy");
     /** The default formatter for full date */
     private static final DateFormat FULL_DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
     /** The default formatter for get milliseconds*/
@@ -49,7 +49,7 @@ public class DateUtil {
     private static final String TIME_RANGE_SEPARATOR = " - ";
     
     static{
-    	TimeZone timezone=TimeZone.getTimeZone("GMT+0000");
+    	TimeZone timezone = TimeZone.getTimeZone("GMT+0000");
     	BROADCAST_FULL_DATE_FORMATTER.setTimeZone(timezone);
     	SHORT_DATE_WITHOUT_YEAR_FORMATTER.setTimeZone(timezone);
     	SHORT_DATE_FORMATTER.setTimeZone(timezone);
@@ -318,7 +318,7 @@ public class DateUtil {
     		return 0;
     	Date date = null;
 		try {
-			date = FULL_DATE_FORMATTER_MILLISECOND.parse(dateStr);
+			date = SHORT_DATE_FORMATTER.parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

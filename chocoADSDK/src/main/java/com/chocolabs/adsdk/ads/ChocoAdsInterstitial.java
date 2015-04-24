@@ -26,10 +26,17 @@ public class ChocoAdsInterstitial extends MoPubInterstitial implements Interstit
 		this.customKeyResult = customKeyword.toString();
 	}
 	
+	public void putCustomKeyword(String value) {
+		if (null == value || value.isEmpty())
+			return;
+		addCustomKey(value);
+		this.customKeyResult = customKeyword.toString();
+	}
+	
 	private void addCustomKey(String value) {
 		if (customKeyword.length() > 0)
 			customKeyword.append(",");
-		customKeyword.append("custom:" + value);
+		customKeyword.append("custom:" + ChocoAdSDK.getInstance().getAPP_KEY() + "_" + value);
 	}
 	
 	@Override
@@ -56,6 +63,7 @@ public class ChocoAdsInterstitial extends MoPubInterstitial implements Interstit
 	@Override
 	public void onInterstitialClicked(MoPubInterstitial moPubInterstitial) {
 		Log.w(TAG, "onInterstitialClicked()");
+        AdTrackUtils.setAdTypeInterstitial();
 		AdTrackUtils.clickTracking(activity);
 	}
 

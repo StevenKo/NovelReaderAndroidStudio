@@ -1,10 +1,5 @@
 package com.chocolabs.adsdk.ads;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -12,17 +7,16 @@ import android.util.Log;
 
 import com.chocolabs.adsdk.ChocoAdSDK;
 import com.chocolabs.adsdk.KeywordInterface;
-import com.chocolabs.adsdk.account.AdsInfo;
 import com.chocolabs.adsdk.utils.AdTrackUtils;
-import com.mopub.mobileads.AdViewController;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubView;
 import com.mopub.mobileads.MoPubView.BannerAdListener;
 
 public class ChocoAdsView extends MoPubView implements BannerAdListener, KeywordInterface {
 	private static final String TAG = ChocoAdsView.class.getSimpleName();
+	
 	private Context context;
-	private boolean hasKeywordBack = false;
+	
 	private String customKeyResult = null;
 	private StringBuilder customKeyword = new StringBuilder();
 	private Handler mHandler = new Handler();
@@ -41,6 +35,7 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 	
 	private void initView() {
 		setBannerAdListener(this);
+		ChocoAdSDK.getInstance().setKeywordInterface(this);
 	}
 	
 	public void putCustomKeyword(int value) {
@@ -48,10 +43,17 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 		this.customKeyResult = customKeyword.toString();
 	}
 	
+	public void putCustomKeyword(String value) {
+		if (null == value || value.isEmpty())
+			return;
+		addCustomKey(value);
+		this.customKeyResult = customKeyword.toString();
+	}
+	
 	private void addCustomKey(String value) {
 		if (customKeyword.length() > 0)
 			customKeyword.append(",");
-		customKeyword.append("custom:" + value);
+		customKeyword.append("custom:" + ChocoAdSDK.getInstance().getAPP_KEY() + "_" + value);
 	}
 	
 	@Override
@@ -61,10 +63,8 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 		try {
 			String clickUrl = ChocoAdsParser.clickUrlParser(mAdViewController.getResponseString());
 			String responseUrl = ChocoAdsParser.htmlParser(mAdViewController.getResponseString());
-			if (!ChocoAdSDK.getInstance().isAdDisplay(responseUrl)) {
-				ChocoAdSDK.getInstance().tmpAdsInfo.setCampaign(clickUrl);
-				ChocoAdSDK.getInstance().tmpAdsInfo.setLineId(responseUrl);
-			}
+            ChocoAdSDK.getInstance().tmpAdsInfo.setCampaign(clickUrl);
+            ChocoAdSDK.getInstance().tmpAdsInfo.setLineId(responseUrl);
 			AdTrackUtils.impressionTracking(context);
 		} catch (Exception e) {
 		}
@@ -92,14 +92,10 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 	
 	@Override
 	public void loadAd() {
-		if (hasKeywordBack) {
+		if (ChocoAdSDK.getInstance().hasKeywordBack) {
 			setKeywords(customKeyResult);
 			super.loadAd();
-		} else {
-			ChocoAdSDK.getInstance().getKeywords().delete(0, ChocoAdSDK.getInstance().getKeywords().length());
-			ChocoAdSDK.getInstance().getKeyword(this);
 		}
-		
 	}
 	
 	@Override
@@ -109,10 +105,9 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 		try {
 			String clickUrl = ChocoAdsParser.clickUrlParser(mAdViewController.getResponseString());
 			String responseUrl = ChocoAdsParser.htmlParser(mAdViewController.getResponseString());
-			if (!ChocoAdSDK.getInstance().isAdDisplay(responseUrl)) {
-				ChocoAdSDK.getInstance().tmpAdsInfo.setCampaign(clickUrl);
-				ChocoAdSDK.getInstance().tmpAdsInfo.setLineId(responseUrl);
-			}
+            ChocoAdSDK.getInstance().tmpAdsInfo.setCampaign(clickUrl);
+            ChocoAdSDK.getInstance().tmpAdsInfo.setLineId(responseUrl);
+            AdTrackUtils.setAdTypeBanner();
 			AdTrackUtils.clickTracking(context);
 		} catch (Exception e) {
 		}
@@ -129,7 +124,7 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 		this.setAutorefreshEnabled(true);
 	}
 	
-	public void onStop() {
+	public void onPause() {
 		this.setAutorefreshEnabled(false);
 	}
 
@@ -158,7 +153,6 @@ public class ChocoAdsView extends MoPubView implements BannerAdListener, Keyword
 
 	@Override
 	public void loadComplete() {
-		hasKeywordBack = true;
 		mHandler.post(new Runnable() {
 			
 			@Override

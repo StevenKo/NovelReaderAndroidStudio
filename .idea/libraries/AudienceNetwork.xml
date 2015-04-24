@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="AudienceNetwork">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/chocoADSDK/libs/AudienceNetwork.jar!/" />
+      <root url="jar://$PROJECT_DIR$/chocoADSDK/adlibrary/mopub-sdk/libs/AudienceNetwork.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
