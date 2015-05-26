@@ -11,7 +11,6 @@ import android.view.View;
 import android.webkit.WebViewDatabase;
 import android.widget.FrameLayout;
 
-import com.mopub.common.Constants;
 import com.mopub.common.MoPub;
 import com.mopub.common.logging.MoPubLog;
 import com.mopub.common.util.ManifestUtils;
@@ -191,7 +190,7 @@ public class MoPubView extends FrameLayout {
         }
     }
 
-    private void setAdVisibility(final int visibility) {
+    public void setAdVisibility(final int visibility) {
         if (mAdViewController == null) {
             return;
         }

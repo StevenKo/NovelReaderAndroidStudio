@@ -804,7 +804,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
             ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
-        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0 && Setting.getSettingInt(Setting.keyArticleAdType,this) != Setting.InterstitialAd)
             moPubView = setBannerAdView(bannerAdView);
         else
             ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);

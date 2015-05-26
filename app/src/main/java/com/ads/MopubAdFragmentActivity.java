@@ -1,6 +1,7 @@
 package com.ads;
 
 import android.view.Display;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.mopub.mobileads.MoPubErrorCode;
@@ -15,6 +16,18 @@ import com.novel.reader.R;
 public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements MoPubInterstitial.InterstitialAdListener{
     protected MoPubView moPubView;
     private MoPubInterstitial mInterstitial;
+
+    protected void onResume(){
+        super.onResume();
+        if(moPubView != null)
+            moPubView.setAdVisibility(View.VISIBLE);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        if(moPubView != null)
+            moPubView.setAdVisibility(View.GONE);
+    }
 
     protected void onDestroy() {
         if(moPubView != null)
