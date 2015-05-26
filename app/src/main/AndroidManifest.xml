@@ -88,22 +88,6 @@
             android:theme="@android:style/Theme.Translucent" >
         </activity>
 
-        <!-- HODo Ad 設定 -->
-        <activity android:name="com.hodo.ADActivity" />
-        <activity
-            android:name="com.hodo.SplashaActivity"
-            android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name="com.hodo.SVideoActivity"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name="com.kuad.ADDisplay"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.kuad.BlockADDisplay"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
