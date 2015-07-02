@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class NovelAPI {
 
-    final static String HOST = "http://106.187.40.42";
+    final static String HOST = "http://api.novelking.cc";
     public static final String TAG = "NOVEL_API";
     public static final boolean DEBUG = true;
     final static String GAME_HOST = "http://apply.inapp.tw";
