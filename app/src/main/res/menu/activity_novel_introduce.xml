@@ -22,8 +22,16 @@
         android:title="@string/menu_recommend" />
 
     <item
+        android:id="@+id/search"
+        android:title="@string/search_hint"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/ic_search_inverse"/>
+
+
+    <item
         android:id="@+id/menu_download"
-        app:showAsAction="never"
+        app:showAsAction="always"
         android:title="@string/menu_download" />
 
     <item
@@ -35,12 +43,5 @@
         android:id="@+id/menu_donate"
         app:showAsAction="never"
         android:title="@string/buy_year_subscription"/>
-
-    <item
-        android:id="@+id/search"
-        android:title="@string/search_hint"
-        app:showAsAction="collapseActionView|always"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        android:icon="@drawable/ic_search_inverse"/>
 
 </menu>
