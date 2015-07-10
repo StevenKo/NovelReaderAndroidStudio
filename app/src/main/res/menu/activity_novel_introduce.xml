@@ -22,6 +22,16 @@
         android:title="@string/menu_recommend" />
 
     <item
+        android:id="@+id/menu_download"
+        app:showAsAction="never"
+        android:title="@string/menu_download" />
+
+    <item
+        android:id="@+id/menu_report"
+        app:showAsAction="never"
+        android:title="@string/menu_report" />
+
+    <item
         android:id="@+id/menu_donate"
         app:showAsAction="never"
         android:title="@string/buy_year_subscription"/>

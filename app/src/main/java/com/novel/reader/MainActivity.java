@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,17 +25,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
-import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -55,6 +54,7 @@ import com.kosbrother.tool.Report;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.novel.db.SQLiteNovel;
 import com.novel.navigationdrawler.NavigationListAdapter;
+import com.novel.reader.adapter.RecentSearchAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.util.NovelReaderUtil;
 import com.novel.reader.util.Setting;
@@ -293,47 +293,77 @@ public class MainActivity extends MopubAdFragmentActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
-        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse).setActionView(R.layout.collapsible_edittext)
-                .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-                    private EditText search;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        final MenuItem searchMenuItem = menu.findItem(R.id.search);
 
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        search = (EditText) item.getActionView();
-                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-                        search.setInputType(InputType.TYPE_CLASS_TEXT);
-                        search.requestFocus();
-                        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("SearchKeyword", v.getText().toString());
-                                    Intent intent = new Intent();
-                                    intent.setClass(MainActivity.this, SearchActivity.class);
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                    itemSearch.collapseActionView();
-                                    return true;
-                                }
-                                return false;
-                            }
-                        });
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                        return true;
-                    }
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(queryTextFocused) {
+                    SQLiteNovel db = new SQLiteNovel(MainActivity.this);
+                    final SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+                    search.setSuggestionsAdapter(new RecentSearchAdapter(MainActivity.this, db.getLastQueryHistory(100,"")));
+                }else{
+                    searchMenuItem.collapseActionView();
+                    searchView.setQuery("", false);
+                }
+            }
+        });
 
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
-                        return true;
-                    }
-                });
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int i) {
+                return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+
+                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+                String query = cursor.getString(1);
+
+                searchMenuItem.collapseActionView();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("SearchKeyword", query);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SearchActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Bundle bundle = new Bundle();
+                bundle.putString("SearchKeyword", s);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SearchActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                loadHistory(query);
+                return true;
+            }
+
+            private void loadHistory(String query) {
+                SQLiteNovel db = new SQLiteNovel(MainActivity.this);
+                final SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+                search.setSuggestionsAdapter(new RecentSearchAdapter(MainActivity.this, db.getLastQueryHistory(100,query)));
+            }
+        });
 
         return true;
     }

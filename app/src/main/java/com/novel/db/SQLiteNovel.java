@@ -23,7 +23,7 @@ import java.util.HashMap;
 public class SQLiteNovel extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "kosnovel.sqlite";                                   // 資料庫名稱
-    private static final int DATABASE_VERSION = 6;                                                   // 資料庫版本
+    private static final int DATABASE_VERSION = 7;                                                   // 資料庫版本
     private static SQLiteDatabase db;
     private final Context ctx;
     public static final File DATABASE_FILE_PATH = android.os.Environment.getExternalStorageDirectory();
@@ -67,6 +67,12 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         String ARTICLE_TITLE = "article_title";
         String NOVEL_PIC = "novel_pic";
         String IS_RECENT_READ = "is_recent_read";
+    }
+
+    public interface QuerySchema {
+        String TABLE_NAME = "querys";
+        String ID = "_id";
+        String QUERY = "query";
     }
 
     public SQLiteNovel(Context context) {
@@ -113,10 +119,18 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < DATABASE_VERSION) {
+        if (oldVersion < 6) {
             alterArticleTableAddNum(db);
             alterNovelTableAddLastViewDate(db);
         }
+        if (oldVersion < 7){
+            createHistoryTable(db);
+        }
+    }
+
+    private void createHistoryTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QuerySchema.TABLE_NAME + " (" + QuerySchema.ID + " INTEGER PRIMARY KEY" + ","
+                + QuerySchema.QUERY + " TEXT NOT NULL" + ");");
     }
 
     private void alterArticleTableAddNum(SQLiteDatabase db) {
@@ -227,6 +241,9 @@ public class SQLiteNovel extends SQLiteOpenHelper {
                 + " INTEGER NOT NULL" + "," + BookmarkSchema.NOVEL_NAME + " TEXT NOT NULL" + "," + BookmarkSchema.ARTICLE_TITLE + " TEXT NOT NULL" + ","
                 + BookmarkSchema.NOVEL_PIC + " TEXT NOT NULL" + "," + BookmarkSchema.IS_RECENT_READ + " INTEGER NOT NULL" + ");");
 
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QuerySchema.TABLE_NAME + " (" + QuerySchema.ID + " INTEGER PRIMARY KEY" + ","
+                + QuerySchema.QUERY + " TEXT NOT NULL" + ");");
+
     }
 
     public boolean deleteNovel(Novel novel) {
@@ -284,6 +301,30 @@ public class SQLiteNovel extends SQLiteOpenHelper {
         cursor.close();
         return true;
 
+    }
+
+    public long insertQueryHistory(String query) {
+
+        Cursor lastCursor = db.rawQuery("SELECT * FROM querys ORDER BY _id DESC LIMIT 1", null);
+        lastCursor.moveToLast();
+
+        ContentValues args = new ContentValues();
+        if(lastCursor.getCount() > 0)
+            args.put(QuerySchema.ID, lastCursor.getInt(0) + 1);
+        else
+            args.put(QuerySchema.ID, 1);
+        args.put(QuerySchema.QUERY, query);
+        return db.insert(QuerySchema.TABLE_NAME, null, args);
+    }
+
+    public Cursor getLastQueryHistory(int num, String query) {
+        Cursor cursor = db.rawQuery("SELECT * FROM " + QuerySchema.TABLE_NAME + " where query like ? ORDER BY _id DESC LIMIT " + num, new String[] { "%" + query + "%"});
+
+        return cursor;
+    }
+
+    public void deleteQueryHistory(String keyword) {
+        db.delete(QuerySchema.TABLE_NAME, QuerySchema.QUERY + " = ?", new String[] { keyword });
     }
 
     public long insertBookmark(Bookmark bookmark) {
