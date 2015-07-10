@@ -129,6 +129,9 @@ public class CategoryActivity extends MopubAdFragmentActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
 
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            menu.findItem(R.id.menu_donate).setEnabled(false);
+
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));

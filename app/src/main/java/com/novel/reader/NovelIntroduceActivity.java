@@ -1,21 +1,20 @@
 package com.novel.reader;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.text.InputType;
-import android.view.KeyEvent;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,7 +31,9 @@ import com.google.android.gms.analytics.Tracker;
 import com.kosbrother.tool.ChildArticle;
 import com.kosbrother.tool.Group;
 import com.kosbrother.tool.Report;
+import com.novel.db.SQLiteNovel;
 import com.novel.reader.adapter.ExpandListAdapter;
+import com.novel.reader.adapter.RecentSearchAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Article;
 import com.novel.reader.entity.Bookmark;
@@ -45,14 +46,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NovelIntroduceActivity extends NovelReaderBaseActivity {
-
-    private static final int ID_SETTING = 0;
-    private static final int ID_RESPONSE = 1;
-    private static final int ID_ABOUT_US = 2;
-    private static final int ID_GRADE = 3;
-    private static final int ID_DOWNLOAD = 4;
-    private static final int ID_SEARCH = 5;
-    private static final int ID_Report = 6;
 
     private EditText search;
     private Bundle mBundle;
@@ -321,58 +314,75 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.activity_main, menu);
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_novel_introduce, menu);
 
-        menu.add(0, ID_SETTING, 0, getResources().getString(R.string.menu_settings)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_DOWNLOAD, 5, getResources().getString(R.string.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(0, ID_Report, 6, getResources().getString(R.string.menu_report)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0)
-            menu.add(0, 7, 7, getResources().getString(R.string.buy_year_subscription)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
+            menu.findItem(R.id.menu_donate).setEnabled(false);
 
-        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
-                .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-                    private EditText search;
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        final MenuItem searchMenuItem = menu.findItem(R.id.search);
 
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        search = (EditText) item.getActionView();
-                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-                        search.setInputType(InputType.TYPE_CLASS_TEXT);
-                        search.requestFocus();
-                        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("SearchKeyword", v.getText().toString());
-                                    Intent intent = new Intent();
-                                    intent.setClass(NovelIntroduceActivity.this, SearchActivity.class);
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                    itemSearch.collapseActionView();
-                                    return true;
-                                }
-                                return false;
-                            }
-                        });
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                        return true;
-                    }
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(!queryTextFocused) {
+                    searchMenuItem.collapseActionView();
+                    searchView.setQuery("", false);
+                }
+            }
+        });
 
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
-                        return true;
-                    }
-                }).setActionView(R.layout.collapsible_edittext);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int i) {
+                return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+
+                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+                String query = cursor.getString(1);
+
+                searchMenuItem.collapseActionView();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("SearchKeyword", query);
+                Intent intent = new Intent();
+                intent.setClass(NovelIntroduceActivity.this, SearchActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Bundle bundle = new Bundle();
+                bundle.putString("SearchKeyword", s);
+                Intent intent = new Intent();
+                intent.setClass(NovelIntroduceActivity.this, SearchActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                loadHistory(query);
+                return true;
+            }
+
+            private void loadHistory(String query) {
+                SQLiteNovel db = new SQLiteNovel(NovelIntroduceActivity.this);
+                final SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+                search.setSuggestionsAdapter(new RecentSearchAdapter(NovelIntroduceActivity.this, db.getLastQueryHistory(100,query)));
+            }
+        });
 
         return true;
     }
@@ -385,11 +395,11 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
                 finish();
                 // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
                 break;
-            case ID_SETTING: // setting
+            case R.id.menu_settings: // setting
                 Intent intent = new Intent(NovelIntroduceActivity.this, SettingActivity.class);
                 startActivity(intent);
                 break;
-            case ID_RESPONSE: // response
+            case R.id.menu_respond: // response
                 final Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("plain/text");
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.respond_mail_address)});
@@ -397,14 +407,14 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "");
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                 break;
-            case ID_ABOUT_US:
+            case R.id.menu_aboutus:
                 aboutUsDialog.show();
                 break;
-            case ID_GRADE:
+            case R.id.menu_recommend:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
                 startActivity(browserIntent);
                 break;
-            case ID_DOWNLOAD: // response
+            case R.id.menu_download: // response
                 Intent intent_to_download = new Intent(NovelIntroduceActivity.this, DownloadActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("NovelId", novelId);
@@ -412,13 +422,10 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
                 intent_to_download.putExtras(bundle);
                 startActivity(intent_to_download);
                 break;
-            case ID_SEARCH: // response
-                Toast.makeText(NovelIntroduceActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
-                break;
-            case ID_Report:
+            case R.id.menu_report:
                 Report.createReportDialog(this, novelName + "(" + novelId + ")", this.getResources().getString(R.string.report_not_article_problem));
                 break;
-            case 7:
+            case R.id.menu_donate:
                 Intent intent1 = new Intent();
                 intent1.setClass(this, DonateActivity.class);
                 startActivity(intent1);
