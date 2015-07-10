@@ -31,6 +31,7 @@ import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.novel.db.SQLiteNovel;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.Setting;
@@ -74,6 +75,10 @@ public class SearchActivity extends MopubAdFragmentActivity {
         progressLayout = (LinearLayout) findViewById(R.id.layout_progress);
         loadmoreLayout = (LinearLayout) findViewById(R.id.load_more_grid);
         noDataLayout = (LinearLayout) findViewById(R.id.layout_no_data);
+
+        SQLiteNovel db = new SQLiteNovel(SearchActivity.this);
+        db.deleteQueryHistory(keyword);
+        db.insertQueryHistory(keyword);
 
         myGrid.setOnItemClickListener(new OnItemClickListener() {
             @Override
