@@ -322,7 +322,7 @@ public class MainActivity extends MopubAdFragmentActivity {
             public boolean onSuggestionClick(int position) {
 
                 Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
-                String query = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+                String query = cursor.getString(1);
 
                 searchMenuItem.collapseActionView();
 
