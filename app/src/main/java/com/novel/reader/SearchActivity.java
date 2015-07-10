@@ -235,6 +235,10 @@ public class SearchActivity extends MopubAdFragmentActivity {
                 ab.setTitle(getString(R.string.menu_search)+":"+keyword);
                 new LoadDataTask().execute();
                 searchMenuItem.collapseActionView();
+
+                SQLiteNovel db = new SQLiteNovel(SearchActivity.this);
+                db.deleteQueryHistory(keyword);
+                db.insertQueryHistory(keyword);
                 return true;
             }
         });
@@ -245,6 +249,11 @@ public class SearchActivity extends MopubAdFragmentActivity {
                 keyword = s;
                 ab.setTitle(getString(R.string.menu_search)+":"+keyword);
                 new LoadDataTask().execute();
+
+                SQLiteNovel db = new SQLiteNovel(SearchActivity.this);
+                db.deleteQueryHistory(keyword);
+                db.insertQueryHistory(keyword);
+                
                 return true;
             }
 
