@@ -140,7 +140,11 @@ public class CategoryActivity extends MopubAdFragmentActivity {
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean queryTextFocused) {
-                if(!queryTextFocused) {
+                if(queryTextFocused) {
+                    SQLiteNovel db = new SQLiteNovel(CategoryActivity.this);
+                    final SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+                    search.setSuggestionsAdapter(new RecentSearchAdapter(CategoryActivity.this, db.getLastQueryHistory(100,"")));
+                }else{
                     searchMenuItem.collapseActionView();
                     searchView.setQuery("", false);
                 }
