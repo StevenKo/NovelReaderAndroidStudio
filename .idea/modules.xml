@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/chocoADSDK/ChocoAdSDK.iml" filepath="$PROJECT_DIR$/chocoADSDK/ChocoAdSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/NovelReaderAndroidStudio.iml" filepath="$PROJECT_DIR$/NovelReaderAndroidStudio.iml" />
-      <module fileurl="file://$PROJECT_DIR$/chocoADSDK/adlibrary/adlibrary.iml" filepath="$PROJECT_DIR$/chocoADSDK/adlibrary/adlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/chocoADSDK/adlibrary/mopub-sdk/mopub-sdk.iml" filepath="$PROJECT_DIR$/chocoADSDK/adlibrary/mopub-sdk/mopub-sdk.iml" />
     </modules>
   </component>
 </project>

@@ -1,1 +1,1 @@
-include ':app', ':ChocoAdSDK:adlibrary:mopub-sdk', ':ChocoAdSDK'
+include ':app'
