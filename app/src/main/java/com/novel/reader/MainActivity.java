@@ -1,5 +1,27 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.android.slidingtab.SlidingTabLayout;
+import com.crashlytics.android.Crashlytics;
+import com.kosbrother.fragments.CategoryListFragment;
+import com.kosbrother.fragments.GridGplayFragment;
+import com.kosbrother.fragments.IndexNovelFragment;
+import com.kosbrother.tool.RecommendNovelDialog;
+import com.kosbrother.tool.Report;
+import com.mopub.mobileads.MoPubInterstitial;
+import com.novel.db.SQLiteNovel;
+import com.novel.navigationdrawler.NavigationListAdapter;
+import com.novel.reader.adapter.RecentSearchAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.util.NovelReaderUtil;
+import com.novel.reader.util.Setting;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -37,27 +59,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.android.slidingtab.SlidingTabLayout;
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.kosbrother.fragments.CategoryListFragment;
-import com.kosbrother.fragments.GridGplayFragment;
-import com.kosbrother.fragments.IndexNovelFragment;
-import com.kosbrother.tool.RecommendNovelDialog;
-import com.kosbrother.tool.Report;
-import com.mopub.mobileads.MoPubInterstitial;
-import com.novel.db.SQLiteNovel;
-import com.novel.navigationdrawler.NavigationListAdapter;
-import com.novel.reader.adapter.RecentSearchAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.util.NovelReaderUtil;
-import com.novel.reader.util.Setting;
 
 import java.io.File;
 import java.io.IOException;
@@ -199,8 +200,8 @@ public class MainActivity extends MopubAdFragmentActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -212,12 +213,12 @@ public class MainActivity extends MopubAdFragmentActivity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+//                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+//                getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
