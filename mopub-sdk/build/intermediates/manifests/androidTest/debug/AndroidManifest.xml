@@ -12,6 +12,10 @@
         android:handleProfiling="false"
         android:label="Tests for com.mopub.mobileads.test"
         android:targetPackage="com.mopub.mobileads.test" />
+    <!-- For streaming media over the network. -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- For reading media from external storage. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- For writing media to external storage. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application>
         <uses-library android:name="android.test.runner" />

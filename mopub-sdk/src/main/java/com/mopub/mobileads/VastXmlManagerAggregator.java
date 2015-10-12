@@ -40,6 +40,8 @@ import static com.mopub.network.TrackingRequest.makeVastTrackingHttpRequest;
  */
 public class VastXmlManagerAggregator extends AsyncTask<String, Void, VastVideoConfig> {
 
+    private static final String MOPUB = "MoPub";
+
     /**
      * Listener for when the xml parsing is done.
      */
@@ -226,6 +228,7 @@ public class VastXmlManagerAggregator extends AsyncTask<String, Void, VastVideoC
                 for (VastLinearXmlManager linearXmlManager : linearXmlManagers) {
                     populateLinearTrackersAndIcon(linearXmlManager, vastVideoConfig);
                 }
+                populateVideoViewabilityTracker(vastWrapperXmlManager, vastVideoConfig);
 
                 // Only populate a companion ad if we don't already have one from one of the
                 // redirects
@@ -308,11 +311,38 @@ public class VastXmlManagerAggregator extends AsyncTask<String, Void, VastVideoC
                                 CompanionOrientation.PORTRAIT));
                 errorTrackers.addAll(vastInLineXmlManager.getErrorTrackers());
                 vastVideoConfig.addErrorTrackers(errorTrackers);
+                populateVideoViewabilityTracker(vastInLineXmlManager, vastVideoConfig);
+
                 return vastVideoConfig;
             }
         }
 
         return null;
+    }
+
+    private void populateVideoViewabilityTracker(
+            @NonNull final VastBaseInLineWrapperXmlManager vastInLineXmlManager,
+            @NonNull VastVideoConfig vastVideoConfig) {
+        Preconditions.checkNotNull(vastInLineXmlManager);
+        Preconditions.checkNotNull(vastVideoConfig);
+
+        if (vastVideoConfig.getVideoViewabilityTracker() != null) {
+            return;
+        }
+
+        final VastExtensionParentXmlManager vastExtensionParentXmlManager =
+                vastInLineXmlManager.getVastExtensionParentXmlManager();
+        if (vastExtensionParentXmlManager != null) {
+            final List<VastExtensionXmlManager> vastExtensionXmlManagers =
+                    vastExtensionParentXmlManager.getVastExtensionXmlManagers();
+            for (VastExtensionXmlManager vastExtensionXmlManager : vastExtensionXmlManagers) {
+                if (MOPUB.equals(vastExtensionXmlManager.getType())) {
+                    vastVideoConfig.setVideoViewabilityTracker(vastExtensionXmlManager
+                            .getVideoViewabilityTracker());
+                    break;
+                }
+            }
+        }
     }
 
     /**

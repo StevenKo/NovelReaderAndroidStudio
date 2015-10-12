@@ -112,6 +112,15 @@ public class VastXmlManagerAggregatorTest {
             "                    </CompanionAds>" +
             "                </Creative>" +
             "            </Creatives>" +
+            "            <Extensions>" +
+            "                <Extension type=\"MoPub\">" +
+            "                    <MoPubViewabilityTracker" +
+            "                            viewablePlaytime=\"2.5\"" +
+            "                            percentViewable=\"50%\">" +
+            "                        <![CDATA[http://ad.server.com/impression/dot.gif]]>" +
+            "                    </MoPubViewabilityTracker>" +
+            "                </Extension>" +
+            "            </Extensions>" +
             "            <Error><![CDATA[http://wrapperErrorOne?errorcode=[ERRORCODE]]]></Error>" +
             "            <Error><![CDATA[http://wrapperErrorTwo?errorcode=[ERRORCODE]]]></Error>" +
             "        </Wrapper>" +
@@ -216,6 +225,15 @@ public class VastXmlManagerAggregatorTest {
             "                    </Linear>" +
             "                </Creative>" +
             "            </Creatives>" +
+            "            <Extensions>" +
+            "                <Extension type=\"MoPub\">" +
+            "                    <MoPubViewabilityTracker" +
+            "                            viewablePlaytime=\"3.5\"" +
+            "                            percentViewable=\"70%\">" +
+            "                        <![CDATA[http://ad.server.com/impression/dot.png]]>" +
+            "                    </MoPubViewabilityTracker>" +
+            "                </Extension>" +
+            "            </Extensions>" +
             "        </InLine>" +
             "    </Ad>" +
             "</VAST>";
@@ -1094,7 +1112,8 @@ public class VastXmlManagerAggregatorTest {
 
     @Test
     public void evaluateVastXmlManager_withRedirectHavingNoCompanionAd_shouldReturnVastVideoConfigurationWithCompanionAdOfWrapper() throws Exception {
-        ShadowMoPubHttpUrlConnection.addPendingResponse(200, TEST_NESTED_NO_COMPANION_VAST_XML_STRING);
+        ShadowMoPubHttpUrlConnection.addPendingResponse(200,
+                TEST_NESTED_NO_COMPANION_VAST_XML_STRING);
         VastVideoConfig vastVideoConfig = subject.evaluateVastXmlManager(
                 TEST_VAST_XML_STRING, new ArrayList<VastTracker>());
 
@@ -1128,6 +1147,42 @@ public class VastXmlManagerAggregatorTest {
                 "http://negativeSequence");
         assertThat(VastUtils.vastTrackersToStrings(vastVideoConfig.getImpressionTrackers()))
                 .containsOnly("http://negativeSequence");
+    }
+
+    @Test
+    public void evaluateVastXmlManager_withVideoViewabilityTrackerInLine_shouldReturnVastVideoConfigurationWithVideoViewabilityTracker() {
+        VastVideoConfig vastVideoConfig = subject.evaluateVastXmlManager(
+                TEST_NESTED_NO_COMPANION_VAST_XML_STRING, new ArrayList<VastTracker>());
+
+        VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
+        assertThat(tracker.getPercentViewable()).isEqualTo(70);
+        assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(3500);
+        assertThat(tracker.getTrackingUrl()).isEqualTo("http://ad.server.com/impression/dot.png");
+    }
+
+    @Test
+    public void evaluateVastXmlManager_withVideoViewabilityTrackerInWrapper_shouldReturnVastVideoConfigurationWithVideoViewabilityTracker() throws Exception {
+        ShadowMoPubHttpUrlConnection.addPendingResponse(200, TEST_NESTED_VAST_XML_STRING);
+        VastVideoConfig vastVideoConfig = subject.evaluateVastXmlManager(TEST_VAST_XML_STRING,
+                new ArrayList<VastTracker>());
+
+        VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
+        assertThat(tracker.getPercentViewable()).isEqualTo(50);
+        assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(2500);
+        assertThat(tracker.getTrackingUrl()).isEqualTo("http://ad.server.com/impression/dot.gif");
+    }
+
+    @Test
+    public void evaluateVastXmlManager_withVideoViewabilityTrackerBothInWrapperAndInLine_shouldReturnVastVideoConfigurationWithVideoViewabilityTrackerFromInLine() throws Exception {
+        ShadowMoPubHttpUrlConnection.addPendingResponse(200,
+                TEST_NESTED_NO_COMPANION_VAST_XML_STRING);
+        VastVideoConfig vastVideoConfig = subject.evaluateVastXmlManager(TEST_VAST_XML_STRING,
+                new ArrayList<VastTracker>());
+
+        VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
+        assertThat(tracker.getPercentViewable()).isEqualTo(70);
+        assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(3500);
+        assertThat(tracker.getTrackingUrl()).isEqualTo("http://ad.server.com/impression/dot.png");
     }
 
     @Test

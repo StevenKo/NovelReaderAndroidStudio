@@ -26,6 +26,12 @@ android {
         versionCode 73
         versionName "3.3.2"
     }
+
+    defaultConfig {
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+
     buildTypes {
         release {
             minifyEnabled false

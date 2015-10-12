@@ -44,7 +44,7 @@ public class VastManagerTest {
     public void setup() {
         context = Robolectric.buildActivity(Activity.class).create().get();
         CacheService.initializeDiskCache(context);
-        subject = new VastManager(context);
+        subject = new VastManager(context, true);
 
         semaphore = new Semaphore(0);
         vastManagerListener = mock(VastManagerListener.class);
