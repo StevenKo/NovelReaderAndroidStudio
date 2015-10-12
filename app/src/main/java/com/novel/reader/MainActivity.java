@@ -32,7 +32,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -198,39 +197,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        mTitle = mDrawerTitle = getTitle();
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-//
-//        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-//        mDrawerList.setAdapter(new NavigationListAdapter(this));
-//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-//
-//        // enable ActionBar app icon to behave as action to toggle nav drawer
-////        getActionBar().setDisplayHomeAsUpEnabled(true);
-////        getActionBar().setHomeButtonEnabled(true);
-//
-//        // ActionBarDrawerToggle ties together the the proper interactions
-//        // between the sliding drawer and the action bar app icon
-//        mDrawerToggle = new ActionBarDrawerToggle(
-//                this,                  /* host Activity */
-//                mDrawerLayout,         /* DrawerLayout object */
-//                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-//                R.string.drawer_open,  /* "open drawer" description for accessibility */
-//                R.string.drawer_close  /* "close drawer" description for accessibility */
-//        ) {
-//            public void onDrawerClosed(View view) {
-////                getActionBar().setTitle(mTitle);
-//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-//            }
-//
-//            public void onDrawerOpened(View drawerView) {
-////                getActionBar().setTitle(mDrawerTitle);
-//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-//            }
-//        };
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
     }
 
     private void setViewPagerAndSlidingTab() {
@@ -389,7 +355,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-//        return false;
     }
 
 
@@ -501,67 +466,60 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         }.execute(null, null, null);
     }
 
-//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            selectItem(position);
-//        }
-//    }
 
-    private void selectItem(int position) {
-        switch (position) {
-            case 0:
+    private void selectItem(int menuId) {
+        switch (menuId) {
+            case R.id.navigation_setting:
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
                 break;
-            case 1:
+            case R.id.navigation_bookmark:
                 Intent bookmarkIntent = new Intent();
                 bookmarkIntent.putExtra("IS_RECNET", false);
                 bookmarkIntent.setClass(MainActivity.this, BookmarkActivity.class);
                 startActivity(bookmarkIntent);
                 break;
-            case 2:
+            case R.id.navigation_recent:
                 Intent recent_intent = new Intent();
                 recent_intent.putExtra("IS_RECNET", true);
                 recent_intent.setClass(MainActivity.this, BookmarkActivity.class);
                 startActivity(recent_intent);
                 break;
-            case 3:
+            case R.id.nav_setting:
                 Intent collectIntent = new Intent(MainActivity.this, MyNovelActivity.class);
                 startActivity(collectIntent);
                 break;
-            case 4:
+            case R.id.navigation_download:
                 Intent downloadIntent = new Intent(MainActivity.this, MyNovelActivity.class);
                 downloadIntent.putExtra("noti", true);
                 startActivity(downloadIntent);
                 break;
-            case 5:
+            case R.id.navigation_profile:
                 aboutUsDialog.show();
                 break;
-            case 6:
+            case R.id.navigation_like:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
                 startActivity(browserIntent);
                 break;
-            case 7:
+            case R.id.navigation_voice:
                 Report.createReportDialog(this, this.getResources().getString(R.string.report_not_novel_problem), this.getResources().getString(R.string.report_not_article_problem));
                 break;
-            case 8:
+            case R.id.navigation_recommend_novel:
                 RecommendNovelDialog.createReportDialog(this);
                 break;
-            case 9:
+            case R.id.buy_year_subscription:
                 Intent intent1 = new Intent();
                 intent1.setClass(this, DonateActivity.class);
                 startActivity(intent1);
                 break;
-            case 10:
+            case R.id.navigation_cloud_update:
                 new CheckUpdateInfoTask().execute();
                 break;
-            case 11:
+            case R.id.navigation_official_website:
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://novelking.cc"));
                 startActivity(browserIntent);
                 break;
         }
-//        mDrawerLayout.closeDrawer(mDrawerList);
 
     }
 
@@ -571,17 +529,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         getActionBar().setTitle(mTitle);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-//        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-//        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
 
     public class UpdateInfo{
         public String updateLink = "";
