@@ -16,13 +16,25 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- For reading media from external storage. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- For writing media to external storage. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application>
         <uses-library android:name="android.test.runner" />
 
         <activity
             android:name="android.support.v7.widget.TestActivity"
-            android:label="RecyclerViewTestActivity" />
+            android:label="RecyclerViewTestActivity" /> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
+            android:theme="@style/Theme.IAPTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
