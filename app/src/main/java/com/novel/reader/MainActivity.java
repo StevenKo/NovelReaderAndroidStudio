@@ -16,7 +16,6 @@ import com.kosbrother.tool.RecommendNovelDialog;
 import com.kosbrother.tool.Report;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.novel.db.SQLiteNovel;
-import com.novel.navigationdrawler.NavigationListAdapter;
 import com.novel.reader.adapter.RecentSearchAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.util.NovelReaderUtil;
@@ -40,23 +39,23 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,7 +64,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
 
-public class MainActivity extends MopubAdFragmentActivity {
+public class MainActivity extends MopubAdFragmentActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -97,12 +96,7 @@ public class MainActivity extends MopubAdFragmentActivity {
     private SlidingTabLayout mSlidingTabLayout;
 
 
-    //navigationdrawler
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
 
-    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
 
@@ -191,38 +185,51 @@ public class MainActivity extends MopubAdFragmentActivity {
     }
 
     private void setNavigationDrawler() {
-        mTitle = mDrawerTitle = getTitle();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerList.setAdapter(new NavigationListAdapter(this));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setHomeButtonEnabled(true);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-//                getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
 
-            public void onDrawerOpened(View drawerView) {
-//                getActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+//        mTitle = mDrawerTitle = getTitle();
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+//
+//        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+//        mDrawerList.setAdapter(new NavigationListAdapter(this));
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+//
+//        // enable ActionBar app icon to behave as action to toggle nav drawer
+////        getActionBar().setDisplayHomeAsUpEnabled(true);
+////        getActionBar().setHomeButtonEnabled(true);
+//
+//        // ActionBarDrawerToggle ties together the the proper interactions
+//        // between the sliding drawer and the action bar app icon
+//        mDrawerToggle = new ActionBarDrawerToggle(
+//                this,                  /* host Activity */
+//                mDrawerLayout,         /* DrawerLayout object */
+//                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+//                R.string.drawer_open,  /* "open drawer" description for accessibility */
+//                R.string.drawer_close  /* "close drawer" description for accessibility */
+//        ) {
+//            public void onDrawerClosed(View view) {
+////                getActionBar().setTitle(mTitle);
+//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+////                getActionBar().setTitle(mDrawerTitle);
+//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//            }
+//        };
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
     }
 
@@ -372,10 +379,17 @@ public class MainActivity extends MopubAdFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        selectItem(id);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
+//        return false;
     }
 
 
@@ -418,10 +432,15 @@ public class MainActivity extends MopubAdFragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (pager.getCurrentItem() == 1) {
-            finish();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-            pager.setCurrentItem(1, true);
+            if (pager.getCurrentItem() == 1) {
+                finish();
+            } else {
+                pager.setCurrentItem(1, true);
+            }
         }
     }
 
@@ -482,12 +501,12 @@ public class MainActivity extends MopubAdFragmentActivity {
         }.execute(null, null, null);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
+//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            selectItem(position);
+//        }
+//    }
 
     private void selectItem(int position) {
         switch (position) {
@@ -542,7 +561,7 @@ public class MainActivity extends MopubAdFragmentActivity {
                 startActivity(browserIntent);
                 break;
         }
-        mDrawerLayout.closeDrawer(mDrawerList);
+//        mDrawerLayout.closeDrawer(mDrawerList);
 
     }
 
@@ -555,13 +574,13 @@ public class MainActivity extends MopubAdFragmentActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+//        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+//        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     public class UpdateInfo{

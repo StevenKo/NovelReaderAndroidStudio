@@ -1,11 +1,11 @@
 package com.novel.reader;
 
-import android.content.pm.ActivityInfo;
-import android.support.v7.app.ActionBarActivity;
-
 import com.novel.reader.util.Setting;
 
-public class NovelReaderBaseActivity extends ActionBarActivity {
+import android.content.pm.ActivityInfo;
+import android.support.v7.app.AppCompatActivity;
+
+public class NovelReaderBaseActivity extends AppCompatActivity {
 
     private int readingDirection;
 
