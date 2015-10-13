@@ -49,4 +49,5 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:library:1.9.1'
     compile 'com.crashlytics.android:crashlytics:1.+'
     compile project(':mopub-sdk')
+    compile 'com.android.support:multidex:1.0.1'
 }
