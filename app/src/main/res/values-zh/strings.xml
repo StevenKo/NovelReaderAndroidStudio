@@ -224,4 +224,7 @@
     <string name="msg_share_text">Or type some text and press Enter</string>
     <string name="msg_unmount_usb">Sorry, the SD card is not accessible.</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
