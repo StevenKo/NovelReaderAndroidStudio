@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:theme="@style/ColoredButton"
                 android:text="@string/article_up" />
 
             <TextView
@@ -100,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:theme="@style/ColoredButton"
                 android:text="@string/article_down" />
         </RelativeLayout>
 
