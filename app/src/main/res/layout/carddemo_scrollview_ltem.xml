@@ -36,7 +36,7 @@
 
     </RelativeLayout>
 
-    <it.gmariotti.cardslib.library.view.CardGridView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="@dimen/carddemo_gplay_grid_columnwidth"
@@ -45,6 +45,5 @@
         android:horizontalSpacing="0dp"
         android:stretchMode="none"
         android:gravity="center"
-        card:list_card_layout_resourceID="@layout/carddemo_grid_gplay"
         android:id="@+id/carddemo_grid_base1" />
 </LinearLayout>

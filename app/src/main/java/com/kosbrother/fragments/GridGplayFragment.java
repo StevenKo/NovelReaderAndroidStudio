@@ -51,8 +51,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import it.gmariotti.cardslib.library.view.CardGridView;
-
 /**
  * Grid as Google Play example
  *
@@ -142,7 +140,7 @@ public class GridGplayFragment extends Fragment {
     }
 
 
-    private void initCards(CardGridView gridView, ArrayList<Novel> novels, String cateName) {
+    private void initCards(GridView gridView, ArrayList<Novel> novels, String cateName) {
 
         GridViewAdapter mCardArrayAdapter = new GridViewAdapter(getActivity(), novels,NovelAPI.getAppInfo(getActivity()));
 
@@ -203,7 +201,7 @@ public class GridGplayFragment extends Fragment {
                 }
             });
 
-            CardGridView groupGridView = (CardGridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
+            GridView groupGridView = (GridView) gridLayout.findViewById(R.id.carddemo_grid_base1);
             initCards(groupGridView, categories.get(i).novels, categories.get(finalI).getCateName());
             return gridLayout;
         }

@@ -23,8 +23,8 @@ android {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 78
-        versionName "4.0.1"
+        versionCode 79
+        versionName "4.0.2"
     }
 
     defaultConfig {
@@ -46,7 +46,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.google.android.gms:play-services:8.1.+'
-    compile 'com.github.gabrielemariotti.cards:library:1.9.1'
     compile 'com.crashlytics.android:crashlytics:1.+'
     compile project(':mopub-sdk')
     compile 'com.android.support:multidex:1.0.1'
