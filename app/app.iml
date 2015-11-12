@@ -122,6 +122,7 @@
     <orderEntry type="library" exported="" name="vpadn-sdk-obf431-82605102-1506291043-d57fd2a" level="project" />
     <orderEntry type="library" exported="" name="jcc-bate-0.7.3" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="picasso-2.3.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-games-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
@@ -134,8 +135,8 @@
     <orderEntry type="library" exported="" name="library-1.9.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-appinvite-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-cast-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="mopub-volley-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-1.1.13" level="project" />
+    <orderEntry type="library" exported="" name="mopub-volley-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-8.1.0" level="project" />

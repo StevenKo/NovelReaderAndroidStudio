@@ -1,12 +1,15 @@
 package com.novel.reader.adapter;
 
-import java.util.ArrayList;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.ArticleActivity;
+import com.novel.reader.R;
+import com.novel.reader.entity.Bookmark;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,19 +18,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.ArticleActivity;
-import com.novel.reader.R;
-import com.novel.reader.entity.Bookmark;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
+import java.util.ArrayList;
 
 public class GridViewIndexBookmarkAdapter extends BaseAdapter {
 
     private final Activity activity;
     private final ArrayList<Bookmark> data;
     private static LayoutInflater inflater = null;
-    public ImageLoader imageLoader;
     private int bookmark_size;
 
     public GridViewIndexBookmarkAdapter(Activity a) {
@@ -38,7 +35,6 @@ public class GridViewIndexBookmarkAdapter extends BaseAdapter {
         bookmarks.addAll(db.getLastRecentBookmarks(3));
         data = bookmarks;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
 
@@ -90,7 +86,7 @@ public class GridViewIndexBookmarkAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(data.get(position).getNovelPic())) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(data.get(position).getNovelPic(), image);
+            Picasso.with(activity).load(data.get(position).getNovelPic()).into(image);
         }
 
         if (position < bookmark_size) {

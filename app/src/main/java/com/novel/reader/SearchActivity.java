@@ -1,5 +1,20 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.adapter.RecentSearchAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.novel.reader.util.Setting;
+import com.squareup.picasso.Picasso;
+import com.taiwan.imageload.LoadMoreGridView;
+
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -25,19 +40,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.adapter.RecentSearchAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.Setting;
-import com.taiwan.imageload.ImageLoader;
-import com.taiwan.imageload.LoadMoreGridView;
 
 import java.util.ArrayList;
 
@@ -142,12 +144,10 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
         private final Context mContext;
         private final ArrayList<Novel> novels;
-        private final ImageLoader imageLoader;
 
         public SearchAdapter(Context mContext, ArrayList<Novel> novels) {
             this.novels = novels;
             this.mContext = mContext;
-            imageLoader = new ImageLoader(mContext);
         }
 
         @Override
@@ -176,7 +176,12 @@ public class SearchActivity extends MopubAdFragmentActivity {
             TextView textFinish = (TextView) converView.findViewById(R.id.grid_item_finish);
             TextView textSerialize = (TextView) converView.findViewById(R.id.serializing);
 
-            imageLoader.DisplayImage(novels.get(position).getPic(), pic);
+            if (NovelReaderUtil.isDisplayDefaultBookCover(novels.get(position).getPic())) {
+                pic.setImageResource(R.drawable.bookcover_default);
+            } else {
+                Picasso.with(mContext).load(novels.get(position).getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(pic);
+            }
+
             name.setText(novels.get(position).getName());
             author.setText(novels.get(position).getAuthor());
             articleNum.setText(novels.get(position).getArticleNum());

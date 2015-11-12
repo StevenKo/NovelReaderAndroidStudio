@@ -1,5 +1,21 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.kosbrother.tool.ChildArticle;
+import com.kosbrother.tool.ExpandListDownLoadReadAdapter;
+import com.kosbrother.tool.Group;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.novel.reader.util.Setting;
+import com.squareup.picasso.Picasso;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,21 +40,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.tool.ChildArticle;
-import com.kosbrother.tool.ExpandListDownLoadReadAdapter;
-import com.kosbrother.tool.Group;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.novel.reader.util.Setting;
-import com.taiwan.imageload.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -61,7 +62,6 @@ public class MyDownloadArticleActivity extends MopubAdFragmentActivity implement
     private TextView novelTextName;
     private TextView novelTextAuthor;
     private TextView downloadedCount;
-    private ImageLoader mImageLoader;
     private LinearLayout novelLayoutProgress;
     private ArrayList<Article> articleList = new ArrayList<Article>();
     private ExpandableListView novelListView;
@@ -146,12 +146,10 @@ public class MyDownloadArticleActivity extends MopubAdFragmentActivity implement
         novelTextName.setText(novelName + "(" + novelArticleNum + ")");
         novelTextAuthor.setText(getResources().getString(R.string.novel_author) + novelAuthor);
 
-        mImageLoader = new ImageLoader(MyDownloadArticleActivity.this, 70);
-
         if (NovelReaderUtil.isDisplayDefaultBookCover(novelPicUrl)) {
             novelImageView.setImageResource(R.drawable.bookcover_default);
         } else {
-            mImageLoader.DisplayImage(novelPicUrl, novelImageView);
+            Picasso.with(MyDownloadArticleActivity.this).load(novelPicUrl).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(novelImageView);
         }
 
         deleteDialog = new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.delete_title))

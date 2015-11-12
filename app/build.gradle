@@ -23,8 +23,8 @@ android {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 77
-        versionName "4.0.0"
+        versionCode 78
+        versionName "4.0.1"
     }
 
     defaultConfig {
@@ -50,4 +50,5 @@ dependencies {
     compile 'com.crashlytics.android:crashlytics:1.+'
     compile project(':mopub-sdk')
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.squareup.picasso:picasso:2.3.2'
 }

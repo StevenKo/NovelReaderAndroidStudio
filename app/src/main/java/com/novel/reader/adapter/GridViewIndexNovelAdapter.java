@@ -1,12 +1,17 @@
 package com.novel.reader.adapter;
 
-import java.util.ArrayList;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.MyDownloadArticleActivity;
+import com.novel.reader.NovelIntroduceActivity;
+import com.novel.reader.R;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,20 +20,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.MyDownloadArticleActivity;
-import com.novel.reader.NovelIntroduceActivity;
-import com.novel.reader.R;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
+import java.util.ArrayList;
 
 public class GridViewIndexNovelAdapter extends BaseAdapter {
 
     private final Activity activity;
     private final ArrayList<Novel> data;
     private static LayoutInflater inflater = null;
-    public ImageLoader imageLoader;
     private int collect_nove_size;
 
     public GridViewIndexNovelAdapter(Activity a) {
@@ -39,7 +37,6 @@ public class GridViewIndexNovelAdapter extends BaseAdapter {
         novels.addAll(db.getLastDownloadNovels(3));
         data = novels;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
 
@@ -78,7 +75,7 @@ public class GridViewIndexNovelAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(data.get(position).getPic())) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(data.get(position).getPic(), image);
+            Picasso.with(activity).load(data.get(position).getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         if (position < collect_nove_size) {

@@ -1,5 +1,24 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.kosbrother.tool.ChildArticle;
+import com.kosbrother.tool.Group;
+import com.kosbrother.tool.Report;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.adapter.ExpandListAdapter;
+import com.novel.reader.adapter.RecentSearchAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+import com.novel.reader.entity.Bookmark;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.novel.reader.util.Setting;
+import com.squareup.picasso.Picasso;
+
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -24,24 +43,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.tool.ChildArticle;
-import com.kosbrother.tool.Group;
-import com.kosbrother.tool.Report;
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.adapter.ExpandListAdapter;
-import com.novel.reader.adapter.RecentSearchAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.entity.Bookmark;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.novel.reader.util.Setting;
-import com.taiwan.imageload.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -62,7 +63,6 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
     private TextView novelTextDescription;
     private TextView novelTextUpdate;
     private Button novelButton;
-    private ImageLoader mImageLoader;
     private LinearLayout novelLayoutProgress;
     private LinearLayout layoutTextArrow;
     private CheckBox checkBoxAddBookcase;
@@ -163,8 +163,11 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
         novelTextDescription.setText(NovelReaderUtil.translateTextIfCN(this, theNovel.getDescription()));
         novelTextUpdate.setText(getResources().getString(R.string.novel_update_time) + theNovel.getLastUpdate());
 
-        mImageLoader = new ImageLoader(NovelIntroduceActivity.this, 70);
-        mImageLoader.DisplayImage(theNovel.getPic(), novelImageView);
+        if (NovelReaderUtil.isDisplayDefaultBookCover(theNovel.getPic())) {
+            novelImageView.setImageResource(R.drawable.bookcover_default);
+        } else {
+            Picasso.with(NovelIntroduceActivity.this).load(theNovel.getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(novelImageView);
+        }
 
         novelButton.setOnClickListener(new OnClickListener() {
             @Override

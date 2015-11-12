@@ -1,5 +1,17 @@
 package com.kosbrother.fragments;
 
+import com.ifixit.android.sectionheaders.Section;
+import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
+import com.ifixit.android.sectionheaders.SectionListView;
+import com.novel.reader.ArticleActivity;
+import com.novel.reader.BookmarkActivity;
+import com.novel.reader.NovelIntroduceActivity;
+import com.novel.reader.R;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Bookmark;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,17 +30,6 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.ifixit.android.sectionheaders.Section;
-import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
-import com.ifixit.android.sectionheaders.SectionListView;
-import com.novel.reader.ArticleActivity;
-import com.novel.reader.BookmarkActivity;
-import com.novel.reader.NovelIntroduceActivity;
-import com.novel.reader.R;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Bookmark;
-import com.taiwan.imageload.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -156,14 +157,12 @@ public class MyBookmarkFragment extends Fragment {
 
         private Context mContext;
         private ArrayList<Bookmark> bookList;
-        private ImageLoader imageLoader;
         private String headerString = "";
 
         public BookmarkSectionAdapter(Context context, ArrayList<Bookmark> bookList, String headerString) {
             this.mContext = context;
             this.bookList = bookList;
             this.headerString = headerString;
-            imageLoader = new ImageLoader(mContext);
         }
 
         public int getCount() {
@@ -208,7 +207,11 @@ public class MyBookmarkFragment extends Fragment {
             novelName.setText(bookList.get(position).getNovelName());
             articleTitle.setText(bookList.get(position).getArticleTitle());
 
-            imageLoader.DisplayImage(bookList.get(position).getNovelPic(), poster);
+            if (NovelReaderUtil.isDisplayDefaultBookCover(bookList.get(position).getNovelPic())) {
+                poster.setImageResource(R.drawable.bookcover_default);
+            } else {
+                Picasso.with(mContext).load(bookList.get(position).getNovelPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(poster);
+            }
 
             return converView;
         }

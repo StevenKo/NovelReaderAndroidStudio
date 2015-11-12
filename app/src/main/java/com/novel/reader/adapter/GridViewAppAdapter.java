@@ -1,7 +1,12 @@
 package com.novel.reader.adapter;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.novel.reader.NovelIntroduceActivity;
+import com.novel.reader.R;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.GameAPP;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,26 +24,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.novel.reader.NovelIntroduceActivity;
-import com.novel.reader.R;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.GameAPP;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
+import java.util.ArrayList;
 
 public class GridViewAppAdapter extends BaseAdapter {
 
     private Activity activity;
     private ArrayList<GameAPP> data = new ArrayList<GameAPP>();
     private static LayoutInflater inflater = null;
-    public ImageLoader imageLoader;
 
     public GridViewAppAdapter(Activity a, ArrayList<GameAPP> apps) {
         activity = a;
@@ -48,7 +44,6 @@ public class GridViewAppAdapter extends BaseAdapter {
         if (device_id != null)
             data = apps;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
 
@@ -208,7 +203,7 @@ public class GridViewAppAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(novel.getPic())) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(novel.getPic(), image);
+            Picasso.with(activity).load(novel.getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         if (novel.isSerializing()) {

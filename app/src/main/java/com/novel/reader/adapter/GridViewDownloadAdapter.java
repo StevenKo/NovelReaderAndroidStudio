@@ -1,8 +1,10 @@
 package com.novel.reader.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import com.novel.reader.MyDownloadArticleActivity;
+import com.novel.reader.R;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,24 +19,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.novel.reader.MyDownloadArticleActivity;
-import com.novel.reader.R;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class GridViewDownloadAdapter extends BaseAdapter {
 
     private final Activity activity;
     private final ArrayList<Novel> data;
     private static LayoutInflater inflater = null;
-    public ImageLoader imageLoader;
 
     public GridViewDownloadAdapter(Activity a, ArrayList<Novel> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
 
@@ -107,7 +105,7 @@ public class GridViewDownloadAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(data.get(position).getPic())) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(data.get(position).getPic(), image);
+            Picasso.with(activity).load(data.get(position).getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         if (data.get(position).isSerializing()) {

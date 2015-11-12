@@ -18,6 +18,21 @@
 
 package com.kosbrother.fragments;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.reader.NovelIntroduceActivity;
+import com.novel.reader.NovelRecommendActivity;
+import com.novel.reader.R;
+import com.novel.reader.adapter.GridViewDownloadAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Category;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,20 +49,6 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.novel.reader.NovelIntroduceActivity;
-import com.novel.reader.NovelRecommendActivity;
-import com.novel.reader.R;
-import com.novel.reader.adapter.GridViewDownloadAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Category;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -321,9 +322,11 @@ public class GridGplayFragment extends Fragment {
 
             @Override
             public void setupInnerViewElements(ViewGroup parent, View viewImage) {
-                ImageLoader mImageLoader = new ImageLoader(getContext(), 70);
-                mImageLoader.DisplayImage(picUrl, (android.widget.ImageView) viewImage);
-
+                if (NovelReaderUtil.isDisplayDefaultBookCover(picUrl)) {
+                    ((android.widget.ImageView)viewImage).setImageResource(R.drawable.bookcover_default);
+                } else {
+                    Picasso.with(getContext()).load(picUrl).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into((android.widget.ImageView) viewImage);
+                }
             }
         }
 

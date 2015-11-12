@@ -1,5 +1,13 @@
 package com.novel.reader.adapter;
 
+import com.crashlytics.android.Crashlytics;
+import com.novel.reader.R;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.GameAPP;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.NovelReaderUtil;
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -19,14 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
-import com.novel.reader.R;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.GameAPP;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.NovelReaderUtil;
-import com.taiwan.imageload.ImageLoader;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,13 +37,11 @@ public class GridViewAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<Object> data = new ArrayList<Object>();
     private static LayoutInflater inflater = null;
-    public ImageLoader imageLoader;
 
     public GridViewAdapter(Activity a, ArrayList<Novel> d, ArrayList<GameAPP> apps) {
         activity = a;
         addDatas(a, d, apps);
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext(), 70);
 
     }
 
@@ -103,7 +101,7 @@ public class GridViewAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(app.imageUrl)) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(app.imageUrl, image);
+            Picasso.with(activity).load(app.imageUrl).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
@@ -129,7 +127,7 @@ public class GridViewAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(app.imageUrl)) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(app.imageUrl, image);
+            Picasso.with(activity).load(app.imageUrl).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         textName.setText(NovelReaderUtil.translateTextIfCN(activity, (app.title)));
@@ -192,7 +190,7 @@ public class GridViewAdapter extends BaseAdapter {
         if (NovelReaderUtil.isDisplayDefaultBookCover(novel.getPic())) {
             image.setImageResource(R.drawable.bookcover_default);
         } else {
-            imageLoader.DisplayImage(novel.getPic(), image);
+            Picasso.with(activity).load(novel.getPic()).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into(image);
         }
 
         if (novel.isSerializing()) {
