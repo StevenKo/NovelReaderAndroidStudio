@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <color name="button_color">#80ffffff</color>
+
+    <color name="colorPrimary">#202020</color>
+    <color name="colorPrimaryDark">#202020</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#C0C0C0</color>
+    <color name="background_deep">#FF313131</color>
+    <color name="selector_blue">#3399CC</color>
+
+    <color name="main_color_yellow">#f6c737</color>
+    <color name="main_color_grey_dark">#dddddd</color>
+
+    <color name="bookmark_section_head">#aaaaaa</color>
+    <color name="bookmark_section_text">#041014</color>
+
+    <color name="dark_slate_gray">#2F4F4F</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="gray_1">#C0C0C0</color>
+    <color name="black">#151515</color>
+    <color name="light_black">#202020</color>
+
+    <!-- Add for Report -->
+    <color name="report_view_1">#f6c737</color>
+    <color name="report_view_2">#e1e1e1</color>
+    <color name="report_press">#606060</color>
+    <color name="report_normal">#f6c737</color>
+
+
+    <!-- Add for About Us -->
+    <color name="about_us_press">#1e1e1e</color>
+    <color name="about_us_seperate">#858585</color>
+
+    <!-- Add for Tab -->
+    <color name="tab_press_bg_light">#dcba02</color>
+    <color name="tab_press_bg_dark">#d39c04</color>
+    <color name="tab_normal_bg_light">#323232</color>
+    <color name="tab_normal_bg_dark">#1a1a1a</color>
+    <color name="tab_info_press_bg_light">#28292b</color>
+    <color name="tab_info_press_bg_dark">#1e1f1f</color>
+    <color name="tab_info_normal_bg_light">#454a50</color>
+    <color name="tab_info_normal_bg_dark">#2e3136</color>
+    <color name="tab_normal_text_color">#a3a3a3</color>
+
+    <color name="theater_bg_light">#2b2e31</color>
+    <color name="theater_bg_dark">#141618</color>
+    <color name="theater_normal_bg_light">#454a50</color>
+    <color name="theater_normal_bg_dark">#2e3136</color>
+    <color name="theater_stroke">#242424</color>
+
+    <color name="seperator_grey">#959391</color>
+    <color name="textcolor_grey">#f1f1f1</color>
+
+    <color name="title_light">#FFCC1818</color>
+    <color name="title_dark">#FF660404</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey05">#ACA899</color>
+    <color name="light_grey">#d3d3d3</color>
+    <color name="transparent100">#00000000</color>
+    <color name="transparent80">#33000000</color>
+    <color name="transparent50">#88000000</color>
+    <color name="redorange">#d14329</color>
+
+    <color name="setting_text_color">#2098db</color>
+
+
+    <!-- Add for VPON -->
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="share_text">#ff000000</color>
+    <color name="status_view">#50000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+
+
+</resources>

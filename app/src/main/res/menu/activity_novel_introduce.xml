@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_settings"
+        app:showAsAction="never"
+        android:title="@string/menu_settings" />
+
+    <item
+        android:id="@+id/menu_respond"
+        app:showAsAction="never"
+        android:title="@string/menu_respond" />
+
+    <item
+        android:id="@+id/menu_aboutus"
+        app:showAsAction="never"
+        android:title="@string/menu_aboutus" />
+
+    <item
+        android:id="@+id/menu_recommend"
+        app:showAsAction="never"
+        android:title="@string/menu_recommend" />
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/search_hint"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/ic_search_inverse"/>
+
+
+    <item
+        android:id="@+id/menu_download"
+        app:showAsAction="always"
+        android:title="@string/menu_download" />
+
+    <item
+        android:id="@+id/menu_report"
+        app:showAsAction="never"
+        android:title="@string/menu_report" />
+
+    <item
+        android:id="@+id/menu_donate"
+        app:showAsAction="never"
+        android:title="@string/buy_year_subscription"/>
+
+</menu>
