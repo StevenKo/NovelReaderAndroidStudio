@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:background="#cc111111"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#eee"
+                android:textSize="12dp"
+                android:text="test" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_progress"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/article_layout">
+
+            <com.kosbrother.tool.DetectScrollView
+                android:id="@+id/article_scrollview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/article_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:lineSpacingMultiplier="1.1"/>
+            </com.kosbrother.tool.DetectScrollView>
+
+            <WebView
+                android:id="@+id/article_webview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_buttons"
+            android:layout_width="fill_parent"
+            android:layout_height="46dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="#E3E3E3">
+
+            <Button
+                android:id="@+id/article_button_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:theme="@style/ColoredButton"
+                android:text="@string/article_up" />
+
+            <TextView
+                android:id="@+id/article_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0%" />
+
+            <Button
+                android:id="@+id/article_button_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:theme="@style/ColoredButton"
+                android:text="@string/article_down" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/adonView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bookmarkImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/article_bookmark"
+        android:layout_marginLeft="5dp" />
+
+    <ImageView
+        android:id="@+id/novelImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/bookmarkImage"
+        android:src="@drawable/star"
+        android:layout_marginLeft="5dp" />
+</RelativeLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/novel_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/grid_selector">
+
+        <ImageView
+            android:id="@+id/novel_image"
+            android:layout_width="55dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:id="@+id/novel_update_layout"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/update_novel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_novel"
+                android:textSize="15dp"
+                android:focusable="false"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/novel_image"
+            android:layout_toLeftOf="@id/novel_update_layout"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/novel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="天龍八部"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/novel_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="作者:金庸"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#A3A3A3"></LinearLayout>
+
+    <TextView
+        android:id="@+id/text_downloaded_count"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/novel_download_zero"
+        android:background="#82B5E8"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:paddingLeft="5dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#A3A3A3"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/novel_layout_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <!--    <ListView android:id="@+id/novel_download_artiles_list"
+           android:layout_width="fill_parent"
+           android:layout_height="0dp"
+           android:layout_weight="1"
+           android:groupIndicator="@null"
+           >
+       </ListView> -->
+
+    <ExpandableListView
+        android:id="@+id/novel_download_artiles_list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:groupIndicator="@null"></ExpandableListView>
+
+    <RelativeLayout
+        android:id="@+id/adonView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center" />
+
+</LinearLayout>

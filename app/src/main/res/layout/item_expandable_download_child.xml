@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/custom_list">
+
+        <CheckBox
+            android:id="@+id/checkbox_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="3dp" />
+
+        <TextView
+            android:id="@+id/expandlist_child"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="child"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/text_child_downloaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/novel_downloaded"
+            android:textColor="#0B6196"
+            android:paddingRight="5dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

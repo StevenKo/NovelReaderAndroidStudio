@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/pre-dexed/debug/classes-82aad1b8881a44abba9197d81337c381dfd12f22.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,298 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollerView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/gray_1">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/my_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/grid_selector"
+                    android:clickable="true"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="3.5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/setting"
+                        android:layout_marginRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_read_setting"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/grid_selector"
+                    android:clickable="true"
+                    android:layout_marginLeft="3.5dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="3dp"
+                    android:padding="5dp"
+                    android:id="@+id/my_recent_read_bookmarks">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/recent_read"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_recent_reading"
+                        android:textSize="18dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_bookcase"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_novel_selector"
+                android:clickable="true"
+                android:layout_margin="2dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_bookcase"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/look_collect_download"
+                    android:background="@drawable/index_text_background"
+                    android:textColor="#dfdfdf"
+                    android:textSize="18dp"
+                    android:padding="2dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/no_novel_in_bookcase"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/grid_selector"
+                android:gravity="center"
+                android:layout_margin="7dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bookcover_default"
+                    android:layout_margin="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_novel_in_bookcase"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <com.novel.reader.costum.view.ExpandableHeightGridView
+                android:id="@+id/my_bookcase_grid"
+                android:numColumns="3"
+                android:gravity="center"
+                android:stretchMode="columnWidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="false"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:layout_margin="7dp"></com.novel.reader.costum.view.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:id="@+id/my_bookmarks"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_novel_selector"
+                android:clickable="true"
+                android:layout_margin="2dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_bookmark"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/bookmarks_recent_read"
+                    android:background="@drawable/index_text_background"
+                    android:textColor="#dfdfdf"
+                    android:textSize="18dp"
+                    android:padding="2dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/no_bookmark_in_my_bookmarks"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/grid_selector"
+                android:gravity="center"
+                android:layout_margin="7dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bookcover_default"
+                    android:layout_margin="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_bookmark_in_my_bookmarks"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <com.novel.reader.costum.view.ExpandableHeightGridView
+                android:id="@+id/my_bookmarks_grid"
+                android:numColumns="3"
+                android:gravity="center"
+                android:stretchMode="columnWidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="false"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:layout_margin="7dp"></com.novel.reader.costum.view.ExpandableHeightGridView>
+
+            <RelativeLayout
+                android:id="@+id/classic_novel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/classic_novel_selector">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/classic_diamond"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:textSize="28dp"
+                    android:text="@string/my_classic_novel"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="25dp"
+                    android:layout_centerVertical="true"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/classic_kongfu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="@drawable/classic_kongfu_selector"
+                android:gravity="center_vertical"
+                android:layout_margin="7dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/classic_kongfu_sword"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="28dp"
+                    android:text="@string/my_classic_action_novel"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="25dp"
+                    android:layout_centerVertical="true"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_novel_selector"
+                android:clickable="true"
+                android:layout_margin="2dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推薦APP"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <com.novel.reader.costum.view.ExpandableHeightGridView
+                android:id="@+id/app_grid"
+                android:numColumns="1"
+                android:gravity="center"
+                android:stretchMode="columnWidth"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="false"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:layout_margin="7dp"></com.novel.reader.costum.view.ExpandableHeightGridView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

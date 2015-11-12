@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/menu_settings">
+        <menu>
+            <item
+            android:id="@+id/navigation_setting"
+            android:icon="@drawable/navigation_setting"
+            android:title="@string/my_read_setting"/>
+        </menu>
+    </item>
+    <item android:title="@string/title_my_bookcase">
+        <menu>
+            <item
+                android:id="@+id/navigation_bookmark"
+                android:icon="@drawable/navigation_bookmark"
+                android:title="@string/my_bookmark"/>
+            <item
+                android:id="@+id/navigation_recent"
+                android:icon="@drawable/navigation_recent"
+                android:title="@string/my_recent_reading"/>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/navigation_collect"
+                android:title="@string/my_collect"/>
+            <item
+                android:id="@+id/navigation_download"
+                android:icon="@drawable/navigation_download"
+                android:title="@string/my_download"/>
+        </menu>
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_profile"
+            android:icon="@drawable/navigation_profile"
+            android:title="@string/menu_aboutus"/>
+        <item
+            android:id="@+id/navigation_like"
+            android:icon="@drawable/navigation_like"
+            android:title="@string/menu_recommend"/>
+        <item
+            android:id="@+id/navigation_voice"
+            android:icon="@drawable/navigation_voice"
+            android:title="@string/menu_report"/>
+        <item
+            android:id="@+id/navigation_recommend_novel"
+            android:icon="@drawable/navigation_recommend_novel"
+            android:title="@string/menu_recommend_novel"/>
+        <item
+            android:id="@+id/buy_year_subscription"
+            android:icon="@drawable/navigation_trophy"
+            android:title="@string/buy_year_subscription"/>
+        <item
+            android:id="@+id/navigation_cloud_update"
+            android:icon="@drawable/navigation_cloud_update"
+            android:title="@string/check_update"/>
+        <item
+            android:id="@+id/navigation_official_website"
+            android:icon="@drawable/navigation_official_website"
+            android:title="@string/official_website"/>
+    </group>
+
+</menu>

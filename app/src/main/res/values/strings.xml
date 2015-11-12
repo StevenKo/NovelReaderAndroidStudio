@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="MY_INTERSTITIAL_UNIT_ID" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/9817387548</string>
+    <string name="admobKey" tools:ignore="MissingTranslation">ca-app-pub-5774496584789671/5247587148</string>
+    <string name="mopub_key" tools:ignore="MissingTranslation">3bfb794399764fbabe615a7c03af7473</string>
+    <string name="app_name">小說王</string>
+    <string name="remind_title">小提醒</string>
+    <string name="remind_string">下載後請至我的書櫃觀看</string>
+    <string name="novel_author">作者:</string>
+    <string name="novel_update_time">更新:</string>
+    <string name="novel_front">由前往後</string>
+    <string name="novel_back">由後往前</string>
+    <string name="novel_introduce">小說簡介</string>
+    <string name="novel_download_zero">共 0 個下載</string>
+    <string name="novel_select_zero">共選了 0 項</string>
+    <string name="novel_start_download">開始下載</string>
+    <string name="novel_downloaded">已下載</string>
+    <string name="article_up">上一篇</string>
+    <string name="article_down">下一篇</string>
+    <string name="article_no_up">無上一篇</string>
+    <string name="article_no_down">無下一篇</string>
+    <string name="article_no_data">資料錯誤</string>
+    <string name="setting_text">文字大小</string>
+    <string name="setting_text_preview">文字預覽:小說王</string>
+    <string name="setting_select_lan">繁簡字體選擇</string>
+    <string name="setting_lan_tra">繁體</string>
+    <string name="setting_lan_sim">簡體</string>
+    <string name="setting_select_direction">閱讀方向</string>
+    <string name="setting_direction_portrait">直向</string>
+    <string name="setting_direction_horizontal">橫向</string>
+    <string name="setting_direction_none">不鎖定方向</string>
+    <string name="setting_select_tap">點擊換頁</string>
+    <string name="setting_audio_button">音量鍵換頁</string>
+    <string name="setting_tap_open">開啟</string>
+    <string name="setting_tap_close">關閉</string>
+    <string name="setting_select_sleeping">閱讀時停止休眠</string>
+    <string name="setting_sleeping_open">開啟停止休眠</string>
+    <string name="setting_sleeping_close">關閉停止休眠</string>
+    <string name="setting_select_text_color">字色:</string>
+    <string name="setting_select_text_background">背景:</string>
+    <string name="theme_setting">App主題色＆上下邊顏色\n(App要重開,設定才會生效)</string>
+    <string name="theme_light">亮白(預設)</string>
+    <string name="theme_dark">灰黑</string>
+    <string name="aritcle_ad_type">小說閱讀頁廣告模式</string>
+    <string name="InterstitialAd">插頁廣告</string>
+    <string name="BannerAd">橫幅廣告</string>
+    <string name="reset_db_hint">資料庫重置(清空 DB)</string>
+    <string name="reset_db_message">確定要重置資料庫嗎？(完成後,請重開APP)</string>
+    <string name="reset_db_success">重置完成</string>
+    <string name="reset_db_fail">重置失敗</string>
+    <string name="reset">重置</string>
+    <string name="setting_sun_mode">日間模式設定</string>
+    <string name="setting_moon_mode">夜間模式設定</string>
+    <string name="setting_select_mode">閱讀模式選擇</string>
+    <string name="sun_mode">日間模式</string>
+    <string name="moon_mode">夜間模式</string>
+    <string name="mode_setting_title">文字背景模式</string>
+    <string name="fontsize_setting_title">文字大小設定</string>
+    <string name="title_my_downloading"> 我的下載</string>
+    <string name="title_my_bookcase"> 我的書櫃</string>
+    <string name="title_novel_introduce"> 小說介紹</string>
+    <string name="title_reading_setting"> 閱讀設定</string>
+    <string name="update_novel">小說更新</string>
+    <string name="setting_living">離開設定</string>
+    <string name="setting_message">是否要儲存設定?</string>
+    <string name="setting_yes">儲存</string>
+    <string name="setting_neutral">取消</string>
+    <string name="setting_no">不儲存</string>
+    <string name="add_my_bookcase1">加入書櫃(收藏)</string>
+    <string name="add_my_bookcase">已加入我的書櫃</string>
+    <string name="remove_my_bookcase">已從我的書櫃移除</string>
+    <string name="add_my_bookmark_title">加書籤</string>
+    <string name="add_my_bookmark_content">要加入書籤嗎?</string>
+    <string name="my_bookmark_none">目前沒有書籤！</string>
+    <string name="reading_novel">觀看小說</string>
+    <string name="remove_bookmark">刪除書籤</string>
+    <string name="toast_all_collect_title"> 共選了</string>
+    <string name="toast_all_collect_final"> 項</string>
+    <string name="toast_novel_downloading">小說下載中,...</string>
+    <string name="toast_downloading_success">成功下載</string>
+    <string name="toast_downloading_fail">出現錯誤, 請重新下載</string>
+    <string name="toast_downloading_wait">資料下載中,請稍候</string>
+    <string name="respond_mail_address">service@kosbrother.com</string>
+    <string name="respond_mail_title">意見回餽 from 小說王</string>
+    <string name="recommend_url">https://play.google.com/store/apps/details?id=com.novel.reader</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_respond">意見回饋</string>
+    <string name="menu_aboutus">關於我們</string>
+    <string name="menu_recommend">為App評分</string>
+    <string name="menu_add_bookmark">此章節加入書籤</string>
+    <string name="menu_delete_bookmark">此章節移除書籤</string>
+    <string name="menu_search">搜索</string>
+    <string name="menu_add_all">全選</string>
+    <string name="menu_remove_all">全取消</string>
+    <string name="menu_download">下載</string>
+    <string name="menu_report">問題回報</string>
+    <string name="menu_recommend_novel">我要推薦</string>
+    <string name="menu_article_report">章節問題回報</string>
+    <string name="menu_collect_novel">收藏此本小說</string>
+    <string name="menu_remove_collect_novel">取消收藏此本小說</string>
+    <string name="report_title">小說王問題回報</string>
+    <string name="report_chapter">回報章節:</string>
+    <string name="report_confirm">回報</string>
+    <string name="report_cancel">取消</string>
+    <string name="report_reporting">回報中...</string>
+    <string name="report_remind">請輸入問題內容!</string>
+    <string name="report_success">成功回報!</string>
+    <string name="report_fail">回報失敗!</string>
+    <string name="report_hint">問題內容...</string>
+    <string name="report_content">問題內容:</string>
+    <string name="report_novel">小說名稱:</string>
+    <string name="about_us_string">關於我們</string>
+    <string name="about_us">您好, \n\n『小說王』是一個從網路收集小說的第三方App軟體,資料不屬於小說王所有，直接來自網路 \n\n如果您有什麼建議與指教, 歡迎 Email 讓我們知道. \n\n感謝您. \n\nEmail: service\@kosbrother.com</string>
+    <string name="yes_string">確定</string>
+    <string name="my_bookcase">我的書櫃</string>
+    <string name="my_bookmark">我的書籤</string>
+    <string name="my_recent_reading">最近閱讀</string>
+    <string name="my_read_setting">閱讀設定</string>
+    <string name="my_classic_novel">經典小說</string>
+    <string name="my_classic_action_novel">經典武俠</string>
+    <string name="my_collect" tools:ignore="MissingTranslation">我的收藏</string>
+    <string name="my_download">我的下載</string>
+    <string name="reminder">提醒</string>
+    <string name="delete_bookmark_reminder">長按書籤可以刪除書籤哦！</string>
+    <string name="reminder_next">下次再提醒</string>
+    <string name="do_not_reminder">不要再提醒</string>
+    <string name="delete_title">刪除</string>
+    <string name="delete_message">是否刪除此小說</string>
+    <string name="delete_yes">刪除</string>
+    <string name="delete_no">不刪除</string>
+    <string name="delete_articles">刪除所選章節</string>
+    <string name="search_hint">搜尋小說名稱或作者</string>
+    <string name="no_data">目前無資料</string>
+    <string name="no_internet">無法連線</string>
+    <string name="try_again">重試</string>
+    <string name="article_name">章節名稱:</string>
+    <string name="cannot_find_data">找不到資料</string>
+    <string name="order">排序:</string>
+    <string name="article_num">篇數:</string>
+    <string name="update_time">更新日期:</string>
+    <string name="serializing">連載中</string>
+    <string name="report_problem_hint">請輸入問題內容...</string>
+    <string name="report_not_article_problem">非特定章節！</string>
+    <string name="report_not_novel_problem">非特定小說！</string>
+    <string name="bookmarks_recent_read">查看書籤及最近閱讀</string>
+    <string name="look_collect_download">查看收藏及下載</string>
+    <string name="title">標題:</string>
+    <string name="no_novel_in_bookcase">目前還沒有收藏或下載的小說</string>
+    <string name="no_bookmark_in_my_bookmarks">目前還沒有收集書籤或閱讀過小說章節</string>
+    <string name="update_info"><![CDATA[<font color=\'blue\'>V3.0.0:</font><br>新增推薦小說, 並把部分功能移到左列選單<br><font color=\'blue\'>V2.9.3:</font> <br>顯示今日更新小說<br><font color=\'blue\'>V2.9.0:</font> <br>更換小說類別、推薦方式，新增3000本小說<br><font color=\'blue\'>V2.8.5:</font> <br>新增購買<font color=\'red\'>贊助版本(免廣告)</font>, 懇請大家多多支持!<br>]]></string>
+    <string name="update">版本更新通知</string>
+    <string name="buy_year_subscription">購買贊助版</string>
+    <string name="buy_fail">購買失敗，請再試一次！</string>
+    <string name="restart_novel">請重啟\"小說王\"即是贊助版本，謝謝!</string>
+    <string name="need_you">小說王需要你</string>
+    <string name="notice_no_ad">現在只要贊助\'小說王\', 即可以免除廣告！</string>
+    <string name="donate_des">小說王開發者、設計師、編輯之前皆是無薪開發, 所以不得不在APP裡面, 放一些廣告, 造成大家的困擾, 我們十分抱歉！希望大家可以贊助我們, 也享受看小說不再受到廣告的干擾, 謝謝!</string>
+    <string name="donate_app">贊助小說王</string>
+    <string name="verify_buy">已購買, 重新驗證!</string>
+    <string name="drawer_open" tools:ignore="MissingTranslation">Open navigation drawer</string>
+    <string name="drawer_close" tools:ignore="MissingTranslation">Close navigation drawer</string>
+
+    <string name="check_update">檢查更新</string>
+    <string name="already_updated">已經是最新的版本了!</string>
+    <string name="need_updated">你的版本是 %1$s , 目前最新版本為 %2$s, 請下載最新版本！</string>
+    <string name="download_update_app">下載更新</string>
+
+    <string name="official_website">官方網站</string>
+
+    <string name="collect_notification_title">%1$d本小說有新文章！</string>
+    <string name="collect_notification_ticker">%1$d本收藏小說有新文章囉！</string>
+
+    <!-- for vpon -->
+    <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
+    <string name="msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>
+    <string name="msg_default_contents">Contents</string>
+    <string name="msg_default_format">Format</string>
+    <string name="msg_default_meta">Metadata</string>
+    <string name="msg_default_mms_subject">Place a barcode inside the viewfinder rectangle to scan it.</string>
+    <string name="msg_default_status">Place a barcode inside the viewfinder rectangle to scan it.</string>
+    <string name="msg_default_time">Time</string>
+    <string name="msg_default_type">Type</string>
+    <string name="msg_encode_barcode_failed">Could not generate the requested barcode.</string>
+    <string name="msg_encode_contents_failed">Could not encode a barcode from the data provided.</string>
+    <string name="msg_intent_failed">Sorry, the requested application could not be launched. The barcode contents may be invalid.</string>
+    <string name="msg_loading_apps">Loading list of applications\u2026</string>
+    <string name="msg_not_our_results">You are leaving this application. The search results you will see are not related to this application.</string>
+    <string name="msg_redirect">Redirect</string>
+    <string name="msg_sbc_book_not_searchable">Sorry, this book is not searchable.</string>
+    <string name="msg_sbc_failed">Sorry, the search encountered a problem.</string>
+    <string name="msg_sbc_no_page_returned">No page returned</string>
+    <string name="msg_sbc_page">Page</string>
+    <string name="msg_sbc_searching_book">Searching book\u2026</string>
+    <string name="msg_sbc_snippet_unavailable">Snippet not available</string>
+    <string name="msg_sbc_unknown_page">Unknown page</string>
+    <string name="msg_share_explanation">You can share data by displaying a barcode on your screen and scanning it with another phone.</string>
+    <string name="msg_share_subject_line">Here are the contents of a barcode I scanned</string>
+    <string name="msg_share_text">Or type some text and press Enter</string>
+    <string name="msg_unmount_usb">Sorry, the SD card is not accessible.</string>
+
+    <!-- for load more -->
+    <string name="hello">Hello World, LoadMoreListView!</string>
+    <string name="pull_to_refresh_pull_label">Pull to refresh...</string>
+    <string name="pull_to_refresh_release_label">Release to refresh...</string>
+    <string name="pull_to_refresh_refreshing_label">Loading...</string>
+    <string name="pull_to_refresh_tap_label">Tap to refresh...</string>
+    <string name="title_activity_novel_recommend" tools:ignore="MissingTranslation">推薦小說</string>
+    <string name="hello_world" tools:ignore="MissingTranslation">Hello world!</string>
+    <string name="action_settings" tools:ignore="MissingTranslation">Settings</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
