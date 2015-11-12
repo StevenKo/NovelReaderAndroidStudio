@@ -23,15 +23,14 @@ import com.google.android.gms.analytics.Tracker;
 
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
-import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.NovelRecommendActivity;
 import com.novel.reader.R;
+import com.novel.reader.adapter.GridViewAdapter;
 import com.novel.reader.adapter.GridViewDownloadAdapter;
 import com.novel.reader.api.NovelAPI;
 import com.novel.reader.entity.Category;
 import com.novel.reader.entity.Novel;
 import com.novel.reader.util.NovelReaderUtil;
-import com.squareup.picasso.Picasso;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,10 +51,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardGridView;
 
 /**
@@ -149,25 +144,7 @@ public class GridGplayFragment extends Fragment {
 
     private void initCards(CardGridView gridView, ArrayList<Novel> novels, String cateName) {
 
-        ArrayList<Card> cards = new ArrayList<Card>();
-        for (int i = 0; i < novels.size(); i++) {
-
-            NovelGplayGridCard card = new NovelGplayGridCard(getActivity());
-
-            card.novelName = novels.get(i).getName();
-            card.novelPic = novels.get(i).getPic();
-            card.novelAuthor = novels.get(i).getAuthor();
-            card.novelNum = novels.get(i).getArticleNum();
-            card.novelUpdateDate = novels.get(i).getLastUpdate();
-            card.isSerializing = novels.get(i).isSerializing();
-            card.novelId = novels.get(i).getId();
-            card.cateName = cateName;
-
-            card.init();
-            cards.add(card);
-        }
-
-        CardGridArrayAdapter mCardArrayAdapter = new CardGridArrayAdapter(getActivity(), cards);
+        GridViewAdapter mCardArrayAdapter = new GridViewAdapter(getActivity(), novels,NovelAPI.getAppInfo(getActivity()));
 
         if (gridView != null) {
             gridView.setAdapter(mCardArrayAdapter);
@@ -232,104 +209,5 @@ public class GridGplayFragment extends Fragment {
         }
     }
 
-
-    public class NovelGplayGridCard extends Card {
-
-        protected String novelName;
-        protected String novelAuthor;
-        protected String novelNum;
-        protected boolean isSerializing;
-        protected String novelUpdateDate;
-        protected String novelPic;
-        protected int novelId;
-        public String cateName;
-
-        public NovelGplayGridCard(Context context) {
-            super(context, R.layout.carddemo_gplay_inner_content);
-        }
-
-        public NovelGplayGridCard(Context context, int innerLayout) {
-            super(context, innerLayout);
-        }
-
-        private void init() {
-            CardHeader header = new CardHeader(getContext());
-            header.setButtonOverflowVisible(true);
-            header.setTitle(novelName);
-
-            addCardHeader(header);
-
-            GplayGridThumb thumbnail = new GplayGridThumb(getContext(), novelPic);
-            addCardThumbnail(thumbnail);
-
-            setOnClickListener(new OnCardClickListener() {
-                @Override
-                public void onClick(Card card, View view) {
-                    trackRecommendNovelClick();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("NovelId", novelId);
-                    bundle.putString("NovelName", novelName);
-                    bundle.putString("NovelAuthor", novelAuthor);
-                    bundle.putString("NovelDescription", "");
-                    bundle.putString("NovelUpdate", novelUpdateDate);
-                    bundle.putString("NovelPicUrl", novelPic);
-                    bundle.putString("NovelArticleNum", novelNum);
-                    Intent intent = new Intent();
-                    intent.putExtras(bundle);
-                    intent.setClass(mContext, NovelIntroduceActivity.class);
-                    startActivity(intent);
-                }
-
-                private void trackRecommendNovelClick() {
-                    Tracker t = ((NovelReaderAnalyticsApp)getActivity().getApplication()).getTracker(NovelReaderAnalyticsApp.TrackerName.APP_TRACKER);
-                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Recommend).setAction(cateName).setLabel(novelName).build());
-                    t.send(new HitBuilders.EventBuilder().setCategory(AnalyticsName.Novel).setAction(novelName).setLabel(AnalyticsName.NovelIntro).build());
-                }
-            });
-        }
-
-        @Override
-        public void setupInnerViewElements(ViewGroup parent, View view) {
-
-            TextView author = (TextView) view.findViewById(R.id.grid_item_author);
-            author.setText(novelAuthor);
-            TextView counts = (TextView) view.findViewById(R.id.grid_item_counts);
-            counts.setText(novelNum);
-            TextView update = (TextView) view.findViewById(R.id.grid_item_finish);
-            update.setText(novelUpdateDate);
-            TextView serial = (TextView) view.findViewById(R.id.serializing);
-            if (isSerializing) {
-                serial.setText(getContext().getResources().getString(R.string.serializing));
-            } else {
-                serial.setText("全本");
-            }
-
-        }
-
-        class GplayGridThumb extends CardThumbnail {
-
-            String picUrl;
-
-            public GplayGridThumb(Context context) {
-                super(context);
-            }
-
-            public GplayGridThumb(Context context, String novelPic) {
-                super(context);
-                picUrl = novelPic;
-            }
-
-            @Override
-            public void setupInnerViewElements(ViewGroup parent, View viewImage) {
-                if (NovelReaderUtil.isDisplayDefaultBookCover(picUrl)) {
-                    ((android.widget.ImageView)viewImage).setImageResource(R.drawable.bookcover_default);
-                } else {
-                    Picasso.with(getContext()).load(picUrl).placeholder(R.drawable.bookcover_default).error(R.drawable.bookcover_default).into((android.widget.ImageView) viewImage);
-                }
-            }
-        }
-
-    }
 
 }

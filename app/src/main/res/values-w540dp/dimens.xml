@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="carddemo_gplay_grid_columnwidth">200dp</dimen>
+</resources>
