@@ -23,6 +23,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.reader.NovelIntroduceActivity;
 import com.novel.reader.NovelRecommendActivity;
 import com.novel.reader.R;
 import com.novel.reader.adapter.GridViewAdapter;
@@ -43,6 +44,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -140,13 +142,30 @@ public class GridGplayFragment extends Fragment {
     }
 
 
-    private void initCards(GridView gridView, ArrayList<Novel> novels, String cateName) {
+    private void initCards(GridView gridView, final ArrayList<Novel> novels, String cateName) {
 
         GridViewAdapter mCardArrayAdapter = new GridViewAdapter(getActivity(), novels,NovelAPI.getAppInfo(getActivity()));
 
         if (gridView != null) {
             gridView.setAdapter(mCardArrayAdapter);
         }
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent( getActivity(), NovelIntroduceActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("NovelId", novels.get(position).getId());
+                bundle.putString("NovelName", novels.get(position).getName());
+                bundle.putString("NovelAuthor", novels.get(position).getAuthor());
+                bundle.putString("NovelDescription", novels.get(position).getDescription());
+                bundle.putString("NovelUpdate", novels.get(position).getLastUpdate());
+                bundle.putString("NovelPicUrl", novels.get(position).getPic());
+                bundle.putString("NovelArticleNum", novels.get(position).getArticleNum());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     public class ListItemAdapter extends BaseAdapter {
