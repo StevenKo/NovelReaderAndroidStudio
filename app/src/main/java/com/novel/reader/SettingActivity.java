@@ -1,9 +1,18 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.util.Setting;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,19 +20,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.util.Setting;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
@@ -102,6 +105,12 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     }
 
     private void setViews() {
+
+        if(appTheme == 1){
+            LinearLayout baseLayout = (LinearLayout) findViewById(R.id.baselayout);
+            baseLayout.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.dark_slate_gray));
+        }
+
         // TODO Auto-generated method stub
         mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
         modeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_mode);

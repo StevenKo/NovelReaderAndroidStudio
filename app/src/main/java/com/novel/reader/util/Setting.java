@@ -1,13 +1,13 @@
 package com.novel.reader.util;
 
+import com.novel.reader.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
-
-import com.novel.reader.R;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -119,7 +119,7 @@ public class Setting {
                 activity.setTheme(R.style.Theme_AppCompat_Light);
                 return;
             case 1:
-                activity.setTheme(R.style.Theme_AppCompat_Light_DarkActionBar);
+                activity.setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar);
                 // try {
                 // LinearLayout layout = (LinearLayout) activity.findViewById(R.id.adonView);
                 // layout.setBackgroundColor(activity.getResources().getColor(R.color.black));
