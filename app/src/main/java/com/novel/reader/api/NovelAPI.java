@@ -1,9 +1,5 @@
 package com.novel.reader.api;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-
 import com.crashlytics.android.Crashlytics;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.ArticleActivity;
@@ -18,6 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NovelAPI {
 
@@ -843,11 +844,55 @@ public class NovelAPI {
         return novels;
     }
 
+    public static boolean sendUserEmail(String email) {
+        String POST_PARAMS = "email=" + email;
+        URL obj = null;
+        HttpURLConnection con = null;
+        try {
+            obj = new URL("http://139.162.21.39" + "/api/v1/users.json");
+            con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+
+            // For POST only - BEGIN
+            con.setDoOutput(true);
+            OutputStream os = con.getOutputStream();
+            os.write(POST_PARAMS.getBytes());
+            os.flush();
+            os.close();
+            // For POST only - END
+
+            int responseCode = con.getResponseCode();
+            Log.i(TAG, "POST Response Code :: " + responseCode);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // print result
+                Log.i(TAG, response.toString());
+                return true;
+            } else {
+                Log.i(TAG, "POST request did not work.");
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public static boolean sendRegistrationId(String regid, String deviceId, String country, int versionCode, String platform) {
         return false;
 //    	try{
 //			DefaultHttpClient httpClient = new DefaultHttpClient();
-//			String url = HOST + "/api/v1/users.json?regid="+regid+"&device_id="+deviceId+"&platform="+platform+"&version="+versionCode+"&country="+country;				
+//			String url = HOST + "/api/v1/users.json?regid="+regid+"&device_id="+deviceId+"&platform="+platform+"&version="+versionCode+"&country="+country;
 //			if(DEBUG)
 //				Log.d(TAG, "URL : " + url);
 //
@@ -860,10 +905,10 @@ public class NovelAPI {
 //			}else{
 //				return false;
 //			}
-//		} 
+//		}
 //	    catch (Exception e) {
 //			return false;
-//		} 
+//		}
     }
 
     public static boolean sendNovel(int novel, String deviceId) {
@@ -1022,5 +1067,90 @@ public class NovelAPI {
             }
         }
 
+    }
+
+    public static boolean restoreFromUserBackup(String email,Context context) {
+        ArrayList<Novel> collectNovels = new ArrayList<Novel>();
+        ArrayList<Novel> downloadNovels = new ArrayList<Novel>();
+        String message = getMessageFromServer("GET", null, null,"http://139.162.21.39/api/v1/users/get_novels?email=chunyuko85@gmail.com");
+        if (message == null) {
+            return false;
+        } else {
+            try {
+                JSONObject nObject;
+                nObject = new JSONObject(message.toString());
+                JSONArray collected_novels = nObject.getJSONArray("collected_novels");
+                JSONArray downloaded_novels = nObject.getJSONArray("download_novels");
+
+                for (int i = 0; i < collected_novels.length(); i++) {
+
+                    int id = collected_novels.getJSONObject(i).getInt("id");
+                    if (collected_novels.getJSONObject(i).isNull("article_num"))
+                        continue;
+                    String articleNum = collected_novels.getJSONObject(i).getString("article_num");
+                    String author = collected_novels.getJSONObject(i).getString("author");
+                    boolean isSerializing = collected_novels.getJSONObject(i).getBoolean("is_serializing");
+                    String lastUpdate = collected_novels.getJSONObject(i).getString("last_update");
+                    String name = collected_novels.getJSONObject(i).getString("name");
+                    String pic = collected_novels.getJSONObject(i).getString("pic");
+
+                    Novel novel = new Novel(id, name, author, "", pic, 0, articleNum, lastUpdate, isSerializing, false, false);
+                    collectNovels.add(novel);
+                }
+
+                for (int i = 0; i < downloaded_novels.length(); i++) {
+
+                    int id = downloaded_novels.getJSONObject(i).getInt("id");
+                    if (downloaded_novels.getJSONObject(i).isNull("article_num"))
+                        continue;
+                    String articleNum = downloaded_novels.getJSONObject(i).getString("article_num");
+                    String author = downloaded_novels.getJSONObject(i).getString("author");
+                    boolean isSerializing = downloaded_novels.getJSONObject(i).getBoolean("is_serializing");
+                    String lastUpdate = downloaded_novels.getJSONObject(i).getString("last_update");
+                    String name = downloaded_novels.getJSONObject(i).getString("name");
+                    String pic = downloaded_novels.getJSONObject(i).getString("pic");
+
+                    Novel novel = new Novel(id, name, author, "", pic, 0, articleNum, lastUpdate, isSerializing, false, false);
+                    downloadNovels.add(novel);
+                }
+
+                HashMap<Integer, Novel> novelHash = new HashMap<Integer, Novel>();
+
+                for (int i = 0; i < collectNovels.size(); i++) {
+                    Novel novel = collectNovels.get(i);
+                    // 先確認key是否存在
+                    if (novelHash.containsKey(novel.getId())) {
+                        novelHash.get(novel.getId()).setIsCollected(true);
+                    } else {
+                        novel.setIsCollected(true);
+                        novelHash.put(novel.getId(), novel);
+                    }
+                }
+
+                for (int i = 0; i < downloadNovels.size(); i++) {
+                    Novel novel = downloadNovels.get(i);
+                    // 先確認key是否存在
+                    if (novelHash.containsKey(novel.getId())) {
+                        novelHash.get(novel.getId()).setIsDownload(true);
+                    } else {
+                        novel.setIsDownload(true);
+                        novelHash.put(novel.getId(), novel);
+                    }
+                }
+                SQLiteNovel db = new SQLiteNovel(context);
+                db.deleteAllNovels();
+
+                for (Integer key : novelHash.keySet()) {
+                    Novel novel = novelHash.get(key);
+                    db.insertNovel(novel);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.i(TAG, message.toString());
+            return true;
+        }
     }
 }

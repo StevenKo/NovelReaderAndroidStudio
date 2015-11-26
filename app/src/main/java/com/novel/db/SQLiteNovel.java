@@ -1,14 +1,14 @@
 package com.novel.db;
 
+import com.novel.reader.entity.Article;
+import com.novel.reader.entity.Bookmark;
+import com.novel.reader.entity.Novel;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.novel.reader.entity.Article;
-import com.novel.reader.entity.Bookmark;
-import com.novel.reader.entity.Novel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -248,6 +248,13 @@ public class SQLiteNovel extends SQLiteOpenHelper {
 
     public boolean deleteNovel(Novel novel) {
         Cursor cursor = db.rawQuery("DELETE FROM novels WHERE `novels`.`id` = ?", new String[]{novel.getId() + ""});
+        cursor.moveToFirst();
+        cursor.close();
+        return true;
+    }
+
+    public boolean deleteAllNovels(){
+        Cursor cursor = db.rawQuery("DELETE FROM novels", null);
         cursor.moveToFirst();
         cursor.close();
         return true;

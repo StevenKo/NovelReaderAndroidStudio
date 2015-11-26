@@ -58,6 +58,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,6 +100,10 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
     private CharSequence mTitle;
     private NavigationView navigationView;
+    private boolean isLogin = false;
+    private TextView logInEmail;
+    private Button logInBtn;
+    private String email;
 
 
     @Override
@@ -144,16 +149,42 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     }
 
     private void setLogIn() {
-        TextView logInEmail = (TextView)findViewById(R.id.log_in_email);
-        Button logIn = (Button)findViewById(R.id.log_in);
-        boolean isLogin = true;
+        logInEmail = (TextView)findViewById(R.id.log_in_email);
+        logInBtn = (Button)findViewById(R.id.log_in);
+        drawNavigationServerPart();
+
+        logInBtn.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(isLogin){
+                    logOut();
+                }else{
+                    logIn();
+                }
+            }
+
+            private void logIn() {
+//                Login from google
+                email = "chunyuko85@ffddd.com";
+                new CreateUserTask().execute();
+            }
+
+            private void logOut() {
+                isLogin = false;
+                drawNavigationServerPart();
+            }
+        });
+    }
+
+    private void drawNavigationServerPart() {
         if(isLogin){
-            logInEmail.setText("chunyuko85@gmail.com");
-            logIn.setText(getText(R.string.logout));
+            logInEmail.setText(email);
+            logInBtn.setText(getText(R.string.logout));
             navigationView.getMenu().setGroupVisible(R.id.backup_group, true);
         }else{
             logInEmail.setText(getText(R.string.not_login));
-            logIn.setText(getText(R.string.login));
+            logInBtn.setText(getText(R.string.login));
             navigationView.getMenu().setGroupVisible(R.id.backup_group, false);
         }
     }
@@ -488,6 +519,12 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
     private void selectItem(int menuId) {
         switch (menuId) {
+            case R.id.navigation_backup:
+                showBackupDialog();
+                break;
+            case R.id.navigation_restore:
+                showRestoreDialog();
+                break;
             case R.id.navigation_setting:
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
@@ -548,6 +585,49 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         getActionBar().setTitle(mTitle);
     }
 
+    public class CreateUserTask extends AsyncTask{
+
+        private boolean result = false;
+        private ProgressDialog progressdialogInit;
+        private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                finish();
+            }
+        };
+        @Override
+        protected void onPreExecute() {
+            progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
+            progressdialogInit.setTitle("Load");
+            progressdialogInit.setMessage("Loading…");
+            progressdialogInit.setOnCancelListener(cancelListener);
+            progressdialogInit.setCanceledOnTouchOutside(false);
+            progressdialogInit.setCancelable(true);
+            progressdialogInit.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            result = NovelAPI.sendUserEmail(email);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (progressdialogInit != null && progressdialogInit.isShowing())
+                    progressdialogInit.dismiss();
+            }catch (Exception e){
+
+            }
+            if(result == false)
+                Toast.makeText(MainActivity.this, "登入失敗，請重新登入一次", Toast.LENGTH_LONG).show();
+            else {
+                isLogin = true;
+                drawNavigationServerPart();
+            }
+        }
+    }
 
     public class UpdateInfo{
         public String updateLink = "";
@@ -670,5 +750,74 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void showRestoreDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle(getString(R.string.restore));
+        alertDialogBuilder.setMessage("從伺服器還原資料庫(下載和收藏的小說)，會刪除手機端目前的資料庫，確定嗎？").setPositiveButton(getString(R.string.yes_string),new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                new RestoreTask().execute();
+                dialog.cancel();
+            }
+        }).setNegativeButton(getString(R.string.report_cancel), null);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void showBackupDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle(getString(R.string.backup));
+        alertDialogBuilder.setMessage("確定要將手機目前的資料庫(下載和收藏的小說)備份至伺服器嗎？").setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // backup from server
+                dialog.cancel();
+            }
+        }).setNegativeButton(getString(R.string.report_cancel), null);;
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public class RestoreTask extends AsyncTask{
+
+        private boolean result = false;
+        private ProgressDialog progressdialogInit;
+        private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                finish();
+            }
+        };
+        @Override
+        protected void onPreExecute() {
+            progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
+            progressdialogInit.setTitle("Load");
+            progressdialogInit.setMessage("Loading…");
+            progressdialogInit.setOnCancelListener(cancelListener);
+            progressdialogInit.setCanceledOnTouchOutside(false);
+            progressdialogInit.setCancelable(true);
+            progressdialogInit.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            result = NovelAPI.restoreFromUserBackup(email,MainActivity.this);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (progressdialogInit != null && progressdialogInit.isShowing())
+                    progressdialogInit.dismiss();
+            }catch (Exception e){
+
+            }
+            if(result == false)
+                Toast.makeText(MainActivity.this, "還原失敗，請再試一次", Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(MainActivity.this, "還原完成！", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
