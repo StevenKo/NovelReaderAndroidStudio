@@ -770,12 +770,55 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         alertDialogBuilder.setTitle(getString(R.string.backup));
         alertDialogBuilder.setMessage("確定要將手機目前的資料庫(下載和收藏的小說)備份至伺服器嗎？").setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // backup from server
+                new BackupTask().execute();
                 dialog.cancel();
             }
         }).setNegativeButton(getString(R.string.report_cancel), null);;
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    public class BackupTask extends AsyncTask{
+
+        private boolean result = false;
+        private ProgressDialog progressdialogInit;
+        private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                finish();
+            }
+        };
+        @Override
+        protected void onPreExecute() {
+            progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
+            progressdialogInit.setTitle("Load");
+            progressdialogInit.setMessage("Loading…");
+            progressdialogInit.setOnCancelListener(cancelListener);
+            progressdialogInit.setCanceledOnTouchOutside(false);
+            progressdialogInit.setCancelable(true);
+            progressdialogInit.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            result = NovelAPI.BackupToServer(email, MainActivity.this);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (progressdialogInit != null && progressdialogInit.isShowing())
+                    progressdialogInit.dismiss();
+            }catch (Exception e){
+
+            }
+            if(result == false)
+                Toast.makeText(MainActivity.this, "備份失敗，請再試一次", Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(MainActivity.this, "備份完成！", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     public class RestoreTask extends AsyncTask{

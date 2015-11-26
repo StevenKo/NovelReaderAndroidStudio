@@ -1153,4 +1153,61 @@ public class NovelAPI {
             return true;
         }
     }
+
+    public static boolean BackupToServer(String email, Context context) {
+        ArrayList<Novel> collectNovels = getCollectedNovels(context);
+        ArrayList<Novel> downloadNovels = getDownloadedNovels(context);
+
+        String collect = "";
+        String download = "";
+        for(Novel n: collectNovels){
+            collect += n.getId() + ",";
+        }
+        for(Novel n: downloadNovels){
+            download += n.getId() + ",";
+        }
+
+        String POST_PARAMS = "email=" + email + "&collect_novels=" + collect + "&download_novels=" + download ;
+        URL obj = null;
+        HttpURLConnection con = null;
+        try {
+            obj = new URL("http://139.162.21.39" + "/api/v1/users/update_novel");
+            con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("PUT");
+
+            // For POST only - BEGIN
+            con.setDoOutput(true);
+            OutputStream os = con.getOutputStream();
+            os.write(POST_PARAMS.getBytes());
+            os.flush();
+            os.close();
+            // For POST only - END
+
+            int responseCode = con.getResponseCode();
+            Log.i(TAG, "PUT Response Code :: " + responseCode);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // print result
+                Log.i(TAG, response.toString());
+                return true;
+            } else {
+                Log.i(TAG, "POST request did not work.");
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
 }
