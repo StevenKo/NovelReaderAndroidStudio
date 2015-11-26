@@ -8,4 +8,6 @@
     <dimen name="carddemo_gplay_grid_columnwidth_card">125dp</dimen>
     <dimen name="card_header_simple_title_text_size">12dp</dimen>
 
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
 </resources>

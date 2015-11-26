@@ -54,6 +54,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -97,6 +98,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
 
     private CharSequence mTitle;
+    private NavigationView navigationView;
 
 
     @Override
@@ -110,6 +112,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         setViewPagerAndSlidingTab();
         setAboutUsDialog();
         setNavigationDrawler();
+        setLogIn();
 
         if (Setting.getSettingInt(Setting.keyUpdateAppVersion, this) < Setting.getAppVersion(this)) {
             showUpdateInfoDialog(this);
@@ -138,6 +141,21 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         int i1 = r.nextInt(20);
         if(i1 == 15)
             new AppOpenCheckUpdateTask().execute();
+    }
+
+    private void setLogIn() {
+        TextView logInEmail = (TextView)findViewById(R.id.log_in_email);
+        Button logIn = (Button)findViewById(R.id.log_in);
+        boolean isLogin = true;
+        if(isLogin){
+            logInEmail.setText("chunyuko85@gmail.com");
+            logIn.setText(getText(R.string.logout));
+            navigationView.getMenu().setGroupVisible(R.id.backup_group, true);
+        }else{
+            logInEmail.setText(getText(R.string.not_login));
+            logIn.setText(getText(R.string.login));
+            navigationView.getMenu().setGroupVisible(R.id.backup_group, false);
+        }
     }
 
     private void trackScreen() {
@@ -196,7 +214,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 

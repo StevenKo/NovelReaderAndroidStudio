@@ -113,6 +113,13 @@
     <string name="menu_collect_novel">收藏此本小说</string>
     <string name="menu_remove_collect_novel">取消收藏此本小说</string>
 
+    <string name="menu_backup">伺服器</string>
+    <string name="backup">備份至伺服器</string>
+    <string name="restore">從伺服器還原</string>
+    <string name="login">登入</string>
+    <string name="logout">登出</string>
+    <string name="not_login">尚未登入</string>
+
     <string name="report_title">小说王问题回报</string>
     <string name="report_chapter">回报章节:</string>
     <string name="report_confirm">回报</string>
