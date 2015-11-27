@@ -120,7 +120,7 @@ dependencies {
     testCompile 'org.robolectric:shadows-httpclient:3.0'
     testCompile 'com.squareup:fest-android:1.0.7'
     testCompile 'org.mockito:mockito-core:1.9.5'
-    compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.google.android.gms:play-services-ads:8.3.0'
 }
 
 def siteUrl = 'https://github.com/mopub/mopub-android-sdk'

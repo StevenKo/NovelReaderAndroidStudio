@@ -2,6 +2,16 @@ package com.novel.reader;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import com.ads.MopubAdFragmentActivity;
@@ -49,6 +59,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,7 +76,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
 
-public class MainActivity extends MopubAdFragmentActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends MopubAdFragmentActivity implements NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.OnConnectionFailedListener{
 
     private static final int ID_SETTING = 0;
     private static final int ID_RESPONSE = 1;
@@ -74,6 +85,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     private static final int ID_SEARCH = 5;
     private static final int ID_Report = 6;
 
+    private static final int RC_SIGN_IN = 9001;
     private String[] CONTENT;
     private MenuItem itemSearch;
     private ViewPager pager;
@@ -100,11 +112,13 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
     private CharSequence mTitle;
     private NavigationView navigationView;
-    private boolean isLogin = false;
     private TextView logInEmail;
-    private Button logInBtn;
     private String email;
+    private SignInButton signInBtn;
+    private Button signOutBtn;
 
+    private GoogleApiClient mGoogleApiClient;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +126,22 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         Crashlytics.start(this);
         Setting.setApplicationActionBarTheme(this);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         setContentView(R.layout.layout_main);
         setTextLocale();
         setViewPagerAndSlidingTab();
         setAboutUsDialog();
         setNavigationDrawler();
-        setLogIn();
+        setSignInSignOut();
 
         if (Setting.getSettingInt(Setting.keyUpdateAppVersion, this) < Setting.getAppVersion(this)) {
             showUpdateInfoDialog(this);
@@ -148,43 +172,88 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             new AppOpenCheckUpdateTask().execute();
     }
 
-    private void setLogIn() {
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (opr.isDone()) {
+            Log.d(NovelAPI.TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    hideProgressDialog();
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.pull_to_refresh_refreshing_label));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+    }
+
+    private void setSignInSignOut() {
         logInEmail = (TextView)findViewById(R.id.log_in_email);
-        logInBtn = (Button)findViewById(R.id.log_in);
-        drawNavigationServerPart();
+        signInBtn = (SignInButton)findViewById(R.id.sign_in_button);
+        signOutBtn = (Button)findViewById(R.id.sign_out_button);
 
-        logInBtn.setOnClickListener(new Button.OnClickListener(){
-
+        signInBtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(isLogin){
-                    logOut();
-                }else{
-                    logIn();
-                }
+                signIn();
             }
+        });
 
-            private void logIn() {
-//                Login from google
-                email = "chunyuko85@ffddd.com";
-                new CreateUserTask().execute();
-            }
-
-            private void logOut() {
-                isLogin = false;
-                drawNavigationServerPart();
+        signOutBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
             }
         });
     }
 
-    private void drawNavigationServerPart() {
-        if(isLogin){
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        drawNavigationServerPartAndSignInBtn(false);
+                    }
+                });
+    }
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void drawNavigationServerPartAndSignInBtn(boolean signedIn) {
+        if(signedIn){
             logInEmail.setText(email);
-            logInBtn.setText(getText(R.string.logout));
+            signInBtn.setVisibility(View.GONE);
+            signOutBtn.setVisibility(View.VISIBLE);
             navigationView.getMenu().setGroupVisible(R.id.backup_group, true);
         }else{
             logInEmail.setText(getText(R.string.not_login));
-            logInBtn.setText(getText(R.string.login));
+            signInBtn.setVisibility(View.VISIBLE);
+            signOutBtn.setVisibility(View.GONE);
             navigationView.getMenu().setGroupVisible(R.id.backup_group, false);
         }
     }
@@ -407,6 +476,12 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         return true;
     }
 
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d(NovelAPI.TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(MainActivity.this, "登入失敗，請重新登入一次", Toast.LENGTH_LONG).show();
+    }
+
 
     class NovelPagerAdapter extends FragmentPagerAdapter {
         public NovelPagerAdapter(FragmentManager fm) {
@@ -620,11 +695,12 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             }catch (Exception e){
 
             }
-            if(result == false)
+            if(result == false) {
+                signOut();
                 Toast.makeText(MainActivity.this, "登入失敗，請重新登入一次", Toast.LENGTH_LONG).show();
-            else {
-                isLogin = true;
-                drawNavigationServerPart();
+            }else {
+                Setting.saveSetting("email", email, MainActivity.this);
+                drawNavigationServerPartAndSignInBtn(true);
             }
         }
     }
@@ -823,13 +899,15 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
     public class RestoreTask extends AsyncTask{
 
-        private boolean result = false;
+
         private ProgressDialog progressdialogInit;
         private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
                 finish();
             }
         };
+        private NovelAPI.RestoreResult result;
+
         @Override
         protected void onPreExecute() {
             progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
@@ -844,7 +922,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            result = NovelAPI.restoreFromUserBackup(email,MainActivity.this);
+            result = NovelAPI.restoreFromUserBackup(email, MainActivity.this);
             return null;
         }
 
@@ -856,11 +934,42 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             }catch (Exception e){
 
             }
-            if(result == false)
-                Toast.makeText(MainActivity.this, "還原失敗，請再試一次", Toast.LENGTH_LONG).show();
+            if(result.result == false)
+                Toast.makeText(MainActivity.this, result.message, Toast.LENGTH_LONG).show();
             else {
                 Toast.makeText(MainActivity.this, "還原完成！", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(NovelAPI.TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            email = acct.getEmail();
+            String saveEmail = Setting.getSettingString("email",MainActivity.this);
+            if(saveEmail!=null && saveEmail.equals(email)){
+                Log.d(NovelAPI.TAG, "Do not run CreateUserTask:");
+                drawNavigationServerPartAndSignInBtn(true);
+            }else{
+                Log.d(NovelAPI.TAG, "CreateUserTask:");
+                new CreateUserTask().execute();
+            }
+        } else {
+            // Signed out, show unauthenticated UI.
+            drawNavigationServerPartAndSignInBtn(false);
         }
     }
 }

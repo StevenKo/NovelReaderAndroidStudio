@@ -1069,18 +1069,31 @@ public class NovelAPI {
 
     }
 
-    public static boolean restoreFromUserBackup(String email,Context context) {
+    public static class RestoreResult{
+        public boolean result;
+        public String message;
+        public RestoreResult(boolean result, String message) {
+            this.result = result;
+            this.message = message;
+        }
+    }
+
+    public static RestoreResult restoreFromUserBackup(String email,Context context) {
         ArrayList<Novel> collectNovels = new ArrayList<Novel>();
         ArrayList<Novel> downloadNovels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", null, null,"http://139.162.21.39/api/v1/users/get_novels?email=chunyuko85@gmail.com");
+        String message = getMessageFromServer("GET", null, null,"http://139.162.21.39/api/v1/users/get_novels?email="+email);
         if (message == null) {
-            return false;
+            return new RestoreResult(false,"連線失敗");
         } else {
             try {
                 JSONObject nObject;
                 nObject = new JSONObject(message.toString());
                 JSONArray collected_novels = nObject.getJSONArray("collected_novels");
                 JSONArray downloaded_novels = nObject.getJSONArray("download_novels");
+
+                if(collected_novels.length() == 0 && downloaded_novels.length() == 0){
+                    return new RestoreResult(false,"伺服器沒有資料, 請先備份至伺服器");
+                }
 
                 for (int i = 0; i < collected_novels.length(); i++) {
 
@@ -1147,10 +1160,11 @@ public class NovelAPI {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                return new RestoreResult(false,"連線失敗");
             }
 
             Log.i(TAG, message.toString());
-            return true;
+            return new RestoreResult(true,"");
         }
     }
 
