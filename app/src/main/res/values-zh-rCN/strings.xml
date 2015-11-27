@@ -113,12 +113,18 @@
     <string name="menu_collect_novel">收藏此本小说</string>
     <string name="menu_remove_collect_novel">取消收藏此本小说</string>
 
-    <string name="menu_backup">伺服器</string>
-    <string name="backup">备份至伺服器</string>
-    <string name="restore">从伺服器还原</string>
+    <string name="menu_backup">服务器</string>
+    <string name="backup">备份至服务器</string>
+    <string name="restore">从服务器还原</string>
     <string name="login">登录</string>
     <string name="logout">退出登录</string>
     <string name="not_login">尚未登录</string>
+    <string name="login_fail">登录失败，请重新登录一次</string>
+    <string name="restore_msg">从服务器还原资料库(下载和收藏的小说)，会删除手机目前的资料库，确定吗？</string>
+    <string name="backup_msg">确定要将手机目前的资料库(下载和收藏的小说)备份至服务器吗？</string>
+    <string name="backup_fail">备份失败，请再试一次</string>
+    <string name="backup_finish">备份完成！</string>
+    <string name="restore_finish">还原完成！</string>
 
     <string name="report_title">小说王问题回报</string>
     <string name="report_chapter">回报章节:</string>

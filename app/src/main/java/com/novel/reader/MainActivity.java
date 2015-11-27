@@ -479,7 +479,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d(NovelAPI.TAG, "onConnectionFailed:" + connectionResult);
-        Toast.makeText(MainActivity.this, "登入失敗，請重新登入一次", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, getString(R.string.login_fail), Toast.LENGTH_LONG).show();
     }
 
 
@@ -697,7 +697,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             }
             if(result == false) {
                 signOut();
-                Toast.makeText(MainActivity.this, "登入失敗，請重新登入一次", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.login_fail), Toast.LENGTH_LONG).show();
             }else {
                 Setting.saveSetting("email", email, MainActivity.this);
                 drawNavigationServerPartAndSignInBtn(true);
@@ -831,7 +831,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     private void showRestoreDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setTitle(getString(R.string.restore));
-        alertDialogBuilder.setMessage("從伺服器還原資料庫(下載和收藏的小說)，會刪除手機端目前的資料庫，確定嗎？").setPositiveButton(getString(R.string.yes_string),new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setMessage(getString(R.string.restore_msg)).setPositiveButton(getString(R.string.yes_string),new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 new RestoreTask().execute();
                 dialog.cancel();
@@ -844,7 +844,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     private void showBackupDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setTitle(getString(R.string.backup));
-        alertDialogBuilder.setMessage("確定要將手機目前的資料庫(下載和收藏的小說)備份至伺服器嗎？").setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setMessage(getString(R.string.backup_msg)).setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 new BackupTask().execute();
                 dialog.cancel();
@@ -890,9 +890,9 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
 
             }
             if(result == false)
-                Toast.makeText(MainActivity.this, "備份失敗，請再試一次", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.backup_fail), Toast.LENGTH_LONG).show();
             else {
-                Toast.makeText(MainActivity.this, "備份完成！", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.backup_finish), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -937,7 +937,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             if(result.result == false)
                 Toast.makeText(MainActivity.this, result.message, Toast.LENGTH_LONG).show();
             else {
-                Toast.makeText(MainActivity.this, "還原完成！", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.restore_finish), Toast.LENGTH_LONG).show();
             }
         }
     }

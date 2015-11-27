@@ -114,6 +114,12 @@
     <string name="login">登入</string>
     <string name="logout">登出</string>
     <string name="not_login">尚未登入</string>
+    <string name="login_fail">登入失敗，請重新登入一次</string>
+    <string name="restore_msg">從伺服器還原資料庫(下載和收藏的小說)，會刪除手機端目前的資料庫，確定嗎？</string>
+    <string name="backup_msg">確定要將手機目前的資料庫(下載和收藏的小說)備份至伺服器嗎？</string>
+    <string name="backup_fail">備份失敗，請再試一次</string>
+    <string name="backup_finish">備份完成！</string>
+    <string name="restore_finish">還原完成！</string>
 
     <string name="report_title">小說王問題回報</string>
     <string name="report_chapter">回報章節:</string>

@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/backup_group">
-        <item android:title="@string/menu_backup">
-            <menu>
-                <item
-                    android:id="@+id/navigation_backup"
-                    android:icon="@drawable/navigation_backup"
-                    android:title="@string/backup"/>
-                <item
-                    android:id="@+id/navigation_restore"
-                    android:icon="@drawable/navigation_restore"
-                    android:title="@string/restore"/>
-            </menu>
-        </item>
-    </group>
     <item android:title="@string/menu_settings">
         <menu>
             <item
@@ -44,6 +29,21 @@
                 android:title="@string/my_download"/>
         </menu>
     </item>
+    <group android:checkableBehavior="single"
+        android:id="@+id/backup_group">
+        <item android:title="@string/menu_backup">
+            <menu>
+                <item
+                    android:id="@+id/navigation_backup"
+                    android:icon="@drawable/navigation_backup"
+                    android:title="@string/backup"/>
+                <item
+                    android:id="@+id/navigation_restore"
+                    android:icon="@drawable/navigation_restore"
+                    android:title="@string/restore"/>
+            </menu>
+        </item>
+    </group>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_profile"
