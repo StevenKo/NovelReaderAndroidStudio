@@ -595,10 +595,10 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     private void selectItem(int menuId) {
         switch (menuId) {
             case R.id.navigation_backup:
-                showBackupDialog();
+                new BackupInfoTask(BackupInfoTask.BACKUP).execute();
                 break;
             case R.id.navigation_restore:
-                showRestoreDialog();
+                new BackupInfoTask(BackupInfoTask.RESTORE).execute();
                 break;
             case R.id.navigation_setting:
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
@@ -828,31 +828,56 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         alertDialog.show();
     }
 
-    private void showRestoreDialog() {
+    private void showRestoreDialog(String title, NovelAPI.BackupInfo result, DialogInterface.OnClickListener positiveListener, boolean setNegative) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.backupinfo_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final TextView emailText = (TextView) dialogView.findViewById(R.id.email);
+        final TextView collectNovelsText = (TextView) dialogView.findViewById(R.id.collect_novels);
+        final TextView downloadNovelsText = (TextView) dialogView.findViewById(R.id.download_novels);
+        final TextView updateText = (TextView) dialogView.findViewById(R.id.updated);
+
+        int textLanguage = Setting.getSettingInt(Setting.keyTextLanguage, MainActivity.this);
+        if (textLanguage == 1) {
+            try {
+                result.collects = taobe.tec.jcc.JChineseConvertor.getInstance().t2s(result.collects);
+                result.downloads = taobe.tec.jcc.JChineseConvertor.getInstance().t2s(result.downloads);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        emailText.setText(result.email);
+        collectNovelsText.setText(result.collects);
+        downloadNovelsText.setText(result.downloads);
+        updateText.setText(result.updated);
+
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setPositiveButton(getString(R.string.yes_string), positiveListener);
+
+        if(setNegative)
+            dialogBuilder.setNegativeButton(getString(R.string.report_cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    //pass
+                }
+            });
+
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
+
+    private void showRestoreFinishDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuilder.setTitle(getString(R.string.restore));
-        alertDialogBuilder.setMessage(getString(R.string.restore_msg)).setPositiveButton(getString(R.string.yes_string),new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                new RestoreTask().execute();
+        alertDialogBuilder.setMessage(getString(R.string.restore_finish)).setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }
-        }).setNegativeButton(getString(R.string.report_cancel), null);
+        });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
-    private void showBackupDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuilder.setTitle(getString(R.string.backup));
-        alertDialogBuilder.setMessage(getString(R.string.backup_msg)).setPositiveButton(getString(R.string.yes_string), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                new BackupTask().execute();
-                dialog.cancel();
-            }
-        }).setNegativeButton(getString(R.string.report_cancel), null);;
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
 
     public class BackupTask extends AsyncTask{
 
@@ -892,7 +917,88 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             if(result == false)
                 Toast.makeText(MainActivity.this, getString(R.string.backup_fail), Toast.LENGTH_LONG).show();
             else {
-                Toast.makeText(MainActivity.this, getString(R.string.backup_finish), Toast.LENGTH_LONG).show();
+                new BackupInfoTask(BackupInfoTask.BACKUP_FINISH).execute();
+            }
+        }
+    }
+
+    public class BackupInfoTask extends AsyncTask{
+
+
+        public BackupInfoTask(int dialogCase) {
+            super();
+            this.dialogCase = dialogCase;
+        }
+        private static final int RESTORE = 1;
+        private static final int BACKUP = 2;
+        private static final int BACKUP_FINISH = 3;
+
+        private int dialogCase;
+        private ProgressDialog progressdialogInit;
+        private final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                finish();
+            }
+        };
+        private NovelAPI.BackupInfo result;
+
+        @Override
+        protected void onPreExecute() {
+            progressdialogInit = ProgressDialog.show(MainActivity.this, "Load", "Loading…");
+            progressdialogInit.setTitle("Load");
+            progressdialogInit.setMessage("Loading…");
+            progressdialogInit.setOnCancelListener(cancelListener);
+            progressdialogInit.setCanceledOnTouchOutside(false);
+            progressdialogInit.setCancelable(true);
+            progressdialogInit.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            result = NovelAPI.getUserBackupInfo(MainActivity.this,email);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            try {
+                if (progressdialogInit != null && progressdialogInit.isShowing())
+                    progressdialogInit.dismiss();
+            }catch (Exception e){
+
+            }
+            switch (dialogCase){
+                case RESTORE:
+                    if(result.collects.equals("尚未備份"))
+                        showRestoreDialog(getString(R.string.restore),result,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                            }
+                        },false);
+                    else
+                        showRestoreDialog(getString(R.string.restore),result,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                new RestoreTask().execute();
+                                dialog.cancel();
+                            }
+                        },true);
+                    break;
+                case BACKUP:
+                    showRestoreDialog(getString(R.string.backup),result,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            new BackupTask().execute();
+                            dialog.cancel();
+                        }
+                    },true);
+                    break;
+                case BACKUP_FINISH:
+                    showRestoreDialog(getString(R.string.backup_finish),result,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    },false);
+                    break;
             }
         }
     }
@@ -937,7 +1043,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             if(result.result == false)
                 Toast.makeText(MainActivity.this, result.message, Toast.LENGTH_LONG).show();
             else {
-                Toast.makeText(MainActivity.this, getString(R.string.restore_finish), Toast.LENGTH_LONG).show();
+                showRestoreFinishDialog();
             }
         }
     }

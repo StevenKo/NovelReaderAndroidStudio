@@ -849,7 +849,7 @@ public class NovelAPI {
         URL obj = null;
         HttpURLConnection con = null;
         try {
-            obj = new URL("http://139.162.21.39" + "/api/v1/users.json");
+            obj = new URL(HOST + "/api/v1/users.json");
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
 
@@ -1081,7 +1081,7 @@ public class NovelAPI {
     public static RestoreResult restoreFromUserBackup(String email,Context context) {
         ArrayList<Novel> collectNovels = new ArrayList<Novel>();
         ArrayList<Novel> downloadNovels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", null, null,"http://139.162.21.39/api/v1/users/get_novels?email="+email);
+        String message = getMessageFromServer("GET", null, null,HOST + "/api/v1/users/get_novels?email="+email);
         if (message == null) {
             return new RestoreResult(false,"連線失敗");
         } else {
@@ -1185,7 +1185,7 @@ public class NovelAPI {
         URL obj = null;
         HttpURLConnection con = null;
         try {
-            obj = new URL("http://139.162.21.39" + "/api/v1/users/update_novel");
+            obj = new URL(HOST + "/api/v1/users/update_novel");
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("PUT");
 
@@ -1222,6 +1222,42 @@ public class NovelAPI {
         }
 
         return false;
+
+    }
+
+    public static class BackupInfo{
+        public String email;
+        public String collects;
+        public String downloads;
+        public String updated;
+        public BackupInfo(String email,String collects,String downloads,String updated) {
+            this.email = email;
+            this.collects = collects;
+            this.downloads = downloads;
+            this.updated = updated;
+        }
+    }
+
+    public static BackupInfo getUserBackupInfo(Context context, String email) {
+
+        String message = getMessageFromServer("GET", "/api/v1/users/back_up_info?email=" + email, null);
+        if (message == null) {
+            return new BackupInfo(email, "讀取失敗", "讀取失敗", "讀取失敗");
+        } else {
+            try {
+                JSONObject nObject;
+                nObject = new JSONObject(message.toString());
+                String userEmail = nObject.getString("email");
+                String collects = nObject.getString("collected_novels");
+                String downloads = nObject.getString("download_novels");
+                String updated = nObject.getString("update");
+
+                return new BackupInfo(userEmail,collects,downloads,updated);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return new BackupInfo(email, "讀取失敗", "讀取失敗", "讀取失敗");
+            }
+        }
 
     }
 }
