@@ -31,7 +31,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -40,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,9 +47,12 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
     private Bundle mBundle;
     private String keyword;
-    private ArrayList<Novel> novels;
+    private ArrayList<Novel> novels = new ArrayList<Novel>();
+    private SearchAdapter myGridViewAdapter;
+    private ArrayList<Novel> moreNovels;
     private LoadMoreGridView myGrid;
     private MenuItem item;
+    private Boolean checkLoad = true;
 
     private AlertDialog.Builder aboutUsDialog;
 
@@ -58,6 +61,7 @@ public class SearchActivity extends MopubAdFragmentActivity {
     private LinearLayout loadmoreLayout;
     private LinearLayout noDataLayout;
     private ActionBar ab;
+    private int myPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,19 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
         });
 
+        myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
+            public void onLoadMore() {
+                if (checkLoad) {
+                    myPage = myPage + 1;
+                    loadmoreLayout.setVisibility(View.VISIBLE);
+                    new LoadDataTask().execute();
+                } else {
+                    myGrid.onLoadMoreComplete();
+                }
+
+            }
+        });
+
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(getString(R.string.menu_search) + ":" + keyword);
 
@@ -137,7 +154,7 @@ public class SearchActivity extends MopubAdFragmentActivity {
     }
 
     private void fetchData() {
-        novels = NovelAPI.searchNovels(keyword);
+        moreNovels = NovelAPI.searchNovels(keyword,myPage);
     }
 
     public class SearchAdapter extends BaseAdapter {
@@ -148,6 +165,13 @@ public class SearchActivity extends MopubAdFragmentActivity {
         public SearchAdapter(Context mContext, ArrayList<Novel> novels) {
             this.novels = novels;
             this.mContext = mContext;
+        }
+
+        public void addDatas(ArrayList<Novel> d) {
+
+            for (int i = 0; i < d.size(); i++) {
+                novels.add(d.get(i));
+            }
         }
 
         @Override
@@ -238,6 +262,9 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
                 keyword = query;
                 ab.setTitle(getString(R.string.menu_search)+":"+keyword);
+                myPage = 1;
+                progressLayout.setVisibility(View.VISIBLE);
+                novels = new ArrayList<Novel>();
                 new LoadDataTask().execute();
                 searchMenuItem.collapseActionView();
 
@@ -253,6 +280,9 @@ public class SearchActivity extends MopubAdFragmentActivity {
             public boolean onQueryTextSubmit(String s) {
                 keyword = s;
                 ab.setTitle(getString(R.string.menu_search)+":"+keyword);
+                myPage = 1;
+                progressLayout.setVisibility(View.VISIBLE);
+                novels = new ArrayList<Novel>();
                 new LoadDataTask().execute();
 
                 SQLiteNovel db = new SQLiteNovel(SearchActivity.this);
@@ -320,11 +350,7 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
         @Override
         protected void onPreExecute() {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
-            loadmoreLayout.setVisibility(View.GONE);
-            progressLayout.setVisibility(View.VISIBLE);
+            loadmoreLayout.setVisibility(View.VISIBLE);
             noDataLayout.setVisibility(View.GONE);
             super.onPreExecute();
         }
@@ -342,15 +368,23 @@ public class SearchActivity extends MopubAdFragmentActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            if (novels != null && novels.size() != 0) {
-                myGrid.setVisibility(View.VISIBLE);
-                myGrid.setAdapter(new SearchAdapter(SearchActivity.this, novels));
-                progressLayout.setVisibility(View.GONE);
-            } else {
-                progressLayout.setVisibility(View.GONE);
-                noDataLayout.setVisibility(View.VISIBLE);
-                myGrid.setVisibility(View.GONE);
+
+            if (moreNovels != null && moreNovels.size() != 0) {
+                for (int i = 0; i < moreNovels.size(); i++) {
+                    novels.add(moreNovels.get(i));
+                }
             }
+            progressLayout.setVisibility(View.GONE);
+            loadmoreLayout.setVisibility(View.GONE);
+
+            if (myPage > 1)
+                setLoadMoreNovels();
+            else {
+                myGrid.setVisibility(View.VISIBLE);
+                myGridViewAdapter = new SearchAdapter(SearchActivity.this, novels);
+                myGrid.setAdapter(myGridViewAdapter);
+            }
+
             if (item != null){
                 item.collapseActionView();
                 EditText search = (EditText) item.getActionView();
@@ -370,6 +404,17 @@ public class SearchActivity extends MopubAdFragmentActivity {
             }
         }
 
+    }
+
+    private void setLoadMoreNovels() {
+        if (moreNovels != null && moreNovels.size() != 0) {
+            myGridViewAdapter.addDatas(moreNovels);
+            myGridViewAdapter.notifyDataSetChanged();
+        } else {
+            checkLoad = false;
+            Toast.makeText(SearchActivity.this, "no more data", Toast.LENGTH_SHORT).show();
+        }
+        myGrid.onLoadMoreComplete();
     }
 
     private void setAboutUsDialog() {

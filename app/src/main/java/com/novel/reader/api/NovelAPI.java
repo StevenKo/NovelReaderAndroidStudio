@@ -380,7 +380,7 @@ public class NovelAPI {
         }
     }
 
-    public static ArrayList<Novel> searchNovels(String keyword) {
+    public static ArrayList<Novel> searchNovels(String keyword,int page) {
         String query;
         try {
             query = URLEncoder.encode(keyword, "utf-8");
@@ -389,7 +389,7 @@ public class NovelAPI {
             return null;
         }
         ArrayList<Novel> novels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", "/api/v1/novels/search.json?search=" + query, null);
+        String message = getMessageFromServer("GET", "/api/v1/novels/elastic_search.json?search=" + query + "&page=" + page, null);
         if (message == null) {
             return null;
         } else {
