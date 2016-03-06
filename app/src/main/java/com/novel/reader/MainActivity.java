@@ -214,6 +214,8 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         signInBtn = (SignInButton)findViewById(R.id.sign_in_button);
         signOutBtn = (Button)findViewById(R.id.sign_out_button);
 
+        signInBtn.setSize(SignInButton.SIZE_WIDE);
+
         signInBtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
