@@ -178,7 +178,7 @@
     <string name="no_novel_in_bookcase">目前还没有收藏或下载的小说</string>
     <string name="no_bookmark_in_my_bookmarks">目前还没有收集书签或阅读过小说章节</string>
 
-    <string name="update_info"><![CDATA[<font color=\'blue\'>V3.3.1:</font><br>更新伺服器,提升伺服器效能<br ><font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5:</font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br>]]></string>
+    <string name="update_info"><![CDATA[<font color=\'blue\'>V5.0.1:</font><br>改善搜寻，增加伺服器备份<br ><font color=\'blue\'>V2.9.3:</font> <br>显示今日更新小说<br><font color=\'blue\'>V2.9.0:</font> <br>更换小说类别、推荐方式，新增3000本小说<br><font color=\'blue\'>V2.8.5:</font> <br>新增​​购买<font color=\'red\'>赞助版本(免广告)</font>, 恳请大家多多支持!<br>]]></string>
     <string name="update">版本更新通知</string>
 
 
