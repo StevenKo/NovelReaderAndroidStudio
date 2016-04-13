@@ -20,12 +20,13 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 82
-        versionName "5.0.0"
+        versionCode 85
+        versionName "5.0.3"
     }
 
     defaultConfig {
