@@ -24,6 +24,7 @@ import com.mopub.mraid.MraidController.MraidListener;
 import com.mopub.mraid.MraidController.UseCustomCloseListener;
 import com.mopub.mraid.MraidWebViewDebugListener;
 import com.mopub.mraid.PlacementType;
+import com.mopub.network.Networking;
 
 import static com.mopub.common.DataKeys.AD_REPORT_KEY;
 import static com.mopub.common.DataKeys.BROADCAST_IDENTIFIER_KEY;
@@ -43,9 +44,16 @@ public class MraidActivity extends BaseInterstitialActivity {
     public static void preRenderHtml(@NonNull final Context context,
             @NonNull final CustomEventInterstitialListener customEventInterstitialListener,
             @NonNull final String htmlData) {
-        BaseWebView dummyWebView = new BaseWebView(context);
+        preRenderHtml(customEventInterstitialListener, htmlData, new BaseWebView(context));
+    }
 
+    @VisibleForTesting
+    static void preRenderHtml(
+            @NonNull final CustomEventInterstitialListener customEventInterstitialListener,
+            @NonNull final String htmlData, @NonNull final BaseWebView dummyWebView) {
         dummyWebView.enablePlugins(false);
+        dummyWebView.enableJavascriptCaching();
+
         dummyWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(final WebView view, final String url) {
@@ -67,7 +75,7 @@ public class MraidActivity extends BaseInterstitialActivity {
             }
         });
 
-        dummyWebView.loadDataWithBaseURL("http://" + Constants.HOST + "/",
+        dummyWebView.loadDataWithBaseURL(Networking.getBaseUrlScheme() + "://" + Constants.HOST + "/",
                 htmlData, "text/html", "UTF-8", null);
     }
 

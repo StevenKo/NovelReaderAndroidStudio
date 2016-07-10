@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.mopub.common.Constants;
 import com.mopub.common.MoPubBrowser;
 import com.mopub.common.Preconditions;
 import com.mopub.common.UrlAction;
@@ -19,7 +20,6 @@ import com.mopub.common.logging.MoPubLog;
 import com.mopub.exceptions.IntentNotResolvableException;
 import com.mopub.exceptions.UrlParseException;
 
-import java.util.EnumSet;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -74,32 +74,10 @@ public class Intents {
         }
     }
 
-    public static boolean canHandleApplicationUrl(final Context context, final Uri uri) {
-        return canHandleApplicationUrl(context, uri, true);
-    }
-
-    public static boolean canHandleApplicationUrl(final Context context, final Uri uri,
-            final boolean logError) {
-        // Determine which activities can handle the intent
-        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
-        // If there are no relevant activities, don't follow the link
-        if (!Intents.deviceCanHandleIntent(context, intent)) {
-            if (logError) {
-                MoPubLog.w("Could not handle application specific action: " + uri + ". " +
-                        "You may be running in the emulator or another device which does not " +
-                        "have the required application.");
-            }
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * Native Browser Scheme URLs provide a means for advertisers to include links that click out to
      * an external browser, rather than the MoPub in-app browser. Properly formatted native browser
-     * URLs take the form of "mopubnativebrowser://navigate?url=http%3A%2F%2Fwww.mopub.com".
+     * URLs take the form of "mopubnativebrowser://navigate?url=https%3A%2F%2Fwww.mopub.com".
      *
      * @param uri The Native Browser Scheme URL to open in the external browser.
      * @return An Intent that will open an app-external browser taking the user to a page specified
@@ -123,7 +101,7 @@ public class Intents {
             urlToOpenInNativeBrowser = uri.getQueryParameter("url");
         } catch (UnsupportedOperationException e) {
             // Accessing query parameters only makes sense for hierarchical URIs as per:
-            // http://developer.android.com/reference/android/net/Uri.html#getQueryParameter(java.lang.String)
+            // https://developer.android.com/reference/android/net/Uri.html#getQueryParameter(java.lang.String)
             MoPubLog.w("Could not handle url: " + uri);
             throw new UrlParseException("Passed-in URL did not create a hierarchical URI.");
         }
@@ -174,7 +152,7 @@ public class Intents {
             tweetId = uri.getQueryParameter("tweet_id");
         } catch (UnsupportedOperationException e) {
             // Accessing query parameters only makes sense for hierarchical URIs as per:
-            // http://developer.android.com/reference/android/net/Uri.html#getQueryParameter(java.lang.String)
+            // https://developer.android.com/reference/android/net/Uri.html#getQueryParameter(java.lang.String)
             MoPubLog.w("Could not handle url: " + uri);
             throw new UrlParseException("Passed-in URL did not create a hierarchical URI.");
         }
@@ -208,7 +186,8 @@ public class Intents {
      * @param uri The URL to load in the started {@link MoPubBrowser} activity.
      */
     public static void showMoPubBrowserForUrl(@NonNull final Context context,
-            @NonNull Uri uri)
+            @NonNull Uri uri,
+            @Nullable String dspCreativeId)
             throws IntentNotResolvableException {
         Preconditions.checkNotNull(context);
         Preconditions.checkNotNull(uri);
@@ -217,20 +196,13 @@ public class Intents {
 
         final Bundle extras = new Bundle();
         extras.putString(MoPubBrowser.DESTINATION_URL_KEY, uri.toString());
+        if (!TextUtils.isEmpty(dspCreativeId)) {
+            extras.putString(MoPubBrowser.DSP_CREATIVE_ID, dspCreativeId);
+        }
         Intent intent = getStartActivityIntent(context, MoPubBrowser.class, extras);
 
         String errorMessage = "Could not show MoPubBrowser for url: " + uri + "\n\tPerhaps you " +
                 "forgot to declare com.mopub.common.MoPubBrowser in your Android manifest file.";
-
-        launchIntentForUserClick(context, intent, errorMessage);
-    }
-
-    public static void launchActionViewIntent(Context context, @NonNull final Uri uri,
-            @NonNull final String errorMessage) throws IntentNotResolvableException {
-        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (!(context instanceof Activity)) {
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        }
 
         launchIntentForUserClick(context, intent, errorMessage);
     }
@@ -242,7 +214,7 @@ public class Intents {
         Preconditions.NoThrow.checkNotNull(intent);
 
         try {
-            Intents.startActivity(context, intent);
+            startActivity(context, intent);
         } catch (IntentNotResolvableException e) {
             throw new IntentNotResolvableException(errorMessage + "\n" + e.getMessage());
         }
@@ -250,13 +222,88 @@ public class Intents {
 
     public static void launchApplicationUrl(@NonNull final Context context,
             @NonNull final Uri uri) throws IntentNotResolvableException {
-        if (Intents.canHandleApplicationUrl(context, uri)) {
-            final String errorMessage = "Unable to open intent for: " + uri;
-            Intents.launchActionViewIntent(context, uri, errorMessage);
+        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(uri);
+
+        if (deviceCanHandleIntent(context, intent)) {
+            launchApplicationIntent(context, intent);
         } else {
+            // Deeplink+ needs this exception to know primaryUrl failed and then attempt fallbackUrl
+            // See UrlAction.FOLLOW_DEEP_LINK_WITH_FALLBACK
             throw new IntentNotResolvableException("Could not handle application specific " +
                     "action: " + uri + "\n\tYou may be running in the emulator or another " +
                     "device which does not have the required application.");
         }
+    }
+
+    public static void launchApplicationIntent(@NonNull final Context context,
+            @NonNull final Intent intent) throws IntentNotResolvableException {
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(intent);
+
+        if (deviceCanHandleIntent(context, intent)) {
+            final String errorMessage = "Unable to open intent: " + intent;
+            if (!(context instanceof Activity)) {
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            }
+            launchIntentForUserClick(context, intent, errorMessage);
+        } else {
+            final String fallbackUrl = intent.getStringExtra("browser_fallback_url");
+            if (TextUtils.isEmpty(fallbackUrl)) {
+                if (!"market".equalsIgnoreCase(intent.getScheme())) {
+                    launchApplicationUrl(context, getPlayStoreUri(intent));
+                } else {
+                    throw new IntentNotResolvableException("Device could not handle neither " +
+                            "intent nor market url.\nIntent: " + intent.toString());
+                }
+            } else {
+                final Uri fallbackUri = Uri.parse(fallbackUrl);
+                final String fallbackScheme = fallbackUri.getScheme();
+                if (Constants.HTTP.equalsIgnoreCase(fallbackScheme)
+                        || Constants.HTTPS.equalsIgnoreCase(fallbackScheme)) {
+                    showMoPubBrowserForUrl(context, fallbackUri, null);
+                } else {
+                    launchApplicationUrl(context, fallbackUri);
+                }
+            }
+        }
+    }
+
+    @NonNull
+    public static Uri getPlayStoreUri(@NonNull final Intent intent) {
+        Preconditions.checkNotNull(intent);
+
+        return Uri.parse("market://details?id=" + intent.getPackage());
+    }
+
+    public static void launchActionViewIntent(@NonNull final Context context,
+            @NonNull final Uri uri,
+            @Nullable final String errorMessage) throws IntentNotResolvableException {
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(uri);
+
+        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        }
+        launchIntentForUserClick(context, intent, errorMessage);
+    }
+
+    /**
+     * @deprecated as of 4.7.0. Use {@link #deviceCanHandleIntent(Context, Intent)}
+     */
+    @Deprecated
+    public static boolean canHandleApplicationUrl(final Context context, final Uri uri) {
+        return false;
+    }
+
+    /**
+     * @deprecated as of 4.7.0. Use {@link #deviceCanHandleIntent(Context, Intent)}
+     */
+    @Deprecated
+    public static boolean canHandleApplicationUrl(final Context context, final Uri uri,
+            final boolean logError) {
+        return false;
     }
 }

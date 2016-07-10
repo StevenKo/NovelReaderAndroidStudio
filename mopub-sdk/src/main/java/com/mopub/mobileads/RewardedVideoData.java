@@ -2,7 +2,11 @@ package com.mopub.mobileads;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Pair;
+
+import com.mopub.common.MoPubReward;
+import com.mopub.common.Preconditions;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,12 +23,26 @@ class RewardedVideoData {
     @NonNull
     private final Map<String, CustomEventRewardedVideo> mAdUnitToCustomEventMap;
     @NonNull
+    private final Map<String, MoPubReward> mAdUnitToRewardMap;
+    @NonNull
+    private final Map<String, String> mAdUnitToServerCompletionUrlMap;
+    @NonNull
+    private final Map<Class<? extends CustomEventRewardedVideo>, MoPubReward> mCustomEventToRewardMap;
+    @NonNull
     private final Map<TwoPartKey, Set<String>> mCustomEventToMoPubIdMap;
     @NonNull
     private final Set<CustomEventRewardedVideo.CustomEventRewardedVideoListener> mAdNetworkListeners;
+    @Nullable
+    private String mCurrentAdUnitId;
+    @Nullable
+    private String mCustomerId;
+
 
     RewardedVideoData() {
         mAdUnitToCustomEventMap = new TreeMap<String, CustomEventRewardedVideo>();
+        mAdUnitToRewardMap = new TreeMap<String, MoPubReward>();
+        mAdUnitToServerCompletionUrlMap = new TreeMap<String, String>();
+        mCustomEventToRewardMap = new HashMap<Class<? extends CustomEventRewardedVideo>, MoPubReward>();
         mCustomEventToMoPubIdMap = new HashMap<TwoPartKey, Set<String>>();
         mAdNetworkListeners = new HashSet<CustomEventRewardedVideo.CustomEventRewardedVideoListener>();
     }
@@ -32,6 +50,24 @@ class RewardedVideoData {
     @Nullable
     CustomEventRewardedVideo getCustomEvent(@NonNull String moPubId) {
         return mAdUnitToCustomEventMap.get(moPubId);
+    }
+
+    @Nullable
+    MoPubReward getMoPubReward(@Nullable String moPubId) {
+        return mAdUnitToRewardMap.get(moPubId);
+    }
+
+    @Nullable
+    String getServerCompletionUrl(@Nullable final String moPubId) {
+        if (TextUtils.isEmpty(moPubId)) {
+            return null;
+        }
+        return mAdUnitToServerCompletionUrlMap.get(moPubId);
+    }
+
+    @Nullable
+    MoPubReward getLastShownMoPubReward(@NonNull Class<? extends CustomEventRewardedVideo> customEventClass) {
+        return mCustomEventToRewardMap.get(customEventClass);
     }
 
     @NonNull
@@ -63,6 +99,53 @@ class RewardedVideoData {
         mAdUnitToCustomEventMap.put(moPubId, customEvent);
         mAdNetworkListeners.add(listener);
         associateCustomEventWithMoPubId(customEvent.getClass(), adNetworkId, moPubId);
+    }
+
+    void updateAdUnitRewardMapping(
+            @NonNull String moPubId,
+            @Nullable String currencyName,
+            @Nullable String currencyAmount) {
+        Preconditions.checkNotNull(moPubId);
+        if (currencyName == null || currencyAmount == null) {
+            // If we get here it means that the reward was not set on the frontend ad unit
+            mAdUnitToRewardMap.remove(moPubId);
+            return;
+        }
+
+        int intCurrencyAmount;
+        try {
+            intCurrencyAmount = Integer.parseInt(currencyAmount);
+        } catch(NumberFormatException e) {
+            return;
+        }
+
+        if (intCurrencyAmount < 0) {
+            return;
+        }
+
+        mAdUnitToRewardMap.put(moPubId, MoPubReward.success(currencyName, intCurrencyAmount));
+    }
+
+    void updateAdUnitToServerCompletionUrlMapping(@NonNull final String moPubId,
+            @Nullable final String serverCompletionUrl) {
+        Preconditions.checkNotNull(moPubId);
+        mAdUnitToServerCompletionUrlMap.put(moPubId, serverCompletionUrl);
+    }
+
+    /**
+     * This method should be called right before the rewarded video is shown in order to store the
+     * reward associated with the custom event class. If called earlier in the rewarded lifecycle,
+     * it's possible that this mapping will be overridden by another reward value before the video
+     * is shown.
+     *
+     * @param customEventClass the rewarded video custom event class
+     * @param moPubReward the reward from teh MoPub ad server returned in HTTP headers
+     */
+    void updateCustomEventLastShownRewardMapping(
+            @NonNull final Class<? extends CustomEventRewardedVideo> customEventClass,
+            @Nullable final MoPubReward moPubReward) {
+        Preconditions.checkNotNull(customEventClass);
+        mCustomEventToRewardMap.put(customEventClass, moPubReward);
     }
 
     void associateCustomEventWithMoPubId(
@@ -98,6 +181,24 @@ class RewardedVideoData {
             mCustomEventToMoPubIdMap.put(newCustomEventMapping, moPubIds);
         }
         moPubIds.add(moPubId);
+    }
+
+    void setCurrentAdUnitId(@Nullable final String currentAdUnitId) {
+        mCurrentAdUnitId = currentAdUnitId;
+    }
+
+    @Nullable
+    String getCurrentAdUnitId() {
+        return mCurrentAdUnitId;
+    }
+
+    void setCustomerId(@Nullable final String customerId) {
+        mCustomerId = customerId;
+    }
+
+    @Nullable
+    String getCustomerId() {
+        return mCustomerId;
     }
 
     private static class TwoPartKey extends Pair<Class<? extends CustomEventRewardedVideo>, String> {

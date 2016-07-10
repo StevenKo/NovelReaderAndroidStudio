@@ -18,7 +18,6 @@ import com.mopub.common.MoPub;
 import com.mopub.common.test.support.SdkTestRunner;
 import com.mopub.mobileads.BuildConfig;
 import com.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
-import com.mopub.network.Networking;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +35,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -57,9 +57,9 @@ public class NativeUrlGeneratorTest {
 
     @Before
     public void setup() {
-        Networking.useHttps(false);
         context = spy(Robolectric.buildActivity(Activity.class).create().get());
         Shadows.shadowOf(context).grantPermissions(ACCESS_NETWORK_STATE);
+        Shadows.shadowOf(context).grantPermissions(ACCESS_FINE_LOCATION);
         when(context.getPackageName()).thenReturn("testBundle");
         shadowTelephonyManager = (MoPubShadowTelephonyManager)
                 Shadows.shadowOf((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE));
@@ -290,7 +290,7 @@ public class NativeUrlGeneratorTest {
         assertThat(adUrl).isEqualTo(
                 "http://ads.mopub.com/m/ad?id=" +
                         AD_UNIT_ID +
-                        "&nsv=" + MoPub.SDK_VERSION + 
+                        "&nsv=" + Uri.encode(MoPub.SDK_VERSION) +
                         "&dn=unknown%2Cunknown%2Cunknown" +
                         "&bundle=testBundle" +
                         "&z=-0700" +

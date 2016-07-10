@@ -1,18 +1,14 @@
 {
   "project_info": {
-    "project_id": "novel-reader-1269",
     "project_number": "208375047890",
-    "name": "Novel Reader"
+    "project_id": "novel-reader-1269"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:208375047890:android:ddeb168bb7faa216",
-        "client_id": "android:com.novel.reader",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "com.novel.reader",
-          "certificate_hash": []
+          "package_name": "com.novel.reader"
         }
       },
       "oauth_client": [
@@ -29,21 +25,18 @@
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYbH6ZaGit6je1JmqavLiq4XF3vuGIZLQ"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 1
@@ -51,6 +44,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

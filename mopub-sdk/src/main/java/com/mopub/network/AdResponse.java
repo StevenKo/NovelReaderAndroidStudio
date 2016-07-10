@@ -27,6 +27,13 @@ public class AdResponse implements Serializable {
     private final String mNetworkType;
 
     @Nullable
+    private final String mRewardedVideoCurrencyName;
+    @Nullable
+    private final String mRewardedVideoCurrencyAmount;
+    @Nullable
+    private final String mRewardedVideoCompletionUrl;
+
+    @Nullable
     private final String mRedirectUrl;
     @Nullable
     private final String mClickTrackingUrl;
@@ -71,6 +78,11 @@ public class AdResponse implements Serializable {
         mAdUnitId = builder.adUnitId;
         mFullAdType = builder.fullAdType;
         mNetworkType = builder.networkType;
+
+        mRewardedVideoCurrencyName = builder.rewardedVideoCurrencyName;
+        mRewardedVideoCurrencyAmount = builder.rewardedVideoCurrencyAmount;
+        mRewardedVideoCompletionUrl = builder.rewardedVideoCompletionUrl;
+
         mRedirectUrl = builder.redirectUrl;
         mClickTrackingUrl = builder.clickTrackingUrl;
         mImpressionTrackingUrl = builder.impressionTrackingUrl;
@@ -127,6 +139,21 @@ public class AdResponse implements Serializable {
     @Nullable
     public String getNetworkType() {
         return mNetworkType;
+    }
+
+    @Nullable
+    public String getRewardedVideoCurrencyName() {
+        return mRewardedVideoCurrencyName;
+    }
+
+    @Nullable
+    public String getRewardedVideoCurrencyAmount() {
+        return mRewardedVideoCurrencyAmount;
+    }
+
+    @Nullable
+    public String getRewardedVideoCompletionUrl() {
+        return mRewardedVideoCompletionUrl;
     }
 
     @Nullable
@@ -224,6 +251,10 @@ public class AdResponse implements Serializable {
         private String fullAdType;
         private String networkType;
 
+        private String rewardedVideoCurrencyName;
+        private String rewardedVideoCurrencyAmount;
+        private String rewardedVideoCompletionUrl;
+
         private String redirectUrl;
         private String clickTrackingUrl;
         private String impressionTrackingUrl;
@@ -263,6 +294,24 @@ public class AdResponse implements Serializable {
 
         public Builder setNetworkType(@Nullable final String networkType) {
             this.networkType = networkType;
+            return this;
+        }
+
+        public Builder setRewardedVideoCurrencyName(
+                @Nullable final String rewardedVideoCurrencyName) {
+            this.rewardedVideoCurrencyName = rewardedVideoCurrencyName;
+            return this;
+        }
+
+        public Builder setRewardedVideoCurrencyAmount(
+                @Nullable final String rewardedVideoCurrencyAmount) {
+            this.rewardedVideoCurrencyAmount = rewardedVideoCurrencyAmount;
+            return this;
+        }
+
+        public Builder setRewardedVideoCompletionUrl(
+                @Nullable final String rewardedVideoCompletionUrl) {
+            this.rewardedVideoCompletionUrl = rewardedVideoCompletionUrl;
             return this;
         }
 
