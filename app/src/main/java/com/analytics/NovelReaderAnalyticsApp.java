@@ -20,15 +20,19 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
+import com.crashlytics.android.Crashlytics;
+import com.novel.reader.BuildConfig;
 import com.novel.reader.R;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import java.util.HashMap;
 
-public class NovelReaderAnalyticsApp extends Application {
+import io.fabric.sdk.android.Fabric;
+
+public class NovelReaderAnalyticsApp extends MultiDexApplication {
 
 
     public static int GENERAL_TRACKER = 0;
@@ -58,12 +62,15 @@ public class NovelReaderAnalyticsApp extends Application {
 
     @Override
     public void onCreate() {
+        MultiDex.install(this);
         super.onCreate();
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(getApplicationContext(), new Crashlytics());
+        }
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 }

@@ -2,424 +2,263 @@
 <items version="2" >
 
     <item
-        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.mopub.volley/mopub-volley/1.1.0/4357bce66ae3bb9be50679e43df122fd0a8f3394/mopub-volley-1.1.0.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="4357bce66ae3bb9be50679e43df122fd0a8f3394">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/mopub-volley-1.1.0_c2c6c8b84b0e115b612c72906b2d2eced7a699e9/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/vpadn-sdk-obf453-71606102-1606171046-2512837.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="2498f120a85d050ed30611b800c3b6bac1d24ec9">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/vpadn-sdk-obf453-71606102-1606171046-2512837_c706dad71a5bf8812d4c159ac9a91cd3b34e8074/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="c11cf7a7a6e5adf8fa564303a11dbc351fc11b7c">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-safetynet-9.0.0_acf5a7b05714fadba377ab12057c309b286291d6/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="67a7d712de3e7d025f4efdcec1da183f764bdbab">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-panorama-9.0.0_f38ff9b95c95b71652507d513d7f9b36b880808c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_ddbe725802684939b2009d3fba4b471d67ba5947/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="373cd65725af2781d100ddc193c7d3f14464a774">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-impl-9.0.0_9e5c4c16f715d6b972e7c0583acc592da6544c6a/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_0879ae0acf0e585f87ebdd3a04b24eb3dae45536/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="d7002ed92a3c46c6a89a786877ecf7978a4f0459">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-9.0.0_2636aa2d74dc327ff1aafbec95fe08d6765cd93c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="ef5c5c2afbd174d55cf1cfcac7d0346cbc4c1322">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-9.0.0_0b4e1a0719b3ea5138cd86fe2f579077ae1c3ca5/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="a819aae4f0c711e50b4fd633922a3c1a176cb51e">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-9.0.0_44a5617978eb8b7ba74ae3343d21b2a7ca3e4ced/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.0.0_934d9c9a0fa3fa6cf056a7cc546a3ac4d793a7d2/classes.dex" />
-    </item>
-    <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
+        revision="24.0.1"
         sha1="09c5e804bc67fc0580360043dff067df574a60d4">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_b2c4b68186a78a95319a749703b972f4f9df106e/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="cc178928721f3222b3b06bdfbd9497378ccb9792">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.0.0_5e92ad1d09c7a11a2c159c794d6e55f8cf3da7eb/classes.dex" />
+        revision="24.0.1"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_0879ae0acf0e585f87ebdd3a04b24eb3dae45536/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-config/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="ebfde1a055aea400df77584a68aa60609f618bed">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-config-9.0.0_a935c3c5af134fa92cea2f2fc55e0253c60bf249/classes.dex" />
+        revision="24.0.1"
+        sha1="4348dd26d83b56c2058b768222c3271bce911724">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.4.0_6ac7dfa6557945d3119fc3e9169d04b58f381a79/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="005786793d72c6deacbbbfd38177ed58e1aa6653">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-9.0.0_50abeb18eac790e7008d875f5f89e24d13ed617f/classes.dex" />
+        revision="24.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_ddbe725802684939b2009d3fba4b471d67ba5947/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/9.0.0/jars/classes.jar"
+        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="2c5bc0ebbe69c9fab587c2216b36ec44ab8f0704">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-9.0.0_24956080515208d83bcf955986326d985c8a0ea2/classes.dex" />
+        revision="24.0.1"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.3.2_8c8cc6da087c6833814f4f129e0f4cfbb9b8358a/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="59cca9b91688dc2467754d36793b3d23bebd21a9">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-9.0.0_7aa5409e3bd34a97e638bfc13722429ec09eaea1/classes.dex" />
+        revision="24.0.1"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.4.0_6dedc0a4251928ab60a7d47239b9105e0811bf78/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="2f7bd8cc7519d5231aa8d2ae8e905d3f602bd491">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-9.0.0_b6966c9fd362c668d8b837fbb27d4ab8941c5c80/classes.dex" />
+        revision="24.0.1"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.4.0_5759790bfadf0485c1ed8f6c8d75639c4adfee30/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="e595f98f8c525201dccd119f43ad1ddacd4c48d6">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-9.0.0_2a6bcc189ce7496651c37e8fdff8374a5d4e9f72/classes.dex" />
+        revision="24.0.1"
+        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.exoplayer-exoplayer-r1.5.6_78353bab7b8aa0bb4b972e0ecfd3ffd01e03bc46/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="4caf75b2cfb7ec6e80a57d0ee64fc102ad3578b8">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-9.0.0_cabcb8ceaaf345b322906016033478cb01c528e8/classes.dex" />
+        revision="24.0.1"
+        sha1="59a16a4a42d25b2c243dd1e8aea87d06895b4a06">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.4.0_e25d52e473e719db97c4d956344c205f23de48a9/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="ea4b54dcbfe5ac05efb0a314105f07258118d3a7">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.0.0_ff684c7eebe90ca365ffd7e178859652a714f096/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="733964f04c339e425439545b1d172c23b53f8c13">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-9.0.0_dbf07d89e70891c95f2c114420da8de6595487ec/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="ed16ff19f0a9515604a0f08104ca0317b82e29e3">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-9.0.0_ab53404c3ebdf74ee9a3ce07cf01d90f17568796/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="7da84426d876216ed4cdddd85e739be5ecabdd04">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.0.0_ae78624865a15f81e650d2654e2f833ffb8ef971/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="184428c29b2a4b220cd44284d515db5d8cb5fc76">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-9.0.0_971e3adff8a24de890659d16f710dc496549e523/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="a57fb602d2e141512acc974bc2b55c92c394b53b">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7f95dc8a22cd9bc73c5a00bef9621e7e164e9459/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="4ef8ab5fee042023018249474bc93bd4b2b9c17e">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.0.0_c838812455d02566b348fb530637c7f61f0a61ad/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_c298a9f1986b602e06be00a68a4642c30bd7deff/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="70ddab48594608953b20164b82f1f890a9a8174a">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-9.0.0_742e8e0d346f5b86173997d155f478d217c27625/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="7a23185c9b1c100e7d1a32275017e4712e31c796">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-9.0.0_d30652e91ae43b08159a51cb869dafe4bd15cdcb/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="0facc6fc326f2406f4bb9b02f442994c5ce6a403">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-nearby-9.0.0_5c6b9d811d97f8f26fd61e2e9d76ef0dab7b9cd5/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="d96f9f3ef66494d1231304cafd28c962dda80dea">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appinvite-9.0.0_88879294d7f42b053321610048f9f5dc839adb56/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="379d1834afa3c08f43be23a23b103053537b65b5">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.0.0_2a114f89ba17799ad6dd0605b703e832de34ef71/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="5289e799a43a64c4137d109bf992e10a2f952aa3">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-9.0.0_54f39fa846eaaf884fd29d1f91fbcb4eb4d06ffa/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.0.0_56f392582c43e4efa932397c503bf6243b5e44e5/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-23.0.0_cc944cd6d8fcdfacad7589151e6b588975ead5eb/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.crashlytics.android/crashlytics/1.1.13/e821eafa1bf489a26bdb71f95078c26785b37a1/crashlytics-1.1.13.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="0e821eafa1bf489a26bdb71f95078c26785b37a1">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/crashlytics-1.1.13_517b25bcef10928ce6d2266aa1727b5e8c59df04/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/jcc-bate-0.7.3.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="7c9410f6468f1fcc879f39f09936a03fdadb86ea">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/jcc-bate-0.7.3_8e56c385386a995507b2b7bd345c2f87452c183c/classes.dex" />
+        revision="24.0.1"
+        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.4.0_2aacd30a3c98ef1778069e957ad3a398fbedfa9d/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
+        revision="24.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.0.1_b5e2175045c35b98c0f5ab9626d35364afab1907/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="d4d6d66f136c06d18085fb86709d4b2a3801b0bf">
+        revision="24.0.1"
+        sha1="28144e14694eaf0f4849f877a9631ce7d73de806">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8569483d55bc93eed95dcc9dae9d70b1fe4e6812/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/9.0.0/jars/classes.jar"
+        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.mopub.volley/mopub-volley/1.1.0/4357bce66ae3bb9be50679e43df122fd0a8f3394/mopub-volley-1.1.0.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="4431efe5d0f67fab36a698dde725946b33a6bf4a">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-9.0.0_884023a04ddeb11d838d54f767674e8e6f1b30fe/classes.dex" />
+        revision="24.0.1"
+        sha1="4357bce66ae3bb9be50679e43df122fd0a8f3394">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/mopub-volley-1.1.0_c2c6c8b84b0e115b612c72906b2d2eced7a699e9/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.5/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="79e4b41db41d4dbbf364c7bd6aaeee5b876c9d8b">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-9.0.0_bf85e7b0efbb1fe9c644c7d5921e2b25fefd2594/classes.dex" />
+        revision="24.0.1"
+        sha1="611605b6b640c1558f9bdea41de8ff837ab68ca8">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-2.5.5_92744eaeb8b1db4577dc0d95b55bc39ec5ebad43/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-common/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/jcc-bate-0.7.3.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="5f0f6913a208a126269aaa68004ed0329a832c5b">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-common-9.0.0_cfe0b261266c8e0c2f7babe7ac8a89ef51169b49/classes.dex" />
+        revision="24.0.1"
+        sha1="7c9410f6468f1fcc879f39f09936a03fdadb86ea">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/jcc-bate-0.7.3_8e56c385386a995507b2b7bd345c2f87452c183c/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.3.2_8c8cc6da087c6833814f4f129e0f4cfbb9b8358a/classes.dex" />
+        revision="24.0.1"
+        sha1="3cb9dd7fd6c8a4f4c6ed6d8e536429d32f7adbba">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7f95dc8a22cd9bc73c5a00bef9621e7e164e9459/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/vpadn-sdk-obf453-71606102-1606171046-2512837.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="b8bedab61b3b5238cd9a07d3b04449d7fecdbc3b">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-9.0.0_f50a6e2fff1d4a26c8de16e7a6e24b690df1ac87/classes.dex" />
+        revision="24.0.1"
+        sha1="2498f120a85d050ed30611b800c3b6bac1d24ec9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/vpadn-sdk-obf453-71606102-1606171046-2512837_c706dad71a5bf8812d4c159ac9a91cd3b34e8074/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.4/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_73f57fdbeec6d0fb30d6a25f4e753077dfee6f02/classes.dex" />
+        revision="24.0.1"
+        sha1="ad5bb101ced4d3939225c9b57e5a3d81547c1fbb">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-beta-1.1.4_0f30322717a4398b6767650198bf699175e9db66/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="58c9f5ee817fdb8b658fd7455fadfb74119f7ee9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-9.4.0_b76a4cf67cb2005ea859520c750afff83b97c4a1/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
+        revision="24.0.1"
         sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.0.1_b9aeefc21f959510d606adcdec85dabcafc5c80b/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="f4e85eafa876cd7d7641244867dac3f88d71e866">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-vision-9.0.0_e775395d2516af82ee52af2bfb07ac3f87f4ded8/classes.dex" />
+        revision="24.0.1"
+        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.4.0_3d9905c5c8a201723d280b5a3b332fe0f26ab3f6/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="2cb29455028e92e024bbad0d41c6ec772f2433d1">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-9.0.0_f67673143ebd86459c18d53f60e31a68a588d41a/classes.dex" />
+        revision="24.0.1"
+        sha1="d463d8eec1e6c1feef2cec6675ccb47e37c12ee1">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-9.4.0_827b5fcc4c3cbdb494a8c1a18ee9c68ec0c29ea5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.mopub/mopub-sdk/4.8.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="b518222b95df9a0446310de9c0c3373d3fc08a5c">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.mopub-mopub-sdk-4.8.0_f54e425409e584f1eb9853a27d31e75551f0277f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-clearcut/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="dd763e0269f2854f5828ae62dd968b80bff6a0db">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-clearcut-9.4.0_048f4fc8ece341dd95bf2bbc55746c78ce38461c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.4.0_dd4e9576465085dd541bf01d1b62e8e5e2ad8b67/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="ba47b210d36301e237ccfea860eaada04590f12a">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-9.4.0_3aac4cf051cebb456f1ed5e842ded09aea8159e1/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.6/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="9af3b9b8114e685291aa00e6572b0a9131244956">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-answers-1.3.6_24f232f7892a12a96ca69c0b5b42b648a00fc468/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="0ad33eb600f3d80bdff5ce355c90d5533ade652a">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-impl-9.4.0_7f75b008f70ce9cfb9901311eebcff7f17d86df2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gass/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="b15f898c9047f9d612a63000126b485dd024eaac">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gass-9.4.0_bce459baf2379006261ee96b4ebd81097634766b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.8/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="c9ef45dcbd082cd63aac09a5e2cd443adb5df837">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-core-2.3.8_96ec72d3e5d98d5c68ff04ef1d8740dec43e0c78/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.4.0_83c7e59b16454f90af4af279ccac9bdf0cda6ae6/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="ece40b09e9d4d488bc270cf6af5a9af73bc1cfa3">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-9.4.0_023198a575915f6a27104a604810462728b85073/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.10/jars/classes.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="a5db9a2dd46d84285ef737f65030b74b6e8ee2a4">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/io.fabric.sdk.android-fabric-1.3.10_4b06ef0cb0914dae21ced5ae92ec859ce21cf334/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
+        revision="24.0.1"
         sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_ecb450ce8085d97f55572db98275d758fb5a6819/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="42df48c7305b08b14fa0e84561091b0c24d70d26">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.0.0_12ce967cd60dd4ca9564e96643f0915004034157/classes.dex" />
+        revision="24.0.1"
+        sha1="3b7173b3df4c7029699919414400041f64519e34">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.4.0_0c2574ee63446125cfc7b93b28b27a48d0e6b85e/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.0.0/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/9.4.0/jars/classes.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="0dc8ab07eeceda5e99b305c8069765056b6e5c9d">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.0.0_f010f56e209c92ef1d40db3334c311491ed317cd/classes.dex" />
+        revision="24.0.1"
+        sha1="147edbec6bcea71fd675ecc63cae3319637ec2b4">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-9.4.0_a83fb074ec6514b0a98854f3b7baa184921fa24f/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="true"
-        revision="23.0.2"
-        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.exoplayer-exoplayer-r1.5.6_78353bab7b8aa0bb4b972e0ecfd3ffd01e03bc46/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="294d49a66cc1238d9f7fd352136a45622fa98c0f">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-9.0.0_960c3e6cc6dbdb0102d4b2e43c926fa429fa9e20/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="7e467a973b749c6390a5991c9a8edbde96fc10c9">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-9.0.0_52c72cfa2fe6fbc5479d4c1f13129e3d7c360786/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-module/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="24536a7b97926a9c155c88425da6875adeb11b51">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-module-9.0.0_c4d9824a6a173f440c2fe3d47be8282eb7ea4dd6/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="32a5a566ae197603d0bed3e6d1d275f6a771564e">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-9.0.0_b400ad081a025a82bca5a02866ae43e07143763c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-api/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="69472e334350cafbf442776da05c9a04955252fb">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-9.0.0_facc260d121259ebf5080d7c7618a74b3ad86806/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="8126914f5bc372a33e27ea90f02412c32468ce8a">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-9.0.0_a61a537512e71b0b8c3c5ed56338b1d3974ed24c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/9.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="817b9101192f2fd6dc0fd8cd522d8f4a1a75fcdc">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-9.0.0_933691772a2a1814daa3c7295a8a85d8228c07d4/classes.dex" />
+        revision="24.0.1"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_73f57fdbeec6d0fb30d6a25f4e753077dfee6f02/classes.dex" />
     </item>
 
 </items>

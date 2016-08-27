@@ -141,7 +141,7 @@
         </activity>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="061f74624449122730ac6789bc4ae591c8701a7c"/>
 
-        <!-- Used for Google Play Store Campaign Measurement-->;
+        <!-- Used for Google Play Store Campaign Measurement-->
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
         <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
             android:exported="true">
@@ -149,6 +149,27 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
+
+        <!-- AdMob Third Party China-->
+        <!--<activity-->
+            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"-->
+            <!--android:theme="@android:style/Theme.Translucent">-->
+        <!--</activity>-->
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$DownloadCompleteReceiver" android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<receiver android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$InstallCompleteReceiver" android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_REPLACED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_CHANGED"/>-->
+                <!--<data android:scheme="package"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
     </application>
 

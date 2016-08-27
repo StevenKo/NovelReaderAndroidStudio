@@ -18,7 +18,6 @@ import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.android.slidingtab.SlidingTabLayout;
-import com.crashlytics.android.Crashlytics;
 import com.kosbrother.fragments.CategoryListFragment;
 import com.kosbrother.fragments.GridGplayFragment;
 import com.kosbrother.fragments.IndexNovelFragment;
@@ -123,7 +122,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Crashlytics.start(this);
         Setting.setApplicationActionBarTheme(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

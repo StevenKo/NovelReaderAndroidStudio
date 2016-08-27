@@ -1,14 +1,13 @@
 package com.ads;
 
-import android.view.Display;
-import android.view.View;
-import android.widget.RelativeLayout;
-
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.mopub.mobileads.MoPubView;
 import com.novel.reader.NovelReaderBaseActivity;
 import com.novel.reader.R;
+
+import android.view.Display;
+import android.widget.RelativeLayout;
 
 /**
  * Created by steven on 12/17/14.
@@ -19,14 +18,10 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
 
     protected void onResume(){
         super.onResume();
-        if(moPubView != null)
-            moPubView.setAdVisibility(View.VISIBLE);
     }
 
     protected void onPause(){
         super.onPause();
-        if(moPubView != null)
-            moPubView.setAdVisibility(View.GONE);
     }
 
     protected void onDestroy() {
@@ -90,7 +85,7 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
     }
 
     public void requestInterstitialAd() {
-        mInterstitial = new MoPubInterstitial(this, "0bdafd84edcd4107a314edcd2911eea4");
+        mInterstitial = new MoPubInterstitial(this, "ccf6296fccc54758adf23f534175664b");
         mInterstitial.setInterstitialAdListener(this);
         mInterstitial.load();
     }

@@ -1,36 +1,37 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+    flatDir{
+        dirs 'libs'
+    }
+}
+
 buildscript {
     repositories {
-        maven { url 'http://download.crashlytics.com/maven' }
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
-apply plugin: 'com.android.application'
-apply plugin: 'crashlytics'
-apply plugin: 'com.google.gms.google-services'
-
-repositories {
-    maven { url 'http://download.crashlytics.com/maven' }
-}
-
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 86
-        versionName "5.0.4"
-    }
-
-    defaultConfig {
-        // Enabling multidex support.
+        versionCode 87
+        versionName "5.0.5"
         multiDexEnabled true
     }
 
@@ -44,22 +45,29 @@ android {
             }
         }
     }
-
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
-
-    sourceSets { main { aidl.srcDirs = ['src/main/aidl', 'src/main/aidl/'] } }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    compile 'com.google.android.gms:play-services:9.0.0'
-    compile 'com.crashlytics.android:crashlytics:1.+'
-    compile project(':mopub-sdk')
+
+    compile 'com.google.android.gms:play-services-auth:9.4.0'
+    compile 'com.google.android.gms:play-services-ads:9.4.0'
+    compile 'com.google.android.gms:play-services-analytics:9.4.0'
+    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
+    compile('com.mopub:mopub-sdk:4.8.0@aar') {
+        transitive = true
+    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
+//    compile(name:'client_admob-impl_3p_deploy', ext:'aar')
+//    compile(name:'client_admob_deploy', ext:'aar')
+//    compile(name:'client_common_3p_deploy', ext:'aar')
 }
+
+apply plugin: 'com.google.gms.google-services'
