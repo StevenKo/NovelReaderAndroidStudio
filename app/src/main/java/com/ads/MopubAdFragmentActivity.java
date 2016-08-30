@@ -6,6 +6,8 @@ import com.mopub.mobileads.MoPubView;
 import com.novel.reader.NovelReaderBaseActivity;
 import com.novel.reader.R;
 
+import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.view.Display;
 import android.widget.RelativeLayout;
 
@@ -22,6 +24,12 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
 
     protected void onPause(){
         super.onPause();
+    }
+
+
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        getWindow().setFormat(PixelFormat.TRANSPARENT);
     }
 
     protected void onDestroy() {
