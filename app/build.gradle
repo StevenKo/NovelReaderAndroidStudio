@@ -30,8 +30,8 @@ android {
         applicationId "com.novel.reader"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 87
-        versionName "5.0.5"
+        versionCode 89
+        versionName "5.0.7"
         multiDexEnabled true
     }
 
@@ -52,10 +52,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
 
-    compile 'com.google.android.gms:play-services-auth:9.4.0'
-    compile 'com.google.android.gms:play-services-ads:9.4.0'
-    compile 'com.google.android.gms:play-services-analytics:9.4.0'
-    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+//    compile 'com.google.android.gms:play-services-auth:9.4.0'
+//    compile 'com.google.android.gms:play-services-ads:9.4.0'
+//    compile 'com.google.android.gms:play-services-analytics:9.4.0'
+//    compile 'com.google.android.gms:play-services-gcm:9.4.0'
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
@@ -65,9 +65,17 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-//    compile(name:'client_admob-impl_3p_deploy', ext:'aar')
-//    compile(name:'client_admob_deploy', ext:'aar')
-//    compile(name:'client_common_3p_deploy', ext:'aar')
+
+    compile(name:'client_admob-impl_3p_deploy', ext:'aar')
+    compile(name:'client_admob_3p_deploy', ext:'aar')
+    compile(name:'client_analyticsservices_3p_deploy', ext:'aar')
+    compile(name:'client_analyticsservices_app_library_3p_deploy', ext:'aar')
+    compile(name:'client_auth_3p_deploy', ext:'aar')
+    compile(name:'client_auth-api_3p_deploy', ext:'aar')
+    compile(name:'client_base_3p_deploy', ext:'aar')
+    compile(name:'client_common_3p_deploy', ext:'aar')
+    compile(name:'client_tasks_3p_deploy', ext:'aar')
 }
 
-apply plugin: 'com.google.gms.google-services'
+
+//apply plugin: 'com.google.gms.google-services'

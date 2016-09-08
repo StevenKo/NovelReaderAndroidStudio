@@ -118,16 +118,6 @@
         <service android:name=".service.DownloadService" >
         </service>
 
-        <receiver
-            android:name=".util.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.novel.reader" />
-            </intent-filter>
-        </receiver>
-
         <service android:name=".service.CollectNovelsService" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" >
@@ -150,26 +140,26 @@
             </intent-filter>
         </receiver>
 
-        <!-- AdMob Third Party China-->
-        <!--<activity-->
-            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallActivity"-->
-            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"-->
-            <!--android:theme="@android:style/Theme.Translucent">-->
-        <!--</activity>-->
-        <!--<receiver-->
-            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$DownloadCompleteReceiver" android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<receiver android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$InstallCompleteReceiver" android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>-->
-                <!--<action android:name="android.intent.action.PACKAGE_REPLACED"/>-->
-                <!--<action android:name="android.intent.action.PACKAGE_CHANGED"/>-->
-                <!--<data android:scheme="package"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+         <!--AdMob Third Party China-->
+        <activity
+            android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent">
+        </activity>
+        <receiver
+            android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$DownloadCompleteReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$InstallCompleteReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
 
         <!--Include the AdbertActivity configChanges and theme for AdbertADView. -->
         <activity
