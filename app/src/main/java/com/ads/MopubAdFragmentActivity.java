@@ -9,21 +9,28 @@ import com.novel.reader.R;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
  * Created by steven on 12/17/14.
  */
 public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements MoPubInterstitial.InterstitialAdListener{
-    protected MoPubView moPubView;
+    protected MopubViewExtend moPubView;
     private MoPubInterstitial mInterstitial;
 
     protected void onResume(){
         super.onResume();
+        if(moPubView != null)
+            moPubView.callSetAdVisibility(View.VISIBLE);
+
     }
 
     protected void onPause(){
         super.onPause();
+        if(moPubView != null)
+            moPubView.callSetAdVisibility(View.GONE);
+
     }
 
 
@@ -40,7 +47,7 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
         super.onDestroy();
     }
 
-    public MoPubView setBannerAdView(RelativeLayout bannerAdView) {
+    public MopubViewExtend setBannerAdView(RelativeLayout bannerAdView) {
         try {
             Display display = getWindowManager().getDefaultDisplay();
             int width = display.getWidth(); // deprecated
@@ -54,8 +61,8 @@ public class MopubAdFragmentActivity extends NovelReaderBaseActivity implements 
         return null;
     }
 
-    private MoPubView getBannerAdRequest(final RelativeLayout bannerAdView) {
-        moPubView = new MoPubView(this);
+    private MopubViewExtend getBannerAdRequest(final RelativeLayout bannerAdView) {
+        moPubView = new MopubViewExtend(this);
         moPubView.setAdUnitId(getResources().getString(R.string.mopub_key));
         moPubView.setBannerAdListener(new MoPubView.BannerAdListener() {
             @Override
