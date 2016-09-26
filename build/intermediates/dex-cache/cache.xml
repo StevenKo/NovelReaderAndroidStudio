@@ -47,7 +47,7 @@
         jar="/Users/kosteven/projects/NovelReaderAndroidStudio/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="84a6c04ee4ab1c87ccc2a91a984e4a4df3ca4607">
+        sha1="444b001ff8d31c6ac669533133da6abdc380e541">
         <dex dex="/Users/kosteven/projects/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fcb3323f968d5b8ac1ce849d9f88447da4f4d6c6/classes.dex" />
     </item>
     <item
@@ -82,7 +82,7 @@
         jar="/Users/kosteven/projects/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="800cef90dbe2c5210864ba171ed4bd4bfb180647">
+        sha1="3e93e5ee42c47d4706bcb9699c2d22b1cd9a9567">
         <dex dex="/Users/kosteven/projects/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_208ab66ec800bcd4bd06b80858207e2dfe058dc4/classes.dex" />
     </item>
     <item
