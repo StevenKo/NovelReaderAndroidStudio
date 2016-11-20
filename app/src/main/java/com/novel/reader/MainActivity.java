@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import com.ads.AdInterstitialManager;
 import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
@@ -45,7 +46,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -150,6 +150,7 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         int i1 = r.nextInt(20);
         if(i1 == 15)
             new AppOpenCheckUpdateTask().execute();
+        new AdInterstitialManager(this);
     }
 
     @Override

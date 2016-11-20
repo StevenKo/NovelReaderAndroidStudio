@@ -1,5 +1,22 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.AdInterstitialManager;
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.kosbrother.tool.DetectScrollView;
+import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
+import com.kosbrother.tool.Report;
+import com.mopub.mobileads.MoPubInterstitial;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+import com.novel.reader.entity.Bookmark;
+import com.novel.reader.entity.Novel;
+import com.novel.reader.util.Setting;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,20 +37,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.tool.DetectScrollView;
-import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
-import com.kosbrother.tool.Report;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.entity.Bookmark;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.Setting;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -130,8 +133,11 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                     myArticle = new Article(articleId, novelId, "", articleTitle, "", false, articleNum);
                 }
             }
-
             new DownloadArticleTask().execute();
+            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+                requestInterstitialAd();
+                adHasShowed = false;
+            }
         }
 
         ab.setDisplayShowCustomEnabled(true);
@@ -231,6 +237,10 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         articleButtonUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+                    requestInterstitialAd();
+                    adHasShowed = false;
+                }
                 previousPage();
             }
         });
@@ -238,6 +248,10 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         articleButtonDown.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+                    requestInterstitialAd();
+                    adHasShowed = false;
+                }
                 nextPage();
             }
         });
@@ -552,11 +566,13 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
             myArticle.setNovelId(novelId);
 
             new GetLastPositionTask().execute();
-            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
-                requestInterstitialAd();
-                adHasShowed = false;
-            }
+        }
+    }
 
+    private void requestInterstitialAd() {
+        MoPubInterstitial ad = AdInterstitialManager.getAd();
+        if (ad != null && ad.isReady()) {
+            ad.show();
         }
     }
 
@@ -627,9 +643,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
-                    requestInterstitialAd();
-
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_data), Toast.LENGTH_SHORT).show();
             }
@@ -668,9 +681,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
-                    requestInterstitialAd();
-
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_up), Toast.LENGTH_SHORT).show();
             }
@@ -707,8 +717,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                 articleScrollView.scrollTo(0, 0);
                 setArticleTitle(myArticle.getTitle());
                 articlePercent.setText("0%");
-                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0)
-                    requestInterstitialAd();
             } else {
                 Toast.makeText(ArticleActivity.this, getResources().getString(R.string.article_no_down), Toast.LENGTH_SHORT).show();
             }

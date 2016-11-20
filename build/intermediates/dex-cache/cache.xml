@@ -2,92 +2,181 @@
 <items version="2" >
 
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_b2c4b68186a78a95319a749703b972f4f9df106e/classes.dex" />
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_73f57fdbeec6d0fb30d6a25f4e753077dfee6f02/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        is-multidex="true"
+        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.mopub.volley/mopub-volley/1.1.0/4357bce66ae3bb9be50679e43df122fd0a8f3394/mopub-volley-1.1.0.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_0879ae0acf0e585f87ebdd3a04b24eb3dae45536/classes.dex" />
+        sha1="4357bce66ae3bb9be50679e43df122fd0a8f3394">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/mopub-volley-1.1.0_c2c6c8b84b0e115b612c72906b2d2eced7a699e9/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_ddbe725802684939b2009d3fba4b471d67ba5947/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.3.2_8c8cc6da087c6833814f4f129e0f4cfbb9b8358a/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_base_3p_deploy/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="f6e4b64c223beafe2a8d1b1ff7f205838e13b534">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_base_3p_deploy_a9c4c84e0c79d7faded24e63cbc667878217795d/classes.dex" />
-    </item>
-    <item
+        is-multidex="true"
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/adbert-sdk-2.2.6n.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="6b7edaf93c8e65b6c42989bf5e43391b56f265eb">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/adbert-sdk-2.2.6n_f57da8536f45b818d151d4f21fc1a9843bcae2de/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.exoplayer-exoplayer-r1.5.6_78353bab7b8aa0bb4b972e0ecfd3ffd01e03bc46/classes.dex" />
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_0879ae0acf0e585f87ebdd3a04b24eb3dae45536/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_base_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f6e4b64c223beafe2a8d1b1ff7f205838e13b534">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_base_3p_deploy_a9c4c84e0c79d7faded24e63cbc667878217795d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_common_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="43b8f84c8c008a4ab7d04a485a35a61c1ea110f1">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_common_3p_deploy_dc9656014a1a9caa201df7867651773037b0a279/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.4/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="ad5bb101ced4d3939225c9b57e5a3d81547c1fbb">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-beta-1.1.4_0f30322717a4398b6767650198bf699175e9db66/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7e48ddb3bd3e69cde2acee489ab9555b583e1dc9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8569483d55bc93eed95dcc9dae9d70b1fe4e6812/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_auth-api_3p_deploy/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="d51235a62eecd4df826b8dfb9c89732b8103b512">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_auth-api_3p_deploy_cdb6c2a6ca07c676c4013fae2f28d17cd1cecb4d/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_app_library_3p_deploy/jars/classes.jar"
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.10/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="7e02dcf0e4363ed108aecb52e573223c4f556a39">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_app_library_3p_deploy_09e1fdf015f5fdbf6899eef883118632e0b0109c/classes.dex" />
+        sha1="a5db9a2dd46d84285ef737f65030b74b6e8ee2a4">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/io.fabric.sdk.android-fabric-1.3.10_4b06ef0cb0914dae21ced5ae92ec859ce21cf334/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/jcc-bate-0.7.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7c9410f6468f1fcc879f39f09936a03fdadb86ea">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/jcc-bate-0.7.3_8e56c385386a995507b2b7bd345c2f87452c183c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.exoplayer-exoplayer-r1.5.6_78353bab7b8aa0bb4b972e0ecfd3ffd01e03bc46/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="c934ca14363c3b652eeb1211de6bfe4fb869e748">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_3p_deploy_b9a953e083a49b4a171bb77f0d4824ba84d08599/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/mobfox-android-mopub-adapter.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="54c21177a9c51857dbe9e97b853ad8584c67f940">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/mobfox-android-mopub-adapter_a0efa643252ff656e1d21c087dc20d2ab6f9628d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.0.1_b9aeefc21f959510d606adcdec85dabcafc5c80b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="899a53ebb86a2f7f63c42b50bb1e86d5d822d26d">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7f95dc8a22cd9bc73c5a00bef9621e7e164e9459/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_ecb450ce8085d97f55572db98275d758fb5a6819/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_tasks_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e44122d74b4c6734e15b029f245770466ea580c5">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_tasks_3p_deploy_0b84303684f631eadc0da3bceceab8d853eb70ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/jcc-bate-0.7.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7c9410f6468f1fcc879f39f09936a03fdadb86ea">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/jcc-bate-0.7.3_8e56c385386a995507b2b7bd345c2f87452c183c/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.0.1_b5e2175045c35b98c0f5ab9626d35364afab1907/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="1df0cd025986085455222ecb4b64dea821d9f5c3">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8569483d55bc93eed95dcc9dae9d70b1fe4e6812/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob-impl_3p_deploy/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="43f68d89b7ae7dc8c5869efb496b2c5551cb6437">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob-impl_3p_deploy_9fc3de63970a319b324ebfeece49ac8d3593d5c9/classes.dex" />
-    </item>
-    <item
         jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.mopub.volley/mopub-volley/1.1.0/4357bce66ae3bb9be50679e43df122fd0a8f3394/mopub-volley-1.1.0.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="4357bce66ae3bb9be50679e43df122fd0a8f3394">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/mopub-volley-1.1.0_c2c6c8b84b0e115b612c72906b2d2eced7a699e9/classes.dex" />
@@ -95,121 +184,350 @@
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.5/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="611605b6b640c1558f9bdea41de8ff837ab68ca8">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-2.5.5_92744eaeb8b1db4577dc0d95b55bc39ec5ebad43/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="c28807021c3f3b4b1ad2a3aff9404f320ac91f4b">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7f95dc8a22cd9bc73c5a00bef9621e7e164e9459/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/jcc-bate-0.7.3.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="7c9410f6468f1fcc879f39f09936a03fdadb86ea">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/jcc-bate-0.7.3_8e56c385386a995507b2b7bd345c2f87452c183c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_3p_deploy/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="c934ca14363c3b652eeb1211de6bfe4fb869e748">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_3p_deploy_b9a953e083a49b4a171bb77f0d4824ba84d08599/classes.dex" />
-    </item>
-    <item
+        is-multidex="true"
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/vpadn-sdk-obf453-71606102-1606171046-2512837.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="2498f120a85d050ed30611b800c3b6bac1d24ec9">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/vpadn-sdk-obf453-71606102-1606171046-2512837_c706dad71a5bf8812d4c159ac9a91cd3b34e8074/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob_3p_deploy/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="55601c542be7d0f23071c0b9fbbd85707a4724dd">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob_3p_deploy_0509354337ce325e5171dea535bb841d441dd46b/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.4/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="ad5bb101ced4d3939225c9b57e5a3d81547c1fbb">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-beta-1.1.4_0f30322717a4398b6767650198bf699175e9db66/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.0.1_b9aeefc21f959510d606adcdec85dabcafc5c80b/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.mopub/mopub-sdk/4.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="b518222b95df9a0446310de9c0c3373d3fc08a5c">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.mopub-mopub-sdk-4.8.0_f54e425409e584f1eb9853a27d31e75551f0277f/classes.dex" />
-    </item>
-    <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_tasks_3p_deploy/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="e44122d74b4c6734e15b029f245770466ea580c5">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_tasks_3p_deploy_0b84303684f631eadc0da3bceceab8d853eb70ea/classes.dex" />
-    </item>
-    <item
+        is-multidex="true"
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.6/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="9af3b9b8114e685291aa00e6572b0a9131244956">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-answers-1.3.6_24f232f7892a12a96ca69c0b5b42b648a00fc468/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_auth_3p_deploy/jars/classes.jar"
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.mopub/mopub-sdk/4.8.0/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="f94eb5f6250a20f56c613f7e679f66c1061eb672">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_auth_3p_deploy_bb49039fa603f1de7b4cc099f4faac1e5303c3ae/classes.dex" />
+        sha1="b518222b95df9a0446310de9c0c3373d3fc08a5c">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.mopub-mopub-sdk-4.8.0_f54e425409e584f1eb9853a27d31e75551f0277f/classes.dex" />
     </item>
     <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.8/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="c9ef45dcbd082cd63aac09a5e2cd443adb5df837">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-core-2.3.8_96ec72d3e5d98d5c68ff04ef1d8740dec43e0c78/classes.dex" />
     </item>
     <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob-impl_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="43f68d89b7ae7dc8c5869efb496b2c5551cb6437">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob-impl_3p_deploy_9fc3de63970a319b324ebfeece49ac8d3593d5c9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_auth_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f94eb5f6250a20f56c613f7e679f66c1061eb672">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_auth_3p_deploy_bb49039fa603f1de7b4cc099f4faac1e5303c3ae/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.4/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="ad5bb101ced4d3939225c9b57e5a3d81547c1fbb">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-beta-1.1.4_0f30322717a4398b6767650198bf699175e9db66/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_73f57fdbeec6d0fb30d6a25f4e753077dfee6f02/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_auth-api_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d51235a62eecd4df826b8dfb9c89732b8103b512">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_auth-api_3p_deploy_cdb6c2a6ca07c676c4013fae2f28d17cd1cecb4d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.0.1_b5e2175045c35b98c0f5ab9626d35364afab1907/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_b2c4b68186a78a95319a749703b972f4f9df106e/classes.dex" />
+    </item>
+    <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_common_3p_deploy/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="43b8f84c8c008a4ab7d04a485a35a61c1ea110f1">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_common_3p_deploy_dc9656014a1a9caa201df7867651773037b0a279/classes.dex" />
     </item>
     <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="1df0cd025986085455222ecb4b64dea821d9f5c3">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8569483d55bc93eed95dcc9dae9d70b1fe4e6812/classes.dex" />
+    </item>
+    <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.10/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="a5db9a2dd46d84285ef737f65030b74b6e8ee2a4">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/io.fabric.sdk.android-fabric-1.3.10_4b06ef0cb0914dae21ced5ae92ec859ce21cf334/classes.dex" />
     </item>
     <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_auth_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f94eb5f6250a20f56c613f7e679f66c1061eb672">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_auth_3p_deploy_bb49039fa603f1de7b4cc099f4faac1e5303c3ae/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="c934ca14363c3b652eeb1211de6bfe4fb869e748">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_3p_deploy_b9a953e083a49b4a171bb77f0d4824ba84d08599/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_ddbe725802684939b2009d3fba4b471d67ba5947/classes.dex" />
+    </item>
+    <item
         jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
         sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
         <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_ecb450ce8085d97f55572db98275d758fb5a6819/classes.dex" />
     </item>
     <item
-        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/mobfox-android-sdk-core-3.0.0.jar"
         jumboMode="true"
+        optimize="true"
         revision="24.0.1"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_73f57fdbeec6d0fb30d6a25f4e753077dfee6f02/classes.dex" />
+        sha1="ac6ad5ee1dcecc26245dfb6716831511a4015579">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/mobfox-android-sdk-core-3.0.0_5e6e077f3a18253d27e1b266410963a7d9e5dd60/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="c28807021c3f3b4b1ad2a3aff9404f320ac91f4b">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7f95dc8a22cd9bc73c5a00bef9621e7e164e9459/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="55601c542be7d0f23071c0b9fbbd85707a4724dd">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob_3p_deploy_0509354337ce325e5171dea535bb841d441dd46b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/adbert-sdk-2.2.6n.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="6b7edaf93c8e65b6c42989bf5e43391b56f265eb">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/adbert-sdk-2.2.6n_f57da8536f45b818d151d4f21fc1a9843bcae2de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_base_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f6e4b64c223beafe2a8d1b1ff7f205838e13b534">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_base_3p_deploy_a9c4c84e0c79d7faded24e63cbc667878217795d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.exoplayer-exoplayer-r1.5.6_78353bab7b8aa0bb4b972e0ecfd3ffd01e03bc46/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_app_library_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7e02dcf0e4363ed108aecb52e573223c4f556a39">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_app_library_3p_deploy_09e1fdf015f5fdbf6899eef883118632e0b0109c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_0879ae0acf0e585f87ebdd3a04b24eb3dae45536/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.3.2_8c8cc6da087c6833814f4f129e0f4cfbb9b8358a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="55601c542be7d0f23071c0b9fbbd85707a4724dd">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob_3p_deploy_0509354337ce325e5171dea535bb841d441dd46b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.5/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="611605b6b640c1558f9bdea41de8ff837ab68ca8">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-2.5.5_92744eaeb8b1db4577dc0d95b55bc39ec5ebad43/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/libs/vpadn-sdk-obf453-71606102-1606171046-2512837.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="2498f120a85d050ed30611b800c3b6bac1d24ec9">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/2/vpadn-sdk-obf453-71606102-1606171046-2512837_c706dad71a5bf8812d4c159ac9a91cd3b34e8074/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.6/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="9af3b9b8114e685291aa00e6572b0a9131244956">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-answers-1.3.6_24f232f7892a12a96ca69c0b5b42b648a00fc468/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.mopub/mopub-sdk/4.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="b518222b95df9a0446310de9c0c3373d3fc08a5c">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.mopub-mopub-sdk-4.8.0_f54e425409e584f1eb9853a27d31e75551f0277f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_admob-impl_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="43f68d89b7ae7dc8c5869efb496b2c5551cb6437">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_admob-impl_3p_deploy_9fc3de63970a319b324ebfeece49ac8d3593d5c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.3.2_8c8cc6da087c6833814f4f129e0f4cfbb9b8358a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_analyticsservices_app_library_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7e02dcf0e4363ed108aecb52e573223c4f556a39">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_analyticsservices_app_library_3p_deploy_09e1fdf015f5fdbf6899eef883118632e0b0109c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.8/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="c9ef45dcbd082cd63aac09a5e2cd443adb5df837">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-core-2.3.8_96ec72d3e5d98d5c68ff04ef1d8740dec43e0c78/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_b2c4b68186a78a95319a749703b972f4f9df106e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.0.1_b9aeefc21f959510d606adcdec85dabcafc5c80b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/exploded-aar/client_tasks_3p_deploy/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e44122d74b4c6734e15b029f245770466ea580c5">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-client_tasks_3p_deploy_0b84303684f631eadc0da3bceceab8d853eb70ea/classes.dex" />
+    </item>
+    <item
+        jar="/Users/steven/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/steven/Documents/workspace/NovelReaderAndroidStudio/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_ddbe725802684939b2009d3fba4b471d67ba5947/classes.dex" />
     </item>
 
 </items>
