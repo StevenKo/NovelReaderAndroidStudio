@@ -66,7 +66,6 @@ public class SearchActivity extends MopubAdFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_search);
 
         ab = getSupportActionBar();

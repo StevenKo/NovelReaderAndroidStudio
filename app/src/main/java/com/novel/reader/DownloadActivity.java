@@ -1,5 +1,18 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.kosbrother.tool.ChildArticle;
+import com.kosbrother.tool.ExpandListDownLoadAdapter;
+import com.kosbrother.tool.Group;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+import com.novel.reader.service.DownloadService;
+import com.novel.reader.util.Setting;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,18 +33,6 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.tool.ChildArticle;
-import com.kosbrother.tool.ExpandListDownLoadAdapter;
-import com.kosbrother.tool.Group;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.service.DownloadService;
-import com.novel.reader.util.Setting;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -63,7 +64,6 @@ public class DownloadActivity extends NovelReaderBaseActivity implements LoaderM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_download);
 
         final ActionBar ab = getSupportActionBar();

@@ -1,5 +1,14 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.reader.adapter.ContentAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.Article;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,15 +20,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.novel.reader.adapter.ContentAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.Article;
-import com.novel.reader.util.Setting;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,6 @@ public class NovelContentsActivity extends NovelReaderBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_contents);
 
         getNovel();

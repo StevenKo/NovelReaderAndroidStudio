@@ -1,5 +1,17 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.android.slidingtab.SlidingTabLayout;
+import com.kosbrother.fragments.MyBookcaseFragment;
+import com.kosbrother.fragments.MyDownloadFragment;
+import com.kosbrother.tool.Report;
+import com.novel.reader.util.Setting;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,17 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.android.slidingtab.SlidingTabLayout;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.fragments.MyBookcaseFragment;
-import com.kosbrother.fragments.MyDownloadFragment;
-import com.kosbrother.tool.Report;
-import com.novel.reader.util.Setting;
 
 public class MyNovelActivity extends MopubAdFragmentActivity {
 
@@ -48,7 +49,6 @@ public class MyNovelActivity extends MopubAdFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
 
         actionbar = getSupportActionBar();

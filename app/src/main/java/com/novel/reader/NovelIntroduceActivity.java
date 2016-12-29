@@ -85,7 +85,6 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_novel_introduce);
         findViews();
         mBundle = this.getIntent().getExtras();

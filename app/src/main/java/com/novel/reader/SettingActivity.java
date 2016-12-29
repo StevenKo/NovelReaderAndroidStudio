@@ -12,7 +12,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -47,7 +45,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     private RadioGroup themeRadioGroup;
     private RadioGroup articleAdTypeRadioGroup;
     private RadioGroup audioClickRadioGroup;
-    private int appTheme;
     private int articleAdType;
 
     private AlertDialog.Builder finishDialog;
@@ -72,7 +69,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_setting);
 
         textSize = Setting.getSettingInt(Setting.keyTextSize, SettingActivity.this);
@@ -80,7 +76,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         readingDirection = Setting.getSettingInt(Setting.keyReadingDirection, SettingActivity.this);
         clickToNextPage = Setting.getSettingInt(Setting.keyClickToNextPage, SettingActivity.this);
         stopSleeping = Setting.getSettingInt(Setting.keyStopSleeping, SettingActivity.this);
-        appTheme = Setting.getSettingInt(Setting.keyAppTheme, SettingActivity.this);
         articleAdType = Setting.getSettingInt(Setting.keyArticleAdType, SettingActivity.this);
         textMode = Setting.getSettingString(Setting.keyMode, this);
         sunModeTextBackground = Setting.getBackgroundModeBackgroundColor(Setting.keySunMode, this);
@@ -106,11 +101,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
 
     private void setViews() {
 
-        if(appTheme == 1){
-            LinearLayout baseLayout = (LinearLayout) findViewById(R.id.baselayout);
-            baseLayout.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.dark_slate_gray));
-        }
-
         // TODO Auto-generated method stub
         mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
         modeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_mode);
@@ -118,7 +108,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         directionRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_reading_direction);
         tapRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_tap);
         stopSleepRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_stop_sleep);
-        themeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_theme);
         audioClickRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_audio);
         articleAdTypeRadioGroup = (RadioGroup) findViewById(R.id.RadioGroup_AD);
         sunModeTextPreView = (TextView) findViewById(R.id.sunmode_text_preview);
@@ -149,7 +138,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         ((RadioButton) directionRadioGroup.getChildAt(readingDirection)).setChecked(true);
         ((RadioButton) tapRadioGroup.getChildAt(clickToNextPage)).setChecked(true);
         ((RadioButton) stopSleepRadioGroup.getChildAt(textLanguage)).setChecked(true);
-        ((RadioButton) themeRadioGroup.getChildAt(appTheme)).setChecked(true);
         ((RadioButton) articleAdTypeRadioGroup.getChildAt(articleAdType)).setChecked(true);
         ((RadioButton) audioClickRadioGroup.getChildAt(audioClickToNextPage)).setChecked(true);
 
@@ -343,7 +331,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
                         saveRadioGroupValue(directionRadioGroup, Setting.keyReadingDirection);
                         saveRadioGroupValue(tapRadioGroup, Setting.keyClickToNextPage);
                         saveRadioGroupValue(stopSleepRadioGroup, Setting.keyStopSleeping);
-                        saveRadioGroupValue(themeRadioGroup, Setting.keyAppTheme);
                         saveRadioGroupValue(articleAdTypeRadioGroup, Setting.keyArticleAdType);
                         saveRadioGroupValue(audioClickRadioGroup, Setting.keyAudioClickToNextPage);
                         finish();

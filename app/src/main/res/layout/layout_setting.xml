@@ -438,38 +438,6 @@
                 android:background="#A3A3A3"
                 android:layout_margin="10dp"></LinearLayout>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_setting"
-                android:layout_marginLeft="10dp"
-                android:textSize="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/setting_text_color" />
-
-            <RadioGroup
-                android:id="@+id/RadioGroup_theme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
-
-                <RadioButton
-                    android:id="@+id/myRadioButton_theme1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme_light"
-                    android:checked="true" />
-
-                <RadioButton
-                    android:id="@+id/myRadioButton_theme2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme_dark" />
-            </RadioGroup>
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"

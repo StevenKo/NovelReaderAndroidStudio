@@ -87,7 +87,6 @@ public class MyDownloadArticleActivity extends MopubAdFragmentActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_novel_downloaded);
 
         myActivity = MyDownloadArticleActivity.this;

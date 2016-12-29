@@ -1,8 +1,5 @@
 package com.novel.reader.util;
 
-import com.novel.reader.R;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -29,7 +26,6 @@ public class Setting {
     public final static String keyClickToNextPage = "ClickToNextPage";
     public final static String keyStopSleeping = "StopSleeping";
     public final static String keyOpenDownloadPage = "OpenDownloadPage";
-    public final static String keyAppTheme = "AppTheme";
     public final static String keyArticleAdType = "ArticleAdType";
     public final static String keyUpdateAppVersion = "UpdateAppVersion";
     public final static String keyYearSubscription = "YearSubscription";
@@ -61,7 +57,6 @@ public class Setting {
             put(keyClickToNextPage, initialClickToNextPage);
             put(keyStopSleeping, initialStopSleeping);
             put(keyOpenDownloadPage, initialOpenDownloadPage);
-            put(keyAppTheme, initialAppTheme);
             put(keyArticleAdType, InterstitialAd);
             put(keyUpdateAppVersion, 0);
             put(keyYearSubscription, 0);
@@ -110,24 +105,6 @@ public class Setting {
     public static void saveSettingRemind(Boolean value, Context context) {
         SharedPreferences sharePreference = context.getSharedPreferences(keyPref, 0);
         sharePreference.edit().putBoolean(keyRemindLeaving, value).commit();
-    }
-
-    public static void setApplicationActionBarTheme(Activity activity) {
-        int theme = getSettingInt(keyAppTheme, activity);
-        switch (theme) {
-            case 0:
-                activity.setTheme(R.style.Theme_AppCompat_Light);
-                return;
-            case 1:
-                activity.setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar);
-                // try {
-                // LinearLayout layout = (LinearLayout) activity.findViewById(R.id.adonView);
-                // layout.setBackgroundColor(activity.getResources().getColor(R.color.black));
-                // } catch (Exception e) {
-                //
-                // }
-                return;
-        }
     }
 
     // gcm use start from here

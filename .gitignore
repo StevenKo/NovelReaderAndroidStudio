@@ -1,3 +1,6 @@
+*.apk
+*.ap_
+
 # Built application files
 /*/build/
 

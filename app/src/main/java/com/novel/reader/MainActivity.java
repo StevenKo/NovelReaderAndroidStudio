@@ -112,12 +112,10 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -191,9 +189,10 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     }
 
     private void setSignInSignOut() {
-        logInEmail = (TextView)findViewById(R.id.log_in_email);
-        signInBtn = (SignInButton)findViewById(R.id.sign_in_button);
-        signOutBtn = (Button)findViewById(R.id.sign_out_button);
+        View headLayout = navigationView.getHeaderView(0);
+        logInEmail = (TextView)headLayout.findViewById(R.id.log_in_email);
+        signInBtn = (SignInButton)headLayout.findViewById(R.id.sign_in_button);
+        signOutBtn = (Button)headLayout.findViewById(R.id.sign_out_button);
 
         signInBtn.setSize(SignInButton.SIZE_WIDE);
 

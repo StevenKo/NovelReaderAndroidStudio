@@ -94,7 +94,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_article);
 
 
@@ -306,7 +305,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         menu.add(0, ID_MODE, 0, "日間模式").setIcon(getModeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(0, ID_FONT_SIZE, 1, "字型大小").setIcon(getFontSizeIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(0, ID_CONTENTS, 2, "目錄").setIcon(getContentsIcon()).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(0, ID_Bookmark, 3, getResources().getString(R.string.menu_add_bookmark)).setIcon(R.drawable.article_bookmark_black).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, ID_Bookmark, 3, getResources().getString(R.string.menu_add_bookmark)).setIcon(R.drawable.article_bookmark_white).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         menu.add(0, ID_NOVEL, 4, getResources().getString(R.string.menu_collect_novel)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_SETTING, 5, getResources().getString(R.string.my_read_setting)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -316,32 +315,16 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     }
 
 
-    private boolean isLightAppTheme() {
-        if (Setting.getSettingInt(Setting.keyAppTheme, this) == 0)
-            return true;
-        else
-            return false;
-    }
-
     private int getModeIcon() {
-        if (isLightAppTheme())
-            return R.drawable.article_sun;
-        else
-            return R.drawable.article_sun_white;
+        return R.drawable.article_sun_white;
     }
 
     private int getFontSizeIcon() {
-        if (isLightAppTheme())
-            return R.drawable.article_font_size;
-        else
-            return R.drawable.article_font_size_white;
+        return R.drawable.article_font_size_white;
     }
 
     private int getContentsIcon() {
-        if (isLightAppTheme())
-            return R.drawable.article_contents;
-        else
-            return R.drawable.article_contents_white;
+        return R.drawable.article_contents_white;
     }
 
 
@@ -371,10 +354,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
             menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark);
         } else {
             bookmarkImage.setVisibility(View.GONE);
-            if (isLightAppTheme())
-                menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark_black);
-            else
-                menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark_white);
+            menu.findItem(ID_Bookmark).setIcon(R.drawable.article_bookmark_white);
         }
     }
 

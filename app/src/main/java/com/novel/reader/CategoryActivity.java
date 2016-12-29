@@ -1,5 +1,22 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.android.slidingtab.SlidingTabLayout;
+import com.kosbrother.fragments.CategoryAllNovelsFragment;
+import com.kosbrother.fragments.CategoryFinishFragment;
+import com.kosbrother.fragments.CategoryLatestNovelsFragment;
+import com.kosbrother.fragments.CategoryRecommendFragment;
+import com.kosbrother.fragments.CategoryWeekFragment;
+import com.kosbrother.fragments.CategroyHotNovelsFragment;
+import com.novel.db.SQLiteNovel;
+import com.novel.reader.adapter.RecentSearchAdapter;
+import com.novel.reader.util.Setting;
+
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -20,22 +37,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.android.slidingtab.SlidingTabLayout;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.kosbrother.fragments.CategoryAllNovelsFragment;
-import com.kosbrother.fragments.CategoryFinishFragment;
-import com.kosbrother.fragments.CategoryLatestNovelsFragment;
-import com.kosbrother.fragments.CategoryRecommendFragment;
-import com.kosbrother.fragments.CategoryWeekFragment;
-import com.kosbrother.fragments.CategroyHotNovelsFragment;
-import com.novel.db.SQLiteNovel;
-import com.novel.reader.adapter.RecentSearchAdapter;
-import com.novel.reader.util.Setting;
-
 public class CategoryActivity extends MopubAdFragmentActivity {
 
     private String[] CONTENT;
@@ -54,7 +55,6 @@ public class CategoryActivity extends MopubAdFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
 
         mBundle = this.getIntent().getExtras();

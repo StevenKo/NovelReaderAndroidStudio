@@ -141,25 +141,25 @@
         </receiver>
 
          <!--AdMob Third Party China-->
-        <activity
-            android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent">
-        </activity>
-        <receiver
-            android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$DownloadCompleteReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$InstallCompleteReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
+        <!--<activity-->
+            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"-->
+            <!--android:theme="@android:style/Theme.Translucent">-->
+        <!--</activity>-->
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$DownloadCompleteReceiver" android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<receiver android:name="com.google.android.gms.ads.internal.directappinstall.DirectAppInstallReceiver$InstallCompleteReceiver" android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_REPLACED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_CHANGED"/>-->
+                <!--<data android:scheme="package"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!--Include the AdbertActivity configChanges and theme for AdbertADView. -->
         <activity
@@ -175,7 +175,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity android:name="com.mobfox.sdk.interstitialads.InterstitialActivity"></activity>
-
+        <activity android:name="com.facebook.ads.AudienceNetworkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

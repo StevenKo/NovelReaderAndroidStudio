@@ -1,5 +1,16 @@
 package com.novel.reader;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import com.ads.MopubAdFragmentActivity;
+import com.analytics.AnalyticsName;
+import com.analytics.NovelReaderAnalyticsApp;
+import com.novel.reader.adapter.GridViewAdapter;
+import com.novel.reader.api.NovelAPI;
+import com.novel.reader.entity.GameAPP;
+import com.novel.reader.entity.Novel;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,17 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
-import com.ads.MopubAdFragmentActivity;
-import com.analytics.AnalyticsName;
-import com.analytics.NovelReaderAnalyticsApp;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.novel.reader.adapter.GridViewAdapter;
-import com.novel.reader.api.NovelAPI;
-import com.novel.reader.entity.GameAPP;
-import com.novel.reader.entity.Novel;
-import com.novel.reader.util.Setting;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,6 @@ public class NovelRecommendActivity extends MopubAdFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.layout_novel_recommend);
 
         getBundleExtras();
