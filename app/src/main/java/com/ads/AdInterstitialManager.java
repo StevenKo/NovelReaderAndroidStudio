@@ -35,6 +35,7 @@ public class AdInterstitialManager {
             @Override
             public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
                 isReadyAd_1 = false;
+                requestInterstitial_1();
             }
 
             @Override
@@ -69,6 +70,7 @@ public class AdInterstitialManager {
             @Override
             public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
                 isReadyAd_2 = false;
+                requestInterstitial_2();
             }
 
             @Override

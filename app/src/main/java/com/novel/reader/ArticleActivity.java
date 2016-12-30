@@ -236,7 +236,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         articleButtonUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0) {
                     requestInterstitialAd();
                     adHasShowed = false;
                 }
@@ -247,7 +247,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         articleButtonDown.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+                if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 ) {
                     requestInterstitialAd();
                     adHasShowed = false;
                 }
@@ -832,9 +832,17 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         int audioClickSetting = Setting.getSettingInt(Setting.keyAudioClickToNextPage,this);
 
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && audioClickSetting == 0){
+            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0) {
+                requestInterstitialAd();
+                adHasShowed = false;
+            }
             nextPage();
             return true;
         }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && audioClickSetting == 0) {
+            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0) {
+                requestInterstitialAd();
+                adHasShowed = false;
+            }
             previousPage();
             return true;
         } else {
