@@ -42,7 +42,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
     private RadioGroup directionRadioGroup;
     private RadioGroup tapRadioGroup;
     private RadioGroup stopSleepRadioGroup;
-    private RadioGroup themeRadioGroup;
     private RadioGroup articleAdTypeRadioGroup;
     private RadioGroup audioClickRadioGroup;
     private int articleAdType;
@@ -146,7 +145,6 @@ public class SettingActivity extends NovelReaderBaseActivity implements RadioGro
         directionRadioGroup.setOnCheckedChangeListener(this);
         tapRadioGroup.setOnCheckedChangeListener(this);
         stopSleepRadioGroup.setOnCheckedChangeListener(this);
-        themeRadioGroup.setOnCheckedChangeListener(this);
         articleAdTypeRadioGroup.setOnCheckedChangeListener(this);
         audioClickRadioGroup.setOnCheckedChangeListener(this);
 
