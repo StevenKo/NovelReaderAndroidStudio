@@ -96,7 +96,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_article);
 
-        new AdInterstitialManager(this);
         restorePreValues();
         setViews();
 
@@ -735,6 +734,9 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     @Override
     protected void onResume() {
         super.onResume();
+
+        new AdInterstitialManager(this);
+
         int originTextLan = textLanguage;
 
         textSize = Setting.getSettingInt(Setting.keyTextSize, ArticleActivity.this);

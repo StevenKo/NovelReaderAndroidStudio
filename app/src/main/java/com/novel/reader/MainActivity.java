@@ -148,7 +148,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
         int i1 = r.nextInt(20);
         if(i1 == 15)
             new AppOpenCheckUpdateTask().execute();
-        new AdInterstitialManager(this);
     }
 
     @Override
@@ -317,6 +316,9 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     @Override
     protected void onResume() {
         super.onResume();
+
+        new AdInterstitialManager(this);
+
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
             bannerAdView.setVisibility(View.GONE);
     }
