@@ -19,7 +19,8 @@ public class AdInterstitialManager {
 
     public AdInterstitialManager(Activity activity) {
         mActivity = activity;
-        requestInterstitial_1();
+        if(!isReadyAd_1)
+            requestInterstitial_1();
     }
 
     private void requestInterstitial_1() {
@@ -39,6 +40,7 @@ public class AdInterstitialManager {
 
             @Override
             public void onInterstitialShown(MoPubInterstitial interstitial) {
+                isReadyAd_1 = false;
                 requestInterstitial_2();
             }
 
@@ -73,6 +75,7 @@ public class AdInterstitialManager {
 
             @Override
             public void onInterstitialShown(MoPubInterstitial interstitial) {
+                isReadyAd_2 = false;
                 requestInterstitial_1();
             }
 

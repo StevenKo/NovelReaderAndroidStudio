@@ -96,7 +96,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_article);
 
-
+        new AdInterstitialManager(this);
         restorePreValues();
         setViews();
 
