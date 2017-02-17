@@ -317,8 +317,6 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
     protected void onResume() {
         super.onResume();
 
-        new AdInterstitialManager(this);
-
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 1)
             bannerAdView.setVisibility(View.GONE);
     }

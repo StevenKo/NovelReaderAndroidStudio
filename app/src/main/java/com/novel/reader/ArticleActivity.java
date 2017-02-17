@@ -1,5 +1,8 @@
 package com.novel.reader;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -89,6 +92,12 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     private ImageView bookmarkImage;
     private ImageView novelImage;
     private boolean adHasShowed = false;
+    private AdInterstitialManager interstitialManager;
+    private NativeExpressAdView mAdView;
+    private VideoController mVideoController;
+    private NativeExpressAdView mAdView2;
+    private boolean isAdView2Requested = false;
+    private NativeExpressAdView mAdView1;
 
 
     @Override
@@ -132,10 +141,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                 }
             }
             new DownloadArticleTask().execute();
-            if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
-                requestInterstitialAd();
-                adHasShowed = false;
-            }
         }
 
         ab.setDisplayShowCustomEnabled(true);
@@ -147,6 +152,12 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         ab.setDisplayHomeAsUpEnabled(true);
 
         trackScreen();
+
+        interstitialManager = new AdInterstitialManager(this);
+        if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
+            requestInterstitialAd();
+            adHasShowed = false;
+        }
     }
 
     private void trackScreen() {
@@ -231,6 +242,11 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         articleLayout.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
         layoutProgress.setBackgroundColor(Setting.getBackgroundModeBackgroundColor(textMode, this));
 
+        mAdView1 = (NativeExpressAdView) findViewById(R.id.adView1);
+        mAdView2 = (NativeExpressAdView) findViewById(R.id.adView2);
+        mAdView1.setVisibility(View.GONE);
+        mAdView2.setVisibility(View.GONE);
+
 
         articleButtonUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -289,6 +305,10 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         int xx = (int) (((double) (y) / (double) (tt - kk)) * 100);
         if (xx > 100 || xx < 0)
             xx = 100;
+        if (xx >= 97 && mAdView2.getVisibility() == View.VISIBLE && !isAdView2Requested){
+            mAdView2.loadAd(new AdRequest.Builder().build());
+            isAdView2Requested = true;
+        }
         String yPositon = Integer.toString(xx);
         articlePercent.setText(yPositon + "%");
     }
@@ -549,9 +569,17 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     }
 
     private void requestInterstitialAd() {
-        MoPubInterstitial ad = AdInterstitialManager.getAd();
+        MoPubInterstitial ad = interstitialManager.getAd();
         if (ad != null && ad.isReady()) {
+            mAdView1.setVisibility(View.GONE);
+            mAdView2.setVisibility(View.GONE);
             ad.show();
+        }else{
+            mAdView1.setVisibility(View.VISIBLE);
+            mAdView2.setVisibility(View.VISIBLE);
+            if(yRate == 0)
+                mAdView1.loadAd(new AdRequest.Builder().build());
+            isAdView2Requested = false;
         }
     }
 
@@ -734,8 +762,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     @Override
     protected void onResume() {
         super.onResume();
-
-        new AdInterstitialManager(this);
 
         int originTextLan = textLanguage;
 

@@ -3,7 +3,6 @@ package com.novel.reader;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import com.ads.AdInterstitialManager;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
 import com.kosbrother.tool.ChildArticle;
@@ -122,8 +121,6 @@ public class NovelIntroduceActivity extends NovelReaderBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        new AdInterstitialManager(this);
 
         isNovelChecked = NovelAPI.isNovelCollected(NovelIntroduceActivity.this, novelId);
         if (isNovelChecked) {

@@ -11,11 +11,11 @@ import android.app.Activity;
 
 public class AdInterstitialManager {
 
-    static MoPubInterstitial mInterstitial_1;
-    static MoPubInterstitial mInterstitial_2;
-    static Activity mActivity;
-    static boolean isReadyAd_1 = false;
-    static boolean isReadyAd_2 = false;
+    MoPubInterstitial mInterstitial_1;
+    MoPubInterstitial mInterstitial_2;
+    Activity mActivity;
+    boolean isReadyAd_1 = false;
+    boolean isReadyAd_2 = false;
 
     public AdInterstitialManager(Activity activity) {
         mActivity = activity;
@@ -95,7 +95,7 @@ public class AdInterstitialManager {
         mInterstitial_2.load();
     }
 
-    public static MoPubInterstitial getAd() {
+    public MoPubInterstitial getAd() {
         if(isReadyAd_1)
             return mInterstitial_1;
         else
