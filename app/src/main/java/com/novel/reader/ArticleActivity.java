@@ -2,7 +2,6 @@ package com.novel.reader;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -93,10 +92,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
     private ImageView novelImage;
     private boolean adHasShowed = false;
     private AdInterstitialManager interstitialManager;
-    private NativeExpressAdView mAdView;
-    private VideoController mVideoController;
     private NativeExpressAdView mAdView2;
-    private boolean isAdView2Requested = false;
     private NativeExpressAdView mAdView1;
 
 
@@ -305,10 +301,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         int xx = (int) (((double) (y) / (double) (tt - kk)) * 100);
         if (xx > 100 || xx < 0)
             xx = 100;
-        if (xx >= 97 && mAdView2.getVisibility() == View.VISIBLE && !isAdView2Requested){
-            mAdView2.loadAd(new AdRequest.Builder().build());
-            isAdView2Requested = true;
-        }
         String yPositon = Integer.toString(xx);
         articlePercent.setText(yPositon + "%");
     }
@@ -577,9 +569,8 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         }else{
             mAdView1.setVisibility(View.VISIBLE);
             mAdView2.setVisibility(View.VISIBLE);
-            if(yRate == 0)
-                mAdView1.loadAd(new AdRequest.Builder().build());
-            isAdView2Requested = false;
+            mAdView1.loadAd(new AdRequest.Builder().build());
+            mAdView2.loadAd(new AdRequest.Builder().build());
         }
     }
 
