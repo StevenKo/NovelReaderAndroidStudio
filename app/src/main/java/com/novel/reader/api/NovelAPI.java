@@ -1,6 +1,5 @@
 package com.novel.reader.api;
 
-import com.crashlytics.android.Crashlytics;
 import com.novel.db.SQLiteNovel;
 import com.novel.reader.ArticleActivity;
 import com.novel.reader.MainActivity;
@@ -33,6 +32,7 @@ import java.util.HashMap;
 public class NovelAPI {
 
     final static String HOST = "http://api.novelking.cc";
+    final static String WRITEHOST = "http://writeapi.novelking.cc";
     public static final String TAG = "NOVEL_API";
     public static final boolean DEBUG = true;
     final static String GAME_HOST = "http://apply.inapp.tw";
@@ -837,7 +837,6 @@ public class NovelAPI {
             }
 
         } catch (JSONException e) {
-            Crashlytics.log(Log.ERROR, "NovelParseError", message);
             e.printStackTrace();
             return null;
         }
@@ -849,7 +848,7 @@ public class NovelAPI {
         URL obj = null;
         HttpURLConnection con = null;
         try {
-            obj = new URL(HOST + "/api/v1/users.json");
+            obj = new URL(WRITEHOST + "/api/v1/users.json");
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
 
@@ -1185,7 +1184,7 @@ public class NovelAPI {
         URL obj = null;
         HttpURLConnection con = null;
         try {
-            obj = new URL(HOST + "/api/v1/users/update_novel");
+            obj = new URL(WRITEHOST + "/api/v1/users/update_novel");
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("PUT");
 
