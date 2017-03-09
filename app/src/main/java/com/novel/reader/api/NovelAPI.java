@@ -31,8 +31,8 @@ import java.util.HashMap;
 
 public class NovelAPI {
 
-    final static String HOST = "http://api.novelking.cc";
-    final static String WRITEHOST = "http://writeapi.novelking.cc";
+    final static String READHOST = "http://readapi.novelking.cc";
+    final static String WRITEHOST = "http://api.novelking.cc";
     public static final String TAG = "NOVEL_API";
     public static final boolean DEBUG = true;
     final static String GAME_HOST = "http://apply.inapp.tw";
@@ -711,7 +711,7 @@ public class NovelAPI {
     public static String getMessageFromServer(String requestMethod, String apiPath, JSONObject json) {
         URL url;
         try {
-            url = new URL(HOST + apiPath);
+            url = new URL(READHOST + apiPath);
             if (DEBUG)
                 Log.d(TAG, "URL: " + url);
 
@@ -766,7 +766,7 @@ public class NovelAPI {
             if (apiUrl != null)
                 url = new URL(apiUrl);
             else
-                url = new URL(HOST + apiPath);
+                url = new URL(READHOST + apiPath);
 
             if (DEBUG)
                 Log.d(TAG, "URL: " + url);
@@ -1080,7 +1080,7 @@ public class NovelAPI {
     public static RestoreResult restoreFromUserBackup(String email,Context context) {
         ArrayList<Novel> collectNovels = new ArrayList<Novel>();
         ArrayList<Novel> downloadNovels = new ArrayList<Novel>();
-        String message = getMessageFromServer("GET", null, null,HOST + "/api/v1/users/get_novels?email="+email);
+        String message = getMessageFromServer("GET", null, null,READHOST + "/api/v1/users/get_novels?email="+email);
         if (message == null) {
             return new RestoreResult(false,"連線失敗");
         } else {
