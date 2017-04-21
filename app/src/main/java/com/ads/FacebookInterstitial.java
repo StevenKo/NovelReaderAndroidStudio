@@ -1,14 +1,12 @@
-package com.ads;
+package com.mopub.mobileads;
+
+import android.content.Context;
+import android.util.Log;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
-import com.mopub.mobileads.CustomEventInterstitial;
-import com.mopub.mobileads.MoPubErrorCode;
-
-import android.content.Context;
-import android.util.Log;
 
 import java.util.Map;
 
@@ -27,9 +25,9 @@ public class FacebookInterstitial extends CustomEventInterstitial implements Int
 
     @Override
     protected void loadInterstitial(final Context context,
-            final CustomEventInterstitialListener customEventInterstitialListener,
-            final Map<String, Object> localExtras,
-            final Map<String, String> serverExtras) {
+                                    final CustomEventInterstitialListener customEventInterstitialListener,
+                                    final Map<String, Object> localExtras,
+                                    final Map<String, String> serverExtras) {
         mInterstitialListener = customEventInterstitialListener;
 
         final String placementId;
@@ -99,6 +97,11 @@ public class FacebookInterstitial extends CustomEventInterstitial implements Int
     public void onAdClicked(final Ad ad) {
         Log.d("MoPub", "Facebook interstitial ad clicked.");
         mInterstitialListener.onInterstitialClicked();
+    }
+
+    @Override
+    public void onLoggingImpression(Ad ad) {
+
     }
 
     @Override

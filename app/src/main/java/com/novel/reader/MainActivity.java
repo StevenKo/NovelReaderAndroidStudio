@@ -13,7 +13,6 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import com.ads.AdInterstitialManager;
 import com.ads.MopubAdFragmentActivity;
 import com.analytics.AnalyticsName;
 import com.analytics.NovelReaderAnalyticsApp;
@@ -1002,13 +1001,13 @@ public class MainActivity extends MopubAdFragmentActivity implements NavigationV
             GoogleSignInAccount acct = result.getSignInAccount();
             email = acct.getEmail();
             String saveEmail = Setting.getSettingString("email",MainActivity.this);
-            if(saveEmail!=null && saveEmail.equals(email)){
-                Log.d(NovelAPI.TAG, "Do not run CreateUserTask:");
-                drawNavigationServerPartAndSignInBtn(true);
-            }else{
+//            if(saveEmail!=null && saveEmail.equals(email)){
+//                Log.d(NovelAPI.TAG, "Do not run CreateUserTask:");
+//                drawNavigationServerPartAndSignInBtn(true);
+//            }else{
                 Log.d(NovelAPI.TAG, "CreateUserTask:");
                 new CreateUserTask().execute();
-            }
+//            }
         } else {
             // Signed out, show unauthenticated UI.
             drawNavigationServerPartAndSignInBtn(false);

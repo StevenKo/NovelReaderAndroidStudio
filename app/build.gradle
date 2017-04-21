@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "com.novel.reader"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 104
         versionName "5.2.1"
@@ -59,22 +59,13 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
-    compile('com.mopub:mopub-sdk:4.11.0@aar') {
+    compile('com.mopub:mopub-sdk:4.13.0@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-    compile 'com.facebook.android:audience-network-sdk:4.+'
-//    compile(name:'client_admob-impl_3p_deploy', ext:'aar')
-//    compile(name:'client_admob_3p_deploy', ext:'aar')
-//    compile(name:'client_analyticsservices_3p_deploy', ext:'aar')
-//    compile(name:'client_analyticsservices_app_library_3p_deploy', ext:'aar')
-//    compile(name:'client_auth_3p_deploy', ext:'aar')
-//    compile(name:'client_auth-api_3p_deploy', ext:'aar')
-//    compile(name:'client_base_3p_deploy', ext:'aar')
-//    compile(name:'client_common_3p_deploy', ext:'aar')
-//    compile(name:'client_tasks_3p_deploy', ext:'aar')
+    compile 'com.facebook.android:audience-network-sdk:4.22.0'
 }
 
 
