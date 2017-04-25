@@ -123,7 +123,7 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
                 getSavedState(savedInstanceState);
             }
 
-            if (articleIDs != null) {
+            if (articleIDs != null && articleIDs.size() > 0 && ariticlePosition <= articleIDs.size() - 1) {
                 if (downloadBoolean) {
                     myArticle = new Article(articleIDs.get(ariticlePosition), novelId, "", articleTitle, "", true, articleNums.get(ariticlePosition));
                 } else {
@@ -150,6 +150,11 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         trackScreen();
 
         interstitialManager = new AdInterstitialManager(this);
+        articleAdType = Setting.getSettingInt(Setting.keyArticleAdType, ArticleActivity.this);
+        if (articleAdType == Setting.BannerAd) {
+            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.VISIBLE);
+        } else
+            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
         if (articleAdType == Setting.InterstitialAd && Setting.getSettingInt(Setting.keyYearSubscription, ArticleActivity.this) == 0 && !adHasShowed) {
             requestInterstitialAd();
             adHasShowed = false;
@@ -164,22 +169,22 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
 
 
     public void getSavedState(Bundle savedInstanceState) {
-        if (savedInstanceState.containsKey("ArticleTitle")) ;
-        articleTitle = savedInstanceState.getString("ArticleTitle");
-        if (savedInstanceState.containsKey("ArticleId")) ;
-        articleId = savedInstanceState.getInt("ArticleId");
-        if (savedInstanceState.containsKey("ArticleDownloadBoolean")) ;
-        downloadBoolean = savedInstanceState.getBoolean("ArticleDownloadBoolean", false);
-        if (savedInstanceState.containsKey("ReadingRate")) ;
-        yRate = savedInstanceState.getInt("ReadingRate", 0);
-        if (savedInstanceState.containsKey("ArticleIDs")) ;
-        articleIDs = savedInstanceState.getIntegerArrayList("ArticleIDs");
-        if (savedInstanceState.containsKey("ArticlePosition")) ;
-        ariticlePosition = savedInstanceState.getInt("ArticlePosition");
-        if (savedInstanceState.containsKey("ArticleNum")) ;
-        articleNum = savedInstanceState.getInt("ArticleNum");
-        if (savedInstanceState.containsKey("ArticleNums")) ;
-        articleNums = savedInstanceState.getIntegerArrayList("ArticleNums");
+        if (savedInstanceState.containsKey("ArticleTitle"))
+            articleTitle = savedInstanceState.getString("ArticleTitle");
+        if (savedInstanceState.containsKey("ArticleId"))
+            articleId = savedInstanceState.getInt("ArticleId");
+        if (savedInstanceState.containsKey("ArticleDownloadBoolean"))
+            downloadBoolean = savedInstanceState.getBoolean("ArticleDownloadBoolean", false);
+        if (savedInstanceState.containsKey("ReadingRate"))
+            yRate = savedInstanceState.getInt("ReadingRate", 0);
+        if (savedInstanceState.containsKey("ArticleIDs"))
+            articleIDs = savedInstanceState.getIntegerArrayList("ArticleIDs");
+        if (savedInstanceState.containsKey("ArticlePosition"))
+            ariticlePosition = savedInstanceState.getInt("ArticlePosition");
+        if (savedInstanceState.containsKey("ArticleNum"))
+            articleNum = savedInstanceState.getInt("ArticleNum");
+        if (savedInstanceState.containsKey("ArticleNums"))
+            articleNums = savedInstanceState.getIntegerArrayList("ArticleNums");
         if (savedInstanceState.getBoolean("AdHasShowed"))
             adHasShowed = savedInstanceState.getBoolean("AdHasShowed");
     }
@@ -803,12 +808,6 @@ public class ArticleActivity extends MopubAdFragmentActivity implements DetectSc
         if (stopSleeping == 0) {
             ArticleActivity.this.findViewById(android.R.id.content).setKeepScreenOn(true);
         }
-
-        articleAdType = Setting.getSettingInt(Setting.keyArticleAdType, ArticleActivity.this);
-        if (articleAdType == Setting.BannerAd) {
-            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.VISIBLE);
-        } else
-            ((RelativeLayout) findViewById(R.id.adonView)).setVisibility(View.GONE);
 
         bannerAdView = (RelativeLayout) findViewById(R.id.adonView);
         if (Setting.getSettingInt(Setting.keyYearSubscription, this) == 0 && Setting.getSettingInt(Setting.keyArticleAdType,this) != Setting.InterstitialAd)

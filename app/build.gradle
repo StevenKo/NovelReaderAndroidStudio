@@ -30,8 +30,8 @@ android {
         applicationId "com.novel.reader"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 104
-        versionName "5.2.1"
+        versionCode 105
+        versionName "5.2.2"
         multiDexEnabled true
     }
 
