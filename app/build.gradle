@@ -22,6 +22,20 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven{
+            url 'https://dl.bintray.com/vpon-sdk/maven'
+        }
+    }
+}
+
+repositories {
+    jcenter() // includes the MoPub SDK and AVID library
+    maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -29,9 +43,9 @@ android {
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 105
-        versionName "5.2.2"
+        targetSdkVersion 26
+        versionCode 108
+        versionName "5.2.4"
         multiDexEnabled true
     }
 
@@ -49,8 +63,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
 
     compile 'com.google.android.gms:play-services-auth:10.2.0'
     compile 'com.google.android.gms:play-services-ads:10.2.0'
@@ -59,13 +73,14 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
-    compile('com.mopub:mopub-sdk:4.13.0@aar') {
+    compile('com.mopub:mopub-sdk:4.16.1@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-    compile 'com.facebook.android:audience-network-sdk:4.22.0'
+    compile 'com.facebook.android:audience-network-sdk:4.25.+'
+    compile 'com.vpon:vpadnSDK:4.6.+'
 }
 
 
