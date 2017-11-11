@@ -31,21 +31,30 @@ allprojects {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
 repositories {
     jcenter() // includes the MoPub SDK and AVID library
     maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.1"
 
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 108
-        versionName "5.2.4"
+        targetSdkVersion 27
+        versionCode 110
+        versionName "5.2.6"
         multiDexEnabled true
     }
 
@@ -63,17 +72,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
 
-    compile 'com.google.android.gms:play-services-auth:10.2.0'
-    compile 'com.google.android.gms:play-services-ads:10.2.0'
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
-    compile 'com.google.android.gms:play-services-gcm:10.2.0'
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.google.android.gms:play-services-analytics:11.0.4'
+    compile 'com.google.android.gms:play-services-gcm:11.0.4'
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
-    compile('com.mopub:mopub-sdk:4.16.1@aar') {
+    compile('com.mopub:mopub-sdk:4.18.0@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {

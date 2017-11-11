@@ -12,17 +12,13 @@ import android.app.Activity;
 public class AdInterstitialManager {
 
     MoPubInterstitial mInterstitial_1;
-    MoPubInterstitial mInterstitial_2;
     Activity mActivity;
     boolean isReadyAd_1 = false;
-    boolean isReadyAd_2 = false;
 
     public AdInterstitialManager(Activity activity) {
         mActivity = activity;
         if(!isReadyAd_1)
             requestInterstitial_1();
-        if(!isReadyAd_2)
-            requestInterstitial_2();
     }
 
     private void requestInterstitial_1() {
@@ -42,8 +38,7 @@ public class AdInterstitialManager {
 
             @Override
             public void onInterstitialShown(MoPubInterstitial interstitial) {
-                if(!isReadyAd_2)
-                    requestInterstitial_2();
+
             }
 
             @Override
@@ -60,45 +55,8 @@ public class AdInterstitialManager {
         mInterstitial_1.load();
     }
 
-    private void requestInterstitial_2() {
-        mInterstitial_2 = new MoPubInterstitial(mActivity,"ccf6296fccc54758adf23f534175664b");
-        mInterstitial_2.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
-            @Override
-            public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-                if (interstitial.isReady()) {
-                    isReadyAd_2 = true;
-                }
-            }
-
-            @Override
-            public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-                isReadyAd_2 = false;
-            }
-
-            @Override
-            public void onInterstitialShown(MoPubInterstitial interstitial) {
-                if(!isReadyAd_1)
-                    requestInterstitial_1();
-            }
-
-            @Override
-            public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-                isReadyAd_2 = false;
-                requestInterstitial_2();
-            }
-        });
-        mInterstitial_2.load();
-    }
 
     public MoPubInterstitial getAd() {
-        if(isReadyAd_1)
-            return mInterstitial_1;
-        else
-            return mInterstitial_2;
+        return mInterstitial_1;
     }
 }
