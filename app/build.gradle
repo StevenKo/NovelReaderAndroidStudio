@@ -46,15 +46,15 @@ repositories {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.novel.reader"
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 110
-        versionName "5.2.6"
+        targetSdkVersion 26
+        versionCode 111
+        versionName "5.2.7"
         multiDexEnabled true
     }
 
