@@ -59,15 +59,11 @@
                     android:descendantFocusability="blocksDescendants"
                     >
 
-                    <com.google.android.gms.ads.NativeExpressAdView
+                    <FrameLayout
                         android:id="@+id/adView1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        ads:adSize="FULL_WIDTHx120"
-                        ads:adUnitId="ca-app-pub-5774496584789671/3343739148">
-                    </com.google.android.gms.ads.NativeExpressAdView>
+                        android:layout_marginTop="16dp" />
 
                     <TextView
                         android:id="@+id/article_text"
@@ -79,15 +75,11 @@
                         android:layout_marginBottom="5dp"
                         android:lineSpacingMultiplier="1.1"/>
 
-                    <com.google.android.gms.ads.NativeExpressAdView
+                    <FrameLayout
                         android:id="@+id/adView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        ads:adSize="360x320"
-                        ads:adUnitId="ca-app-pub-5774496584789671/6038339149">
-                    </com.google.android.gms.ads.NativeExpressAdView>
+                        android:layout_marginTop="16dp" />
 
                 </LinearLayout>
             </com.kosbrother.tool.DetectScrollView>
